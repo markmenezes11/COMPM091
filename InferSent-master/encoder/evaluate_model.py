@@ -16,8 +16,9 @@ from xutils import dotdict
 
 
 GLOVE_PATH = "../dataset/GloVe/glove.840B.300d.txt"
-PATH_SENTEVAL = ""
-PATH_TRANSFER_TASKS = ""
+PATH_SENTEVAL = "../../SentEval-master"
+PATH_TRANSFER_TASKS = "../../SentEval-master/data/senteval_data"
+
 
 assert os.path.isfile(GLOVE_PATH) and PATH_SENTEVAL and PATH_TRANSFER_TASKS, 'Set PATHs'
 
@@ -63,7 +64,7 @@ logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
     # Load model
-    params_senteval.infersent = torch.load(params.modelpath)
+    params_senteval.infersent = torch.load(params.modelpath, map_location={'cuda:1' : 'cuda:0', 'cuda:2' : 'cuda:0'})
     params_senteval.infersent.set_glove_path(GLOVE_PATH)
 
     se = senteval.SentEval(params_senteval, batcher, prepare)

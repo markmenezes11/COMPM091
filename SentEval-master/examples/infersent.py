@@ -58,7 +58,7 @@ logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
     # Load model
-    params_senteval.infersent = torch.load(MODEL_PATH)
+    params_senteval.infersent = torch.load(MODEL_PATH, map_location={'cuda:1' : 'cuda:0', 'cuda:2' : 'cuda:0'})
     params_senteval.infersent.set_glove_path(GLOVE_PATH)
 
     se = senteval.SentEval(params_senteval, batcher, prepare)
