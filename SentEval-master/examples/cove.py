@@ -12,6 +12,7 @@ In addition to SentEval, this script additionally requires CoVe and its requirem
 
 import sys
 import torch
+from torch import nn
 from exutil import dotdict
 import logging
 from torchtext import data
@@ -42,11 +43,27 @@ The user has to implement two functions:
 """
 
 def prepare(params, samples):
-    # TODO
+    print("PREPARE")
+    inputs = data.Field(lower=True, include_lengths=True, batch_first=True, tokenize="moses")
+    inputs.build_vocab([' '.join(s) for s in samples], tokenize=True)
+    inputs.vocab.load_vectors('glove.840B.300d')
+    params.cove.cove.embed = True
+    params.cove.vectors = nn.Embedding(len(inputs.vocab), 300)
+    if params.cove.vectors is not None:
+        params.cove.vectors.weight.data = inputs.vocab.vectors
+    print("END PREPARE")
     return
 
 def batcher(params, batch):
+    print("BATCHER")
+    sentences = [' '.join(s) for s in batch]
+    embeddings = []
+
     # TODO
+    for sentence in sentences:
+        print(sentence)
+        embeddings.append(params.cove(*sentence)) # TODO: Make sentence a vector first (see bow.py?) and encode properly
+
     return embeddings
 
 """
@@ -63,7 +80,8 @@ params_senteval = dotdict({'usepytorch': True, 'task_path': SENTEVAL_DATA_PATH, 
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
-    # TODO
+    params_senteval.cove = MTLSTM()
+    params_senteval.cove.cuda(0)
 
     # Run SentEval
     se = senteval.SentEval(params_senteval, batcher, prepare)
