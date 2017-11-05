@@ -14,7 +14,7 @@ preprocess_exec=./tokenizer.sed
 
 # Get MOSES
 echo 'Cloning Moses github repository (for tokenization scripts)...'
-git clone https://github.com/moses-smt/mosesdecoder.git
+git clone git://github.com/moses-smt/mosesdecoder.git
 SCRIPTS=mosesdecoder/scripts
 TOKENIZER=$SCRIPTS/tokenizer/tokenizer.perl
 
