@@ -17,7 +17,7 @@ import torch
 
 # Set PATHs
 PATH_TO_SENTEVAL = '../'
-PATH_TO_DATA = '../data/senteval_data'
+PATH_TO_DATA = '../data/senteval_data_ptb'
 PATH_TO_GLOVE = 'glove/glove.840B.300d.txt'
 
 # import SentEval

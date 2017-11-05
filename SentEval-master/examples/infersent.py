@@ -17,7 +17,7 @@ import logging
 # Set PATHs
 GLOVE_PATH = 'glove/glove.840B.300d.txt'
 PATH_SENTEVAL = '../'
-PATH_TO_DATA = '../data/senteval_data/'
+PATH_TO_DATA = '../data/senteval_data_ptb/'
 MODEL_PATH = 'infersent.allnli.pickle'
 
 assert os.path.isfile(MODEL_PATH) and os.path.isfile(GLOVE_PATH), \

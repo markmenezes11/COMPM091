@@ -9,7 +9,7 @@
 # Download and tokenize data with PTB tokenizer
 #
 
-data_path=senteval_data
+data_path=senteval_data_ptb
 preprocess_exec="sed -f tokenizer.sed"
 
 mkdir $data_path

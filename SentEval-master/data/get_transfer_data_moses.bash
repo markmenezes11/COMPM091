@@ -9,7 +9,7 @@
 # Download and tokenize data with MOSES tokenizer
 #
 
-data_path=senteval_data
+data_path=senteval_data_moses
 preprocess_exec=./tokenizer.sed
 
 # Get MOSES
