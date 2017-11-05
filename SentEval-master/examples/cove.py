@@ -20,9 +20,8 @@ from torchtext import datasets
 
 # Set PATHs
 COVE_PATH = '../../cove-master'
-GLOVE_PATH = 'glove/glove.840B.300d.txt'
 SENTEVAL_PATH = '../'
-SENTEVAL_DATA_PATH = '../data/senteval_data_moses/'
+SENTEVAL_DATA_PATH = '../data/senteval_data_ptb/'
 
 # Import CoVe
 sys.path.insert(0, COVE_PATH)
@@ -45,7 +44,7 @@ The user has to implement two functions:
 def prepare(params, samples):
     print("PREPARE")
     inputs = data.Field(lower=True, include_lengths=True, batch_first=True, tokenize="moses")
-    inputs.build_vocab([' '.join(s) for s in samples], tokenize=True)
+    inputs.build_vocab([' '.join(s) for s in samples])
     inputs.vocab.load_vectors('glove.840B.300d')
     params.cove.cove.embed = True
     params.cove.vectors = nn.Embedding(len(inputs.vocab), 300)
