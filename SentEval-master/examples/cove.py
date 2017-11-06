@@ -47,7 +47,7 @@ def prepare(params, samples):
     inputs = data.Field(lower=True, include_lengths=True, batch_first=True, tokenize="moses")
     inputs.build_vocab([' '.join(s) for s in samples])
     inputs.vocab.load_vectors('glove.840B.300d')
-    params.cove.cove.embed = True
+    params.cove.embed = True
     params.cove.vectors = nn.Embedding(len(inputs.vocab), 300)
     if params.cove.vectors is not None:
         params.cove.vectors.weight.data = inputs.vocab.vectors
