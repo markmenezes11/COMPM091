@@ -54,60 +54,21 @@ def prepare(params, samples):
     return
 
 def batcher(params, batch):
-    word_vec = params.cove.vectors # TODO: See if this is correct
-
-    def prepare_samples(sentences, bsize):
-        sentences = [['<s>'] + s.split() + ['</s>'] for s in sentences]
-        n_w = np.sum([len(x) for x in sentences])
-
-        # filters words without glove vectors
-        for i in range(len(sentences)):
-            s_f = [word for word in sentences[i] if word in word_vec]
-            if not s_f:
-                import warnings
-                warnings.warn('No words in "{0}" (idx={1}) have glove vectors. \
-                               Replacing by "</s>"..'.format(sentences[i], i))
-                s_f = ['</s>']
-            sentences[i] = s_f
-
-        lengths = np.array([len(s) for s in sentences])
-        n_wk = np.sum(lengths)
-
-        # sort by decreasing length
-        lengths, idx_sort = np.sort(lengths)[::-1], np.argsort(-lengths)
-        sentences = np.array(sentences)[idx_sort]
-
-        return sentences, lengths, idx_sort
-
-    def get_batch(batch):
-        # sent in batch in decreasing order of lengths
-        # batch: (bsize, max_len, word_dim)
-        embed = np.zeros((len(batch[0]), len(batch), 300))
-
-        for i in range(len(batch)):
-            for j in range(len(batch[i])):
-                embed[j, i, :] = word_vec[batch[i][j]]
-
-        return torch.FloatTensor(embed)
-
-
     print("BATCHER")
     sentences = [' '.join(s) for s in batch]
-    bsize=params.batch_size
-    tokenize=False
-    sentences, lengths, idx_sort = prepare_samples(sentences, bsize)
+    lengths = np.array([len(s) for s in sentences])
+    bsize = params.batch_size
+
+    # TODO: Convert each sentence in sentences into a LongTensor to feed to params.cove...
 
     embeddings = []
-    for stidx in range(0, len(sentences), bsize):
-        this_batch = Variable(get_batch(sentences[stidx:stidx + bsize]), volatile=True)
-        this_batch = this_batch.cuda()
-        this_batch = params.cove((this_batch, lengths[stidx:stidx + bsize])).data.cpu().numpy()
-        embeddings.append(this_batch)
+    this_batch = Variable(batch, volatile=True)
+    this_batch = this_batch.cuda()
+    this_batch = params.cove((this_batch, lengths)).data.cpu().numpy()
+    embeddings.append(this_batch)
+
     embeddings = np.vstack(embeddings)
 
-    # unsort
-    idx_unsort = np.argsort(idx_sort)
-    embeddings = embeddings[idx_unsort]
     return embeddings
 
 
