@@ -33,9 +33,9 @@ import senteval
 
 """
 MTLSTM Encoder wrapped with same batcher as InferSent"""
-class Wrapped_MLSTM(MTLSTM):
+class Wrapped_MTLSTM(MTLSTM):
     def __init__(self, *args):
-        super(MTLSTM, self).__init__(*args)
+        super(Wrapped_MTLSTM, self).__init__(*args)
         self.word_emb_dim = 300
 
     def set_glove_path(self, glove_path):
@@ -63,7 +63,7 @@ class Wrapped_MLSTM(MTLSTM):
         word_vec = {}
         with open(self.glove_path) as f:
             for line in f:
-                word, vec = line.split(' ', 1)
+                word, vec = line.decode('UTF-8').split(' ', 1)
                 if word in word_dict:
                     word_vec[word] = np.fromstring(vec, sep=str(' '))
         print('Found {0}(/{1}) words with glove vectors'.format(
@@ -126,9 +126,8 @@ class Wrapped_MLSTM(MTLSTM):
         for stidx in range(0, len(sentences), bsize):
             batch = Variable(self.get_batch(
                 sentences[stidx:stidx + bsize]), volatile=True)
-            if self.is_cuda():
-                batch = batch.cuda()
-            batch = self.forward(
+            batch = batch.cuda()
+            batch = super(Wrapped_MTLSTM, self).forward(
                 (batch, lengths[stidx:stidx + bsize])).data.cpu().numpy()
             embeddings.append(batch)
         embeddings = np.vstack(embeddings)
@@ -140,7 +139,7 @@ class Wrapped_MLSTM(MTLSTM):
         if verbose:
             print('Speed : {0} sentences/s ({1} mode, bsize={2})'.format(
                 round(len(embeddings) / (time.time() - tic), 2),
-                'gpu' if self.is_cuda() else 'cpu', bsize))
+                'gpu', bsize))
         return embeddings
 
 
@@ -177,7 +176,7 @@ params_senteval = dotdict({'usepytorch': True, 'task_path': SENTEVAL_DATA_PATH, 
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
-    params_senteval.cove = Wrapped_MLSTM()
+    params_senteval.cove = Wrapped_MTLSTM()
     params_senteval.cove.set_glove_path(GLOVE_PATH)
     params_senteval.cove.cuda(0)
 
