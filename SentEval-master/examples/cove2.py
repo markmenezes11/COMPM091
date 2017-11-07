@@ -10,20 +10,12 @@ from __future__ import absolute_import, division, unicode_literals
 In addition to SentEval, this script additionally requires CoVe and its requirements: https://github.com/salesforce/cove
 """
 
-import sys
+import sys, time
 import torch
-from torch import nn
 from torch.autograd import Variable
 from exutil import dotdict
 import logging
-from torchtext import data
-from torchtext import datasets
 import numpy as np
-
-"""
-And InferSent and its requirements:
-"""
-import time
 
 # Set PATHs
 GLOVE_PATH = 'glove/glove.840B.300d.txt'
@@ -73,29 +65,9 @@ class Wrapped_MLSTM(MTLSTM):
             for line in f:
                 word, vec = line.split(' ', 1)
                 if word in word_dict:
-                    word_vec[word] = np.fromstring(vec, sep=' ')
+                    word_vec[word] = np.fromstring(vec, sep=str(' '))
         print('Found {0}(/{1}) words with glove vectors'.format(
                     len(word_vec), len(word_dict)))
-        return word_vec
-
-    def get_glove_k(self, K):
-        assert hasattr(self, 'glove_path'), 'warning : you need \
-                                             to set_glove_path(glove_path)'
-        # create word_vec with k first glove vectors
-        k = 0
-        word_vec = {}
-        with open(self.glove_path) as f:
-            for line in f:
-                word, vec = line.split(' ', 1)
-                if k <= K:
-                    word_vec[word] = np.fromstring(vec, sep=' ')
-                    k += 1
-                if k > K:
-                    if word in ['<s>', '</s>']:
-                        word_vec[word] = np.fromstring(vec, sep=' ')
-
-                if k > K and all([w in word_vec for w in ['<s>', '</s>']]):
-                    break
         return word_vec
 
     def build_vocab(self, sentences, tokenize=True):
@@ -104,31 +76,6 @@ class Wrapped_MLSTM(MTLSTM):
         word_dict = self.get_word_dict(sentences, tokenize)
         self.word_vec = self.get_glove(word_dict)
         print('Vocab size : {0}'.format(len(self.word_vec)))
-
-    # build GloVe vocab with k most frequent words
-    def build_vocab_k_words(self, K):
-        assert hasattr(self, 'glove_path'), 'warning : you need \
-                                             to set_glove_path(glove_path)'
-        self.word_vec = self.get_glove_k(K)
-        print('Vocab size : {0}'.format(K))
-
-    def update_vocab(self, sentences, tokenize=True):
-        assert hasattr(self, 'glove_path'), 'warning : you need \
-                                             to set_glove_path(glove_path)'
-        assert hasattr(self, 'word_vec'), 'build_vocab before updating it'
-        word_dict = self.get_word_dict(sentences, tokenize)
-
-        # keep only new words
-        for word in self.word_vec:
-            if word in word_dict:
-                del word_dict[word]
-
-        # udpate vocabulary
-        if word_dict:
-            new_word_vec = self.get_glove(word_dict)
-            self.word_vec.update(new_word_vec)
-        print('New vocab size : {0} (added {1} words)'.format(
-                        len(self.word_vec), len(new_word_vec)))
 
     def get_batch(self, batch):
         # sent in batch in decreasing order of lengths
@@ -145,7 +92,7 @@ class Wrapped_MLSTM(MTLSTM):
         if tokenize:
             from nltk.tokenize import word_tokenize
         sentences = [['<s>'] + s.split() + ['</s>'] if not tokenize else
-                     ['<s>']+word_tokenize(s)+['</s>'] for s in sentences]
+                     ['<s>'] + word_tokenize(s) + ['</s>'] for s in sentences]
         n_w = np.sum([len(x) for x in sentences])
 
         # filters words without glove vectors
@@ -154,7 +101,7 @@ class Wrapped_MLSTM(MTLSTM):
             if not s_f:
                 import warnings
                 warnings.warn('No words in "{0}" (idx={1}) have glove vectors. \
-                               Replacing by "</s>"..'.format(sentences[i], i))
+                                  Replacing by "</s>"..'.format(sentences[i], i))
                 s_f = ['</s>']
             sentences[i] = s_f
 
@@ -162,7 +109,7 @@ class Wrapped_MLSTM(MTLSTM):
         n_wk = np.sum(lengths)
         if verbose:
             print('Nb words kept : {0}/{1} ({2} %)'.format(
-                        n_wk, n_w, round((100.0 * n_wk) / n_w, 2)))
+                n_wk, n_w, round((100.0 * n_wk) / n_w, 2)))
 
         # sort by decreasing length
         lengths, idx_sort = np.sort(lengths)[::-1], np.argsort(-lengths)
@@ -173,14 +120,16 @@ class Wrapped_MLSTM(MTLSTM):
     def encode(self, sentences, bsize=64, tokenize=True, verbose=False):
         tic = time.time()
         sentences, lengths, idx_sort = self.prepare_samples(
-                        sentences, bsize, tokenize, verbose)
+            sentences, bsize, tokenize, verbose)
 
         embeddings = []
         for stidx in range(0, len(sentences), bsize):
             batch = Variable(self.get_batch(
-                        sentences[stidx:stidx + bsize]), volatile=True)
-            batch = batch.cuda()
-            batch = self.forward((batch, lengths[stidx:stidx + bsize])).data.cpu().numpy()
+                sentences[stidx:stidx + bsize]), volatile=True)
+            if self.is_cuda():
+                batch = batch.cuda()
+            batch = self.forward(
+                (batch, lengths[stidx:stidx + bsize])).data.cpu().numpy()
             embeddings.append(batch)
         embeddings = np.vstack(embeddings)
 
@@ -190,12 +139,9 @@ class Wrapped_MLSTM(MTLSTM):
 
         if verbose:
             print('Speed : {0} sentences/s ({1} mode, bsize={2})'.format(
-                    round(len(embeddings)/(time.time()-tic), 2),
-                    'gpu', bsize))
+                round(len(embeddings) / (time.time() - tic), 2),
+                'gpu' if self.is_cuda() else 'cpu', bsize))
         return embeddings
-
-
-
 
 
 """
@@ -210,21 +156,12 @@ The user has to implement two functions:
 
 def prepare(params, samples):
     params.cove.build_vocab([' '.join(s) for s in samples], tokenize=False)
-    inputs = data.Field(lower=True, include_lengths=True, batch_first=True, tokenize="moses")
-    inputs.build_vocab([' '.join(s) for s in samples])
-    inputs.vocab.load_vectors('glove.840B.300d')
-    params.cove.embed = False
-    params.cove.vectors = nn.Embedding(len(inputs.vocab), 300)
-    if params.cove.vectors is not None:
-        params.cove.vectors.weight.data = inputs.vocab.vectors
     return
 
 def batcher(params, batch):
-    print("BATCHER")
     sentences = [' '.join(s) for s in batch]
     embeddings = params.cove.encode(sentences, bsize=params.batch_size, tokenize=False)
     return embeddings
-
 
 """
 Evaluation of trained model on Transfer Tasks (SentEval)
