@@ -126,9 +126,9 @@ class Wrapped_MTLSTM(MTLSTM):
         for stidx in range(0, len(sentences), bsize):
             batch = Variable(self.get_batch(
                 sentences[stidx:stidx + bsize]), volatile=True)
-            batch = batch.cuda()
+            batch = batch.cuda(0)
             batch = super(Wrapped_MTLSTM, self).forward(
-                (batch, lengths[stidx:stidx + bsize])).data.cpu().numpy()
+                batch, (torch.from_numpy(lengths[stidx:stidx + bsize].copy())).cuda(0)).data.cpu().numpy()
             embeddings.append(batch)
         embeddings = np.vstack(embeddings)
 
