@@ -57,13 +57,13 @@ def batcher(params, batch):
     for sentence in batch:
         vector_list = []
         if len(sentence) == 0:
-            embeddings.append(np.array([[np.repeat(0.0, 600)]])) # TODO: Do something more intuitive here if sentence is empty?
+            embeddings.append(np.array([[np.repeat(0.0, 600)]])[0]) # TODO: Do something more intuitive here if sentence is empty?
             continue
         for word in sentence:
             vector_list.append(params.inputs.vocab.vectors[params.inputs.vocab.stoi[word]])
         vector_tensor = torch.autograd.Variable(torch.stack(vector_list)).unsqueeze(1).cuda(0)
         length_tensor = (torch.LongTensor([len(vector_list)])).cuda(0)
-        embeddings.append(params.cove(vector_tensor, length_tensor).cpu().data.numpy())
+        embeddings.append(params.cove(vector_tensor, length_tensor).cpu().data.numpy()[0])
     embeddings = np.vstack(embeddings)
     return embeddings
 
