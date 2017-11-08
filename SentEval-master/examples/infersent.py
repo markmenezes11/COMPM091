@@ -45,9 +45,9 @@ def batcher(params, batch):
 Evaluation of trained model on Transfer Tasks (SentEval)
 """
 
-# define transfer tasks
-transfer_tasks = ['MR', 'CR', 'SUBJ', 'MPQA', 'SST', 'TREC',
-                  'SICKRelatedness', 'SICKEntailment', 'MRPC', 'STS14']
+# Define transfer tasks
+#transfer_tasks = ['MR', 'CR', 'SUBJ', 'MPQA', 'SST', 'TREC', 'SICKRelatedness', 'SICKEntailment', 'MRPC', 'STS14']
+transfer_tasks = ['CR', 'MR', 'MPQA', 'SUBJ', 'SST', 'TREC', 'MRPC', 'SNLI', 'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval', 'STS12', 'STS13', 'STS14', 'STS15', 'STS16']
 
 # define senteval params
 params_senteval = dotdict({'usepytorch': True, 'task_path': PATH_TO_DATA,
