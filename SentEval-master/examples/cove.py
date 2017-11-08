@@ -44,31 +44,27 @@ The user has to implement two functions:
 """
 
 def prepare(params, samples):
-    inputs = data.Field(lower=True, include_lengths=True, batch_first=True, tokenize="moses")
-    inputs.build_vocab([' '.join(s) for s in samples])
-    inputs.vocab.load_vectors('glove.840B.300d')
-    params.cove.embed = True
-    params.cove.vectors = nn.Embedding(len(inputs.vocab), 300)
-    if params.cove.vectors is not None:
-        params.cove.vectors.weight.data = inputs.vocab.vectors
+    params.inputs = data.Field(lower=True, include_lengths=True, batch_first=True, tokenize="moses")
+    params.inputs.build_vocab(samples)
+    params.inputs.vocab.load_vectors('glove.840B.300d')
+    params.cove = MTLSTM(n_vocab=len(params.inputs.vocab), vectors=params.inputs.vocab.vectors)
+    params.cove.cuda(0)
+    params.cove.embed = False
     return
 
 def batcher(params, batch):
-    print("BATCHER")
-    sentences = [' '.join(s) for s in batch]
-    lengths = np.array([len(s) for s in sentences])
-    bsize = params.batch_size
-
-    # TODO: Convert each sentence in sentences into a LongTensor to feed to params.cove...
-
     embeddings = []
-    this_batch = Variable(batch, volatile=True)
-    this_batch = this_batch.cuda()
-    this_batch = params.cove((this_batch, lengths)).data.cpu().numpy()
-    embeddings.append(this_batch)
-
+    for sentence in batch:
+        vector_list = []
+        if len(sentence) == 0:
+            embeddings.append(np.array([[np.repeat(0.0, 600)]])) # TODO: Do something more intuitive here if sentence is empty?
+            continue
+        for word in sentence:
+            vector_list.append(params.inputs.vocab.vectors[params.inputs.vocab.stoi[word]])
+        vector_tensor = torch.autograd.Variable(torch.stack(vector_list)).unsqueeze(1).cuda(0)
+        length_tensor = (torch.LongTensor([len(vector_list)])).cuda(0)
+        embeddings.append(params.cove(vector_tensor, length_tensor).cpu().data.numpy())
     embeddings = np.vstack(embeddings)
-
     return embeddings
 
 
@@ -86,9 +82,6 @@ params_senteval = dotdict({'usepytorch': True, 'task_path': SENTEVAL_DATA_PATH, 
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
-    params_senteval.cove = MTLSTM()
-    params_senteval.cove.cuda(0)
-
     # Run SentEval
     se = senteval.SentEval(params_senteval, batcher, prepare)
     results_transfer = se.eval(transfer_tasks)
