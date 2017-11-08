@@ -44,7 +44,8 @@ The user has to implement two functions:
 """
 
 def prepare(params, samples):
-    params.inputs = data.Field(lower=True, include_lengths=True, batch_first=True, tokenize="moses")
+    #params.inputs = data.Field(lower=True, include_lengths=True, batch_first=True, tokenize="moses")
+    params.inputs = data.Field(lower=True, include_lengths=True, batch_first=True) # TODO: Should this be moses tokenized?
     params.inputs.build_vocab(samples)
     params.inputs.vocab.load_vectors('glove.840B.300d')
     params.cove = MTLSTM(n_vocab=len(params.inputs.vocab), vectors=params.inputs.vocab.vectors)
