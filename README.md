@@ -21,3 +21,5 @@ python cove.py
 ```
 
 See the READMEs in the relevant folders to find out how to run the rest of the code such as the pre-made examples from Conneau et al. and McCann et al.
+
+The outputs from running some of the scripts in SentEval-master/examples can be found in various text files in that folder.
