@@ -7,12 +7,13 @@ from: nvidia/cuda:8.0-cudnn6-runtime-ubuntu16.04
     export DEBIAN_FRONTEND=noninteractive
     echo 'deb http://archive.ubuntu.com/ubuntu xenial universe' >> /etc/apt/sources.list
     apt-get update
-    apt-get install -y python python-pip python3 python3-pip
+    apt-get install -y python python-pip python3 python3-pip vim
     apt-get clean
 
     pip install http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
     pip install torchvision 
     pip install nltk
+    pip install scikit-learn
 
 %test
     python -c 'import torch'
