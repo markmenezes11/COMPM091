@@ -8,6 +8,7 @@
 import os
 import sys
 import time
+import timeit
 import argparse
 
 import numpy as np
@@ -19,6 +20,8 @@ import torch.nn as nn
 from data import get_nli, get_batch, build_vocab
 from mutils import get_optimizer
 from models import NLINet
+
+start_time = timeit.default_timer()
 
 parser = argparse.ArgumentParser(description='NLI training')
 
@@ -49,13 +52,17 @@ parser.add_argument("--n_classes", type=int, default=3, help="entailment/neutral
 parser.add_argument("--pool_type", type=str, default='max', help="max or mean")
 
 # gpu
-parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID")
+parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
 parser.add_argument("--seed", type=int, default=1234, help="seed")
 
 params, _ = parser.parse_known_args()
 
+# cpu mode if gpu id is -1
+cpu = params.gpu_id == -1
+
 # set gpu device
-torch.cuda.set_device(params.gpu_id)
+if not cpu:
+    torch.cuda.set_device(params.gpu_id)
 
 # print parameters passed, and all parameters
 print('\ntogrep : {0}\n'.format(sys.argv[1:]))
@@ -67,7 +74,8 @@ SEED
 """
 np.random.seed(params.seed)
 torch.manual_seed(params.seed)
-torch.cuda.manual_seed(params.seed)
+if not cpu:
+    torch.cuda.manual_seed(params.seed)
 
 """
 DATA
@@ -90,22 +98,38 @@ params.word_emb_dim = 300
 MODEL
 """
 # model config
-config_nli_model = {
-    'n_words'        :  len(word_vec)          ,
-    'word_emb_dim'   :  params.word_emb_dim   ,
-    'enc_lstm_dim'   :  params.enc_lstm_dim   ,
-    'n_enc_layers'   :  params.n_enc_layers   ,
-    'dpout_model'    :  params.dpout_model    ,
-    'dpout_fc'       :  params.dpout_fc       ,
-    'fc_dim'         :  params.fc_dim         ,
-    'bsize'          :  params.batch_size     ,
-    'n_classes'      :  params.n_classes      ,
-    'pool_type'      :  params.pool_type      ,
-    'nonlinear_fc'   :  params.nonlinear_fc   ,
-    'encoder_type'   :  params.encoder_type   ,
-    'use_cuda'       :  True                  ,
-
-}
+if cpu:
+    config_nli_model = {
+       'n_words'        :  len(word_vec)          ,
+        'word_emb_dim'   :  params.word_emb_dim   ,
+        'enc_lstm_dim'   :  params.enc_lstm_dim   ,
+        'n_enc_layers'   :  params.n_enc_layers   ,
+        'dpout_model'    :  params.dpout_model    ,
+        'dpout_fc'       :  params.dpout_fc       ,
+        'fc_dim'         :  params.fc_dim         ,
+        'bsize'          :  params.batch_size     ,
+        'n_classes'      :  params.n_classes      ,
+        'pool_type'      :  params.pool_type      ,
+        'nonlinear_fc'   :  params.nonlinear_fc   ,
+        'encoder_type'   :  params.encoder_type   ,
+        'use_cuda'       :  False                  ,
+    }
+else:
+    config_nli_model = {
+       'n_words'        :  len(word_vec)          ,
+        'word_emb_dim'   :  params.word_emb_dim   ,
+        'enc_lstm_dim'   :  params.enc_lstm_dim   ,
+        'n_enc_layers'   :  params.n_enc_layers   ,
+        'dpout_model'    :  params.dpout_model    ,
+        'dpout_fc'       :  params.dpout_fc       ,
+        'fc_dim'         :  params.fc_dim         ,
+        'bsize'          :  params.batch_size     ,
+        'n_classes'      :  params.n_classes      ,
+        'pool_type'      :  params.pool_type      ,
+        'nonlinear_fc'   :  params.nonlinear_fc   ,
+        'encoder_type'   :  params.encoder_type   ,
+        'use_cuda'       :  True                  ,
+    }
 
 # model
 encoder_types = ['BLSTMEncoder', 'BLSTMprojEncoder', 'BGRUlastEncoder',
@@ -125,9 +149,10 @@ loss_fn.size_average = False
 optim_fn, optim_params = get_optimizer(params.optimizer)
 optimizer = optim_fn(nli_net.parameters(), **optim_params)
 
-# cuda by default
-nli_net.cuda()
-loss_fn.cuda()
+# cuda if not in cpu mode
+if not cpu:
+    nli_net.cuda()
+    loss_fn.cuda()
 
 
 """
@@ -166,8 +191,12 @@ def trainepoch(epoch):
                                      word_vec)
         s2_batch, s2_len = get_batch(s2[stidx:stidx + params.batch_size],
                                      word_vec)
-        s1_batch, s2_batch = Variable(s1_batch.cuda()), Variable(s2_batch.cuda())
-        tgt_batch = Variable(torch.LongTensor(target[stidx:stidx + params.batch_size])).cuda()
+        if cpu:
+            s1_batch, s2_batch = Variable(s1_batch), Variable(s2_batch)
+            tgt_batch = Variable(torch.LongTensor(target[stidx:stidx + params.batch_size]))
+        else:
+            s1_batch, s2_batch = Variable(s1_batch.cuda()), Variable(s2_batch.cuda())
+            tgt_batch = Variable(torch.LongTensor(target[stidx:stidx + params.batch_size])).cuda()
         k = s1_batch.size(1)  # actual batch size
 
         # model forward
@@ -237,8 +266,12 @@ def evaluate(epoch, eval_type='valid', final_eval=False):
         # prepare batch
         s1_batch, s1_len = get_batch(s1[i:i + params.batch_size], word_vec)
         s2_batch, s2_len = get_batch(s2[i:i + params.batch_size], word_vec)
-        s1_batch, s2_batch = Variable(s1_batch.cuda()), Variable(s2_batch.cuda())
-        tgt_batch = Variable(torch.LongTensor(target[i:i + params.batch_size])).cuda()
+        if cpu:
+            s1_batch, s2_batch = Variable(s1_batch), Variable(s2_batch)
+            tgt_batch = Variable(torch.LongTensor(target[i:i + params.batch_size]))
+        else:
+            s1_batch, s2_batch = Variable(s1_batch.cuda()), Variable(s2_batch.cuda())
+            tgt_batch = Variable(torch.LongTensor(target[i:i + params.batch_size])).cuda()
 
         # model forward
         output = nli_net((s1_batch, s1_len), (s2_batch, s2_len))
@@ -298,3 +331,5 @@ evaluate(0, 'test', True)
 # Save encoder instead of full model
 torch.save(nli_net.encoder,
            os.path.join(params.outputdir, params.outputmodelname + '.encoder'))
+
+print("Real time taken: %s seconds" % (timeit.default_timer() - start_time))
