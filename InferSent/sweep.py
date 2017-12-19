@@ -94,7 +94,7 @@ def batcher(params, batch):
 iterationNumber = 0
 for iteration in iterations:
     iterationNumber += 1
-    print("\n\n\n\n\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(len(iterations)) + "...")
+    print("\n\n\n\n\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(len(list(iterations))) + "...")
 
     formattedParams = ("  --nlipath " + iteration[0] + "\n" +
                        "  --wordvecpath " + iteration[1] + "\n" +
