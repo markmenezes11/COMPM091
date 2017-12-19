@@ -21,7 +21,7 @@ Parameters to sweep
 
 # NLI data path (e.g. "[path]/AllNLI", "[path]/SNLI" or "[path]/MultiNLI") - should have 3 classes
 # (entailment/neutral/contradiction). Default: "AllNLI"
-nlipath      = ["/mnt/mmenezes/InferSent-datasets/AllNLI"]
+nlipath      = ["/mnt/mmenezes/InferSent-datasets/SNLI_small"]
 
 # Path to word vectors txt file (e.g. "[path]/glove.840B.300d.txt"). Default: "glove.840B.300d.txt"
 wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"]
