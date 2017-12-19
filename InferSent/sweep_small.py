@@ -178,7 +178,7 @@ for iteration in iterations:
 
     with p.stdout, open(outputdir + "output.txt", 'ab') as file:
         for line in iter(p.stdout.readline, b''):
-            print(line)  # Comma to prevent duplicate newlines
+            print line,  # Comma to prevent duplicate newlines
             file.write(line)
     p.wait()
 
@@ -194,7 +194,7 @@ for iteration in iterations:
 
     with p.stdout, open(outputdir + "output.txt", 'ab') as file:
         for line in iter(p.stdout.readline, b''):
-            print(line)  # Comma to prevent duplicate newlines
+            print line,  # Comma to prevent duplicate newlines
             file.write(line)
     p.wait()
 
