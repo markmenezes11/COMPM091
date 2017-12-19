@@ -97,27 +97,6 @@ for iteration in iterations:
     iterationNumber += 1
     print("\n\n\n\n\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(len(list(iterations))) + "...")
 
-    formattedParams = ("  --nlipath " + iteration[0] + "\n" +
-                       "  --wordvecpath " + iteration[1] + "\n" +
-                       "  --n_epochs " + str(iteration[2]) + "\n" +
-                       "  --batch_size " + str(iteration[3]) + "\n" +
-                       "  --dpout_model " + str(iteration[4]) + "\n" +
-                       "  --dpout_fc " + str(iteration[5]) + "\n" +
-                       "  --nonlinear_fc " + str(iteration[6]) + "\n" +
-                       "  --optimizer " + iteration[7] + "\n" +
-                       "  --lrshrink " + str(iteration[8]) + "\n" +
-                       "  --decay " + str(iteration[9]) + "\n" +
-                       "  --minlr " + str(iteration[10]) + "\n" +
-                       "  --max_norm " + str(iteration[11]) + "\n" +
-                       "  --encoder_type " + iteration[12] + "\n" +
-                       "  --enc_lstm_dim " + str(iteration[13]) + "\n" +
-                       "  --n_enc_layers " + str(iteration[14]) + "\n" +
-                       "  --fc_dim " + str(iteration[15]) + "\n" +
-                       "  --pool_type " + iteration[16] + "\n" +
-                       "  --seed " + str(iteration[17]) + "\n")
-
-    print("\n\n\nParameters:\n" + formattedParams + "...\n")
-
     print("\n\n\nPreparing output directory...\n")
 
     # Get the output directory based on current params in this iteration
@@ -147,10 +126,32 @@ for iteration in iterations:
         os.makedirs(outputdir)
 
     # Write the parameters to the output text file in the output directory
+    formattedParams = ("  --nlipath " + iteration[0] + "\n" +
+                       "  --wordvecpath " + iteration[1] + "\n" +
+                       "  --n_epochs " + str(iteration[2]) + "\n" +
+                       "  --batch_size " + str(iteration[3]) + "\n" +
+                       "  --dpout_model " + str(iteration[4]) + "\n" +
+                       "  --dpout_fc " + str(iteration[5]) + "\n" +
+                       "  --nonlinear_fc " + str(iteration[6]) + "\n" +
+                       "  --optimizer " + iteration[7] + "\n" +
+                       "  --lrshrink " + str(iteration[8]) + "\n" +
+                       "  --decay " + str(iteration[9]) + "\n" +
+                       "  --minlr " + str(iteration[10]) + "\n" +
+                       "  --max_norm " + str(iteration[11]) + "\n" +
+                       "  --encoder_type " + iteration[12] + "\n" +
+                       "  --enc_lstm_dim " + str(iteration[13]) + "\n" +
+                       "  --n_enc_layers " + str(iteration[14]) + "\n" +
+                       "  --fc_dim " + str(iteration[15]) + "\n" +
+                       "  --pool_type " + iteration[16] + "\n" +
+                       "  --seed " + str(iteration[17]) + "\n")
+
+    print("\n\n\nParameters:\n" + formattedParams + "...\n")
     with open(outputdir + "output.txt", "a") as outputfile:
-        outputfile.write(formattedParams + "\n\n\n")
+        outputfile.write("\n\n\nParameters:\n" + formattedParams + "\n")
 
     print("\n\n\nTraining model using InferSent...\n")
+    with open(outputdir + "output.txt", "a") as outputfile:
+        outputfile.write("\n\n\nTraining model using InferSent...\n")
 
     p = Popen("python train.py" +
               " --outputdir " + outputdir +
@@ -182,6 +183,9 @@ for iteration in iterations:
     p.wait()
 
     print("\n\n\nEvaluating model using SentEval...\n")
+    with open(outputdir + "output.txt", "a") as outputfile:
+        outputfile.write("\n\n\nEvaluating model using SentEval...\n")
+
     p = Popen("python eval.py" +
               " --modelpath " + outputdir + "model.pickle" +
               " --sentevalpath " + params.sentevalpath +
