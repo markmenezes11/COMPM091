@@ -17,19 +17,16 @@ import torch
 from torch.autograd import Variable
 import torch.nn as nn
 
-from data import get_nli, get_batch, build_vocab
-from mutils import get_optimizer
-from models import NLINet
-
 start_time = timeit.default_timer()
 
 parser = argparse.ArgumentParser(description='NLI training')
 
 # paths
-parser.add_argument("--nlipath", type=str, default='dataset/SNLI/', help="NLI data path (SNLI or MultiNLI)")
+parser.add_argument("--infersentpath", type=str, default='../../../InferSent-master', help="Path to InferSent repository")
+parser.add_argument("--nlipath", type=str, default='../../../InferSent-master/dataset/SNLI/', help="NLI data path (SNLI or MultiNLI)")
 parser.add_argument("--outputdir", type=str, default='savedir/', help="Output directory")
 parser.add_argument("--outputmodelname", type=str, default='model.pickle')
-parser.add_argument("--wordvecpath", type=str, default="dataset/GloVe/glove.840B.300d.txt", help="Path to word vectors txt file (e.g. GloVe)")
+parser.add_argument("--wordvecpath", type=str, default="../../../InferSent-master/dataset/GloVe/glove.840B.300d.txt", help="Path to word vectors txt file (e.g. GloVe)")
 
 # training
 parser.add_argument("--n_epochs", type=int, default=20)
@@ -56,6 +53,12 @@ parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for
 parser.add_argument("--seed", type=int, default=1234, help="seed")
 
 params, _ = parser.parse_known_args()
+
+# Import InferSent
+sys.path.insert(0, params.infersentpath)
+from data import get_nli, get_batch, build_vocab
+from mutils import get_optimizer
+from models import NLINet
 
 # cpu mode if gpu id is -1
 cpu = params.gpu_id == -1
