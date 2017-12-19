@@ -371,7 +371,7 @@ Evaluation of trained model on Transfer Tasks (SentEval)
 
 print("\n\n\nEvaluating model using SentEval...\n")
 
-# Set PATHs
+# Set data path
 slash = "" if params.sentevalpath[-1] == '/' else "/"
 PATH_TO_DATA = params.sentevalpath + slash + 'data/senteval_data'
 
@@ -394,8 +394,8 @@ params_senteval = dotdict({'usepytorch': True, 'task_path': PATH_TO_DATA, 'seed'
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
-    # Load model
-    params_senteval.infersent = nli_net
+    # Model
+    params_senteval.infersent = nli_net.encoder
     params_senteval.infersent.set_glove_path(params.wordvecpath)
 
     se = senteval.SentEval(params_senteval, batcher, prepare)

@@ -27,7 +27,7 @@ nlipath      = ["/mnt/mmenezes/InferSent-datasets/SNLI_small"]
 wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"]
 
 # Number of epochs (int). Default: 20
-n_epochs     = [20]
+n_epochs     = [1]
 
 # Batch size (int). Default: 64
 batch_size   = [64]
