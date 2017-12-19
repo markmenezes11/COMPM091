@@ -1,7 +1,8 @@
 import sys, os
 import argparse
 import itertools
-import subprocess
+
+from subprocess import Popen, PIPE, STDOUT
 
 """
 Arguments
@@ -151,36 +152,46 @@ for iteration in iterations:
 
     print("\n\n\nTraining model using InferSent...\n")
 
-    subprocess.check_output("python train.py" +
-                            " --outputdir " + outputdir +
-                            " --infersentpath " + params.infersentpath +
-                            " --gpu_id " + str(params.gpu_id) +
-                            " --nlipath " + iteration[0] +
-                            " --wordvecpath " + iteration[1] +
-                            " --n_epochs " + str(iteration[2]) +
-                            " --batch_size " + str(iteration[3]) +
-                            " --dpout_model " + str(iteration[4]) +
-                            " --dpout_fc " + str(iteration[5]) +
-                            " --nonlinear_fc " + str(iteration[6]) +
-                            " --optimizer " + iteration[7] +
-                            " --lrshrink " + str(iteration[8]) +
-                            " --decay " + str(iteration[9]) +
-                            " --minlr " + str(iteration[10]) +
-                            " --max_norm " + str(iteration[11]) +
-                            " --encoder_type " + iteration[12] +
-                            " --enc_lstm_dim " + str(iteration[13]) +
-                            " --n_enc_layers " + str(iteration[14]) +
-                            " --fc_dim " + str(iteration[15]) +
-                            " --pool_type " + iteration[16] +
-                            " --seed " + str(iteration[17]) +
-                            " |& tee -a " + outputdir + "output.txt", shell=True)
+    p = Popen("python train.py" +
+              " --outputdir " + outputdir +
+              " --infersentpath " + params.infersentpath +
+              " --gpu_id " + str(params.gpu_id) +
+              " --nlipath " + iteration[0] +
+              " --wordvecpath " + iteration[1] +
+              " --n_epochs " + str(iteration[2]) +
+              " --batch_size " + str(iteration[3]) +
+              " --dpout_model " + str(iteration[4]) +
+              " --dpout_fc " + str(iteration[5]) +
+              " --nonlinear_fc " + str(iteration[6]) +
+              " --optimizer " + iteration[7] +
+              " --lrshrink " + str(iteration[8]) +
+              " --decay " + str(iteration[9]) +
+              " --minlr " + str(iteration[10]) +
+              " --max_norm " + str(iteration[11]) +
+              " --encoder_type " + iteration[12] +
+              " --enc_lstm_dim " + str(iteration[13]) +
+              " --n_enc_layers " + str(iteration[14]) +
+              " --fc_dim " + str(iteration[15]) +
+              " --pool_type " + iteration[16] +
+              " --seed " + str(iteration[17]), stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
+
+    with p.stdout, open(outputdir + "output.txt", 'ab') as file:
+        for line in iter(p.stdout.readline, b''):
+            print(line,)  # Comma to prevent duplicate newlines
+            file.write(line)
+    p.wait()
 
     print("\n\n\nEvaluating model using SentEval...\n")
-    subprocess.check_output("python eval.py" +
-                            " --modelpath " + outputdir + "model.pickle" +
-                            " --sentevalpath " + params.sentevalpath +
-                            " --wordvecpath " + iteration[1] +
-                            " --gpu_id " + str(params.gpu_id) +
-                            " |& tee -a " + outputdir + "output.txt", shell=True)
+    p = Popen("python eval.py" +
+              " --modelpath " + outputdir + "model.pickle" +
+              " --sentevalpath " + params.sentevalpath +
+              " --wordvecpath " + iteration[1] +
+              " --gpu_id " + str(params.gpu_id), stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
+
+    with p.stdout, open(outputdir + "output.txt", 'ab') as file:
+        for line in iter(p.stdout.readline, b''):
+            print(line,)  # Comma to prevent duplicate newlines
+            file.write(line)
+    p.wait()
 
 
