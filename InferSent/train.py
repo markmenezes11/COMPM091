@@ -21,11 +21,13 @@ start_time = timeit.default_timer()
 
 parser = argparse.ArgumentParser(description='NLI training')
 
-# paths
+# infersent path
 parser.add_argument("--infersentpath", type=str, default='../../../InferSent-master', help="Path to InferSent repository")
-parser.add_argument("--nlipath", type=str, default='../../../InferSent-master/dataset/SNLI/', help="NLI data path (SNLI or MultiNLI)")
+
+# other paths
 parser.add_argument("--outputdir", type=str, default='savedir/', help="Output directory")
 parser.add_argument("--outputmodelname", type=str, default='model.pickle')
+parser.add_argument("--nlipath", type=str, default='../../../InferSent-master/dataset/SNLI/', help="NLI data path (SNLI or MultiNLI)")
 parser.add_argument("--wordvecpath", type=str, default="../../../InferSent-master/dataset/GloVe/glove.840B.300d.txt", help="Path to word vectors txt file (e.g. GloVe)")
 
 # training

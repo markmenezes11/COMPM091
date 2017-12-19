@@ -14,11 +14,17 @@ import sys
 import torch
 from torch import nn
 from torch.autograd import Variable
-from exutil import dotdict
 import logging
 from torchtext import data
 from torchtext import datasets
 import numpy as np
+
+"""dotdict from InferSent / SentEval"""
+class dotdict(dict):
+    """ dot.notation access to dictionary attributes """
+    __getattr__ = dict.get
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
 
 # Set PATHs
 COVE_PATH = '../../cove-master'
