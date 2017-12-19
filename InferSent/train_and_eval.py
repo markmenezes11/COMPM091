@@ -5,11 +5,14 @@
 # LICENSE file in the root directory of this source tree.
 #
 
+from __future__ import absolute_import, division, unicode_literals
+
 import os
 import sys
 import time
 import timeit
 import argparse
+import logging
 
 import numpy as np
 
@@ -17,12 +20,19 @@ import torch
 from torch.autograd import Variable
 import torch.nn as nn
 
+"""dotdict from InferSent / SentEval"""
+class dotdict(dict):
+    """ dot.notation access to dictionary attributes """
+    __getattr__ = dict.get
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
 start_time = timeit.default_timer()
 
 parser = argparse.ArgumentParser(description='NLI training')
 
-# infersent path
+# infersent and senteval path
 parser.add_argument("--infersentpath", type=str, default='../../../InferSent-master', help="Path to InferSent repository")
+parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository")
 
 # other paths
 parser.add_argument("--outputdir", type=str, default='savedir/', help="Output directory")
@@ -61,6 +71,10 @@ sys.path.insert(0, params.infersentpath)
 from data import get_nli, get_batch, build_vocab
 from mutils import get_optimizer
 from models import NLINet
+
+# Import senteval
+sys.path.insert(0, params.sentevalpath)
+import senteval
 
 # cpu mode if gpu id is -1
 cpu = params.gpu_id == -1
@@ -163,6 +177,7 @@ if not cpu:
 """
 TRAIN
 """
+
 val_acc_best = -1e10
 adam_stop = False
 stop_training = False
@@ -315,9 +330,15 @@ def evaluate(epoch, eval_type='valid', final_eval=False):
     return eval_acc
 
 
+
+
+
 """
 Train model on Natural Language Inference task
 """
+
+print("\n\n\nTraining model using InferSent...\n")
+
 epoch = 1
 
 while not stop_training and epoch <= params.n_epochs:
@@ -337,4 +358,52 @@ evaluate(0, 'test', True)
 torch.save(nli_net.encoder,
            os.path.join(params.outputdir, params.outputmodelname + '.encoder'))
 
-print("Real time taken: %s seconds" % (timeit.default_timer() - start_time))
+mid_time = timeit.default_timer()
+print("Real time taken to train: %s seconds" % (mid_time - start_time))
+
+
+
+
+
+"""
+Evaluation of trained model on Transfer Tasks (SentEval)
+"""
+
+print("\n\n\nEvaluating model using SentEval...\n")
+
+# Set PATHs
+slash = "" if params.sentevalpath[-1] == '/' else "/"
+PATH_TO_DATA = params.sentevalpath + slash + 'data/senteval_data'
+
+def prepare(params, samples):
+    params.infersent.build_vocab([' '.join(s) for s in samples], tokenize=False)
+
+def batcher(params, batch):
+    # batch contains list of words
+    sentences = [' '.join(s) for s in batch]
+    embeddings = params.infersent.encode(sentences, bsize=params.batch_size, tokenize=False)
+    return embeddings
+
+# Define transfer tasks
+transfer_tasks = ['CR', 'MR', 'MPQA', 'SUBJ', 'SST', 'TREC', 'MRPC', 'SNLI', 'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval', 'STS12', 'STS13', 'STS14', 'STS15', 'STS16']
+
+# Define senteval params
+params_senteval = dotdict({'usepytorch': True, 'task_path': PATH_TO_DATA, 'seed': 1111, 'kfold': 5})
+
+# Set up logger
+logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
+
+if __name__ == "__main__":
+    # Load model
+    params_senteval.infersent = nli_net
+    params_senteval.infersent.set_glove_path(params.wordvecpath)
+
+    se = senteval.SentEval(params_senteval, batcher, prepare)
+    results_transfer = se.eval(transfer_tasks)
+
+    print(results_transfer)
+
+print("Real time taken to evaluate: %s seconds" % (timeit.default_timer() - mid_time))
+print("Real time taken to train + evaluate: %s seconds" % (timeit.default_timer() - start_time))
+
+print("All done.")

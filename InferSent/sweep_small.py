@@ -149,13 +149,10 @@ for iteration in iterations:
     with open(outputdir + "output.txt", "a") as outputfile:
         outputfile.write("\n\n\nParameters:\n" + formattedParams + "\n")
 
-    print("\n\n\nTraining model using InferSent...\n")
-    with open(outputdir + "output.txt", "a") as outputfile:
-        outputfile.write("\n\n\nTraining model using InferSent...\n")
-
-    p = Popen("python train.py" +
+    p = Popen("python train_and_eval.py" +
               " --outputdir " + outputdir +
               " --infersentpath " + params.infersentpath +
+              " --sentevalpath " + params.sentevalpath +
               " --gpu_id " + str(params.gpu_id) +
               " --nlipath " + iteration[0] +
               " --wordvecpath " + iteration[1] +
@@ -181,21 +178,3 @@ for iteration in iterations:
             print line,  # Comma to prevent duplicate newlines
             file.write(line)
     p.wait()
-
-    print("\n\n\nEvaluating model using SentEval...\n")
-    with open(outputdir + "output.txt", "a") as outputfile:
-        outputfile.write("\n\n\nEvaluating model using SentEval...\n")
-
-    p = Popen("python eval.py" +
-              " --modelpath " + outputdir + "model.pickle" +
-              " --sentevalpath " + params.sentevalpath +
-              " --wordvecpath " + iteration[1] +
-              " --gpu_id " + str(params.gpu_id), stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
-
-    with p.stdout, open(outputdir + "output.txt", 'ab') as file:
-        for line in iter(p.stdout.readline, b''):
-            print line,  # Comma to prevent duplicate newlines
-            file.write(line)
-    p.wait()
-
-
