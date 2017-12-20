@@ -82,20 +82,17 @@ Sweep
 iterations = itertools.product(nlipath, wordvecpath, n_epochs, batch_size, dpout_model, dpout_fc, nonlinear_fc,
                                    optimizer, lrshrink, decay, minlr, max_norm, encoder_type, enc_lstm_dim,
                                    n_enc_layers, fc_dim, pool_type, seed)
-
-def prepare(params, samples):
-    params.infersent.build_vocab([' '.join(s) for s in samples], tokenize=False)
-
-def batcher(params, batch):
-    # batch contains list of words
-    sentences = [' '.join(s) for s in batch]
-    embeddings = params.infersent.encode(sentences, bsize=params.batch_size, tokenize=False)
-    return embeddings
-
+iterationsToCount = itertools.product(nlipath, wordvecpath, n_epochs, batch_size, dpout_model, dpout_fc, nonlinear_fc,
+                                   optimizer, lrshrink, decay, minlr, max_norm, encoder_type, enc_lstm_dim,
+                                   n_enc_layers, fc_dim, pool_type, seed)
 iterationNumber = 0
+totalIterations = 0
+for iteration in iterationsToCount:
+    totalIterations += 1
+
 for iteration in iterations:
     iterationNumber += 1
-    print("\n\n\n\n\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(len(list(iterations))) + "...")
+    print("\n\n\n\n\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
 
     print("\n\n\nPreparing output directory...\n")
 
