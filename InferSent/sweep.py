@@ -11,8 +11,8 @@ Arguments
 parser = argparse.ArgumentParser(description='InferSent Parameter Sweep')
 parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository")
-parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
-parser.add_argument("--outputdir", type=str, default='/mnt/mmenezes/InferSent-models/sweep', help="Output directory")
+parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. GPU is required because of SentEval")
+parser.add_argument("--outputdir", type=str, default='/mnt/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved)")
 params, _ = parser.parse_known_args()
 
 """
