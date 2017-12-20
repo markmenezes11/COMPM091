@@ -145,9 +145,9 @@ for iteration in iterations:
                        "  --pool_type " + iteration[16] + "\n" +
                        "  --seed " + str(iteration[17]) + "\n")
 
-    print("\n\n\nParameters:\n" + formattedParams + "...\n")
+    print("\n\n\nParameters (Default):\n" + formattedParams + "...\n")
     with open(outputdir + "output.txt", "a") as outputfile:
-        outputfile.write("\n\n\nParameters:\n" + formattedParams + "\n")
+        outputfile.write("\n\n\nParameters (Default):\n" + formattedParams + "\n")
 
     p = Popen("python train_and_eval.py" +
               " --outputdir " + outputdir +

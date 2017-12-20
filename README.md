@@ -97,8 +97,6 @@ To change paths, GPU ID, etc., they can be given as arguments. See `python sweep
 
 `sweep_default.py` does a single sweep on default parameters. It uses the AllNLI dataset, which you will need to create by combining the SNLI and MultiNLI datasets: https://github.com/facebookresearch/InferSent/issues/24 
 
-`sweep_small.py` runs the script on a very small dataset for very few epochs. This is useful to test if the sweep script works before running a large sweep. Again, you will need to make a small dataset by saving a cut-down version of the SNLI or MultiNLI dataset.
-
 
 
 
