@@ -42,7 +42,7 @@ dpout_fc     = [0]
 nonlinear_fc = [0]
 
 # "adam" or "sgd,lr=0.1". Default: "sgd,lr=0.1"
-optimizer    = ["sgd,lr=0.1"]
+optimizer    = ["adam"]
 
 # Shrink factor for SGD (float). Default: 5
 lrshrink     = [5]

@@ -118,6 +118,11 @@ for iteration in iterations:
                 "seed___" + str(iteration[17]) + "/")
     outputdir = params.outputdir + slash + sweepdir
 
+    # If the output.txt file already exists, this iteration has already been run before
+    if os.path.exists(outputdir + "output.txt"):
+        print("Path already exists with these parameters. Skipping this iteration...")
+        continue
+
     # Make the output directory if it doesn't exist
     if not os.path.exists(outputdir):
         os.makedirs(outputdir)
