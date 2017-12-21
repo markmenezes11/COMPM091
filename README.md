@@ -6,8 +6,8 @@ InferSent-master, SentEval-master and cove-master were cloned from these reposit
 - CoVe: https://github.com/salesforce/cove
         
 They originate from these papers:
-- http://www.aclweb.org/anthology/D/D17/D17-1071.pdf
-- https://arxiv.org/pdf/1708.00107.pdf
+- Conneau et al. (Jul 2017). "Supervised Learning of Universal Sentence Representations from Natural Language Inference Data". [online]. Available at: https://arxiv.org/pdf/1705.02364.pdf
+- McCann et al. (Aug 2017). "Learned in Translation: Contextualized Word Vectors". [online]. Available at: https://arxiv.org/pdf/1708.00107.pdf
 
 ## Install
 
@@ -95,7 +95,9 @@ python sweep.py
 
 To change paths, GPU ID, etc., they can be given as arguments. See `python sweep.py -h` for more details.
 
-`sweep_default.py` does a single sweep on default parameters. It uses the AllNLI dataset, which you will need to create by combining the SNLI and MultiNLI datasets: https://github.com/facebookresearch/InferSent/issues/24 
+`sweep_default.py` does a single sweep on default parameters. It uses the AllNLI dataset, which you will need to create by combining the SNLI and MultiNLI datasets: https://github.com/facebookresearch/InferSent/issues/24
+ 
+There is also `sweep_qsub_gpu.sh` which is the script to use for job submission via qsub on a cluster machine (`qsub sweep_qsub_gpu.sh`). 
 
 
 
