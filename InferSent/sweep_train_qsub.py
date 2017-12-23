@@ -42,7 +42,7 @@ dpout_fc     = [0]
 nonlinear_fc = [0]
 
 # "adam" or "sgd,lr=0.1". Default: "sgd,lr=0.1"
-optimizer    = ["sgd,lr=0.1"]
+optimizer    = ["sgd,lr=0.1", "adam"]
 
 # Shrink factor for SGD (float). Default: 5
 lrshrink     = [5]
@@ -151,7 +151,12 @@ for iteration in iterations:
     with open(outputdir + "info.txt", "a") as outputfile:
         outputfile.write("\n\n\nParameters:\n" + formattedParams + "\n")
 
-    # TODO: while (qstat shows >=20 mmenezes jobs running) wait();
+    # While there are >=20 jobs running under current user, wait. This is so that we do not hog all of the nodes!
+    p = Popen("expr $(qstat -u $USER | wc -l) - 2", stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
+    with p.stdout:
+        numberOfJobs = int(p.stdout.readline(),)
+    while (numberOfJobs >= 20):
+        pass
 
     p = Popen("qsub sweep_train_qsub_helper.sh" +
               " --outputdir " + outputdir +
