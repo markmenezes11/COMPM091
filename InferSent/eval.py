@@ -96,7 +96,7 @@ logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
     # Model
-    params_senteval.infersent = torch.save(os.path.join(params.inputdir, params.inputmodelname + '.encoder'))
+    params_senteval.infersent = torch.load(os.path.join(params.inputdir, params.inputmodelname + '.encoder'))
     params_senteval.infersent.set_glove_path(params.wordvecpath)
 
     se = senteval.SentEval(params_senteval, batcher, prepare)
