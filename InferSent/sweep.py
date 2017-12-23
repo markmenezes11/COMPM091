@@ -118,8 +118,8 @@ for iteration in iterations:
                 "seed___" + str(iteration[17]) + "/")
     outputdir = params.outputdir + slash + sweepdir
 
-    # If the output.txt file already exists, this iteration has already been run before
-    if os.path.exists(outputdir + "output.txt"):
+    # If the directory already exists, this iteration has already been run before
+    if os.path.exists(outputdir):
         print("Path already exists with these parameters. Skipping this iteration...")
         continue
 
@@ -148,13 +148,12 @@ for iteration in iterations:
                        "  --seed " + str(iteration[17]) + "\n")
 
     print("\n\n\nParameters:\n" + formattedParams + "...\n")
-    with open(outputdir + "output.txt", "a") as outputfile:
+    with open(outputdir + "info.txt", "a") as outputfile:
         outputfile.write("\n\n\nParameters:\n" + formattedParams + "\n")
 
-    p = Popen("python /home/mmenezes/Dev/COMPM091/InferSent/train_and_eval.py" +
+    p = Popen("python /home/mmenezes/Dev/COMPM091/InferSent/train.py" +
               " --outputdir " + outputdir +
               " --infersentpath " + params.infersentpath +
-              " --sentevalpath " + params.sentevalpath +
               " --gpu_id " + str(params.gpu_id) +
               " --nlipath " + iteration[0] +
               " --wordvecpath " + iteration[1] +
@@ -175,7 +174,20 @@ for iteration in iterations:
               " --pool_type " + iteration[16] +
               " --seed " + str(iteration[17]), stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
 
-    with p.stdout, open(outputdir + "output.txt", 'ab') as file:
+    with p.stdout, open(outputdir + "train_output.txt", 'ab') as file:
+        for line in iter(p.stdout.readline, b''):
+            print line,  # Comma to prevent duplicate newlines
+            file.write(line)
+    p.wait()
+
+    p = Popen("python /home/mmenezes/Dev/COMPM091/InferSent/eval.py" +
+              " --inputdir " + outputdir +
+              " --infersentpath " + params.infersentpath +
+              " --sentevalpath " + params.sentevalpath +
+              " --gpu_id " + str(params.gpu_id) +
+              " --wordvecpath " + iteration[1], stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
+
+    with p.stdout, open(outputdir + "eval_output.txt", 'ab') as file:
         for line in iter(p.stdout.readline, b''):
             print line,  # Comma to prevent duplicate newlines
             file.write(line)

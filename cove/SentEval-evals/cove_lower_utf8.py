@@ -2,7 +2,17 @@
 # All rights reserved.
 #
 # This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
+# LICENSE file in the root directory of the InferSent and SentEval
+# source trees.
+#
+# The source code below is a modified version of source code from:
+# InferSent: https://github.com/facebookresearch/InferSent
+# SentEval: https://github.com/facebookresearch/SentEval
+#
+# CoVe is taken from:
+# B. McCann, J. Bradbury, C. Xiong, R. Socher, Learned in Translation: Contextualized Word Vectors
+# https://github.com/salesforce/cove
+#
 
 from __future__ import absolute_import, division, unicode_literals
 
