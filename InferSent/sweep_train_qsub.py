@@ -183,7 +183,7 @@ for iteration in iterations:
               " --pool_type " + iteration[16] +
               " --seed " + str(iteration[17]), stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
 
-    with p.stdout, open(outputdir + "train_output.txt", 'ab') as file:
+    with p.stdout, open(outputdir + "info.txt", 'ab') as file:
         for line in iter(p.stdout.readline, b''):
             print line,  # Comma to prevent duplicate newlines
             file.write(line)
