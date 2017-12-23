@@ -25,7 +25,7 @@ wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"
 """
 Sweep
 """
-
+# TODO: Output dir and singularityoutputdir if needed
 for each outputdir with specific _wordvecpath: # TODO: From outputdir, iterate through each folder, MAKING SURE WORD2VECPATH IS THE SAME, AND ONLY COVERING WORD2VECPATHS GIVEN ABOVE
     print("\n\n\nPreparing output directory...\n")
 

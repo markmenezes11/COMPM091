@@ -9,14 +9,15 @@ Arguments
 """
 
 parser = argparse.ArgumentParser(description='InferSent Parameter Sweep')
-parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository")
-parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository")
+parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
+parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. GPU is required because of SentEval")
-parser.add_argument("--outputdir", type=str, default='/mnt/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved)")
+parser.add_argument("--outputdir", type=str, default='/cluster/project2/ishi_storage_1/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved). MAKE SURE IT MAPS TO THE SAME PLACE AS SINGULARITYOUTPUTDIR")
+parser.add_argument("--singularityoutputdir", type=str, default='/mnt/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved), that Singularity can see (in case you use binding). If you are not using Singularity, make this the same as outputdir. MAKE SURE IT MAPS TO THE SAME PLACE AS OUTPUTDIR")
 params, _ = parser.parse_known_args()
 
 """
-Parameters to sweep
+Parameters to sweep. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)
 """
 
 # NLI data path (e.g. "[path]/AllNLI", "[path]/SNLI" or "[path]/MultiNLI") - should have 3 classes
@@ -98,6 +99,7 @@ for iteration in iterations:
 
     # Get the output directory based on current params in this iteration
     slash = "" if params.outputdir[-1] == "/" else "/"
+    singularityslash = "" if params.singularityoutputdir[-1] == "/" else "/"
     sweepdir = ("nlipath___" + iteration[0].replace('/', '_').replace(':', '_') + "/" +
                 "wordvecpath___" + iteration[1].replace('/', '_').replace(':', '_') + "/" +
                 "n_epochs___" + str(iteration[2]) + "/" +
@@ -117,7 +119,7 @@ for iteration in iterations:
                 "pool_type___" + iteration[16].replace('/', '_').replace(':', '_') + "/" +
                 "seed___" + str(iteration[17]) + "/")
     outputdir = params.outputdir + slash + sweepdir
-
+    singularityoutputdir = params.singularityoutputdir + singularityslash + sweepdir
     # If the directory already exists, this iteration has already been run before
     if os.path.exists(outputdir):
         print("Path already exists with these parameters. Skipping this iteration...")
@@ -159,7 +161,7 @@ for iteration in iterations:
         pass
 
     p = Popen("qsub sweep_train_qsub_helper.sh" +
-              " --outputdir " + outputdir +
+              " --outputdir " + singularityoutputdir +
               " --infersentpath " + params.infersentpath +
               " --gpu_id " + str(params.gpu_id) +
               " --nlipath " + iteration[0] +
