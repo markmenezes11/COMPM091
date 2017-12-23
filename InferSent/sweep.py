@@ -151,7 +151,7 @@ for iteration in iterations:
     with open(outputdir + "output.txt", "a") as outputfile:
         outputfile.write("\n\n\nParameters:\n" + formattedParams + "\n")
 
-    p = Popen("python train_and_eval.py" +
+    p = Popen("python /home/mmenezes/Dev/COMPM091/InferSent/train_and_eval.py" +
               " --outputdir " + outputdir +
               " --infersentpath " + params.infersentpath +
               " --sentevalpath " + params.sentevalpath +

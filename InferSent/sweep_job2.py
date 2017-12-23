@@ -11,8 +11,8 @@ Arguments
 parser = argparse.ArgumentParser(description='InferSent Parameter Sweep')
 parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository")
-parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
-parser.add_argument("--outputdir", type=str, default='/mnt/mmenezes/InferSent-models/sweep', help="Output directory")
+parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. GPU is required because of SentEval")
+parser.add_argument("--outputdir", type=str, default='/mnt/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved)")
 params, _ = parser.parse_known_args()
 
 """
@@ -33,10 +33,10 @@ n_epochs     = [20]
 batch_size   = [64]
 
 # Encoder dropout (float). Default: 0
-dpout_model  = [0]
+dpout_model  = [0, 0.1]
 
 # Classifier dropout (float). Default: 0
-dpout_fc     = [0]
+dpout_fc     = [0, 0.1]
 
 # Use nonlinearity in FC (float). Default: 0
 nonlinear_fc = [0]
@@ -147,11 +147,11 @@ for iteration in iterations:
                        "  --pool_type " + iteration[16] + "\n" +
                        "  --seed " + str(iteration[17]) + "\n")
 
-    print("\n\n\nParameters (Default):\n" + formattedParams + "...\n")
+    print("\n\n\nParameters:\n" + formattedParams + "...\n")
     with open(outputdir + "output.txt", "a") as outputfile:
-        outputfile.write("\n\n\nParameters (Default):\n" + formattedParams + "\n")
+        outputfile.write("\n\n\nParameters:\n" + formattedParams + "\n")
 
-    p = Popen("python train_and_eval.py" +
+    p = Popen("python /home/mmenezes/Dev/COMPM091/InferSent/train_and_eval.py" +
               " --outputdir " + outputdir +
               " --infersentpath " + params.infersentpath +
               " --sentevalpath " + params.sentevalpath +
