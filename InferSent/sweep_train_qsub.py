@@ -160,7 +160,7 @@ for iteration in iterations:
     while (numberOfJobs >= 20):
         pass
 
-    p = Popen("qsub -o " + outputdir + "qsub_output.txt -e " + outputdir + "qsub_error.txt sweep_train_qsub_helper.sh" +
+    p = Popen("qsub sweep_train_qsub_helper.sh" +
               " --outputdir " + singularityoutputdir +
               " --infersentpath " + params.infersentpath +
               " --gpu_id " + str(params.gpu_id) +
