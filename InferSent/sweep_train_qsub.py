@@ -22,7 +22,7 @@ Parameters to sweep. If you are using Singularity, all paths must be the ones th
 
 # NLI data path (e.g. "[path]/AllNLI", "[path]/SNLI" or "[path]/MultiNLI") - should have 3 classes
 # (entailment/neutral/contradiction). Default: "AllNLI"
-nlipath      = ["/mnt/mmenezes/InferSent-datasets/AllNLI"]
+nlipath      = ["/mnt/mmenezes/InferSent-datasets/SmallNLI"]
 
 # Path to word vectors txt file (e.g. "[path]/glove.840B.300d.txt"). Default: "glove.840B.300d.txt"
 wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"]
@@ -160,7 +160,7 @@ for iteration in iterations:
     while (numberOfJobs >= 20):
         pass
 
-    p = Popen("qsub sweep_train_qsub_helper.sh" +
+    p = Popen("qsub -o " + outputdir + "qsub_output.txt -e " + outputdir + "qsub_error.txt sweep_train_qsub_helper.sh" +
               " --outputdir " + singularityoutputdir +
               " --infersentpath " + params.infersentpath +
               " --gpu_id " + str(params.gpu_id) +

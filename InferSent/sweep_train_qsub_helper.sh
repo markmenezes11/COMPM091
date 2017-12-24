@@ -1,4 +1,4 @@
-#!/bin/bash
+#$ -S /bin/bash
 #$ -l h_rt=23:30:0 # Time (h:m:s)
 #$ -l tmem=15.5G # Mem (xG or xM)
 #$ -l gpu=1
