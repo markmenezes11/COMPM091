@@ -28,7 +28,7 @@ class dotdict(dict):
 GLOVE_PATH = '/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt'
 PATH_SENTEVAL = '/mnt/mmenezes/libs/SentEval/'
 PATH_TO_DATA = '/mnt/mmenezes/libs/SentEval/data/senteval_data/'
-MODEL_PATH = '/mnt/mmenezes/libs/InferSent/infersent.allnli.pickle'
+MODEL_PATH = '/mnt/mmenezes/libs/InferSent/encoder/infersent.allnli.pickle'
 
 assert os.path.isfile(MODEL_PATH) and os.path.isfile(GLOVE_PATH), \
     'Set MODEL and GloVe PATHs'
