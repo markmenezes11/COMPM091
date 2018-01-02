@@ -37,9 +37,9 @@ class dotdict(dict):
     __delattr__ = dict.__delitem__
 
 # Set PATHs
-COVE_PATH = '../../cove-master'
-SENTEVAL_PATH = '../'
-SENTEVAL_DATA_PATH = '../data/senteval_data_ptb/'
+COVE_PATH = '/mnt/mmenezes/libs/cove'
+SENTEVAL_PATH = '/mnt/mmenezes/libs/SentEval/'
+SENTEVAL_DATA_PATH = '/mnt/mmenezes/libs/SentEval/data/senteval_data/'
 
 # Import CoVe
 sys.path.insert(0, COVE_PATH)
