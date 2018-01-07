@@ -1,0 +1,33 @@
+2018-01-07 15:56:07,852 : ***** Transfer task : TREC *****
+
+
+2018-01-07 15:56:08,974 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 15:58:16,974 : Computed train embeddings
+2018-01-07 15:58:27,759 : Computed test embeddings
+2018-01-07 15:58:27,759 : Training pytorch-LogReg with 5-fold cross-validation
+2018-01-07 16:01:34,854 : [(u'reg:1e-05', 83.9), (u'reg:0.0001', 83.9), (u'reg:0.001', 83.91), (u'reg:0.01', 84.06)]
+2018-01-07 16:01:34,854 : Cross-validation : best param found is reg = 0.01             with score 84.06
+2018-01-07 16:01:34,854 : Evaluating...
+2018-01-07 16:01:47,724 : 
+Dev acc : 84.06 Test acc : 88.0             for TREC
+
+2018-01-07 16:01:47,731 : ***** Transfer task : MRPC *****
+
+
+2018-01-07 16:01:50,445 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 16:01:54,023 : Computing embedding for test
+2018-01-07 16:03:08,403 : Computed test embeddings
+2018-01-07 16:03:08,403 : Computing embedding for train
+2018-01-07 16:06:04,627 : Computed train embeddings
+2018-01-07 16:06:10,407 : Training pytorch-LogReg with 5-fold cross-validation
+2018-01-07 16:09:02,679 : [(u'reg:1e-05', 68.33), (u'reg:0.0001', 68.33), (u'reg:0.001', 68.3), (u'reg:0.01', 68.25)]
+2018-01-07 16:09:02,679 : Cross-validation : best param found is reg = 1e-05             with score 68.33
+2018-01-07 16:09:02,679 : Evaluating...
+2018-01-07 16:09:15,189 : Dev acc : 68.33 Test acc 66.67; Test F1 76.79 for MRPC.
+
+2018-01-07 16:09:15,217 : ***** Transfer task : SNLI Entailment*****
+
+
+2018-01-07 16:09:46,000 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 16:10:00,159 : PROGRESS (encoding): 0.00%
+2018-01-07 16:17:23,839 : PROGRESS (encoding): 0.00%
