@@ -52,7 +52,6 @@ def prepare(params, samples):
     params.inputs.vocab.load_vectors('glove.840B.300d')
     return
 
-diff_count = 0
 def batcher(params, batch):
     embeddings = []
     max_sent_len = 256 # Looks like we have to force this for SentEval to work
@@ -61,7 +60,7 @@ def batcher(params, batch):
         for word in raw_sentence:
             sentence.append(word)
             if word != word.lower():
-                diff_count += 1
+                print("Word is not in lowercase")
         if len(sentence) > max_sent_len:
             sentence = sentence[:max_sent_len]
         if len(sentence) == 0:
@@ -97,5 +96,3 @@ if __name__ == "__main__":
     results_transfer = se.eval(transfer_tasks)
 
     print(results_transfer)
-
-    print(diff_count)
