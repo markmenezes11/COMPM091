@@ -1,6 +1,0 @@
-2018-01-08 02:39:37,012 : ***** Transfer task : SNLI Entailment*****
-
-
-2018-01-08 02:39:49,541 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
-2018-01-08 02:40:25,345 : PROGRESS (encoding): 0.00%
-2018-01-08 02:43:23,898 : PROGRESS (encoding): 0.00%
