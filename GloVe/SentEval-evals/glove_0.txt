@@ -1,0 +1,93 @@
+2018-01-15 17:24:46,059 : ***** Transfer task : CR *****
+
+
+2018-01-15 17:24:46,111 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-15 17:24:49,296 : Generating sentence embeddings
+2018-01-15 17:25:21,256 : Generated sentence embeddings
+2018-01-15 17:25:21,256 : Training pytorch-LogReg with (inner) 5-fold cross-validation
+2018-01-15 17:29:31,430 : Best param found at split 1: l2reg = 0.01                 with score 74.59
+2018-01-15 17:33:44,741 : Best param found at split 2: l2reg = 1e-05                 with score 73.8
+2018-01-15 17:38:03,140 : Best param found at split 3: l2reg = 0.01                 with score 75.03
+2018-01-15 17:42:18,861 : Best param found at split 4: l2reg = 1e-05                 with score 72.66
+2018-01-15 17:46:35,107 : Best param found at split 5: l2reg = 1e-05                 with score 73.39
+2018-01-15 17:46:48,293 : Dev acc : 73.89 Test acc : 73.56
+
+2018-01-15 17:46:48,298 : ***** Transfer task : MR *****
+
+
+2018-01-15 17:46:48,472 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-15 17:46:51,752 : Generating sentence embeddings
+2018-01-15 17:48:13,682 : Generated sentence embeddings
+2018-01-15 17:48:13,683 : Training pytorch-LogReg with (inner) 5-fold cross-validation
+Word is not in lowercase
+Word is not in lowercase
+Word is not in lowercase
+Word is not in lowercase
+2018-01-15 17:59:23,564 : Best param found at split 1: l2reg = 1e-05                 with score 73.03
+2018-01-15 18:11:12,576 : Best param found at split 2: l2reg = 0.01                 with score 72.78
+2018-01-15 18:23:00,174 : Best param found at split 3: l2reg = 0.0001                 with score 73.09
+2018-01-15 18:34:50,654 : Best param found at split 4: l2reg = 0.01                 with score 73.44
+2018-01-15 18:46:43,780 : Best param found at split 5: l2reg = 1e-05                 with score 73.18
+2018-01-15 18:47:19,999 : Dev acc : 73.1 Test acc : 72.19
+
+2018-01-15 18:47:20,011 : ***** Transfer task : MPQA *****
+
+
+2018-01-15 18:47:20,156 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-15 18:47:23,281 : Generating sentence embeddings
+2018-01-15 18:48:48,063 : Generated sentence embeddings
+2018-01-15 18:48:48,063 : Training pytorch-LogReg with (inner) 5-fold cross-validation
+2018-01-15 19:00:19,347 : Best param found at split 1: l2reg = 0.001                 with score 86.92
+2018-01-15 19:12:26,472 : Best param found at split 2: l2reg = 0.01                 with score 87.01
+2018-01-15 19:24:29,204 : Best param found at split 3: l2reg = 0.01                 with score 86.67
+2018-01-15 19:36:38,298 : Best param found at split 4: l2reg = 0.01                 with score 86.78
+2018-01-15 19:48:38,836 : Best param found at split 5: l2reg = 0.001                 with score 86.42
+2018-01-15 19:49:15,838 : Dev acc : 86.76 Test acc : 86.93
+
+2018-01-15 19:49:15,860 : ***** Transfer task : SUBJ *****
+
+
+2018-01-15 19:49:16,104 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-15 19:49:19,482 : Generating sentence embeddings
+2018-01-15 19:50:38,593 : Generated sentence embeddings
+2018-01-15 19:50:38,593 : Training pytorch-LogReg with (inner) 5-fold cross-validation
+Word is not in lowercase
+2018-01-15 20:01:04,690 : Best param found at split 1: l2reg = 1e-05                 with score 89.37
+2018-01-15 20:12:02,855 : Best param found at split 2: l2reg = 1e-05                 with score 89.97
+2018-01-15 20:23:02,867 : Best param found at split 3: l2reg = 1e-05                 with score 89.97
+2018-01-15 20:34:05,285 : Best param found at split 4: l2reg = 0.01                 with score 90.26
+2018-01-15 20:45:05,390 : Best param found at split 5: l2reg = 1e-05                 with score 89.62
+2018-01-15 20:45:38,757 : Dev acc : 89.84 Test acc : 90.12
+
+2018-01-15 20:45:38,768 : ***** Transfer task : SST Binary             classification *****
+
+
+2018-01-15 20:45:39,414 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-15 20:45:42,594 : Computing embedding for test
+2018-01-15 20:45:57,896 : Computed test embeddings
+2018-01-15 20:45:57,896 : Computing embedding for train
+2018-01-15 20:54:25,804 : Computed train embeddings
+2018-01-15 20:54:25,805 : Computing embedding for dev
+2018-01-15 20:54:32,464 : Computed dev embeddings
+2018-01-15 20:54:32,464 : Training pytorch-LogReg with standard validation..
+THCudaCheck FAIL file=/pytorch/torch/lib/THC/generic/THCStorage.cu line=66 error=2 : out of memory
+Traceback (most recent call last):
+  File "glove_0.py", line 96, in <module>
+    results_transfer = se.eval(transfer_tasks)
+  File "/mnt/mmenezes/libs/SentEval/senteval/senteval.py", line 62, in eval
+    self.results = {x: self.eval(x) for x in name}
+  File "/mnt/mmenezes/libs/SentEval/senteval/senteval.py", line 62, in <dictcomp>
+    self.results = {x: self.eval(x) for x in name}
+  File "/mnt/mmenezes/libs/SentEval/senteval/senteval.py", line 104, in eval
+    self.results = self.evaluation.run(self.params, self.batcher)
+  File "/mnt/mmenezes/libs/SentEval/senteval/sst.py", line 79, in run
+    devacc, testacc = clf.run()
+  File "/mnt/mmenezes/libs/SentEval/senteval/tools/validation.py", line 247, in run
+    validation_data=(self.X['valid'], self.y['valid']))
+  File "/mnt/mmenezes/libs/SentEval/senteval/tools/classifier.py", line 76, in fit
+    validation_split)
+  File "/mnt/mmenezes/libs/SentEval/senteval/tools/classifier.py", line 55, in prepare_split
+    trainX = torch.FloatTensor(trainX).cuda()
+  File "/usr/local/lib/python2.7/dist-packages/torch/_utils.py", line 66, in _cuda
+    return new_type(self.size()).copy_(self, async)
+RuntimeError: cuda runtime error (2) : out of memory at /pytorch/torch/lib/THC/generic/THCStorage.cu:66

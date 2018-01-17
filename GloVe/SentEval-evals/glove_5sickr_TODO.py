@@ -59,8 +59,6 @@ def batcher(params, batch):
         sentence = []
         for word in raw_sentence:
             sentence.append(word)
-            if word != word.lower():
-                print("Word is not in lowercase")
         if len(sentence) > max_sent_len:
             sentence = sentence[:max_sent_len]
         if len(sentence) == 0:
