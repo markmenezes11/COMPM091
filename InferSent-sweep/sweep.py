@@ -242,8 +242,8 @@ for iteration in iterations:
         with p.stdout:
             numberOfJobs = int(p.stdout.readline(), )
         while (numberOfJobs >= params.n_jobs):
-            print("Max jobs >= n_jobs. Sleeping...")  # TODO: Remove this
-            time.sleep(30) # Keep polling for number of jobs, every 30 seconds, until a job space frees up
+            print("Max jobs >= n_jobs. Waiting for a job space to free up...")
+            time.sleep(60) # Keep polling for number of jobs, every 30 seconds, until a job space frees up
             p = Popen("expr $(qstat -u $USER | wc -l) - 2", stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
             with p.stdout:
                 numberOfJobs = int(p.stdout.readline(), )
@@ -277,5 +277,7 @@ for iteration in iterations:
                 print line,  # Comma to prevent duplicate newlines
                 file.write(line)
         p.wait()
+
+        # TODO: Parse output and append it to a CSV?
     else:
         print("ERROR: Unknown mode. Set --mode argument correctly.")
