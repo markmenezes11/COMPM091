@@ -10,6 +10,7 @@ Arguments
 
 parser = argparse.ArgumentParser(description='InferSent Parameter Sweep')
 parser.add_argument("--mode", type=int, default=0, help="0 to run full sweep (train + eval) on local machine. 1 to run train sweep (train ONLY) using qsub for job submissions on HPC cluster. 2 to run eval sweep (eval ONLY)")
+parser.add_argument("--n_jobs", type=int, default=10, help="Maximum number of qsub jobs to be running simultaneously")
 parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. GPU is required because of SentEval. This parameter will be ignored if using qsub, as the GPU will be chosen automatically")
@@ -236,13 +237,16 @@ for iteration in iterations:
         p.wait()
 
     elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions on HPC cluster
-        # While there are >=20 jobs running under current user, wait. This is so that we do not hog all of the nodes!
-        numberOfJobs = 20
-        while (numberOfJobs >= 20):
+        # While there are >=n_jobs jobs running under current user, wait. This is so that we do not hog all of the nodes!
+        p = Popen("expr $(qstat -u $USER | wc -l) - 2", stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
+        with p.stdout:
+            numberOfJobs = int(p.stdout.readline(), )
+        while (numberOfJobs >= params.n_jobs):
+            print("Max jobs >= n_jobs. Sleeping...")  # TODO: Remove this
+            time.sleep(30) # Keep polling for number of jobs, every 30 seconds, until a job space frees up
             p = Popen("expr $(qstat -u $USER | wc -l) - 2", stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
             with p.stdout:
                 numberOfJobs = int(p.stdout.readline(), )
-            time.sleep(30) # Keep polling for number of jobs, every 30 seconds, until a job space frees up
             pass
 
         p = Popen("qsub -cwd train_qsub_helper.sh " + params.singularitycommand + " python train_qsub_wrapper.py" +
