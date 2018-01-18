@@ -53,7 +53,7 @@ parser.add_argument("--seed", type=int, default=1234, help="seed")
 
 params, _ = parser.parse_known_args()
 
-p = Popen("python /home/mmenezes/Dev/COMPM091/InferSent/train.py" +
+p = Popen("python train.py" +
               " --outputdir " + params.outputdir +
               " --outputmodelname " + params.outputmodelname +
               " --infersentpath " + params.infersentpath +

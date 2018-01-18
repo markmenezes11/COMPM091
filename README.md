@@ -88,11 +88,7 @@ cd InferSent-sweep
 python sweep.py
 ```
 
-To change paths, GPU ID, etc., they can be given as arguments. See `python sweep.py -h` for more details.
- 
-There are also `sweep_qsub` scripts which use qsub for job submission on a cluster machine.
-
-# TODO: Elaborate on this^
+To change paths, GPU ID, etc., they can be given as arguments. See `python sweep.py -h` for more details. You can also set the mode using the `--mode` argument, to specify whether you want it to run on your local PC or on the HPC using qsub for job submissions. Again, you can find more details using `python sweep.py -h`. There is lots and lots of info in there...
 
 
 
