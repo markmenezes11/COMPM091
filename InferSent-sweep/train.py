@@ -358,5 +358,5 @@ evaluate(0, 'test', True)
 torch.save(nli_net.encoder,
            os.path.join(params.outputdir, params.outputmodelname + '.encoder'))
 
-print("Real time taken to train: %s seconds" % (timeit.default_timer() - start_time))
+print("\n\nReal time taken to train: %s seconds" % (timeit.default_timer() - start_time))
 print("All done.")

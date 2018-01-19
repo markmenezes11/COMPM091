@@ -94,15 +94,16 @@ params_senteval = dotdict({'usepytorch': True, 'task_path': PATH_TO_DATA, 'seed'
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
-if __name__ == "__main__":
-    # Model
-    params_senteval.infersent = torch.load(os.path.join(params.inputdir, params.inputmodelname + '.encoder'))
-    params_senteval.infersent.set_glove_path(params.wordvecpath)
+# Model
+params_senteval.infersent = torch.load(os.path.join(params.inputdir, params.inputmodelname + '.encoder'))
+params_senteval.infersent.set_glove_path(params.wordvecpath)
 
-    se = senteval.SentEval(params_senteval, batcher, prepare)
-    results_transfer = se.eval(transfer_tasks)
+se = senteval.SentEval(params_senteval, batcher, prepare)
+results_transfer = se.eval(transfer_tasks)
 
-    print(results_transfer)
+print("\n\nSENTEVAL RESULTS:")
+for task in transfer_tasks:
+    print("RESULTS FOR " + task + ": " + str(results_transfer[task]))
 
-print("Real time taken to evaluate: %s seconds" % (timeit.default_timer() - start_time))
+print("\n\nReal time taken to evaluate: %s seconds" % (timeit.default_timer() - start_time))
 print("All done.")
