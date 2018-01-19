@@ -70,7 +70,7 @@ wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"
 n_epochs     = [20] # TODO: Make it easier to change this parameter without having to scroll through the code
 
 # Batch size (int). Default: 64
-batch_size   = [64] # TODO: Make it easier to change this parameter without having to scroll through the code
+batch_size   = [32, 64, 128] # TODO: Make it easier to change this parameter without having to scroll through the code
 
 # Encoder dropout (float). Default: 0
 dpout_model  = [0] # TODO: Make it easier to change this parameter without having to scroll through the code
@@ -110,7 +110,7 @@ n_enc_layers = [1] # TODO: Make it easier to change this parameter without havin
 fc_dim       = [512] # TODO: Make it easier to change this parameter without having to scroll through the code
 
 # "max" or "mean". Default: "max"
-pool_type    = ["max"] # TODO: Make it easier to change this parameter without having to scroll through the code
+pool_type    = ["max", "mean"] # TODO: Make it easier to change this parameter without having to scroll through the code
 
 # Random seed (int). Default: 1234
 seed         = [1234] # TODO: Make it easier to change this parameter without having to scroll through the code
