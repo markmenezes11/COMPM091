@@ -136,27 +136,30 @@ for iteration in iterations:
 
     print("\n\n\nPreparing output directory...\n")
 
+    def replace_illegal_chars(str):
+        return str.replace('/', '-').replace(':', '-').replace(',','-').replace(' ','-')
+
     # Get the output directory based on current params in this iteration
     slash = "" if params.outputdir[-1] == "/" else "/"
     singularityslash = "" if params.singularityoutputdir[-1] == "/" else "/"
-    sweepdir = ("nlipath___" + iteration[0].replace('/', '_').replace(':', '_') + "/" +
-                "wordvecpath___" + iteration[1].replace('/', '_').replace(':', '_') + "/" +
-                "n_epochs___" + str(iteration[2]) + "/" +
-                "batch_size___" + str(iteration[3]) + "/" +
-                "dpout_model___" + str(iteration[4]) + "/" +
-                "dpout_fc___" + str(iteration[5]) + "/" +
-                "nonlinear_fc___" + str(iteration[6]) + "/" +
-                "optimizer___" + iteration[7].replace('/', '_').replace(':', '_').replace(',','_') + "/" +
-                "lrshrink___" + str(iteration[8]) + "/" +
-                "decay___" + str(iteration[9]) + "/" +
-                "minlr___" + str(iteration[10]) + "/" +
-                "max_norm___" + str(iteration[11]) + "/" +
-                "encoder_type___" + iteration[12].replace('/', '_').replace(':', '_') + "/" +
-                "enc_lstm_dim___" + str(iteration[13]) + "/" +
-                "n_enc_layers___" + str(iteration[14]) + "/" +
-                "fc_dim___" + str(iteration[15]) + "/" +
-                "pool_type___" + iteration[16].replace('/', '_').replace(':', '_') + "/" +
-                "seed___" + str(iteration[17]) + "/")
+    sweepdir = ("nlipath__" + replace_illegal_chars(iteration[0]) + "/" +
+                "wordvecpath__" + replace_illegal_chars(iteration[1]) + "/" +
+                "n_epochs__" + replace_illegal_chars(str(iteration[2])) + "/" +
+                "batch_size__" + replace_illegal_chars(str(iteration[3])) + "/" +
+                "dpout_model__" + replace_illegal_chars(str(iteration[4])) + "/" +
+                "dpout_fc__" + replace_illegal_chars(str(iteration[5])) + "/" +
+                "nonlinear_fc__" + replace_illegal_chars(str(iteration[6])) + "/" +
+                "optimizer__" + replace_illegal_chars(iteration[7]) + "/" +
+                "lrshrink__" + replace_illegal_chars(str(iteration[8])) + "/" +
+                "decay__" + replace_illegal_chars(str(iteration[9])) + "/" +
+                "minlr__" + replace_illegal_chars(str(iteration[10])) + "/" +
+                "max_norm__" + replace_illegal_chars(str(iteration[11])) + "/" +
+                "encoder_type__" + replace_illegal_chars(iteration[12]) + "/" +
+                "enc_lstm_dim__" + replace_illegal_chars(str(iteration[13])) + "/" +
+                "n_enc_layers__" + replace_illegal_chars(str(iteration[14])) + "/" +
+                "fc_dim__" + replace_illegal_chars(str(iteration[15])) + "/" +
+                "pool_type__" + replace_illegal_chars(iteration[16]) + "/" +
+                "seed__" + replace_illegal_chars(str(iteration[17])) + "/")
     outputdir = params.outputdir + slash + sweepdir
     singularityoutputdir = params.singularityoutputdir + singularityslash + sweepdir
 
