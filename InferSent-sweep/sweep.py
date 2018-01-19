@@ -146,7 +146,7 @@ for iteration in iterations:
                 "dpout_model___" + str(iteration[4]) + "/" +
                 "dpout_fc___" + str(iteration[5]) + "/" +
                 "nonlinear_fc___" + str(iteration[6]) + "/" +
-                "optimizer___" + iteration[7].replace('/', '_').replace(':', '_') + "/" +
+                "optimizer___" + iteration[7].replace('/', '_').replace(':', '_').replace(',','_') + "/" +
                 "lrshrink___" + str(iteration[8]) + "/" +
                 "decay___" + str(iteration[9]) + "/" +
                 "minlr___" + str(iteration[10]) + "/" +
@@ -195,9 +195,9 @@ for iteration in iterations:
 
     if params.mode == 0: # Full sweep (train + eval) on local machine
         p = Popen("python train.py" +
+                  " --gpu_id " + str(params.gpu_id) +
                   " --outputdir " + outputdir +
                   " --infersentpath " + params.infersentpath +
-                  " --gpu_id " + str(params.gpu_id) +
                   " --nlipath " + iteration[0] +
                   " --wordvecpath " + iteration[1] +
                   " --n_epochs " + str(iteration[2]) +
@@ -249,7 +249,7 @@ for iteration in iterations:
                 numberOfJobs = int(p.stdout.readline(), )
             pass
 
-        p = Popen("qsub -cwd train_qsub_helper.sh " + params.singularitycommand + " python train_qsub_wrapper.py" +
+        p = Popen("qsub -cwd -o " + outputdir + "train_output.txt -e " + outputdir + "train_error.txt train_qsub_helper.sh " + params.singularitycommand + " python train.py" +
                   " --outputdir " + singularityoutputdir +
                   " --infersentpath " + params.infersentpath +
                   " --nlipath " + iteration[0] +
@@ -281,3 +281,4 @@ for iteration in iterations:
         # TODO: Parse output and append it to a CSV?
     else:
         print("ERROR: Unknown mode. Set --mode argument correctly.")
+
