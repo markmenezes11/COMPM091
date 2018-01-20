@@ -25,7 +25,7 @@ Parameters to sweep. If you are using Singularity, all paths must be the ones th
 
 # NLI data path (e.g. "[path]/AllNLI", "[path]/SNLI" or "[path]/MultiNLI") - should have 3 classes
 # (entailment/neutral/contradiction). Default: "AllNLI"
-nlipath      = ["/mnt/mmenezes/InferSent-datasets/SmallNLI"] # TODO: Change this from SmallNLI after testing it
+nlipath      = ["/mnt/mmenezes/InferSent-datasets/AllNLI"]
 
 # Path to word vectors txt file (e.g. "[path]/glove.840B.300d.txt"). Default: "glove.840B.300d.txt"
 wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"]
@@ -34,7 +34,7 @@ wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"
 n_epochs     = [20]
 
 # Batch size (int). Default: 64
-batch_size   = [32, 64, 128]
+batch_size   = [64]
 
 # Encoder dropout (float). Default: 0
 dpout_model  = [0]
@@ -52,13 +52,13 @@ optimizer    = ["sgd,lr=0.1", "adam"]
 lrshrink     = [5]
 
 # LR decay (float). Default: 0.99
-decay        = [0.99]
+decay        = [0.9, 0.99]
 
 # Minimum LR (float). Default: 1e-5
 minlr        = [1e-5]
 
 # Max norm (grad clipping) (float). Default: 5
-max_norm     = [5]
+max_norm     = [3, 5, 7]
 
 # "BLSTMEncoder", "BLSTMprojEncoder", "BGRUlastEncoder", "InnerAttentionMILAEncoder", "InnerAttentionYANGEncoder",
 # "InnerAttentionNAACLEncoder", "ConvNetEncoder" or "LSTMEncoder". Default: "BLSTMEncoder"
@@ -68,7 +68,7 @@ encoder_type = ["BLSTMEncoder"]
 enc_lstm_dim = [2048]
 
 # Encoder num layers (int). Default: 1
-n_enc_layers = [1]
+n_enc_layers = [1, 2]
 
 # NHID of FC layers (int). Default: 512
 fc_dim       = [512]
