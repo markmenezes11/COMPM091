@@ -239,7 +239,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
             if not os.path.exists(outputdir):
                 print("\n\n\nERROR: Could not retry. Output directory does not exist: " + outputdir)
 
-            if not os.path.exists(outputdir + "model.pickle"):
+            if not os.path.exists(outputdir + "model.pickle") or not os.path.exists(outputdir + "model.pickle.encoder"):
                 print("\n\n\nPARAMETERS: " + iterationParams + "\n")
                 print("\nOUTPUT DIRECTORY: " + outputdir + "\n")
                 retried += 1
