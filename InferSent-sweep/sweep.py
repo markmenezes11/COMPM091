@@ -139,7 +139,7 @@ def get_parameter_strings(iteration):
 
 def prepare_directory(outputdir, iterationParams):
     os.makedirs(outputdir)
-    print("\n\n\nPARAMETERS: " + iterationParams + "...\n")
+    print("\nPARAMETERS: " + iterationParams + "\n")
     with open(outputdir + "info.txt", "a") as outputfile:
         outputfile.write("\n\n\nPARAMETERS: " + iterationParams + "\n")
 
@@ -180,12 +180,12 @@ for iteration in iterationsToCount:
 if params.mode == 0: # Full sweep (train + eval) on local machine
     for iteration in iterations:
         iterationNumber += 1
-        print("\n\n\n\n\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
+        print("\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
         outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
         # If the directory already exists, this iteration has already been run before
         if os.path.exists(outputdir):
-            print("Path already exists with these parameters. Skipping this iteration...")
+            print("\nPath already exists with these parameters. Skipping this iteration...")
             continue
         prepare_directory(outputdir, iterationParams)
 
@@ -206,12 +206,12 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
 elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions on HPC cluster
     for iteration in iterations:
         iterationNumber += 1
-        print("\n\n\n\n\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
+        print("\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
         outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
         # If the directory already exists, this iteration has already been run before
         if os.path.exists(outputdir):
-            print("Path already exists with these parameters. Skipping this iteration...")
+            print("\nPath already exists with these parameters. Skipping this iteration...")
             continue
         prepare_directory(outputdir, iterationParams)
 
@@ -226,10 +226,9 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                        outputdir + "info.txt")
                        # The --gpu_id argument is set in train_qsub_helper.sh automatically
 
-    print("All jobs submitted. Will now wait for them to complete, before retrying any failed jobs...")
+    print("\n\n\n####### All jobs submitted. Will now wait for them to complete, before retrying any failed jobs...")
 
     def retry_failed_train_jobs(current_retry):
-        print("Searching for and retrying failed jobs...")
         iterations = get_iterations()
         retried = 0
 
@@ -237,7 +236,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
             outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
             if not os.path.exists(outputdir):
-                print("ERROR: Could not retry. Output directory does not exist: " + outputdir)
+                print("\n\n\nERROR: Could not retry. Output directory does not exist: " + outputdir)
 
             if not os.path.exists(outputdir + "model.pickle"):
                 print("\n\n\nPARAMETERS: " + iterationParams + "...\n")
@@ -262,33 +261,24 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         if current_retry > max_retries:
             break
         wait_for_jobs(1, False)
-        print("Retry " + str(current_retry) + " of " + str(max_retries) + "...")
+        print("\n\n\n####### Retry " + str(current_retry) + " of " + str(max_retries) + "...")
         retried = retry_failed_train_jobs(current_retry)
 
 elif params.mode == 2: # Eval sweep (eval ONLY)
-    print("ERROR: Not implemented.") # TODO: Implement this (see code below) - local machine or qsub?
+    print("ERROR: Not implemented.") # TODO: Implement this (see old code below) - local machine or qsub?
     """
     NOTE: Wordvecpath is important here. It should be the same one used for training
     """
-    # TODO: Output dir and singularityoutputdir if needed
-    """for each outputdir with specific wordvecpath:  # TODO: From outputdir, iterate through each folder, MAKING SURE WORD2VECPATH IS THE SAME, AND ONLY COVERING WORD2VECPATHS GIVEN ABOVE
-        print("\n\n\nPreparing output directory...\n")
-
+    """for each outputdir with specific wordvecpath:
+        # TODO: From outputdir, iterate through each folder, MAKING SURE WORDVECPATH IS THE SAME
         # Get the output directory based on current params in this iteration
-        slash = "" if params.outputdir[-1] == "/" else "/"
 
-        p = Popen("python eval.py" +
-                  " --inputdir " + outputdir +
-                  " --infersentpath " + params.infersentpath +
-                  " --sentevalpath " + params.sentevalpath +
-                  " --gpu_id " + str(params.gpu_id) +
-                  " --wordvecpath " + _wordvecpath, stdout=PIPE, stderr=STDOUT, bufsize=1, shell=True)
-
-        with p.stdout, open(outputdir + "eval_output.txt", 'ab') as file:
-            for line in iter(p.stdout.readline, b''):
-                print line,  # Comma to prevent duplicate newlines
-                file.write(line)
-        p.wait()"""
+        "python eval.py" +
+         " --inputdir " + outputdir +
+         " --infersentpath " + params.infersentpath +
+         " --sentevalpath " + params.sentevalpath +
+         " --gpu_id " + str(params.gpu_id) +
+         " --wordvecpath ")"""
     sys.exit()
 
 else:
