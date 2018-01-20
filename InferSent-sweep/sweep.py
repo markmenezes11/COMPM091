@@ -140,6 +140,7 @@ def get_parameter_strings(iteration):
 def prepare_directory(outputdir, iterationParams):
     os.makedirs(outputdir)
     print("\nPARAMETERS: " + iterationParams + "\n")
+    print("\nOUTPUT DIRECTORY: " + outputdir + "\n")
     with open(outputdir + "info.txt", "a") as outputfile:
         outputfile.write("\n\n\nPARAMETERS: " + iterationParams + "\n")
 
@@ -239,7 +240,8 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                 print("\n\n\nERROR: Could not retry. Output directory does not exist: " + outputdir)
 
             if not os.path.exists(outputdir + "model.pickle"):
-                print("\n\n\nPARAMETERS: " + iterationParams + "...\n")
+                print("\n\n\nPARAMETERS: " + iterationParams + "\n")
+                print("\nOUTPUT DIRECTORY: " + outputdir + "\n")
                 retried += 1
                 wait_for_jobs(params.n_jobs, True)
                 run_subprocess("qsub -cwd -o " + outputdir + "train_output" + str(current_retry) + ".txt" +
