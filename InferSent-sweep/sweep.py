@@ -234,7 +234,6 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         retried = 0
 
         for iteration in iterations:
-            print("\n\n\nPreparing output directory...\n")
             outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
             if not os.path.exists(outputdir):
@@ -244,8 +243,8 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                 print("\n\n\nPARAMETERS: " + iterationParams + "...\n")
                 retried += 1
                 wait_for_jobs(params.n_jobs, True)
-                run_subprocess("qsub -cwd -o " + outputdir + "train_output.txt" + str(current_retry) +
-                               " -e " + outputdir + "train_error.txt" + str(current_retry) +
+                run_subprocess("qsub -cwd -o " + outputdir + "train_output" + str(current_retry) + ".txt" +
+                               " -e " + outputdir + "train_error" + str(current_retry) + ".txt" +
                                " train_qsub_helper.sh " +
                                params.singularitycommand + " python train.py" +
                                " --outputdir " + singularityoutputdir +
@@ -260,10 +259,10 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
     current_retry = 0
     while (retried > 0):
         current_retry += 1
-        print("Retry " + str(current_retry) + " of " + str(max_retries) + "...")
         if current_retry > max_retries:
             break
         wait_for_jobs(1, False)
+        print("Retry " + str(current_retry) + " of " + str(max_retries) + "...")
         retried = retry_failed_train_jobs(current_retry)
 
 elif params.mode == 2: # Eval sweep (eval ONLY)
