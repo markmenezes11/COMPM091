@@ -15,5 +15,10 @@ from: nvidia/cuda:8.0-cudnn6-runtime-ubuntu16.04
     pip install torchvision nltk numpy scipy scikit-learn keras==2.1.3
     pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.4.1-cp27-none-linux_x86_64.whl
 
+    pip3 install --upgrade pip
+    pip3 install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl
+    pip3 install torchvision nltk numpy scipy scikit-learn keras==2.1.3
+    pip3 install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.4.1-cp36-cp36m-linux_x86_64.whl
+
 %test
     python -c 'import torch'
