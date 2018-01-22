@@ -12,7 +12,7 @@ from: nvidia/cuda:8.0-cudnn6-runtime-ubuntu16.04
     
     pip install --upgrade pip
     pip install http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl
-    pip install torchvision nltk numpy scipy scikit-learn
+    pip install torchvision nltk numpy scipy scikit-learn keras==2.1.3 tensorflow-gpu==1.4.1
 
 %test
     python -c 'import torch'
