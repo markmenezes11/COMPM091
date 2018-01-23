@@ -22,7 +22,7 @@ y = Multiply()([y,y_rev_mask_fix])
 
 keras_model = Model(inputs=x,outputs=y)
 
-# Load the Python3 port of the model
+# Load the Python3 port of the model - MAKE SURE THIS FILE EXISTS BEFORE RUNNING THE SCRIPT - GET IT FROM https://github.com/rgsachin/CoVe
 keras_model.load_weights('Keras_CoVe.h5')
 
 # Save a new Python2 port of the model
