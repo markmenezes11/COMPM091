@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
     outputslash = "" if params.outputdir[-1] == "/" else "/"
     outputtask = "_" + params.transfertask if single_task else ""
-    with open(params.outputdir + outputslash + "se_results" + params.transfertask + ".txt", "w") as outputfile:
+    with open(params.outputdir + outputslash + "se_results" + outputtask + ".txt", "w") as outputfile:
         outputfile.write(str(results))
 
     print("\n\nReal time taken to evaluate: %s seconds" % (timeit.default_timer() - start_time))
