@@ -85,8 +85,11 @@ if __name__ == "__main__":
     results = se.eval(transfer_tasks)
 
     print("\n\nSENTEVAL RESULTS:")
-    for task in transfer_tasks:
-        print("\nRESULTS FOR " + task + ":\n" + str(results[task]))
+    if single_task:
+        print("\nRESULTS FOR " + params.transfertask + ":\n" + str(results))
+    else:
+        for task in transfer_tasks:
+            print("\nRESULTS FOR " + task + ":\n" + str(results[task]))
 
     outputslash = "" if params.outputdir[-1] == "/" else "/"
     outputtask = "_" + params.transfertask if single_task else ""
