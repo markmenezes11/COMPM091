@@ -16,62 +16,56 @@ import sys
 import os
 import torch
 import logging
+import argparse
 
-"""dotdict from InferSent / SentEval"""
-class dotdict(dict):
-    """ dot.notation access to dictionary attributes """
-    __getattr__ = dict.get
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
+parser = argparse.ArgumentParser(description='SentEval Evaluation of Sentence Representations')
+parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run. Leave blank to run all of them")
+parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval/", help="Path to SentEval repository")
+parser.add_argument("--inputdir", type=str, default='/mnt/mmenezes/libs/InferSent/encoder/', help="Input directory where the model/encoder will be loaded from")
+parser.add_argument("--inputmodelname", type=str, default='infersent.allnli.pickle')
+parser.add_argument("--wordvecpath", type=str, default="/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt", help="Path to word vectors txt file (e.g. GloVe)")
+parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
+params, _ = parser.parse_known_args()
 
 # Set PATHs
-GLOVE_PATH = '/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt'
-PATH_SENTEVAL = '/mnt/mmenezes/libs/SentEval/'
-PATH_TO_DATA = '/mnt/mmenezes/libs/SentEval/data/senteval_data/'
-MODEL_PATH = '/mnt/mmenezes/libs/InferSent/encoder/infersent.allnli.pickle'
+MODEL_PATH = ''
 
-assert os.path.isfile(MODEL_PATH) and os.path.isfile(GLOVE_PATH), \
-    'Set MODEL and GloVe PATHs'
-
-# import senteval
-sys.path.insert(0, PATH_SENTEVAL)
+# Import senteval
+sys.path.insert(0, params.sentevalpath)
 import senteval
 
+# Set data path
+slash = "" if params.sentevalpath[-1] == '/' else "/"
+PATH_TO_DATA = params.sentevalpath + slash + 'data/senteval_data'
 
 def prepare(params, samples):
-    params.infersent.build_vocab([' '.join(s) for s in samples],
-                                 tokenize=False)
-
+    params.infersent.build_vocab([' '.join(s) for s in samples], tokenize=False)
 
 def batcher(params, batch):
-    # batch contains list of words
     sentences = [' '.join(s) for s in batch]
-    embeddings = params.infersent.encode(sentences, bsize=params.batch_size,
-                                         tokenize=False)
+    embeddings = params.infersent.encode(sentences, bsize=params.batch_size, tokenize=False)
     return embeddings
-
 
 """
 Evaluation of trained model on Transfer Tasks (SentEval)
 """
 
-# Define transfer tasks
-#transfer_tasks = ['MR', 'CR', 'SUBJ', 'MPQA', 'SST', 'TREC', 'SICKRelatedness', 'SICKEntailment', 'MRPC', 'STS14']
-transfer_tasks = ['CR', 'MR', 'MPQA', 'SUBJ', 'SST', 'TREC', 'MRPC', 'SNLI', 'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval', 'STS12', 'STS13', 'STS14', 'STS15', 'STS16']
-
-# define senteval params
-params_senteval = dotdict({'usepytorch': True, 'task_path': PATH_TO_DATA,
-                           'seed': 1111, 'kfold': 5})
+# Define senteval params
+params_senteval = {'task_path': PATH_TO_DATA, 'usepytorch': True, 'kfold': 10, 'seed': 1111}
+params_senteval['classifier'] = {'nhid': 0, 'optim': 'adam', 'batch_size': 64,
+                                 'tenacity': 5, 'epoch_size': 4}
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
-    # Load model
-    params_senteval.infersent = torch.load(MODEL_PATH, map_location={'cuda:1' : 'cuda:0', 'cuda:2' : 'cuda:0'})
-    params_senteval.infersent.set_glove_path(GLOVE_PATH)
+    # Load InferSent model
+    params_senteval['infersent'] = torch.load(params.inputdir, params.inputmodelname, map_location={'cuda:1' : 'cuda:0', 'cuda:2' : 'cuda:0'})
+    params_senteval['infersent'].set_glove_path(params.wordvecpath)
 
-    se = senteval.SentEval(params_senteval, batcher, prepare)
-    results_transfer = se.eval(transfer_tasks)
-
-    print(results_transfer)
+    se = senteval.engine.SE(params_senteval, batcher, prepare)
+    transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16',
+                      'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
+                      'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval']
+    results = se.eval(transfer_tasks)
+    print(results)
