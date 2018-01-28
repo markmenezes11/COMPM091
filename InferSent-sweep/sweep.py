@@ -203,7 +203,7 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
                           'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
                           'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval']
         transfertask_argstring = params.transfertask if params.transfertask != "" and params.transfertask in transfer_tasks else ""
-        run_subprocess("python ../SentEval-evals/InferSent/infersent.py" +
+        run_subprocess("python ../SentEval-evals/InferSent/eval.py" +
                        " --inputdir " + outputdir +
                        " --outputdir " + outputdir +
                        " --sentevalpath " + params.sentevalpath +
@@ -278,7 +278,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         retried = retry_failed_train_jobs(current_retry)
 
 elif params.mode == 2: # Eval sweep (eval ONLY)
-    print("ERROR: Not implemented.") # TODO: Implement this (see eval code in mode 0 above) - local machine or qsub? - use ../SentEval-evals/InferSent/infersent.py (see above)
+    print("ERROR: Not implemented.") # TODO: Implement this (see eval code in mode 0 above) - local machine or qsub? - use ../SentEval-evals/InferSent/eval.py (see above)
     """
     NOTE: Wordvecpath is important here. It should be the same one used for training
     """
