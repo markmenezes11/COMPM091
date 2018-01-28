@@ -72,9 +72,13 @@ if __name__ == "__main__":
     params_senteval['infersent'].set_glove_path(params.wordvecpath)
 
     se = senteval.engine.SE(params_senteval, batcher, prepare)
+
     transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16',
                       'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
                       'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval']
+    if params.transfertask != "" and params.transfertask in transfer_tasks:
+        transfer_tasks = params.transfertask
+
     results = se.eval(transfer_tasks)
 
     print("\n\nSENTEVAL RESULTS:")
