@@ -9,7 +9,7 @@ Arguments
 """
 
 parser = argparse.ArgumentParser(description='InferSent Parameter Sweep')
-parser.add_argument("--mode", type=int, default=0, help="0 to run full sweep (train + eval) on local machine. 1 to run train sweep (train ONLY) using qsub for job submissions on HPC cluster. 2 to run eval sweep (eval ONLY)")
+parser.add_argument("--mode", type=int, default=0, help="0 to run full sweep (train + eval) on local machine. 1 to run train sweep (train ONLY) using qsub for job submissions on HPC cluster. 2 to run eval sweep (eval ONLY)") # TODO: Define mode 2 whether it is qsub or local
 parser.add_argument("--n_jobs", type=int, default=10, help="Maximum number of qsub jobs to be running simultaneously")
 parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
@@ -17,6 +17,7 @@ parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. GPU is requir
 parser.add_argument("--outputdir", type=str, default='/cluster/project2/ishi_storage_1/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved). MAKE SURE IT MAPS TO THE SAME PLACE AS SINGULARITYOUTPUTDIR")
 parser.add_argument("--singularitycommand", type=str, default='singularity exec --nv --bind /cluster/project2/ishi_storage_1:/mnt /cluster/project2/ishi_storage_1/mmenezes/markmenezes11-COMPM091-master.simg', help="If you are not using Singularity, make this argument blank. If you are using Singularity, it should be something along the lines of 'singularity exec --nv <extra-params> <path-to-simg-file>', e.g. 'singularity exec --nv --bind /cluster/project2/ishi_storage_1:/mnt /cluster/project2/ishi_storage_1/mmenezes/markmenezes11-COMPM091-master.simg'")
 parser.add_argument("--singularityoutputdir", type=str, default='/mnt/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved), that Singularity can see (in case you use binding). If you are not using Singularity, make this the same as outputdir. MAKE SURE IT MAPS TO THE SAME PLACE AS OUTPUTDIR")
+parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run if using mode 0. Leave blank to run all of them")
 params, _ = parser.parse_known_args()
 
 """
@@ -194,14 +195,17 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
                        " --gpu_id " + str(params.gpu_id) +
                        " --outputdir " + outputdir +
                        " --infersentpath " + params.infersentpath +
+                       " --outputmodelname " + "model.pickle" +
                        iterationParams,
                        outputdir + "train_output.txt")
-        run_subprocess("python eval.py" +
+        run_subprocess("python ../SentEval-evals/InferSent/infersent.py" +
                        " --inputdir " + outputdir +
-                       " --infersentpath " + params.infersentpath +
+                       " --outputdir " + outputdir +
                        " --sentevalpath " + params.sentevalpath +
                        " --gpu_id " + str(params.gpu_id) +
                        " --wordvecpath " + iteration[1],
+                       " --inputmodelname " + "model.pickle.encoder" +
+                       " --transfertask " + params.transfertask +
                        outputdir + "eval_output.txt")
 
 elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions on HPC cluster
@@ -223,6 +227,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                        params.singularitycommand + " python train.py" +
                        " --outputdir " + singularityoutputdir +
                        " --infersentpath " + params.infersentpath +
+                       " --outputmodelname " + "model.pickle" +
                        iterationParams,
                        outputdir + "info.txt")
                        # The --gpu_id argument is set in train_qsub_helper.sh automatically
@@ -250,6 +255,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                                params.singularitycommand + " python train.py" +
                                " --outputdir " + singularityoutputdir +
                                " --infersentpath " + params.infersentpath +
+                               " --outputmodelname " + "model.pickle" +
                                iterationParams,
                                outputdir + "info.txt")
                 # The --gpu_id argument is set in train_qsub_helper.sh automatically
@@ -267,20 +273,13 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         retried = retry_failed_train_jobs(current_retry)
 
 elif params.mode == 2: # Eval sweep (eval ONLY)
-    print("ERROR: Not implemented.") # TODO: Implement this (see old code below) - local machine or qsub?
+    print("ERROR: Not implemented.") # TODO: Implement this (see eval code in mode 0 above) - local machine or qsub? - use ../SentEval-evals/InferSent/infersent.py (see above)
     """
     NOTE: Wordvecpath is important here. It should be the same one used for training
     """
     """for each outputdir with specific wordvecpath:
         # TODO: From outputdir, iterate through each folder, MAKING SURE WORDVECPATH IS THE SAME
-        # Get the output directory based on current params in this iteration
-
-        "python eval.py" +
-         " --inputdir " + outputdir +
-         " --infersentpath " + params.infersentpath +
-         " --sentevalpath " + params.sentevalpath +
-         " --gpu_id " + str(params.gpu_id) +
-         " --wordvecpath ")"""
+        # Get the output directory based on current params in this iteration"""
     sys.exit()
 
 else:

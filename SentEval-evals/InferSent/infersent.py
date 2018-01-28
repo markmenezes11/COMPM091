@@ -21,7 +21,7 @@ import timeit
 
 start_time = timeit.default_timer()
 
-parser = argparse.ArgumentParser(description='SentEval Evaluation of Sentence Representations')
+parser = argparse.ArgumentParser(description='SentEval Evaluation of InferSent Sentence Representations')
 parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run. Leave blank to run all of them")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval/", help="Path to SentEval repository")
 parser.add_argument("--inputdir", type=str, default='/mnt/mmenezes/libs/InferSent/encoder/', help="Input directory where the model/encoder will be loaded from")
@@ -30,9 +30,6 @@ parser.add_argument("--inputmodelname", type=str, default='infersent.allnli.pick
 parser.add_argument("--wordvecpath", type=str, default="/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt", help="Path to word vectors txt file (e.g. GloVe)")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
 params, _ = parser.parse_known_args()
-
-# Set PATHs
-MODEL_PATH = ''
 
 # Import senteval
 sys.path.insert(0, params.sentevalpath)
