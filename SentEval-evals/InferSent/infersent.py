@@ -25,6 +25,7 @@ parser = argparse.ArgumentParser(description='SentEval Evaluation of Sentence Re
 parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run. Leave blank to run all of them")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval/", help="Path to SentEval repository")
 parser.add_argument("--inputdir", type=str, default='/mnt/mmenezes/libs/InferSent/encoder/', help="Input directory where the model/encoder will be loaded from")
+parser.add_argument("--outputdir", type=str, default='.', help="Output directory to save results")
 parser.add_argument("--inputmodelname", type=str, default='infersent.allnli.pickle')
 parser.add_argument("--wordvecpath", type=str, default="/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt", help="Path to word vectors txt file (e.g. GloVe)")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
@@ -73,10 +74,12 @@ if __name__ == "__main__":
 
     se = senteval.engine.SE(params_senteval, batcher, prepare)
 
+    single_task = False
     transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16',
                       'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
                       'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval']
     if params.transfertask != "" and params.transfertask in transfer_tasks:
+        single_task = True
         transfer_tasks = params.transfertask
 
     results = se.eval(transfer_tasks)
@@ -84,6 +87,11 @@ if __name__ == "__main__":
     print("\n\nSENTEVAL RESULTS:")
     for task in transfer_tasks:
         print("\nRESULTS FOR " + task + ":\n" + str(results[task]))
+
+    outputslash = "" if params.outputdir[-1] == "/" else "/"
+    outputtask = "_" + params.transfertask if single_task else ""
+    with open(params.outputdir + outputslash + "se_results" + params.transfertask + ".txt", "w") as outputfile:
+        outputfile.write(str(results))
 
     print("\n\nReal time taken to evaluate: %s seconds" % (timeit.default_timer() - start_time))
     print("All done.")
