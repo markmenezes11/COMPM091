@@ -17,6 +17,9 @@ import os
 import torch
 import logging
 import argparse
+import timeit
+
+start_time = timeit.default_timer()
 
 parser = argparse.ArgumentParser(description='SentEval Evaluation of Sentence Representations')
 parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run. Leave blank to run all of them")
@@ -37,6 +40,11 @@ import senteval
 # Set data path
 slash = "" if params.sentevalpath[-1] == '/' else "/"
 PATH_TO_DATA = params.sentevalpath + slash + 'data/senteval_data'
+
+# Set gpu device
+cpu = params.gpu_id == -1
+if not cpu:
+    torch.cuda.set_device(params.gpu_id)
 
 def prepare(params, samples):
     params.infersent.build_vocab([' '.join(s) for s in samples], tokenize=False)
@@ -60,7 +68,7 @@ logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
 
 if __name__ == "__main__":
     # Load InferSent model
-    params_senteval['infersent'] = torch.load(params.inputdir, params.inputmodelname, map_location={'cuda:1' : 'cuda:0', 'cuda:2' : 'cuda:0'})
+    params_senteval['infersent'] = torch.load(os.path.join(params.inputdir, params.inputmodelname))
     params_senteval['infersent'].set_glove_path(params.wordvecpath)
 
     se = senteval.engine.SE(params_senteval, batcher, prepare)
@@ -68,4 +76,10 @@ if __name__ == "__main__":
                       'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
                       'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval']
     results = se.eval(transfer_tasks)
-    print(results)
+
+    print("\n\nSENTEVAL RESULTS:")
+    for task in transfer_tasks:
+        print("\nRESULTS FOR " + task + ":\n" + str(results[task]))
+
+    print("\n\nReal time taken to evaluate: %s seconds" % (timeit.default_timer() - start_time))
+    print("All done.")
