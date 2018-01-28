@@ -26,7 +26,7 @@ Parameters to sweep. If you are using Singularity, all paths must be the ones th
 
 # NLI data path (e.g. "[path]/AllNLI", "[path]/SNLI" or "[path]/MultiNLI") - should have 3 classes
 # (entailment/neutral/contradiction). Default: "AllNLI"
-nlipath      = ["/mnt/mmenezes/InferSent-datasets/AllNLI"]
+nlipath      = ["/mnt/mmenezes/InferSent-datasets/SmallNLI"]
 
 # Path to word vectors txt file (e.g. "[path]/glove.840B.300d.txt"). Default: "glove.840B.300d.txt"
 wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"]
@@ -198,14 +198,19 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
                        " --outputmodelname " + "model.pickle" +
                        iterationParams,
                        outputdir + "train_output.txt")
+
+        transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16',
+                          'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
+                          'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval']
+        transfertask_argstring = params.transfertask if params.transfertask != "" and params.transfertask in transfer_tasks else ""
         run_subprocess("python ../SentEval-evals/InferSent/infersent.py" +
                        " --inputdir " + outputdir +
                        " --outputdir " + outputdir +
                        " --sentevalpath " + params.sentevalpath +
                        " --gpu_id " + str(params.gpu_id) +
-                       " --wordvecpath " + iteration[1],
+                       " --wordvecpath " + iteration[1] +
                        " --inputmodelname " + "model.pickle.encoder" +
-                       " --transfertask " + params.transfertask +
+                       transfertask_argstring,
                        outputdir + "eval_output.txt")
 
 elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions on HPC cluster
