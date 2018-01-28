@@ -1,0 +1,29 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-01-28 17:52:26,275 : ***** Transfer task : MRPC *****
+
+
+2018-01-28 17:52:29,913 : Computing embedding for test
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Found 18511(/19598) words with glove vectors
+Vocab size : 18511
+2018-01-28 17:52:32,925 : Computed test embeddings
+2018-01-28 17:52:32,925 : Computing embedding for train
+2018-01-28 17:52:38,837 : Computed train embeddings
+2018-01-28 17:52:39,052 : Training pytorch-MLP-nhid0-adam-bs64 with 5-fold cross-validation
+2018-01-28 17:54:12,822 : [(u'reg:1e-05', 76.1), (u'reg:0.0001', 76.1), (u'reg:0.001', 76.08), (u'reg:0.01', 76.08)]
+2018-01-28 17:54:12,823 : Cross-validation : best param found is reg = 1e-05             with score 76.1
+2018-01-28 17:54:12,823 : Evaluating...
+2018-01-28 17:54:17,516 : Dev acc : 76.1 Test acc 76.52; Test F1 83.45 for MRPC.
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR MRPC:
+{u'acc': 76.52, u'f1': 83.45, u'ntest': 1725, u'devacc': 76.1, u'ndev': 4076}
+
+
+Real time taken to evaluate: 113.330723047 seconds
+All done.

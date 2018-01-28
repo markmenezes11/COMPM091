@@ -1,0 +1,28 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-01-28 16:09:59,905 : ***** Transfer task : STS14 *****
+
+
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Found 8596(/9118) words with glove vectors
+Vocab size : 8596
+2018-01-28 16:10:03,799 : deft-forum : pearson = 0.4747, spearman = 0.4610
+2018-01-28 16:10:04,300 : deft-news : pearson = 0.7292, spearman = 0.6976
+2018-01-28 16:10:04,925 : headlines : pearson = 0.6363, spearman = 0.5866
+2018-01-28 16:10:05,638 : images : pearson = 0.8088, spearman = 0.7731
+2018-01-28 16:10:06,324 : OnWN : pearson = 0.7731, spearman = 0.7913
+2018-01-28 16:10:07,127 : tweet-news : pearson = 0.7522, spearman = 0.6912
+2018-01-28 16:10:07,127 : ALL (weighted average) : Pearson = 0.7094,             Spearman = 0.6796
+2018-01-28 16:10:07,127 : ALL (average) : Pearson = 0.6957,             Spearman = 0.6668
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS14:
+{u'deft-news': {u'spearman': SpearmanrResult(correlation=0.697597192268105, pvalue=4.6989246736690255e-45), u'pearson': (0.7292382025234802, 4.968462712876814e-51), u'nsamples': 300}, u'all': {u'spearman': {u'wmean': 0.6795754594156794, u'mean': 0.6668037184095361}, u'pearson': {u'wmean': 0.7093972994113483, u'mean': 0.6957333774910479}}, u'deft-forum': {u'spearman': SpearmanrResult(correlation=0.46096674504489427, pvalue=4.679528828869956e-25), u'pearson': (0.47467711593864437, 1.1481892378347062e-26), u'nsamples': 450}, u'OnWN': {u'spearman': SpearmanrResult(correlation=0.7913117547699297, pvalue=5.551603836225311e-162), u'pearson': (0.7730972971853627, 4.855541240363772e-150), u'nsamples': 750}, u'tweet-news': {u'spearman': SpearmanrResult(correlation=0.6912471814540685, pvalue=1.2260790093284068e-107), u'pearson': (0.7522078873272046, 1.1962058645245e-137), u'nsamples': 750}, u'images': {u'spearman': SpearmanrResult(correlation=0.7731491914786526, pvalue=4.5061961750107715e-150), u'pearson': (0.8088351364375639, 1.176299175305444e-174), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.5865502454415674, pvalue=1.611679085401919e-70), u'pearson': (0.6363446255340321, 2.2260474211751176e-86), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 9.19685506821 seconds
+All done.

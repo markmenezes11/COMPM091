@@ -1,0 +1,32 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-01-28 18:27:20,462 : ***** Transfer task : SICK-Entailment*****
+
+
+2018-01-28 18:27:23,244 : Computing embedding for test
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Found 2408(/2413) words with glove vectors
+Vocab size : 2408
+2018-01-28 18:27:27,460 : Computed test embeddings
+2018-01-28 18:27:27,460 : Computing embedding for train
+2018-01-28 18:27:30,953 : Computed train embeddings
+2018-01-28 18:27:30,953 : Computing embedding for dev
+2018-01-28 18:27:31,450 : Computed dev embeddings
+2018-01-28 18:27:31,713 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-01-28 18:28:10,802 : [(u'reg:1e-05', 86.8), (u'reg:0.0001', 86.8), (u'reg:0.001', 86.2), (u'reg:0.01', 86.2)]
+2018-01-28 18:28:10,802 : Validation : best param found is reg = 1e-05 with score             86.8
+2018-01-28 18:28:10,802 : Evaluating...
+2018-01-28 18:28:21,293 : 
+Dev acc : 86.8 Test acc : 86.42 for                        SICK entailment
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SICKEntailment:
+{u'acc': 86.42, u'ntest': 4927, u'devacc': 86.8, u'ndev': 500}
+
+
+Real time taken to evaluate: 62.9548640251 seconds
+All done.

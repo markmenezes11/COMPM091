@@ -1,0 +1,32 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-01-28 17:16:10,379 : ***** Transfer task : SST Binary classification *****
+
+
+2018-01-28 17:16:14,313 : Computing embedding for test
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Found 16500(/17560) words with glove vectors
+Vocab size : 16500
+2018-01-28 17:16:15,905 : Computed test embeddings
+2018-01-28 17:16:15,906 : Computing embedding for train
+2018-01-28 17:16:38,771 : Computed train embeddings
+2018-01-28 17:16:38,771 : Computing embedding for dev
+2018-01-28 17:16:39,413 : Computed dev embeddings
+2018-01-28 17:16:39,413 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-01-28 17:21:31,847 : [(u'reg:1e-05', 83.72), (u'reg:0.0001', 83.72), (u'reg:0.001', 83.83), (u'reg:0.01', 83.49)]
+2018-01-28 17:21:31,847 : Validation : best param found is reg = 0.001 with score             83.83
+2018-01-28 17:21:31,848 : Evaluating...
+2018-01-28 17:22:45,393 : 
+Dev acc : 83.83 Test acc : 85.01 for             SST Binary classification
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SST2:
+{u'acc': 85.01, u'ntest': 1821, u'devacc': 83.83, u'ndev': 872}
+
+
+Real time taken to evaluate: 397.095386028 seconds
+All done.

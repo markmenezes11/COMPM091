@@ -1,0 +1,29 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-01-28 18:32:45,454 : ***** Transfer task : SICK-Relatedness*****
+
+
+2018-01-28 18:32:48,233 : Computing embedding for test
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Found 2408(/2413) words with glove vectors
+Vocab size : 2408
+2018-01-28 18:32:52,482 : Computed test embeddings
+2018-01-28 18:32:52,482 : Computing embedding for train
+2018-01-28 18:32:55,986 : Computed train embeddings
+2018-01-28 18:32:55,986 : Computing embedding for dev
+2018-01-28 18:32:56,485 : Computed dev embeddings
+2018-01-28 18:33:41,042 : Dev : Pearson 0.887458704734
+2018-01-28 18:33:41,042 : Test : Pearson 0.883487358293 Spearman 0.825660264014 MSE 0.223689916151                        for SICK Relatedness
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SICKRelatedness:
+{u'spearman': 0.825660264014022, u'pearson': 0.8834873582927422, u'yhat': array([3.04752859, 3.98222819, 1.05259321, ..., 2.94887428, 4.73620245,
+       4.73916572]), u'devpearson': 0.8874587047337346, u'mse': 0.22368991615110417, u'ntest': 4927, u'ndev': 500}
+
+
+Real time taken to evaluate: 57.7875711918 seconds
+All done.

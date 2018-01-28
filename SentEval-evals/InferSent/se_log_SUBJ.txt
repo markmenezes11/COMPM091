@@ -1,0 +1,29 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-01-28 16:57:54,370 : ***** Transfer task : SUBJ *****
+
+
+2018-01-28 16:57:58,056 : Generating sentence embeddings
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Found 20797(/22638) words with glove vectors
+Vocab size : 20797
+2018-01-28 16:58:06,425 : Generated sentence embeddings
+2018-01-28 16:58:06,426 : Training pytorch-MLP-nhid0-adam-bs64 with (inner) 5-fold cross-validation
+2018-01-28 17:01:10,350 : Best param found at split 1: l2reg = 1e-05                 with score 92.73
+2018-01-28 17:04:41,538 : Best param found at split 2: l2reg = 0.0001                 with score 92.94
+2018-01-28 17:08:10,738 : Best param found at split 3: l2reg = 0.001                 with score 92.83
+2018-01-28 17:11:25,711 : Best param found at split 4: l2reg = 1e-05                 with score 92.96
+2018-01-28 17:14:36,421 : Best param found at split 5: l2reg = 0.0001                 with score 92.86
+2018-01-28 17:14:46,016 : Dev acc : 92.86 Test acc : 92.58
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SUBJ:
+{u'acc': 92.58, u'ntest': 10000, u'devacc': 92.86, u'ndev': 10000}
+
+
+Real time taken to evaluate: 1013.74283004 seconds
+All done.

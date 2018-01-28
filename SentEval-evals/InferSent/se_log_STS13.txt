@@ -1,0 +1,25 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-01-28 16:09:31,416 : ***** Transfer task : STS13 (-SMT) *****
+
+
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Found 4957(/5153) words with glove vectors
+Vocab size : 4957
+2018-01-28 16:09:35,262 : FNWN : pearson = 0.3448, spearman = 0.3484
+2018-01-28 16:09:35,835 : headlines : pearson = 0.6901, spearman = 0.6856
+2018-01-28 16:09:36,319 : OnWN : pearson = 0.7305, spearman = 0.7285
+2018-01-28 16:09:36,319 : ALL (weighted average) : Pearson = 0.6617,             Spearman = 0.6592
+2018-01-28 16:09:36,319 : ALL (average) : Pearson = 0.5885,             Spearman = 0.5875
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS13:
+{u'OnWN': {u'spearman': SpearmanrResult(correlation=0.728480066987424, pvalue=6.913745762676715e-94), u'pearson': (0.730545148224757, 1.1394318622382212e-94), u'nsamples': 561}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.6856077225718124, pvalue=3.086973382708884e-105), u'pearson': (0.6900986997097222, 3.819114517899419e-107), u'nsamples': 750}, u'FNWN': {u'spearman': SpearmanrResult(correlation=0.3484360948519104, pvalue=8.956680531321719e-07), u'pearson': (0.3447740207468063, 1.1845439370193914e-06), u'nsamples': 189}, u'all': {u'spearman': {u'wmean': 0.6591583542905435, u'mean': 0.5875079614703823}, u'pearson': {u'wmean': 0.6617147619050178, u'mean': 0.5884726228937618}}}
+
+
+Real time taken to evaluate: 7.01218080521 seconds
+All done.
