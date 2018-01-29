@@ -24,7 +24,7 @@ EMBEDDINGS
 # - Iinput: GloVe vectors of dimension - (<batch_size>, <sentence_len>, 300)
 # - Output: CoVe vectors of dimension - (<batch_size>, <sentence_len>, 600)
 # - Example: cove_model.predict(np.random.rand(1,10,300))
-# - For unknown words, use a dummy value different to the dummy value used for padding - small non-zero value e.g. 1e-10
+# - For unknown words, use a dummy value different to the dummy value used for padding - small non-zero value e.g. 1e-10 # TODO: Make sure this is implemented - 1e-10 for unknown words
 cove_model = load_model('../CoVe-ported/Keras_CoVe_Python2.h5')
 print("Loaded CoVe model.\n")
 
@@ -32,12 +32,12 @@ print("Loaded CoVe model.\n")
 def sentence_to_glove_cove(sentence):
     glove = []
     for word in sentence:
-        glove.append(np.random.rand(1, 300)) # TODO: Get actual GloVe(w) embedding (or 0 if word not found)
+        glove.append(np.random.rand(1, 300)) # TODO: Get actual GloVe(w) embedding (or 1e-10 if word not found)
     glove = np.array(glove) # (len(sentence), 300)
     cove = cove_model.predict(glove) # (len(sentence), 600)
     glove_cove = np.concatenate([glove, cove], axis=1) # (len(sentence), 900)
     for pad in range(max_sent_len - len(sentence)):
-        np.append(glove_cove, np.full((1, 900), 1e-10), axis=0)
+        np.append(glove_cove, np.full((1, 900), 0.0), axis=0)
     return glove_cove # (max_sent_len, 900)
 
 """
