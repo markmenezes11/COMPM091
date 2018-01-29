@@ -1,0 +1,60 @@
+2018-01-07 20:03:53,728 : ***** Transfer task : STS12 *****
+
+
+2018-01-07 20:03:54,115 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 20:05:15,191 : MSRpar : pearson = 0.2018, spearman = 0.2253
+2018-01-07 20:05:47,616 : MSRvid : pearson = 0.0612, spearman = 0.0577
+2018-01-07 20:06:07,511 : SMTeuroparl : pearson = 0.3429, spearman = 0.3914
+2018-01-07 20:06:39,970 : surprise.OnWN : pearson = 0.3877, spearman = 0.4047
+2018-01-07 20:06:57,287 : surprise.SMTnews : pearson = 0.1732, spearman = 0.1499
+2018-01-07 20:06:57,287 : ALL (weighted average) : Pearson = 0.2299,             Spearman = 0.2430
+2018-01-07 20:06:57,287 : ALL (average) : Pearson = 0.2334,             Spearman = 0.2458
+
+2018-01-07 20:06:57,287 : ***** Transfer task : STS13 (-SMT) *****
+
+
+2018-01-07 20:06:57,420 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 20:07:09,126 : FNWN : pearson = 0.2195, spearman = 0.2329
+2018-01-07 20:07:41,612 : headlines : pearson = 0.1897, spearman = 0.1615
+2018-01-07 20:08:05,913 : OnWN : pearson = -0.0803, spearman = -0.0673
+2018-01-07 20:08:05,913 : ALL (weighted average) : Pearson = 0.0925,             Spearman = 0.0849
+2018-01-07 20:08:05,913 : ALL (average) : Pearson = 0.1096,             Spearman = 0.1091
+
+2018-01-07 20:08:05,913 : ***** Transfer task : STS14 *****
+
+
+2018-01-07 20:08:06,239 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 20:08:29,156 : deft-forum : pearson = -0.2133, spearman = -0.2201
+2018-01-07 20:08:42,437 : deft-news : pearson = 0.0299, spearman = 0.0249
+2018-01-07 20:09:15,359 : headlines : pearson = 0.1791, spearman = 0.1566
+2018-01-07 20:09:48,136 : images : pearson = 0.2284, spearman = 0.1995
+2018-01-07 20:10:20,864 : OnWN : pearson = 0.0504, spearman = 0.0823
+2018-01-07 20:10:53,991 : tweet-news : pearson = 0.1983, spearman = 0.1743
+2018-01-07 20:10:53,991 : ALL (weighted average) : Pearson = 0.1080,             Spearman = 0.0981
+2018-01-07 20:10:53,991 : ALL (average) : Pearson = 0.0788,             Spearman = 0.0696
+
+2018-01-07 20:10:53,992 : ***** Transfer task : STS15 *****
+
+
+2018-01-07 20:10:54,603 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 20:11:14,699 : answers-forums : pearson = 0.0523, spearman = -0.0455
+2018-01-07 20:11:47,951 : answers-students : pearson = 0.3809, spearman = 0.3548
+2018-01-07 20:12:04,644 : belief : pearson = 0.1690, spearman = 0.0486
+2018-01-07 20:12:38,374 : headlines : pearson = 0.2390, spearman = 0.2313
+2018-01-07 20:13:12,043 : images : pearson = 0.3118, spearman = 0.2913
+2018-01-07 20:13:12,044 : ALL (weighted average) : Pearson = 0.2606,             Spearman = 0.2197
+2018-01-07 20:13:12,044 : ALL (average) : Pearson = 0.2306,             Spearman = 0.1761
+
+2018-01-07 20:13:12,044 : ***** Transfer task : STS16 *****
+
+
+2018-01-07 20:13:12,601 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 20:13:26,950 : answer-answer : pearson = 0.2269, spearman = 0.1748
+2018-01-07 20:13:37,951 : headlines : pearson = 0.3634, spearman = 0.3622
+2018-01-07 20:13:48,141 : plagiarism : pearson = 0.2316, spearman = 0.0810
+2018-01-07 20:13:58,977 : postediting : pearson = 0.4678, spearman = 0.4732
+2018-01-07 20:14:08,232 : question-question : pearson = -0.1009, spearman = -0.1301
+2018-01-07 20:14:08,232 : ALL (weighted average) : Pearson = 0.2483,             Spearman = 0.2036
+2018-01-07 20:14:08,232 : ALL (average) : Pearson = 0.2378,             Spearman = 0.1922
+
+{u'STS12': {u'all': {u'spearman': {u'wmean': 0.24301318135556099, u'mean': 0.2458193587582842}, u'pearson': {u'wmean': 0.22990213738939411, u'mean': 0.23336128535992606}}, u'surprise.OnWN': {u'spearman': SpearmanrResult(correlation=0.40469291103123561, pvalue=6.3592347396870255e-31), u'pearson': (0.38770926363993474, 2.5997645365629514e-28), u'nsamples': 750}, u'surprise.SMTnews': {u'spearman': SpearmanrResult(correlation=0.14993591003919968, pvalue=0.0026771768273190439), u'pearson': (0.17318209961667794, 0.00051133443675900234), u'nsamples': 399}, u'SMTeuroparl': {u'spearman': SpearmanrResult(correlation=0.39144372256605842, pvalue=2.94181273849899e-18), u'pearson': (0.34289367741591648, 4.1400835015946659e-14), u'nsamples': 459}, u'MSRvid': {u'spearman': SpearmanrResult(correlation=0.057676782209781841, pvalue=0.11451436634294987), u'pearson': (0.061181647231341903, 0.094071178761298169), u'nsamples': 750}, u'MSRpar': {u'spearman': SpearmanrResult(correlation=0.22534746794514535, pvalue=4.3324069636196936e-10), u'pearson': (0.20183973889575901, 2.4628910048057393e-08), u'nsamples': 750}}, u'STS13': {u'OnWN': {u'spearman': SpearmanrResult(correlation=-0.067268279624629737, pvalue=0.11149078830544192), u'pearson': (-0.080265666720751389, 0.057439219386577145), u'nsamples': 561}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.16148994000141745, pvalue=8.8133083027802544e-06), u'pearson': (0.18969027386007287, 1.6605319599424127e-07), u'nsamples': 750}, u'FNWN': {u'spearman': SpearmanrResult(correlation=0.23294823213986196, pvalue=0.0012563954718612517), u'pearson': (0.21950435325661152, 0.002407223820578419), u'nsamples': 189}, u'all': {u'spearman': {u'wmean': 0.084938110670719824, u'mean': 0.10905663083888323}, u'pearson': {u'wmean': 0.092483326086808482, u'mean': 0.10964298679864433}}}, u'STS16': {u'all': {u'spearman': {u'wmean': 0.20361327761035983, u'mean': 0.19221892405197943}, u'pearson': {u'wmean': 0.24825684266213291, u'mean': 0.23775159757876532}}, u'plagiarism': {u'spearman': SpearmanrResult(correlation=0.080989383732518128, pvalue=0.22110929361723075), u'pearson': (0.231594357531791, 0.00039795614569100254), u'nsamples': 230}, u'answer-answer': {u'spearman': SpearmanrResult(correlation=0.17475110323816356, pvalue=0.005224440832012873), u'pearson': (0.22694628224272986, 0.00026554075376136304), u'nsamples': 254}, u'postediting': {u'spearman': SpearmanrResult(correlation=0.47322651166412688, pvalue=5.0775650706886908e-15), u'pearson': (0.46777168053542467, 1.1401056645083823e-14), u'nsamples': 244}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.3622266749805903, pvalue=3.9029476353913395e-09), u'pearson': (0.36335307249123922, 3.4644778911806191e-09), u'nsamples': 249}, u'question-question': {u'spearman': SpearmanrResult(correlation=-0.13009905335550187, pvalue=0.060445815955922313), u'pearson': (-0.10090740490735814, 0.1460112935161918), u'nsamples': 209}}, u'STS14': {u'deft-news': {u'spearman': SpearmanrResult(correlation=0.024903024992119768, pvalue=0.66748736194994662), u'pearson': (0.029850086676699163, 0.60657045083406769), u'nsamples': 300}, u'all': {u'spearman': {u'wmean': 0.098113868301592772, u'mean': 0.069578704505186939}, u'pearson': {u'wmean': 0.10803620755737536, u'mean': 0.078795650429461961}}, u'deft-forum': {u'spearman': SpearmanrResult(correlation=-0.22009732368028512, pvalue=2.430066729761606e-06), u'pearson': (-0.21329296804031153, 5.0026924859396714e-06), u'nsamples': 450}, u'OnWN': {u'spearman': SpearmanrResult(correlation=0.082334679175548514, pvalue=0.024139818755765246), u'pearson': (0.050413407650484528, 0.16783239586730075), u'nsamples': 750}, u'tweet-news': {u'spearman': SpearmanrResult(correlation=0.17431764014232393, pvalue=1.5650888950364803e-06), u'pearson': (0.19831373821331258, 4.3389705325144623e-08), u'nsamples': 750}, u'images': {u'spearman': SpearmanrResult(correlation=0.19946201434850983, pvalue=3.6122796372005535e-08), u'pearson': (0.22836479398731865, 2.4934165198390677e-10), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.15655219205290472, pvalue=1.6564094145803901e-05), u'pearson': (0.17912484408926838, 7.9195405579814336e-07), u'nsamples': 750}}, u'STS15': {u'answers-students': {u'spearman': SpearmanrResult(correlation=0.35481200138535046, pvalue=1.1385234372936905e-23), u'pearson': (0.38085025017352486, 2.6739642755629779e-27), u'nsamples': 750}, u'belief': {u'spearman': SpearmanrResult(correlation=0.048580905198724086, pvalue=0.34815266818128165), u'pearson': (0.16901304040182338, 0.0010174198714596747), u'nsamples': 375}, u'all': {u'spearman': {u'wmean': 0.21971983627720607, u'mean': 0.1760797687843208}, u'pearson': {u'wmean': 0.26057718875072094, u'mean': 0.23059701221914786}}, u'images': {u'spearman': SpearmanrResult(correlation=0.29126232796894164, pvalue=3.9402343842958019e-16), u'pearson': (0.31178802758608459, 2.2640458733069537e-18), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.2312855169417519, pvalue=1.4497938610071836e-10), u'pearson': (0.23899417115041874, 3.3449007001237327e-11), u'nsamples': 750}, u'answers-forums': {u'spearman': SpearmanrResult(correlation=-0.045541907573163953, pvalue=0.37916958865232453), u'pearson': (0.052339571783887748, 0.31208307991671397), u'nsamples': 375}}}

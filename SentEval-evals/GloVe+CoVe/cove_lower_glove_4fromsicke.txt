@@ -1,0 +1,46 @@
+2018-01-07 17:16:13,206 : ***** Transfer task : SICK-Entailment*****
+
+
+2018-01-07 17:16:13,776 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 17:24:30,428 : Computing embedding for test
+2018-01-07 17:28:01,531 : Computed test embeddings
+2018-01-07 17:28:01,531 : Computing embedding for train
+2018-01-07 17:31:17,695 : Computed train embeddings
+2018-01-07 17:31:17,695 : Computing embedding for dev
+2018-01-07 17:31:39,529 : Computed dev embeddings
+2018-01-07 17:31:50,002 : Training pytorch-LogReg with standard validation..
+2018-01-07 17:32:38,901 : [(u'reg:1e-05', 69.2), (u'reg:0.0001', 69.2), (u'reg:0.001', 69.2), (u'reg:0.01', 69.2)]
+2018-01-07 17:32:38,901 : Validation : best param found is reg = 1e-05 with score             69.2
+2018-01-07 17:32:38,901 : Evaluating...
+2018-01-07 17:32:51,108 : 
+Dev acc : 69.2 Test acc : 68.36 for                        SICK entailment
+
+2018-01-07 17:32:51,169 : ***** Transfer task : SICK-Relatedness*****
+
+
+2018-01-07 17:32:51,327 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-01-07 17:32:54,632 : Computing embedding for test
+2018-01-07 17:36:23,292 : Computed test embeddings
+2018-01-07 17:36:23,292 : Computing embedding for train
+2018-01-07 17:39:35,423 : Computed train embeddings
+2018-01-07 17:39:35,424 : Computing embedding for dev
+2018-01-07 17:39:56,546 : Computed dev embeddings
+THCudaCheck FAIL file=/pytorch/torch/lib/THC/generic/THCStorage.cu line=66 error=2 : out of memory
+Traceback (most recent call last):
+  File "cove_lower_glove_fromsicke.py", line 135, in <module>
+    results_transfer = se.eval(transfer_tasks)
+  File "/mnt/mmenezes/libs/SentEval/senteval/senteval.py", line 62, in eval
+    self.results = {x: self.eval(x) for x in name}
+  File "/mnt/mmenezes/libs/SentEval/senteval/senteval.py", line 62, in <dictcomp>
+    self.results = {x: self.eval(x) for x in name}
+  File "/mnt/mmenezes/libs/SentEval/senteval/senteval.py", line 104, in eval
+    self.results = self.evaluation.run(self.params, self.batcher)
+  File "/mnt/mmenezes/libs/SentEval/senteval/sick.py", line 109, in run
+    devpr, yhat = clf.run()
+  File "/mnt/mmenezes/libs/SentEval/senteval/tools/relatedness.py", line 82, in run
+    self.test['X'], self.test['y'])
+  File "/mnt/mmenezes/libs/SentEval/senteval/tools/relatedness.py", line 66, in prepare_data
+    testX = torch.FloatTensor(testX).cuda()
+  File "/usr/local/lib/python2.7/dist-packages/torch/_utils.py", line 66, in _cuda
+    return new_type(self.size()).copy_(self, async)
+RuntimeError: cuda runtime error (2) : out of memory at /pytorch/torch/lib/THC/generic/THCStorage.cu:66
