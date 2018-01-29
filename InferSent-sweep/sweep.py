@@ -188,6 +188,7 @@ for iteration in iterationsToCount:
     totalIterations += 1
 
 if params.mode == 0: # Full sweep (train + eval) on local machine
+    print("\n\n\n\n########## TRAIN ##########\n\n")
     iterations = get_iterations()
     iterationNumber = 0
     for iteration in iterations:
@@ -202,7 +203,6 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
 
         prepare_directory(outputdir, iterationParams)
 
-        print("\n\n\n\n########## TRAIN ##########\n\n")
         run_subprocess("python train.py" +
                        " --gpu_id " + str(params.gpu_id) +
                        " --outputdir " + outputdir +
@@ -213,8 +213,27 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
 
         # TODO: Write train output / error to files
 
-        print("\n\n\n\n########## EVAL ##########\n\n")
+    print("\n\n\n\n########## EVAL ##########\n\n")
+    iterations = get_iterations()
+    iterationNumber = 0
+    for iteration in iterations:
+        iterationNumber += 1
+        print("\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
+        outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
+
+        # If the model/encoder does not exist, this iteration cannot be rerun
+        if not os.path.exists(outputdir + "model.pickle") or not os.path.exists(outputdir + "model.pickle.encoder"):
+            print("\nModel/encoder does not exist with these parameters. Skipping this iteration...")
+            continue
+
+        prepare_directory(outputdir, iterationParams)
+
         for transfer_task in transfer_tasks:
+            # If the eval results already exists, this iteration does not need to be rerun
+            if os.path.exists(outputdir + "se_results_" + transfer_task + ".txt"):
+                print("\nEval results already exists with these parameters. Skipping this iteration...")
+                continue
+
             run_subprocess("python ../SentEval-evals/InferSent/eval.py" +
                            " --inputdir " + outputdir +
                            " --outputdir " + outputdir +
@@ -225,7 +244,7 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
                            " --transfertask " + transfer_task,
                            outputdir + "eval_output.txt")
 
-        # TODO: Write eval output / error to files
+            # TODO: Write eval output / error to files
 
 elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions on HPC cluster
     print("\n\n\n\n########## TRAIN ##########\n\n")
@@ -293,6 +312,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         wait_for_jobs(1, False)
         print("\n\n\n####### Retry " + str(current_retry) + " of " + str(max_retries) + "...")
         retried = retry_failed_train_jobs(current_retry)
+    print("Nothing left to retry.")
 
     print("\n\n\n\n########## EVAL ##########\n\n")
     iterations = get_iterations()
@@ -337,7 +357,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
 
     print("\n\n\n####### All eval jobs submitted. Will now wait for them to complete, before retrying any failed jobs...")
 
-    def retry_failed_eval_jobs(current_retry, transfer_task):
+    def retry_failed_eval_jobs(current_retry):
         iterations = get_iterations()
         retried = 0
         for iteration in iterations:
@@ -389,6 +409,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         wait_for_jobs(1, False)
         print("\n\n\n####### Retry " + str(current_retry) + " of " + str(max_retries) + "...")
         retried = retry_failed_eval_jobs(current_retry)
+    print("Nothing left to retry.")
 
 else:
     print("ERROR: Unknown mode. Set --mode argument correctly.")
