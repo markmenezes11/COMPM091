@@ -9,14 +9,8 @@
 # InferSent: https://github.com/facebookresearch/InferSent
 # SentEval: https://github.com/facebookresearch/SentEval
 #
-# CoVe is taken from:
-# B. McCann, J. Bradbury, C. Xiong, R. Socher, Learned in Translation: Contextualized Word Vectors
-# https://github.com/salesforce/cove
-#
 
 from __future__ import absolute_import, division, unicode_literals
-
-from keras.models import load_model
 
 import sys
 import os
@@ -33,7 +27,6 @@ start_time = timeit.default_timer()
 parser = argparse.ArgumentParser(description='SentEval Evaluation of InferSent Sentence Representations')
 parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run. Leave blank to run all of them")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval/", help="Path to SentEval repository")
-parser.add_argument("--modelpath", type=str, default='../../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
 parser.add_argument("--outputdir", type=str, default='.', help="Output directory to save results")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
 params, _ = parser.parse_known_args()
@@ -55,17 +48,17 @@ def prepare(params, samples):
     params.inputs = data.Field(lower=True, include_lengths=True, batch_first=True)
     params.inputs.build_vocab(samples)
     params.inputs.vocab.load_vectors('glove.840B.300d')
-    params.cove = load_model(params.inputdir)
     return
 
 def batcher(params, batch):
     embeddings = []
-    max_sent_len = 256  # Looks like we have to force this to allow padded sentences for SentEval to work
-    for sentence in batch:
+    max_sent_len = 256 # Looks like we have to force this for SentEval to work
+    for raw_sentence in batch:
+        sentence = [word.lower() for word in raw_sentence]
         if len(sentence) > max_sent_len:
             sentence = sentence[:max_sent_len]
         if len(sentence) == 0:
-            embedding = np.zeros((1, max_sent_len * 600), dtype=float)
+            embedding = np.zeros((1, max_sent_len * 300), dtype=float)
             embeddings.append(embedding)
             continue
         vector_list = []
@@ -75,11 +68,10 @@ def batcher(params, batch):
             else:
                 vector_list.append(np.full((300), 1e-10))
         embedding = []
-        context_vectors = params.cove.predict(np.array([vector_list]))
-        for vector in context_vectors[0]:
+        for vector in vector_list:
             for num in vector:
                 embedding.append(num)
-        for pad in range((max_sent_len - len(sentence)) * 600):
+        for pad in range((max_sent_len - len(sentence)) * 300):
             embedding.append(0.0)
         embeddings.append(np.array([embedding]))
     embeddings = np.vstack(embeddings)
@@ -93,7 +85,6 @@ Evaluation of trained model on Transfer Tasks (SentEval)
 params_senteval = {'task_path': PATH_TO_DATA, 'usepytorch': True, 'kfold': 5, 'seed': 1111}
 params_senteval['classifier'] = {'nhid': 0, 'optim': 'adam', 'batch_size': 64,
                                  'tenacity': 5, 'epoch_size': 4}
-params_senteval['inputdir'] = params.modelpath
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)

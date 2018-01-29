@@ -65,11 +65,11 @@ def batcher(params, batch):
         sentence = [word.lower() for word in raw_sentence]
         if len(sentence) > max_sent_len:
             sentence = sentence[:max_sent_len]
-        vector_list = []
         if len(sentence) == 0:
             embedding = np.zeros((1, max_sent_len * 600), dtype=float)
             embeddings.append(embedding)
             continue
+        vector_list = []
         for word in sentence:
             if word in params.inputs.vocab.stoi and np.count_nonzero(params.inputs.vocab.vectors[params.inputs.vocab.stoi[word]].numpy()) != 0:
                 vector_list.append(params.inputs.vocab.vectors[params.inputs.vocab.stoi[word]].numpy())
@@ -77,9 +77,9 @@ def batcher(params, batch):
                 vector_list.append(np.full((300), 1e-10))
         embedding = []
         context_vectors = params.cove.predict(np.array([vector_list]))
-        for context_vector in context_vectors[0]:
-            for vector in context_vector:
-                embedding.append(vector)
+        for vector in context_vectors[0]:
+            for num in vector:
+                embedding.append(num)
         for pad in range((max_sent_len - len(sentence)) * 600):
             embedding.append(0.0)
         embeddings.append(np.array([embedding]))
