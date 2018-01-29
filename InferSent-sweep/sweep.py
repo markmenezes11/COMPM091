@@ -309,7 +309,10 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         wait_for_jobs(1, False)
         print("\n\n\n####### Retry " + str(current_retry) + " of " + str(max_retries) + "...")
         retried = retry_failed_train_jobs(current_retry)
-    print("Nothing left to retry.")
+    if retried == 0:
+        print("Nothing left to retry.")
+    else:
+        print("ERROR: Reached max number of retries. Giving up.")
 
     print("\n\n\n\n########## EVAL ##########\n\n")
     iterations = get_iterations()
@@ -406,7 +409,10 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         wait_for_jobs(1, False)
         print("\n\n\n####### Retry " + str(current_retry) + " of " + str(max_retries) + "...")
         retried = retry_failed_eval_jobs(current_retry)
-    print("Nothing left to retry.")
+    if retried == 0:
+        print("Nothing left to retry.")
+    else:
+        print("ERROR: Reached max number of retries. Giving up.")
 
 else:
     print("ERROR: Unknown mode. Set --mode argument correctly.")
