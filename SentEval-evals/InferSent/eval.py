@@ -78,6 +78,9 @@ if __name__ == "__main__":
     if params.transfertask != "" and params.transfertask in transfer_tasks:
         single_task = True
         transfer_tasks = params.transfertask
+    elif params.transfertask != "" and params.transfertask not in transfer_tasks:
+        print("ERROR: Transfer task not found: " + params.transfertask)
+        sys.exit()
 
     results = se.eval(transfer_tasks)
 
