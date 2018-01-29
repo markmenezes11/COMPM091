@@ -211,8 +211,6 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
                        iterationParams,
                        outputdir + "train_output.txt")
 
-        # TODO: Write train output / error to files
-
     print("\n\n\n\n########## EVAL ##########\n\n")
     iterations = get_iterations()
     iterationNumber = 0
@@ -242,9 +240,7 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
                            " --wordvecpath " + iteration[1] +
                            " --inputmodelname " + "model.pickle.encoder" +
                            " --transfertask " + transfer_task,
-                           outputdir + "eval_output.txt")
-
-            # TODO: Write eval output / error to files
+                           outputdir + "se_output_" + transfer_task + ".txt")
 
 elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions on HPC cluster
     print("\n\n\n\n########## TRAIN ##########\n\n")
