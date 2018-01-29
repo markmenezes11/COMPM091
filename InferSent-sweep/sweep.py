@@ -8,16 +8,15 @@ from subprocess import Popen, PIPE, STDOUT
 Arguments
 """
 
-parser = argparse.ArgumentParser(description='InferSent Parameter Sweep')
-parser.add_argument("--mode", type=int, default=0, help="0 to run full sweep (train + eval) on local machine. 1 to run train sweep (train ONLY) using qsub for job submissions on HPC cluster. 2 to run eval sweep (eval ONLY)") # TODO: Define mode 2 whether it is qsub or local
+parser = argparse.ArgumentParser(description='InferSent Parameter Sweep Using Grid Search and SentEval')
+parser.add_argument("--mode", type=int, default=0, help="0 to run the train+eval sweep on local machine. 1 to run train+eval sweep using qsub for job submissions on HPC cluster")
 parser.add_argument("--n_jobs", type=int, default=10, help="Maximum number of qsub jobs to be running simultaneously")
 parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
-parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. GPU is required because of SentEval. This parameter will be ignored if using qsub, as the GPU will be chosen automatically")
+parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID to use when running InferSent/SentEval code. This parameter will be ignored if using qsub, as the GPU will be chosen automatically")
 parser.add_argument("--outputdir", type=str, default='/cluster/project2/ishi_storage_1/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved). MAKE SURE IT MAPS TO THE SAME PLACE AS SINGULARITYOUTPUTDIR")
 parser.add_argument("--singularitycommand", type=str, default='singularity exec --nv --bind /cluster/project2/ishi_storage_1:/mnt /cluster/project2/ishi_storage_1/mmenezes/markmenezes11-COMPM091-master.simg', help="If you are not using Singularity, make this argument blank. If you are using Singularity, it should be something along the lines of 'singularity exec --nv <extra-params> <path-to-simg-file>', e.g. 'singularity exec --nv --bind /cluster/project2/ishi_storage_1:/mnt /cluster/project2/ishi_storage_1/mmenezes/markmenezes11-COMPM091-master.simg'")
 parser.add_argument("--singularityoutputdir", type=str, default='/mnt/mmenezes/InferSent-models/sweep', help="Output directory (where models and output will be saved), that Singularity can see (in case you use binding). If you are not using Singularity, make this the same as outputdir. MAKE SURE IT MAPS TO THE SAME PLACE AS OUTPUTDIR")
-parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run if using mode 0. Leave blank to run all of them")
 params, _ = parser.parse_known_args()
 
 """
@@ -26,7 +25,7 @@ Parameters to sweep. If you are using Singularity, all paths must be the ones th
 
 # NLI data path (e.g. "[path]/AllNLI", "[path]/SNLI" or "[path]/MultiNLI") - should have 3 classes
 # (entailment/neutral/contradiction). Default: "AllNLI"
-nlipath      = ["/mnt/mmenezes/InferSent-datasets/SmallNLI"]
+nlipath      = ["/mnt/mmenezes/InferSent-datasets/AllNLI"]
 
 # Path to word vectors txt file (e.g. "[path]/glove.840B.300d.txt"). Default: "glove.840B.300d.txt"
 wordvecpath  = ["/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt"]
@@ -79,6 +78,16 @@ pool_type    = ["max", "mean"]
 
 # Random seed (int). Default: 1234
 seed         = [1234]
+
+"""
+Transfer tasks to be used for evaluation
+"""
+
+# Possible transfer tasks:
+#                ['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC',
+#                 'MRPC', 'SNLI', 'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', ImageCaptionRetrieval']
+transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC',
+                  'MRPC', 'SICKEntailment', 'SICKRelatedness', 'STSBenchmark']
 
 """
 Sweep helper functions
@@ -139,11 +148,12 @@ def get_parameter_strings(iteration):
     return outputdir, singularityoutputdir, iterationParams
 
 def prepare_directory(outputdir, iterationParams):
-    os.makedirs(outputdir)
     print("\nPARAMETERS: " + iterationParams + "\n")
     print("\nOUTPUT DIRECTORY: " + outputdir + "\n")
-    with open(outputdir + "info.txt", "a") as outputfile:
-        outputfile.write("\n\n\nPARAMETERS: " + iterationParams + "\n")
+    if not os.path.exists(outputdir):
+        os.makedirs(outputdir)
+        with open(outputdir + "info.txt", "a") as outputfile:
+            outputfile.write("\n\n\nPARAMETERS: " + iterationParams + "\n")
 
 # Keep polling qstat until the number of submitted jobs is less than max_jobs
 def wait_for_jobs(max_jobs, verbose):
@@ -172,25 +182,27 @@ def run_subprocess(command, output_file):
 Sweep
 """
 
-iterations = get_iterations()
 iterationsToCount = get_iterations()
-iterationNumber = 0
 totalIterations = 0
 for iteration in iterationsToCount:
     totalIterations += 1
 
 if params.mode == 0: # Full sweep (train + eval) on local machine
+    iterations = get_iterations()
+    iterationNumber = 0
     for iteration in iterations:
         iterationNumber += 1
         print("\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
         outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
-        # If the directory already exists, this iteration has already been run before
-        if os.path.exists(outputdir):
-            print("\nPath already exists with these parameters. Skipping this iteration...")
+        # If the model/encoder already exists, this iteration does not need to be rerun
+        if os.path.exists(outputdir + "model.pickle") and os.path.exists(outputdir + "model.pickle.encoder"):
+            print("\nModel/encoder already exists with these parameters. Skipping this iteration...")
             continue
+
         prepare_directory(outputdir, iterationParams)
 
+        print("\n\n\n\n########## TRAIN ##########\n\n")
         run_subprocess("python train.py" +
                        " --gpu_id " + str(params.gpu_id) +
                        " --outputdir " + outputdir +
@@ -199,30 +211,36 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
                        iterationParams,
                        outputdir + "train_output.txt")
 
-        transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16',
-                          'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
-                          'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval']
-        transfertask_argstring = params.transfertask if params.transfertask != "" and params.transfertask in transfer_tasks else ""
-        run_subprocess("python ../SentEval-evals/InferSent/eval.py" +
-                       " --inputdir " + outputdir +
-                       " --outputdir " + outputdir +
-                       " --sentevalpath " + params.sentevalpath +
-                       " --gpu_id " + str(params.gpu_id) +
-                       " --wordvecpath " + iteration[1] +
-                       " --inputmodelname " + "model.pickle.encoder" +
-                       transfertask_argstring,
-                       outputdir + "eval_output.txt")
+        # TODO: Write train output / error to files
+
+        print("\n\n\n\n########## EVAL ##########\n\n")
+        for transfer_task in transfer_tasks:
+            run_subprocess("python ../SentEval-evals/InferSent/eval.py" +
+                           " --inputdir " + outputdir +
+                           " --outputdir " + outputdir +
+                           " --sentevalpath " + params.sentevalpath +
+                           " --gpu_id " + str(params.gpu_id) +
+                           " --wordvecpath " + iteration[1] +
+                           " --inputmodelname " + "model.pickle.encoder" +
+                           " --transfertask " + transfer_task,
+                           outputdir + "eval_output.txt")
+
+        # TODO: Write eval output / error to files
 
 elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions on HPC cluster
+    print("\n\n\n\n########## TRAIN ##########\n\n")
+    iterations = get_iterations()
+    iterationNumber = 0
     for iteration in iterations:
         iterationNumber += 1
         print("\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
         outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
-        # If the directory already exists, this iteration has already been run before
-        if os.path.exists(outputdir):
-            print("\nPath already exists with these parameters. Skipping this iteration...")
+        # If the model/encoder already exists, this iteration does not need to be rerun
+        if os.path.exists(outputdir + "model.pickle") and os.path.exists(outputdir + "model.pickle.encoder"):
+            print("\nModel/encoder already exists with these parameters. Skipping this iteration...")
             continue
+
         prepare_directory(outputdir, iterationParams)
 
         wait_for_jobs(params.n_jobs, True)
@@ -235,14 +253,13 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                        " --outputmodelname " + "model.pickle" +
                        iterationParams,
                        outputdir + "info.txt")
-                       # The --gpu_id argument is set in train_qsub_helper.sh automatically
+        # The --gpu_id argument is set in the qsub script automatically
 
-    print("\n\n\n####### All jobs submitted. Will now wait for them to complete, before retrying any failed jobs...")
+    print("\n\n\n####### All train jobs submitted. Will now wait for them to complete, before retrying any failed jobs...")
 
     def retry_failed_train_jobs(current_retry):
         iterations = get_iterations()
         retried = 0
-
         for iteration in iterations:
             outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
@@ -263,7 +280,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                                " --outputmodelname " + "model.pickle" +
                                iterationParams,
                                outputdir + "info.txt")
-                # The --gpu_id argument is set in train_qsub_helper.sh automatically
+                # The --gpu_id argument is set in the qsub script automatically
         return retried
 
     retried = 1
@@ -277,15 +294,101 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         print("\n\n\n####### Retry " + str(current_retry) + " of " + str(max_retries) + "...")
         retried = retry_failed_train_jobs(current_retry)
 
-elif params.mode == 2: # Eval sweep (eval ONLY)
-    print("ERROR: Not implemented.") # TODO: Implement this (see eval code in mode 0 above) - local machine or qsub? - use ../SentEval-evals/InferSent/eval.py (see above)
-    """
-    NOTE: Wordvecpath is important here. It should be the same one used for training
-    """
-    """for each outputdir with specific wordvecpath:
-        # TODO: From outputdir, iterate through each folder, MAKING SURE WORDVECPATH IS THE SAME
-        # Get the output directory based on current params in this iteration"""
-    sys.exit()
+    print("\n\n\n\n########## EVAL ##########\n\n")
+    iterations = get_iterations()
+    iterationNumber = 0
+    for iteration in iterations:
+        iterationNumber += 1
+        print("\n\n\n####### Iteration " + str(iterationNumber) + " of " + str(totalIterations) + "...")
+        outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
+
+        # If the model/encoder does not exist, this iteration cannot be rerun
+        if not os.path.exists(outputdir + "model.pickle") or not os.path.exists(outputdir + "model.pickle.encoder"):
+            print("\nModel/encoder does not exist with these parameters. Skipping this iteration...")
+            continue
+
+        prepare_directory(outputdir, iterationParams)
+
+        for transfer_task in transfer_tasks:
+            # If the eval results already exists, this iteration does not need to be rerun
+            if os.path.exists(outputdir + "se_results_" + transfer_task + ".txt"):
+                print("\nEval results already exists with these parameters. Skipping this iteration...")
+                continue
+
+            wait_for_jobs(params.n_jobs, True)
+            if transfer_task == "SNLI":
+                qsub_script = "snli_eval_qsub_helper.sh"
+            elif transfer_task == "ImageCaptionRetrieval":
+                qsub_script = "icr_eval_qsub_helper.sh"
+            else:
+                qsub_script = "eval_qsub_helper.sh"
+            run_subprocess("qsub -cwd -o " + outputdir + "se_output_" + transfer_task + ".txt" +
+                           " -e " + outputdir + "se_error_" + transfer_task + ".txt" +
+                           " " + qsub_script + " " +
+                           params.singularitycommand + " python ../SentEval-evals/InferSent/eval.py" +
+                           " --inputdir " + singularityoutputdir +
+                           " --outputdir " + singularityoutputdir +
+                           " --sentevalpath " + params.sentevalpath +
+                           " --wordvecpath " + iteration[1] +
+                           " --inputmodelname " + "model.pickle.encoder" +
+                           " --transfertask " + transfer_task,
+                           outputdir + "info.txt")
+            # The --gpu_id argument is set in the qsub script automatically
+
+    print("\n\n\n####### All eval jobs submitted. Will now wait for them to complete, before retrying any failed jobs...")
+
+    def retry_failed_eval_jobs(current_retry, transfer_task):
+        iterations = get_iterations()
+        retried = 0
+        for iteration in iterations:
+            outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
+
+            if not os.path.exists(outputdir):
+                print("\n\n\nERROR: Could not retry. Output directory does not exist: " + outputdir)
+
+            # If the model/encoder does not exist, this iteration cannot be rerun
+            if not os.path.exists(outputdir + "model.pickle") or not os.path.exists(outputdir + "model.pickle.encoder"):
+                print("\n\n\nERROR: Could not retry. Model/encoder does not exist with these parameters: " + outputdir)
+                continue
+
+            for transfer_task in transfer_tasks:
+                # If the eval results already exists, this iteration does not need to be rerun
+                if not os.path.exists(outputdir + "se_results_" + transfer_task + ".txt"):
+                    print("\n\n\nPARAMETERS: " + iterationParams + "\n")
+                    print("\nOUTPUT DIRECTORY: " + outputdir + "\n")
+                    print("\nTRANSFER TASK: " + transfer_task + "\n")
+                    retried += 1
+                    wait_for_jobs(params.n_jobs, True)
+                    if transfer_task == "SNLI":
+                        qsub_script = "snli_eval_qsub_helper.sh"
+                    elif transfer_task == "ImageCaptionRetrieval":
+                        qsub_script = "icr_eval_qsub_helper.sh"
+                    else:
+                        qsub_script = "eval_qsub_helper.sh"
+                    run_subprocess("qsub -cwd -o " + outputdir + "se_output_" + transfer_task + str(current_retry) + ".txt" +
+                                   " -e " + outputdir + "se_error_" + transfer_task + str(current_retry) + ".txt" +
+                                   " " + qsub_script + " " +
+                                   params.singularitycommand + " python ../SentEval-evals/InferSent/eval.py" +
+                                   " --inputdir " + singularityoutputdir +
+                                   " --outputdir " + singularityoutputdir +
+                                   " --sentevalpath " + params.sentevalpath +
+                                   " --wordvecpath " + iteration[1] +
+                                   " --inputmodelname " + "model.pickle.encoder" +
+                                   " --transfertask " + transfer_task,
+                                   outputdir + "info.txt")
+                    # The --gpu_id argument is set in the qsub script automatically
+        return retried
+
+    retried = 1
+    max_retries = 10
+    current_retry = 0
+    while (retried > 0):
+        current_retry += 1
+        if current_retry > max_retries:
+            break
+        wait_for_jobs(1, False)
+        print("\n\n\n####### Retry " + str(current_retry) + " of " + str(max_retries) + "...")
+        retried = retry_failed_eval_jobs(current_retry)
 
 else:
     print("ERROR: Unknown mode. Set --mode argument correctly.")
