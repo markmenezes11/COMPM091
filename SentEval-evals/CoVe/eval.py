@@ -16,6 +16,8 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
+from keras.models import load_model
+
 import sys
 import os
 import torch
@@ -25,7 +27,6 @@ import timeit
 import numpy as np
 
 from torchtext import data
-from keras.models import load_model
 
 start_time = timeit.default_timer()
 
@@ -65,15 +66,21 @@ def batcher(params, batch):
             sentence = sentence[:max_sent_len]
         vector_list = []
         if len(sentence) == 0:
-            embeddings.append(np.zeros((1, max_sent_len, 600), dtype=float))
+            embedding = np.zeros((1, max_sent_len * 600), dtype=float)
+            embeddings.append(embedding)
             continue
         for word in sentence:
-            vector_list.append(params.inputs.vocab.vectors[params.inputs.vocab.stoi[word]].numpy())
+            if word in params.inputs.vocab.stoi and np.count_nonzero(params.inputs.vocab.vectors[params.inputs.vocab.stoi[word]].numpy()) != 0:
+                vector_list.append(params.inputs.vocab.vectors[params.inputs.vocab.stoi[word]].numpy())
+            else:
+                vector_list.append(np.full((300), 1e-10))
         embedding = []
-        for context_vector in params.cove.predict(np.array(vector_list)):
-            embedding.append(context_vector)
-        for pad in range((max_sent_len - len(sentence))):
-            embedding.append(np.zeros((600), dtype=float))
+        context_vectors = params.cove.predict(np.array([vector_list]))
+        for context_vector in context_vectors[0]:
+            for vector in context_vector:
+                embedding.append(vector)
+        for pad in range((max_sent_len - len(sentence)) * 600):
+            embedding.append(0.0)
         embeddings.append(np.array([embedding]))
     embeddings = np.vstack(embeddings)
     return embeddings
@@ -86,6 +93,7 @@ Evaluation of trained model on Transfer Tasks (SentEval)
 params_senteval = {'task_path': PATH_TO_DATA, 'usepytorch': True, 'kfold': 5, 'seed': 1111}
 params_senteval['classifier'] = {'nhid': 0, 'optim': 'adam', 'batch_size': 64,
                                  'tenacity': 5, 'epoch_size': 4}
+params_senteval['inputdir'] = params.modelpath
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
