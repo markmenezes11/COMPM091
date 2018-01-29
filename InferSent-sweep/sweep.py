@@ -10,7 +10,8 @@ Arguments
 
 parser = argparse.ArgumentParser(description='InferSent Parameter Sweep Using Grid Search and SentEval')
 parser.add_argument("--mode", type=int, default=0, help="0 to run the train+eval sweep on local machine. 1 to run train+eval sweep using qsub for job submissions on HPC cluster")
-parser.add_argument("--n_jobs", type=int, default=10, help="Maximum number of qsub jobs to be running simultaneously")
+parser.add_argument("--n_jobs", type=int, default=16, help="Maximum number of qsub jobs to be running simultaneously")
+parser.add_argument("--n_retries", type=int, default=16, help="Maximum number of retries for failed qsub jobs before giving up")
 parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval", help="Path to SentEval repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID to use when running InferSent/SentEval code. This parameter will be ignored if using qsub, as the GPU will be chosen automatically")
@@ -299,7 +300,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         return retried
 
     retried = 1
-    max_retries = 10
+    max_retries = params.n_retries
     current_retry = 0
     while (retried > 0):
         current_retry += 1
@@ -396,7 +397,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
         return retried
 
     retried = 1
-    max_retries = 10
+    max_retries = params.n_retries
     current_retry = 0
     while (retried > 0):
         current_retry += 1
