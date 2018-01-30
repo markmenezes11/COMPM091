@@ -9,16 +9,18 @@ import tensorflow as tf
 from keras.models import load_model
 
 """
-SATASET
+DATASET
 """
 
-# TODO: Get dataset, split it into train/test, and use it below
+# TODO: Get dataset, split it into train/test, and adjust max_sent_len and n_classes accordingly
+max_sent_len = 256
+n_classes = 3
 
 """
 EMBEDDINGS
 """
 
-# TODO: Load GloVe 840B 300d embeddings, e.g. with PyTorch or https://github.com/iamalbert/pytorch-wordemb
+# TODO: Load GloVe 840B 300d embeddings, e.g. with PyTorch or https://github.com/iamalbert/pytorch-wordemb or gensim
 
 # Load CoVe model. Ported version from https://github.com/rgsachin/CoVe
 # - Iinput: GloVe vectors of dimension - (<batch_size>, <sentence_len>, 300)
@@ -26,7 +28,7 @@ EMBEDDINGS
 # - Example: cove_model.predict(np.random.rand(1,10,300))
 # - For unknown words, use a dummy value different to the dummy value used for padding - small non-zero value e.g. 1e-10 # TODO: Make sure this is implemented - 1e-10 for unknown words
 cove_model = load_model('../CoVe-ported/Keras_CoVe_Python2.h5')
-print("Loaded CoVe model.\n")
+print("Successfully loaded CoVe model.")
 
 # Input sequence (sentences) w is converted to sequence of vectors: w' = [GloVe(w); CoVe(w)]
 def sentence_to_glove_cove(sentence):
@@ -44,13 +46,29 @@ def sentence_to_glove_cove(sentence):
 HYPERPARAMETERS
 """
 
-debug = True
-max_sent_len = 100 # TODO: Get max sentence length depending on dataset
-n_classes = 3 # TODO: Get n_classes depending on dataset
-n_epochs = 100  # TODO: Choose n_epochs
-batch_size = 60  # TODO: Choose batch_size
-bilstm_n_hidden = 256
-bilstm_forget_bias = 1.0
+# TODO: Tune the following parameters
+n_epochs = 100 # int
+batch_size = 60 # int
+
+feedforward_weight_size = 0.1 # float
+feedforward_bias_size = 0.1 # float
+feedforward_activation = tf.nn.relu6 # tf.nn.relu or tf.nn.relu6
+
+same_bilstm_for_encoder = True # boolean
+bilstm_encoder_n_hidden1 = 200 # int
+bilstm_encoder_forget_bias1 = 1.0 # float
+bilstm_encoder_n_hidden2 = 200 # int - only needs to be set if same_bilstm_for_encoder is False
+bilstm_encoder_forget_bias2 = 1.0 # float - only needs to be set if same_bilstm_for_encoder is False
+
+bilstm_integrate_n_hidden1 = 200 # int
+bilstm_integrate_forget_bias1 = 1.0 # float
+bilstm_integrate_n_hidden2 = 200 # int
+bilstm_integrate_forget_bias2 = 1.0 # float
+
+self_pool_weight_size1 = 0.1
+self_pool_bias_size1 = 0.1
+self_pool_weight_size2 = 0.1
+self_pool_bias_size2 = 0.1
 
 """
 MODEL
@@ -60,46 +78,124 @@ MODEL
 inputs1 = tf.placeholder(tf.float32, shape=[batch_size, max_sent_len, 900]) # (n_sentences, max_sent_len, 900)
 inputs2 = tf.placeholder(tf.float32, shape=[batch_size, max_sent_len, 900]) # (n_sentences, max_sent_len, 900)
 labels = tf.placeholder(tf.float32, [None, n_classes])  # (n_sentences, n_classes)
-if debug: print("inputs1 shape: " + str(inputs1.shape))
+assert inputs1.shape == (batch_size, max_sent_len, 900)
+assert inputs2.shape == (batch_size, max_sent_len, 900)
 
-# Feedforward network with ReLU activation applied to each word embedding in the sequence
-weight = tf.get_variable("weight", shape=[900, 900], initializer=tf.random_uniform_initializer(-0.1, 0.1))  # TODO: Choose weight
-bias = tf.get_variable("bias", shape=[900], initializer=tf.constant_initializer(0.1))  # TODO: Choose bias
-def feedforward(feedforward_inputs): # TODO: Same or different feedforward network for inputs1 and inputs2?
+# Feedforward network with ReLU activation, applied to each word embedding (word) in the sequence (sentence)
+feedforward_weight = tf.get_variable("feedforward_weight", shape=[900, 900], initializer=tf.random_uniform_initializer(-feedforward_weight_size, feedforward_weight_size))
+feedforward_bias = tf.get_variable("feedforward_bias", shape=[900], initializer=tf.constant_initializer(feedforward_bias_size))
+def feedforward(feedforward_inputs):
     feedforward_inputs_unstacked = tf.unstack(feedforward_inputs) # Split on axis 0 into (max_sent_len, 900)
     feedforward_outputs = []
     for feedforward_input in feedforward_inputs_unstacked: # Loop through each sentence
-        feedforward_outputs.append(tf.nn.relu6(tf.matmul(feedforward_input, weight) + bias)) # TODO: Choose ReLU
+        feedforward_outputs.append(feedforward_activation(tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias)) # TODO: Have I done this right? Or do I have to use a fully_connected_layer or something so I can reuse the same relu? ##################################################################################################################################
     return tf.stack(feedforward_outputs)
 feedforward_outputs1 = feedforward(inputs1)
 feedforward_outputs2 = feedforward(inputs2)
-if debug: print("feedforward_outputs1 shape: " + str(feedforward_outputs1.shape))
+assert feedforward_outputs1.shape == (batch_size, max_sent_len, 900)
+assert feedforward_outputs2.shape == (batch_size, max_sent_len, 900)
 
-#  Bidirectional LSTM processes the resulting sequences to obtain task-specific representations
-fw_cell = tf.contrib.rnn.LSTMCell(bilstm_n_hidden, forget_bias=bilstm_forget_bias)
-bw_cell = tf.contrib.rnn.LSTMCell(bilstm_n_hidden, forget_bias=bilstm_forget_bias)
-def bidirectional_lstm(bidirectional_lstm_inputs): # TODO: Same or different bilstm network for inputs1 and inputs2?
-    bilstm_outputs, _ = tf.nn.bidirectional_dynamic_rnn(fw_cell, bw_cell, bidirectional_lstm_inputs, dtype=tf.float32)
-    return tf.concat([bilstm_outputs[0], bilstm_outputs[-1]], 2) # TODO: Do we concatenate the outputs of each bilstm direction like this?
-bilstm_outputs1 = bidirectional_lstm(feedforward_outputs1)
-bilstm_outputs2 = bidirectional_lstm(feedforward_outputs2)
-if debug: print("bilstm_outputs1 shape: " + str(bilstm_outputs1.shape))
+#  BiLSTM processes the resulting sequences
+if same_bilstm_for_encoder:
+    with tf.variable_scope("bilstm_encoder_scope") as bilstm_encoder_scope:
+        bilstm_encoder_fw_cell = tf.contrib.rnn.LSTMCell(bilstm_encoder_n_hidden1, forget_bias=bilstm_encoder_forget_bias1)
+        bilstm_encoder_bw_cell = tf.contrib.rnn.LSTMCell(bilstm_encoder_n_hidden1, forget_bias=bilstm_encoder_forget_bias1)
+        bilstm_encoder_inputs = tf.concat((feedforward_outputs1, feedforward_outputs2), 0)
+        bilstm_encoder_raw_outputs, _ = tf.nn.bidirectional_dynamic_rnn(bilstm_encoder_fw_cell, bilstm_encoder_bw_cell, bilstm_encoder_inputs, dtype=tf.float32)
+        bilstm_encoder_outputs1, bilstm_encoder_outputs2 = tf.split(tf.concat([bilstm_encoder_raw_outputs[0], bilstm_encoder_raw_outputs[-1]], 2), 2, axis=0)
+else:
+    with tf.variable_scope("bilstm_encoder_scope1") as bilstm_encoder_scope1:
+        bilstm_encoder_fw_cell1 = tf.contrib.rnn.LSTMCell(bilstm_encoder_n_hidden1, forget_bias=bilstm_encoder_forget_bias1)
+        bilstm_encoder_bw_cell1 = tf.contrib.rnn.LSTMCell(bilstm_encoder_n_hidden1, forget_bias=bilstm_encoder_forget_bias1)
+        bilstm_encoder_raw_outputs1, _ = tf.nn.bidirectional_dynamic_rnn(bilstm_encoder_fw_cell1, bilstm_encoder_bw_cell1, feedforward_outputs1, dtype=tf.float32)
+        bilstm_encoder_outputs1 = tf.concat([bilstm_encoder_raw_outputs1[0], bilstm_encoder_raw_outputs1[-1]], 2)
+    with tf.variable_scope("bilstm_encoder_scope2") as bilstm_encoder_scope2:
+        bilstm_encoder_fw_cell2 = tf.contrib.rnn.LSTMCell(bilstm_encoder_n_hidden2, forget_bias=bilstm_encoder_forget_bias2)
+        bilstm_encoder_bw_cell2 = tf.contrib.rnn.LSTMCell(bilstm_encoder_n_hidden2, forget_bias=bilstm_encoder_forget_bias2)
+        bilstm_encoder_raw_outputs2, _ = tf.nn.bidirectional_dynamic_rnn(bilstm_encoder_fw_cell2, bilstm_encoder_bw_cell2, feedforward_outputs2, dtype=tf.float32)
+        bilstm_encoder_outputs2 = tf.concat([bilstm_encoder_raw_outputs2[0], bilstm_encoder_raw_outputs2[-1]], 2)
+assert bilstm_encoder_outputs1.shape == (batch_size, max_sent_len, bilstm_encoder_n_hidden1 * 2)
+assert bilstm_encoder_outputs2.shape == (batch_size, max_sent_len, bilstm_encoder_n_hidden2 * 2)
 
 # Biattention mechanism [Seo et al., 2017, Xiong et al., 2017]
-def biattention(Xs, Ys):
-    Xs_unstacked = tf.unstack(Xs)
-    Ys_unstacked = tf.unstack(Ys)
-    biattention_outputs1 = []
-    biattention_outputs2 = []
-    for X, Y in zip(Xs_unstacked, Ys_unstacked):
-        # TODO: Do mathsy stuff and append results to biattention_outputs1 (X result) and biattention_outputs2 (Y result)
-    return tf.stack(biattention_outputs1), tf.stack(biattention_outputs2)
-biattention_outputs1, biattention_outputs2 = biattention(bilstm_outputs1, bilstm_outputs2)
-if debug: print("biattention_outputs1 shape: " + str(biattention_outputs1.shape))
+Xs = tf.unstack(bilstm_encoder_outputs1)
+Ys = tf.unstack(bilstm_encoder_outputs2)
+biattention_outputs1 = []
+biattention_outputs2 = []
+for X, Y in zip(Xs, Ys):
+    # Affinity matrix A=XY^T
+    A = tf.matmul(X, Y, adjoint_b=True)
+    assert A.shape == (max_sent_len, max_sent_len)
 
-# TODO: The rest of the BCN
+    # Column-wise normalisation to extract attention weights
+    Ax = tf.nn.softmax(A)
+    Ay = tf.nn.softmax(tf.transpose(A))
+    assert Ax.shape == (max_sent_len, max_sent_len)
+    assert Ay.shape == (max_sent_len, max_sent_len)
+
+    # Context summaries
+    Cx = tf.matmul(Ax, X, adjoint_a=True)
+    Cy = tf.matmul(Ay, X, adjoint_a=True)
+    assert Cx.shape == (max_sent_len, bilstm_encoder_n_hidden1*2)
+    assert Cy.shape == (max_sent_len, bilstm_encoder_n_hidden2*2)
+
+    biattention_outputs1.append(tf.concat([X, X - Cy, tf.multiply(X, Cy)], 1))
+    biattention_outputs2.append(tf.concat([Y, Y - Cx, tf.multiply(Y, Cx)], 1))
+biattention_outputs1 = tf.stack(biattention_outputs1)
+biattention_outputs2 = tf.stack(biattention_outputs2)
+assert biattention_outputs1.shape == (batch_size, max_sent_len, bilstm_encoder_n_hidden1*2*3)
+assert biattention_outputs2.shape == (batch_size, max_sent_len, bilstm_encoder_n_hidden2*2*3)
+
+# Integrate with two separate one-layer BiLSTMs
+with tf.variable_scope("bilstm_integrate_scope1") as bilstm_integrate_scope1:
+    bilstm_integrate_fw_cell1 = tf.contrib.rnn.LSTMCell(bilstm_integrate_n_hidden1, forget_bias=bilstm_integrate_forget_bias1)
+    bilstm_integrate_bw_cell1 = tf.contrib.rnn.LSTMCell(bilstm_integrate_n_hidden1, forget_bias=bilstm_integrate_forget_bias1)
+    bilstm_integrate_raw_outputs1, _ = tf.nn.bidirectional_dynamic_rnn(bilstm_integrate_fw_cell1, bilstm_integrate_bw_cell1, biattention_outputs1, dtype=tf.float32)
+    bilstm_integrate_outputs1 = tf.concat([bilstm_integrate_raw_outputs1[0], bilstm_integrate_raw_outputs1[-1]], 2)
+with tf.variable_scope("bilstm_integrate_scope2") as bilstm_integrate_scope2:
+    bilstm_integrate_fw_cell2 = tf.contrib.rnn.LSTMCell(bilstm_integrate_n_hidden2, forget_bias=bilstm_integrate_forget_bias2)
+    bilstm_integrate_bw_cell2 = tf.contrib.rnn.LSTMCell(bilstm_integrate_n_hidden2, forget_bias=bilstm_integrate_forget_bias2)
+    bilstm_integrate_raw_outputs2, _ = tf.nn.bidirectional_dynamic_rnn(bilstm_integrate_fw_cell2, bilstm_integrate_bw_cell2, biattention_outputs2, dtype=tf.float32)
+    bilstm_integrate_outputs2 = tf.concat([bilstm_integrate_raw_outputs2[0], bilstm_integrate_raw_outputs2[-1]], 2)
+assert bilstm_integrate_outputs1.shape == (batch_size, max_sent_len, bilstm_integrate_n_hidden1*2)
+assert bilstm_integrate_outputs2.shape == (batch_size, max_sent_len, bilstm_integrate_n_hidden2*2)
+
+Xys = tf.unstack(bilstm_integrate_outputs1)
+Yxs = tf.unstack(bilstm_integrate_outputs2)
+self_pool_outputs1 = []
+self_pool_outputs2 = []
+self_pool_weight1 = tf.get_variable("self_pool_weight1", shape=[UNKNOWN, UNKNOWN], initializer=tf.random_uniform_initializer(-self_pool_weight_size1, self_pool_weight_size1))
+self_pool_bias1 = tf.get_variable("self_pool_bias1", shape=[UNKNOWN], initializer=tf.constant_initializer(self_pool_bias_size1))
+self_pool_weight2 = tf.get_variable("self_pool_weight2", shape=[UNKNOWN, UNKNOWN], initializer=tf.random_uniform_initializer(-self_pool_weight_size2, self_pool_weight_size2))
+self_pool_bias2 = tf.get_variable("self_pool_bias2", shape=[UNKNOWN], initializer=tf.constant_initializer(self_pool_bias_size2))
+for Xy, Yx in zip(Xys, Yxs):
+    # Self-attentive pooling
+    Bx = tf.nn.softmax((tf.matmul(Xy, self_pool_weight1)) + self_pool_bias1) # TODO: Are these weights and biases? Is this how we do it? ########################################################################################################################################################################################################################
+    By = tf.nn.softmax((tf.matmul(Yx, self_pool_weight2)) + self_pool_bias2) # TODO: Are these weights and biases? Is this how we do it? ########################################################################################################################################################################################################################
+    x_self = tf.matmul(Xy, Bx, adjoint_a=True)
+    y_self = tf.matmul(Yx, By, adjoint_a=True)
+
+    # TODO: Combine pooled representations
+    max_Xy = UNKNOWN
+    mean_Xy = UNKNOWN
+    min_Xy = UNKNOWN
+    max_Yx = UNKNOWN
+    mean_Yx = UNKNOWN
+    min_Yx = UNKNOWN
+
+    self_pool_outputs1.append(tf.concat([max_Xy, mean_Xy, min_Xy, x_self], 1))
+    self_pool_outputs2.append(tf.concat([max_Yx, mean_Yx, min_Yx, y_self], 1))
+self_pool_outputs1 = tf.stack(self_pool_outputs1)
+self_pool_outputs2 = tf.stack(self_pool_outputs2)
+assert biattention_outputs1.shape == (batch_size, max_sent_len, bilstm_encoder_n_hidden1*2*3)
+assert biattention_outputs2.shape == (batch_size, max_sent_len, bilstm_encoder_n_hidden2*2*3)
+
+# TODO: Max-out network (3 layers, batch normalised)
+
 # TODO: train_step and predict variable for the code below to use
 # TODO: Uncomment the code below
+
+print("Successfully created BCN model.")
 
 """
 TRAIN
@@ -108,6 +204,8 @@ TRAIN
 """train_X1 = [["This", "is", "a", "train", "sentence", "."]] # TODO: Get train data
 train_X2 = [["This", "is", "a", "train", "sentence", "."]] # TODO: Get train data
 train_y = [0] # TODO: Get train data
+
+# TODO: Shuffle data
 
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
