@@ -1,16 +1,17 @@
 # Training and Evaluating Sentence Representations 
 
-InferSent-master, SentEval-master and cove-master were cloned from these repositories:
-- InferSent: https://github.com/facebookresearch/InferSent
-- SentEval: https://github.com/facebookresearch/SentEval
-- CoVe: https://github.com/salesforce/cove
-        
-They originate from these papers:
+This repository contains the code created/used for my MEng Computer Science Undergraduate Final Year Individual Projct (COMPM091).
+
+My project primarily involved looking at sentence representations, specifically InferSent (Conneau et al., 2017) and CoVe (McCann et al., 2017) and using SentEval (Conneau et al., 2017) to evaluate them. They originate from these papers:
 - Conneau et al. (Jul 2017). "Supervised Learning of Universal Sentence Representations from Natural Language Inference Data". [online]. Available at: https://arxiv.org/pdf/1705.02364.pdf
 - McCann et al. (Aug 2017). "Learned in Translation: Contextualized Word Vectors". [online]. Available at: https://arxiv.org/pdf/1708.00107.pdf
 
+The code for InferSent, SentEval and CoVe were cloned from the following repositories:
+- InferSent: https://github.com/facebookresearch/InferSent
+- SentEval: https://github.com/facebookresearch/SentEval
+- CoVe: https://github.com/salesforce/cove and https://github.com/rgsachin/CoVe
 
-
+In the `libs.zip` file, you will find snapshots of these repositories - the versions of them that were used in my project, at this time of writing.
 
 ## Install
 
