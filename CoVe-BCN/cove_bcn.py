@@ -3,12 +3,20 @@
 # https://github.com/salesforce/cove
 #
 
-import sys
-
+import argparse
+import gensim
 import numpy as np
 import tensorflow as tf
 
 from keras.models import load_model
+
+parser = argparse.ArgumentParser(description='Replication of the CoVe Biattentive Classification Network (BCN)')
+parser.add_argument("--glovepath", type=str, default="../../Word2Vec_models/GloVe/glove.840B.300d.txt", help="Path to GloVe word embeddings. Download glove.840B.300d embeddings from https://nlp.stanford.edu/projects/glove/")
+parser.add_argument("--glovebinary", action="store_true", default=False, help="Whether or not the GloVe model is a binary (bin) file")
+parser.add_argument("--glovedimensions", type=int, default=300, help="Number of dimensions in GloVe embeddings (default: 300)")
+parser.add_argument("--covepath", type=str, default='../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
+parser.add_argument("--covedimensions", type=int, default=600, help="Number of dimensions in CoVe embeddings (default: 600)")
+params, _ = parser.parse_known_args()
 
 """
 DATASET
@@ -22,27 +30,38 @@ n_classes = 3
 EMBEDDINGS
 """
 
-# TODO: Load GloVe 840B 300d embeddings, e.g. with PyTorch or https://github.com/iamalbert/pytorch-wordemb or gensim
+glove_model = gensim.models.KeyedVectors.load_word2vec_format(params.glovepath, binary = params.glovebinary, unicode_errors = 'ignore')
+print("Successfully loaded GloVe model.")
 
 # Load CoVe model. Ported version from https://github.com/rgsachin/CoVe
-# - Iinput: GloVe vectors of dimension - (<batch_size>, <sentence_len>, 300)
-# - Output: CoVe vectors of dimension - (<batch_size>, <sentence_len>, 600)
-# - Example: cove_model.predict(np.random.rand(1,10,300))
-# - For unknown words, use a dummy value different to the dummy value used for padding - small non-zero value e.g. 1e-10 # TODO: Make sure this is implemented - 1e-10 for unknown words
-cove_model = load_model('../CoVe-ported/Keras_CoVe_Python2.h5')
+# - Input: GloVe vectors of dimension - (<batch_size>, <sentence_len>, <glove_dimensions>)
+# - Output: CoVe vectors of dimension - (<batch_size>, <sentence_len>, <cove_dimensions>)
+# - Example: cove_model.predict(np.random.rand(1, 10, params.glovedimensions))
+# - For unknown words, use a dummy value different to the dummy value used for padding - small non-zero value e.g. 1e-10
+cove_model = load_model(params.covepath)
 print("Successfully loaded CoVe model.")
 
 # Input sequence (sentences) w is converted to sequence of vectors: w' = [GloVe(w); CoVe(w)]
 def sentence_to_glove_cove(sentence):
-    glove = []
+    glove_embeddings = []
     for word in sentence:
-        glove.append(np.random.rand(1, 300)) # TODO: Get actual GloVe(w) embedding (or 1e-10 if word not found)
-    glove = np.array(glove) # (len(sentence), 300)
-    cove = cove_model.predict(glove) # (len(sentence), 600)
-    glove_cove = np.concatenate([glove, cove], axis=1) # (len(sentence), 900)
+        try:
+            glove_embedding = np.array(glove_model[word])
+            assert glove_embedding.shape == (params.glovedimensions,)
+            glove_embeddings.append(glove_embedding)
+        except KeyError:
+            glove_embedding = np.full(params.glovedimensions, 1e-10) # 1e-10 for unknown words, as recommended on https://github.com/rgsachin/CoVe
+            assert glove_embedding.shape == (params.glovedimensions,)
+            glove_embeddings.append(glove_embedding)
+    glove = np.array([glove_embeddings])
+    assert glove.shape == (1, len(sentence), params.glovedimensions)
+    cove = cove_model.predict(glove)
+    assert cove.shape == (1, len(sentence), params.covedimensions)
+    glove_cove = np.concatenate([glove[0], cove[0]], axis=1)
     for pad in range(max_sent_len - len(sentence)):
-        np.append(glove_cove, np.full((1, 900), 0.0), axis=0)
-    return glove_cove # (max_sent_len, 900)
+        glove_cove = np.append(glove_cove, np.full((1, params.glovedimensions + params.covedimensions), 0.0), axis=0)
+    assert glove_cove.shape == (max_sent_len, params.glovedimensions + params.covedimensions)
+    return glove_cove
 
 """
 HYPERPARAMETERS
@@ -90,14 +109,17 @@ def feedforward(feedforward_inputs):
     feedforward_inputs_unstacked = tf.unstack(feedforward_inputs) # Split on axis 0 into (max_sent_len, 900)
     feedforward_outputs = []
     for feedforward_input in feedforward_inputs_unstacked: # Loop through each sentence
-        feedforward_outputs.append(feedforward_activation(tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias)) # TODO: Should this be a a fully_connected_layer or something? For reuse of ReLU ################################################################################################################################################
+        feedforward_outputs.append(feedforward_activation(tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias)) # TODO: Should this be a a fully_connected_layer or something? For reuse of ReLU?
     return tf.stack(feedforward_outputs)
 feedforward_outputs1 = feedforward(inputs1)
 feedforward_outputs2 = feedforward(inputs2)
 assert feedforward_outputs1.shape == (batch_size, max_sent_len, 900)
 assert feedforward_outputs2.shape == (batch_size, max_sent_len, 900)
 
-#  BiLSTM processes the resulting sequences
+# BiLSTM processes the resulting sequences
+# The BCN is symmetrical - not sure whether to use the same BiLSTM or or two separate BiLSTMs (one for each side).
+# Therefore implemented both, e.g. For SNLI you might want to use different models for inputs1 and inputs2, whereas
+# for sentiment analysis you mightwant to use the same model
 if same_bilstm_for_encoder:
     with tf.variable_scope("bilstm_encoder_scope") as bilstm_encoder_scope:
         bilstm_encoder_fw_cell = tf.contrib.rnn.LSTMCell(bilstm_encoder_n_hidden1, forget_bias=bilstm_encoder_forget_bias1)
@@ -163,54 +185,59 @@ with tf.variable_scope("bilstm_integrate_scope2") as bilstm_integrate_scope2:
 assert bilstm_integrate_outputs1.shape == (batch_size, max_sent_len, bilstm_integrate_n_hidden1*2)
 assert bilstm_integrate_outputs2.shape == (batch_size, max_sent_len, bilstm_integrate_n_hidden2*2)
 
-# TODO: Everything below is not proven to be correct, so make it correct...
-
+# Max, mean, min and self-attentive pooling
 Xys = tf.unstack(bilstm_integrate_outputs1)
 Yxs = tf.unstack(bilstm_integrate_outputs2)
-self_pool_outputs1 = []
-self_pool_outputs2 = []
+pool_outputs1 = []
+pool_outputs2 = []
 self_pool_weight1 = tf.get_variable("self_pool_weight1", shape=[bilstm_integrate_n_hidden1*2, 1], initializer=tf.random_uniform_initializer(-self_pool_weight_size1, self_pool_weight_size1))
 self_pool_bias1 = tf.get_variable("self_pool_bias1", shape=[max_sent_len], initializer=tf.constant_initializer(self_pool_bias_size1))
 self_pool_weight2 = tf.get_variable("self_pool_weight2", shape=[bilstm_integrate_n_hidden2*2, 1], initializer=tf.random_uniform_initializer(-self_pool_weight_size2, self_pool_weight_size2))
 self_pool_bias2 = tf.get_variable("self_pool_bias2", shape=[max_sent_len], initializer=tf.constant_initializer(self_pool_bias_size2))
 for Xy, Yx in zip(Xys, Yxs):
-    # Self-attentive pooling
-    Bx = tf.nn.softmax((tf.matmul(Xy, self_pool_weight1)) + self_pool_bias1)
+    assert Xy.shape == (max_sent_len, bilstm_integrate_n_hidden1*2)
+    assert Xy.shape == (max_sent_len, bilstm_integrate_n_hidden2*2)
+
+    # Max pooling - just take the 256 "columns" in the matrix and get the max in each of them.
+    max_Xy = tf.reduce_max(Xy, axis=0)
+    max_Yx = tf.reduce_max(Yx, axis=0)
+    assert max_Xy.shape == (bilstm_integrate_n_hidden1*2)
+    assert max_Yx.shape == (bilstm_integrate_n_hidden2*2)
+
+    # Mean pooling - just take the 256 "columns" in the matrix and get the mean in each of them.
+    mean_Xy = tf.reduce_mean(Xy, axis=0)
+    mean_Yx = tf.reduce_mean(Yx, axis=0)
+    assert mean_Xy.shape == (bilstm_integrate_n_hidden1*2)
+    assert mean_Yx.shape == (bilstm_integrate_n_hidden2*2)
+
+    # Min pooling - just take the 256 "columns" in the matrix and get the min in each of them.
+    min_Xy = tf.reduce_min(Xy, axis=0)
+    min_Yx = tf.reduce_min(Yx, axis=0)
+    assert min_Xy.shape == (bilstm_integrate_n_hidden1*2)
+    assert min_Yx.shape == (bilstm_integrate_n_hidden2*2)
+
+    # Self-attentive pooling # TODO: Implement this correctly
+    """Bx = tf.nn.softmax((tf.matmul(Xy, self_pool_weight1)) + self_pool_bias1)
     By = tf.nn.softmax((tf.matmul(Yx, self_pool_weight2)) + self_pool_bias2)
-    print(Xy.shape)
     print(Bx.shape)
-    x_self = tf.matmul(Xy, Bx, adjoint_a=True) # TODO: This hsould be 256 by 400 ################################################################################################################################################################################################################################################################################
-    y_self = tf.matmul(Yx, By, adjoint_a=True) # TODO: This hsould be 256 by 400 ################################################################################################################################################################################################################################################################################
+    print(By.shape)
+    x_self = tf.matmul(Xy, Bx, adjoint_a=True) # TODO: Output of this hsould be 256 by 400? Or 400?
+    y_self = tf.matmul(Yx, By, adjoint_a=True) # TODO: Output of this hsould be 256 by 400? Or 400?
     print(x_self.shape)
     print(y_self.shape)
-    assert x_self.shape == (bilstm_integrate_n_hidden1*2, bilstm_integrate_n_hidden1*2)
-    assert y_self.shape == (bilstm_integrate_n_hidden2*2, bilstm_integrate_n_hidden2*2)
-
-    # Max, mean and min pooling
-    Xy_stacked = tf.stack([Xy])
-    Yx_stacked = tf.stack([Yx])
-    max_Xy = tf.nn.pool(Xy_stacked, [3], 'MAX', 'SAME', strides = [1]) #tf.layers.max_pooling2d(Xy, (max_sent_len, bilstm_integrate_n_hidden1*2), (max_sent_len, bilstm_integrate_n_hidden1*2)) # TODO: Fix this (see gdoc/slack)
-    print(max_Xy.shape) # Should be (400)
-    mean_Xy = max_Xy # TODO
-    min_Xy = max_Xy # TODO
-    max_Yx = max_Xy # TODO
-    mean_Yx = max_Xy # TODO
-    min_Yx = max_Xy # TODO
-
-    sys.exit() # TODO: Remove this
+    assert x_self.shape == (max_sent_len, bilstm_integrate_n_hidden1*2)
+    assert y_self.shape == (max_sent_len, bilstm_integrate_n_hidden2*2)"""
 
     # Combine pooled representations
-    self_pool_outputs1.append(tf.concat([max_Xy, mean_Xy, min_Xy, x_self], 1))
-    self_pool_outputs2.append(tf.concat([max_Yx, mean_Yx, min_Yx, y_self], 1))
-self_pool_outputs1 = tf.stack(self_pool_outputs1)
-self_pool_outputs2 = tf.stack(self_pool_outputs2)
-print(self_pool_outputs1.shape)
-print(self_pool_outputs2.shape)
-assert self_pool_outputs1.shape == (batch_size, max_sent_len, bilstm_encoder_n_hidden1*2*3)
-assert self_pool_outputs2.shape == (batch_size, max_sent_len, bilstm_encoder_n_hidden2*2*3)
+    pool_outputs1.append(tf.concat([max_Xy, mean_Xy, min_Xy], 0)) # TODO: Change this to self_pool_outputs1.append(tf.concat([max_Xy, mean_Xy, min_Xy, x_self], 1))
+    pool_outputs2.append(tf.concat([max_Yx, mean_Yx, min_Yx], 0)) # TODO: Change this to self_pool_outputs2.append(tf.concat([max_Yx, mean_Yx, min_Yx, y_self], 1))
+pool_outputs1 = tf.stack(pool_outputs1)
+pool_outputs2 = tf.stack(pool_outputs2)
+assert pool_outputs1.shape == (batch_size, bilstm_encoder_n_hidden1*2*3)
+assert pool_outputs2.shape == (batch_size, bilstm_encoder_n_hidden2*2*3)
 
 # Max-out network (3 layers, batch normalised)
-# TODO: Implement this
+# TODO: Implement this ( https://arxiv.org/pdf/1502.03167.pdf ) ( https://arxiv.org/pdf/1302.4389.pdf )
 
 # TODO: train_step and predict variable for the code below to use
 # TODO: Uncomment the code below

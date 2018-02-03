@@ -60,7 +60,7 @@ The instructions assume that you have either locally installed the requirements,
 
 (*Note: A lot of the following scripts may use paths that do not exist on your system, so you will have to change these paths or set them as parameters when running them.*)
 
-#### Evaluating Sentence Representations Using SentEval
+### Evaluating Sentence Representations Using SentEval
 
 These scripts, and text files containing their test results, can be found in the `SentEval-evals` folder. They require a GPU to run.
 
@@ -87,7 +87,7 @@ python eval.py --transfertask SICKEntailment
 
 There are also some test results in the above folders from running the scripts.
 
-#### Parameter Sweeping InferSent
+### Parameter Sweeping InferSent
 
 The `InferSent-sweep` folder contains a program that runs a grid-search parameter sweep on InferSent sentence representations, using SentEval to evaluate them. The main script in that folder is `sweep.py`.
 
@@ -100,15 +100,22 @@ python sweep.py
 
 You can also set the mode using the `--mode` argument, to specify whether you want it to run on your local PC or on the HPC cluster using qsub for job submissions. Again, you can find more details using `python sweep.py -h`. There is lots and lots of info in there...
 
-#### Training InferSent on SNLI and MultiNLI Datasets
+### Training InferSent on SNLI and MultiNLI Datasets
 
 You can also run the training on a single set of parameters using `train.py` in the `InferSent-sweep` folder, which will output a single model depending on the arguments you give it. See `python train.py -h` for more details.
 
 For MultiNLI, you'll have to make a new folder with the MultiNLI datasets you downloaded with InferSent, and rename the files to match the same names that are used in the SNLI folder. In general, `matched` should become `dev` sets, and `mismatched` should become `test` sets. Then, you will need to make sure all the paths are correct in the arguments you provide as arguments to `train.py`.
 
-#### Reproduction of the CoVe Biattentive Classification Network (BCN)
+### Replication of the CoVe Biattentive Classification Network (BCN)
 
-# TODO
+The `CoVe-BCN` folder contains an attempt at replicating the Biattentive Classification Network (BCN) explained in Section 5 of the CoVe research paper (McCann et al., 2017). The description of the BCN missed out some important details, so this was a best attempt at replicating it, making various assumptions along the way.
+
+Run it with:
+```
+python cove_bcn.py
+```
+
+You will need to provide it with a model to train on (see the `DATASET` section in the code), and you will also need to make sure the paths to the CoVe model and GloVe embeddings are correct. See `python cove_bcn.py -h` for more details.
 
 
 
