@@ -30,7 +30,7 @@ n_classes = 3
 EMBEDDINGS
 """
 
-glove_model = gensim.models.KeyedVectors.load_word2vec_format(params.glovepath, binary = params.glovebinary, unicode_errors = 'ignore')
+"""glove_model = gensim.models.KeyedVectors.load_word2vec_format(params.glovepath, binary = params.glovebinary, unicode_errors = 'ignore')
 print("Successfully loaded GloVe model.")
 
 # Load CoVe model. Ported version from https://github.com/rgsachin/CoVe
@@ -61,7 +61,7 @@ def sentence_to_glove_cove(sentence):
     for pad in range(max_sent_len - len(sentence)):
         glove_cove = np.append(glove_cove, np.full((1, params.glovedimensions + params.covedimensions), 0.0), axis=0)
     assert glove_cove.shape == (max_sent_len, params.glovedimensions + params.covedimensions)
-    return glove_cove
+    return glove_cove"""
 
 """
 HYPERPARAMETERS
@@ -149,7 +149,7 @@ biattention_outputs1 = []
 biattention_outputs2 = []
 for X, Y in zip(Xs, Ys):
     # Affinity matrix A=XY^T
-    A = tf.matmul(X, Y, adjoint_b=True)
+    A = tf.matmul(X, Y, transpose_b=True)
     assert A.shape == (max_sent_len, max_sent_len)
 
     # Column-wise normalisation to extract attention weights
@@ -159,8 +159,8 @@ for X, Y in zip(Xs, Ys):
     assert Ay.shape == (max_sent_len, max_sent_len)
 
     # Context summaries
-    Cx = tf.matmul(Ax, X, adjoint_a=True)
-    Cy = tf.matmul(Ay, X, adjoint_a=True)
+    Cx = tf.matmul(Ax, X, transpose_a=True)
+    Cy = tf.matmul(Ay, X, transpose_a=True)
     assert Cx.shape == (max_sent_len, bilstm_encoder_n_hidden1*2)
     assert Cy.shape == (max_sent_len, bilstm_encoder_n_hidden2*2)
 
@@ -191,9 +191,9 @@ Yxs = tf.unstack(bilstm_integrate_outputs2)
 pool_outputs1 = []
 pool_outputs2 = []
 self_pool_weight1 = tf.get_variable("self_pool_weight1", shape=[bilstm_integrate_n_hidden1*2, 1], initializer=tf.random_uniform_initializer(-self_pool_weight_size1, self_pool_weight_size1))
-self_pool_bias1 = tf.get_variable("self_pool_bias1", shape=[max_sent_len], initializer=tf.constant_initializer(self_pool_bias_size1))
+self_pool_bias1 = tf.get_variable("self_pool_bias1", shape=[1], initializer=tf.constant_initializer(self_pool_bias_size1))
 self_pool_weight2 = tf.get_variable("self_pool_weight2", shape=[bilstm_integrate_n_hidden2*2, 1], initializer=tf.random_uniform_initializer(-self_pool_weight_size2, self_pool_weight_size2))
-self_pool_bias2 = tf.get_variable("self_pool_bias2", shape=[max_sent_len], initializer=tf.constant_initializer(self_pool_bias_size2))
+self_pool_bias2 = tf.get_variable("self_pool_bias2", shape=[1], initializer=tf.constant_initializer(self_pool_bias_size2))
 for Xy, Yx in zip(Xys, Yxs):
     assert Xy.shape == (max_sent_len, bilstm_integrate_n_hidden1*2)
     assert Xy.shape == (max_sent_len, bilstm_integrate_n_hidden2*2)
@@ -216,25 +216,21 @@ for Xy, Yx in zip(Xys, Yxs):
     assert min_Xy.shape == (bilstm_integrate_n_hidden1*2)
     assert min_Yx.shape == (bilstm_integrate_n_hidden2*2)
 
-    # Self-attentive pooling # TODO: Implement this correctly
-    """Bx = tf.nn.softmax((tf.matmul(Xy, self_pool_weight1)) + self_pool_bias1)
+    # Self-attentive pooling
+    Bx = tf.nn.softmax((tf.matmul(Xy, self_pool_weight1)) + self_pool_bias1)
     By = tf.nn.softmax((tf.matmul(Yx, self_pool_weight2)) + self_pool_bias2)
-    print(Bx.shape)
-    print(By.shape)
-    x_self = tf.matmul(Xy, Bx, adjoint_a=True) # TODO: Output of this hsould be 256 by 400? Or 400?
-    y_self = tf.matmul(Yx, By, adjoint_a=True) # TODO: Output of this hsould be 256 by 400? Or 400?
-    print(x_self.shape)
-    print(y_self.shape)
-    assert x_self.shape == (max_sent_len, bilstm_integrate_n_hidden1*2)
-    assert y_self.shape == (max_sent_len, bilstm_integrate_n_hidden2*2)"""
+    x_self = tf.squeeze(tf.matmul(Xy, Bx, transpose_a=True)) # TODO: Output of this hsould be 256 by 400? Or 400? Think 400 is correct
+    y_self = tf.squeeze(tf.matmul(Yx, By, transpose_a=True)) # TODO: Output of this hsould be 256 by 400? Or 400? Think 400 is correct
+    assert x_self.shape == (bilstm_integrate_n_hidden1*2)
+    assert y_self.shape == (bilstm_integrate_n_hidden2*2)
 
     # Combine pooled representations
-    pool_outputs1.append(tf.concat([max_Xy, mean_Xy, min_Xy], 0)) # TODO: Change this to self_pool_outputs1.append(tf.concat([max_Xy, mean_Xy, min_Xy, x_self], 1))
-    pool_outputs2.append(tf.concat([max_Yx, mean_Yx, min_Yx], 0)) # TODO: Change this to self_pool_outputs2.append(tf.concat([max_Yx, mean_Yx, min_Yx, y_self], 1))
+    pool_outputs1.append(tf.concat([max_Xy, mean_Xy, min_Xy, x_self], 0))
+    pool_outputs2.append(tf.concat([max_Yx, mean_Yx, min_Yx, y_self], 0))
 pool_outputs1 = tf.stack(pool_outputs1)
 pool_outputs2 = tf.stack(pool_outputs2)
-assert pool_outputs1.shape == (batch_size, bilstm_encoder_n_hidden1*2*3)
-assert pool_outputs2.shape == (batch_size, bilstm_encoder_n_hidden2*2*3)
+assert pool_outputs1.shape == (batch_size, bilstm_encoder_n_hidden1*2*4)
+assert pool_outputs2.shape == (batch_size, bilstm_encoder_n_hidden2*2*4)
 
 # Max-out network (3 layers, batch normalised)
 # TODO: Implement this ( https://arxiv.org/pdf/1502.03167.pdf ) ( https://arxiv.org/pdf/1302.4389.pdf )
