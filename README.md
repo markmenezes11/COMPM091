@@ -115,7 +115,7 @@ Run it with:
 python cove_bcn.py
 ```
 
-You will need to provide it with a model to train on (see the `DATASET` section in the code), and you will also need to make sure the paths to the CoVe model and GloVe embeddings are correct. See `python cove_bcn.py -h` for more details.
+You will need to provide it with a dataset to train on (see the `DATASET` section in the code), consisting of 2 input sentences and an output class (if there is only one input sentence, then simply duplicate it). You will also need to make sure the paths to the CoVe model and GloVe embeddings are correct. See `python cove_bcn.py -h` for more details.
 
 
 
