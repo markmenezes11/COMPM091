@@ -110,12 +110,20 @@ For MultiNLI, you'll have to make a new folder with the MultiNLI datasets you do
 
 The `CoVe-BCN` folder contains an attempt at replicating the Biattentive Classification Network (BCN) explained in Section 5 of the CoVe research paper (McCann et al., 2017). The description of the BCN missed out some important details, so this was a best attempt at replicating it, making various assumptions along the way.
 
+You will need to provide it with a dataset to train on (see the `DATASET` section in the code), consisting of 2 input sentences and an output class (if there is only one input sentence, then simply duplicate it). You will also need to make sure the paths to the CoVe model and GloVe embeddings are correct, which are passed using the `--covepath` and `--glovepath` arguments (as well as other arguments). See `python cove_bcn.py -h` for more details.
+
+You can download GloVe embeddings with:
+```
+wget http://nlp.stanford.edu/data/glove.840B.300d.zip
+unzip glove.840B.300d.zip
+```
+
 Run it with:
 ```
 python cove_bcn.py
 ```
 
-You will need to provide it with a dataset to train on (see the `DATASET` section in the code), consisting of 2 input sentences and an output class (if there is only one input sentence, then simply duplicate it). You will also need to make sure the paths to the CoVe model and GloVe embeddings are correct. See `python cove_bcn.py -h` for more details.
+ See `python cove_bcn.py -h` for more details.
 
 
 
