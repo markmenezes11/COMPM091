@@ -6,11 +6,6 @@
 import sys
 import argparse
 import random
-import gensim
-import numpy as np
-import tensorflow as tf
-
-from keras.models import load_model
 
 parser = argparse.ArgumentParser(description='Replication of the CoVe Biattentive Classification Network (BCN)')
 parser.add_argument("--glovepath", type=str, default="../../Word2Vec_models/GloVe/glove.840B.300d.txt", help="Path to GloVe word embeddings. Download glove.840B.300d embeddings from https://nlp.stanford.edu/projects/glove/")
@@ -19,6 +14,11 @@ parser.add_argument("--glovedimensions", type=int, default=300, help="Number of 
 parser.add_argument("--covepath", type=str, default='../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
 parser.add_argument("--covedimensions", type=int, default=600, help="Number of dimensions in CoVe embeddings (default: 600)")
 args, _ = parser.parse_known_args()
+
+import gensim
+import numpy as np
+import tensorflow as tf
+from keras.models import load_model
 
 """
 EMBEDDINGS
