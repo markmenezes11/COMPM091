@@ -1,0 +1,22 @@
+2018-02-05 10:21:03,570 : ***** Transfer task : STS12 *****
+
+
+2018-02-05 10:21:03,743 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-02-05 10:22:21,026 : MSRpar : pearson = 0.2041, spearman = 0.2171
+2018-02-05 10:22:33,156 : MSRvid : pearson = 0.0646, spearman = 0.0607
+2018-02-05 10:22:40,638 : SMTeuroparl : pearson = 0.3330, spearman = 0.4047
+2018-02-05 10:22:52,802 : surprise.OnWN : pearson = 0.3858, spearman = 0.4002
+2018-02-05 10:22:59,339 : surprise.SMTnews : pearson = 0.1765, spearman = 0.1604
+2018-02-05 10:22:59,340 : ALL (weighted average) : Pearson = 0.2298,             Spearman = 0.2439
+2018-02-05 10:22:59,340 : ALL (average) : Pearson = 0.2328,             Spearman = 0.2486
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS12:
+{u'all': {u'spearman': {u'wmean': 0.24394975115935566, u'mean': 0.24859892329781874}, u'pearson': {u'wmean': 0.22975855759278868, u'mean': 0.23279077395598416}}, u'surprise.OnWN': {u'spearman': SpearmanrResult(correlation=0.4001655051224504, pvalue=3.269354514232489e-30), u'pearson': (0.38575113483157836, 5.085782578003112e-28), u'nsamples': 750}, u'surprise.SMTnews': {u'spearman': SpearmanrResult(correlation=0.16037690836600557, pvalue=0.0013076032578538174), u'pearson': (0.17654875537914919, 0.00039505266455276396), u'nsamples': 399}, u'SMTeuroparl': {u'spearman': SpearmanrResult(correlation=0.40466612002431235, pvalue=1.633783506770547e-19), u'pearson': (0.33301440618031636, 2.3843572700412877e-13), u'nsamples': 459}, u'MSRvid': {u'spearman': SpearmanrResult(correlation=0.06071729589570913, pvalue=0.09659875117357203), u'pearson': (0.06457158663317168, 0.0771845641155853), u'nsamples': 750}, u'MSRpar': {u'spearman': SpearmanrResult(correlation=0.21706878708061614, pvalue=1.8954883712511463e-09), u'pearson': (0.2040679867557052, 1.712878887485687e-08), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 118.267699003 seconds
+All done.

@@ -1,0 +1,23 @@
+2018-02-05 10:30:46,324 : ***** Transfer task : STS14 *****
+
+
+2018-02-05 10:30:46,798 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-02-05 10:30:57,330 : deft-forum : pearson = -0.1977, spearman = -0.2095
+2018-02-05 10:31:02,243 : deft-news : pearson = 0.0290, spearman = 0.0252
+2018-02-05 10:31:14,814 : headlines : pearson = 0.2098, spearman = 0.1977
+2018-02-05 10:31:27,498 : images : pearson = 0.2306, spearman = 0.2029
+2018-02-05 10:31:40,138 : OnWN : pearson = 0.0482, spearman = 0.0798
+2018-02-05 10:31:52,874 : tweet-news : pearson = 0.2133, spearman = 0.1841
+2018-02-05 10:31:52,875 : ALL (weighted average) : Pearson = 0.1190,             Spearman = 0.1098
+2018-02-05 10:31:52,875 : ALL (average) : Pearson = 0.0889,             Spearman = 0.0800
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS14:
+{u'deft-news': {u'spearman': SpearmanrResult(correlation=0.025216185199864297, pvalue=0.6635602499051214), u'pearson': (0.028957468985946564, 0.6173785818194769), u'nsamples': 300}, u'all': {u'spearman': {u'wmean': 0.10978801539450221, u'mean': 0.08004483384390464}, u'pearson': {u'wmean': 0.11898197470557564, u'mean': 0.08886757929541833}}, u'deft-forum': {u'spearman': SpearmanrResult(correlation=-0.20950196257250467, pvalue=7.405864692295607e-06), u'pearson': (-0.19769719786734047, 2.4012482178356924e-05), u'nsamples': 450}, u'OnWN': {u'spearman': SpearmanrResult(correlation=0.0798352324609544, pvalue=0.028799398760120516), u'pearson': (0.04823012915472503, 0.1870349917823509), u'nsamples': 750}, u'tweet-news': {u'spearman': SpearmanrResult(correlation=0.18413265648085791, pvalue=3.8193485325064754e-07), u'pearson': (0.21325087232729467, 3.6714945399231322e-09), u'nsamples': 750}, u'images': {u'spearman': SpearmanrResult(correlation=0.2029350696412432, pvalue=2.0612889878564578e-08), u'pearson': (0.23063845607612599, 1.6358819881944692e-10), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.19765182185301264, pvalue=4.8201550619896754e-08), u'pearson': (0.20982574709575819, 6.575097375308952e-09), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 66.8416638374 seconds
+All done.
