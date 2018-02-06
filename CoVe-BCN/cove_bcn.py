@@ -9,13 +9,11 @@ import random
 
 parser = argparse.ArgumentParser(description='Replication of the CoVe Biattentive Classification Network (BCN)')
 parser.add_argument("--glovepath", type=str, default="../../Word2Vec_models/GloVe/glove.840B.300d.txt", help="Path to GloVe word embeddings. Download glove.840B.300d embeddings from https://nlp.stanford.edu/projects/glove/")
-parser.add_argument("--glovebinary", action="store_true", default=False, help="Whether or not the GloVe model is a binary (bin) file")
-parser.add_argument("--glovedimensions", type=int, default=300, help="Number of dimensions in GloVe embeddings (default: 300)")
+parser.add_argument("--ignoregloveheader", action="store_true", default=False, help="Set this flag if the first line of the GloVe file is a header and not a (word, embedding) pair")
 parser.add_argument("--covepath", type=str, default='../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
 parser.add_argument("--covedimensions", type=int, default=600, help="Number of dimensions in CoVe embeddings (default: 600)")
 args, _ = parser.parse_known_args()
 
-import gensim
 import numpy as np
 import tensorflow as tf
 from keras.models import load_model
@@ -25,38 +23,60 @@ EMBEDDINGS
 """
 
 print("\nLoading GloVe model...")
-glove_model = gensim.models.KeyedVectors.load_word2vec_format(args.glovepath, binary = args.glovebinary, unicode_errors = 'ignore')
-print("Successfully loaded GloVe model.")
+f = open(args.glovepath)
+glove_embeddings_dict = dict()
+glove_dimensions = -1
+first_line = True
+for line in f:
+    if first_line and args.ignoregloveheader:
+        first_line = False
+        continue
+    values = line.split()
+    word = values[0]
+    embedding = np.asarray(values[1:], dtype='float32')
+    if glove_dimensions == -1:
+        glove_dimensions = len(embedding)
+    assert glove_dimensions == len(embedding)
+    glove_embeddings_dict[word] = embedding
+f.close()
+if len(glove_embeddings_dict) == 0 or glove_dimensions == -1:
+    print("ERROR: Failed to load GloVe embeddings.")
+    sys.exit(1)
+print("Successfully loaded GloVe embeddings (vocab size: " + str(len(glove_embeddings_dict)) + ", dimensions: " + str(glove_dimensions) + ").")
 
 # Load CoVe model. Ported version from https://github.com/rgsachin/CoVe
 # - Input: GloVe vectors of dimension - (<batch_size>, <sentence_len>, <glove_dimensions>)
 # - Output: CoVe vectors of dimension - (<batch_size>, <sentence_len>, <cove_dimensions>)
-# - Example: cove_model.predict(np.random.rand(1, 10, args.glovedimensions))
+# - Example: cove_model.predict(np.random.rand(1, 10, glove_dimensions))
 # - For unknown words, use a dummy value different to the dummy value used for padding - small non-zero value e.g. 1e-10
 print("\nLoading CoVe model...")
+cove_dimensions = args.covedimensions
+glove_cove_dimensions = glove_dimensions + cove_dimensions
 cove_model = load_model(args.covepath)
+test = cove_model.predict(np.random.rand(1,10,300))
+assert test.shape == (1, 10, cove_dimensions)
 print("Successfully loaded CoVe model.")
 
 # Input sequence (tokenized sentence) w is converted to sequence of vectors: w' = [GloVe(w); CoVe(w)]
-def sentence_to_glove_cove(tokenized_sentence):
+def sentence_to_glove_cove(tokenized_sentence, max_sent_len, glove_dimensions, cove_dimensions):
     glove_embeddings = []
     for word in tokenized_sentence:
         try:
-            glove_embedding = np.array(glove_model[word])
-            assert glove_embedding.shape == (args.glovedimensions,)
+            glove_embedding = np.array(glove_embeddings_dict[word])
+            assert glove_embedding.shape == (glove_dimensions,)
             glove_embeddings.append(glove_embedding)
         except KeyError:
-            glove_embedding = np.full(args.glovedimensions, 1e-10) # 1e-10 for unknown words, as recommended on https://github.com/rgsachin/CoVe
-            assert glove_embedding.shape == (args.glovedimensions,)
+            glove_embedding = np.full(glove_dimensions, 1e-10) # 1e-10 for unknown words, as recommended on https://github.com/rgsachin/CoVe
+            assert glove_embedding.shape == (glove_dimensions,)
             glove_embeddings.append(glove_embedding)
     glove = np.array([glove_embeddings])
-    assert glove.shape == (1, len(sentence), args.glovedimensions)
+    assert glove.shape == (1, len(sentence), glove_dimensions)
     cove = cove_model.predict(glove)
-    assert cove.shape == (1, len(sentence), args.covedimensions)
+    assert cove.shape == (1, len(sentence), cove_dimensions)
     glove_cove = np.concatenate([glove[0], cove[0]], axis=1)
     for pad in range(max_sent_len - len(sentence)):
-        glove_cove = np.append(glove_cove, np.full((1, args.glovedimensions + args.covedimensions), 0.0), axis=0)
-    assert glove_cove.shape == (max_sent_len, args.glovedimensions + args.covedimensions)
+        glove_cove = np.append(glove_cove, np.full((1, glove_dimensions + cove_dimensions), 0.0), axis=0)
+    assert glove_cove.shape == (max_sent_len, glove_dimensions + cove_dimensions)
     return glove_cove
 
 """
@@ -91,12 +111,12 @@ dummy_dataset_y = [0, 2, 2, 1, 3, 0, 2, 1, 0, 1]
 
 split = int(len(dummy_dataset_y) * 0.8)
 
-train_X1 = [sentence_to_glove_cove(sentence) for sentence in dummy_dataset_X1[:split]]
-train_X2 = [sentence_to_glove_cove(sentence) for sentence in dummy_dataset_X2[:split]]
+train_X1 = [sentence_to_glove_cove(sentence, max_sent_len, glove_dimensions, cove_dimensions) for sentence in dummy_dataset_X1[:split]]
+train_X2 = [sentence_to_glove_cove(sentence, max_sent_len, glove_dimensions, cove_dimensions) for sentence in dummy_dataset_X2[:split]]
 train_y = dummy_dataset_y[:split]
 
-test_X1 = [sentence_to_glove_cove(sentence) for sentence in dummy_dataset_X1[split:]]
-test_X2 = [sentence_to_glove_cove(sentence) for sentence in dummy_dataset_X2[split:]]
+test_X1 = [sentence_to_glove_cove(sentence, max_sent_len, glove_dimensions, cove_dimensions) for sentence in dummy_dataset_X1[split:]]
+test_X2 = [sentence_to_glove_cove(sentence, max_sent_len, glove_dimensions, cove_dimensions) for sentence in dummy_dataset_X2[split:]]
 test_y = dummy_dataset_y[split:]
 
 """
@@ -163,26 +183,26 @@ MODEL
 def dimensions_equal(dim1, dim2):
     return all([d1 == d2 or (d1 == d2) is None for d1, d2 in zip(dim1, dim2)])
 
-def BCN(params, is_training):
+def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
     print("\nCreating BCN model...")
 
     # Takes 2 input sequences, each of the form [GloVe(w); CoVe(w)] (duplicated if only one input sequence is needed)
-    inputs1 = tf.placeholder(tf.float32, shape=[None, max_sent_len, 900])  # (n_sentences, max_sent_len, 900)
-    inputs2 = tf.placeholder(tf.float32, shape=[None, max_sent_len, 900])  # (n_sentences, max_sent_len, 900)
+    inputs1 = tf.placeholder(tf.float32, shape=[None, max_sent_len, glove_cove_dimensions])
+    inputs2 = tf.placeholder(tf.float32, shape=[None, max_sent_len, glove_cove_dimensions])
     labels = tf.placeholder(tf.int32, [None])  # (n_sentences, n_classes)
-    assert dimensions_equal(inputs1.shape, (params['batch_size'], max_sent_len, 900))
-    assert dimensions_equal(inputs2.shape, (params['batch_size'], max_sent_len, 900))
+    assert dimensions_equal(inputs1.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
+    assert dimensions_equal(inputs2.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
 
     # Feedforward network with ReLU activation, applied to each word embedding (word) in the sequence (sentence)
     with tf.variable_scope("feedforward"):
-        feedforward_weight = tf.get_variable("feedforward_weight", shape=[900, 900], initializer=tf.random_uniform_initializer(-params['feedforward_weight_size'], params['feedforward_weight_size']))
-        feedforward_bias = tf.get_variable("feedforward_bias", shape=[900], initializer=tf.constant_initializer(params['feedforward_bias_size']))
+        feedforward_weight = tf.get_variable("feedforward_weight", shape=[glove_cove_dimensions, glove_cove_dimensions], initializer=tf.random_uniform_initializer(-params['feedforward_weight_size'], params['feedforward_weight_size']))
+        feedforward_bias = tf.get_variable("feedforward_bias", shape=[glove_cove_dimensions], initializer=tf.constant_initializer(params['feedforward_bias_size']))
         def feedforward(feedforward_input):
             return params['feedforward_activation'](tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias) # TODO: Should this be a a fully_connected_layer or something? For reuse of ReLU?
         feedforward_outputs1 = tf.map_fn(feedforward, inputs1)
         feedforward_outputs2 = tf.map_fn(feedforward, inputs2)
-        assert dimensions_equal(feedforward_outputs1.shape, (params['batch_size'], max_sent_len, 900))
-        assert dimensions_equal(feedforward_outputs2.shape, (params['batch_size'], max_sent_len, 900))
+        assert dimensions_equal(feedforward_outputs1.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
+        assert dimensions_equal(feedforward_outputs2.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
 
     # BiLSTM processes the resulting sequences
     # The BCN is symmetrical - not sure whether to use the same BiLSTM or or two separate BiLSTMs (one for each side).
@@ -355,7 +375,7 @@ def BCN(params, is_training):
             train_step = tf.train.GradientDescentOptimizer(params['learning_rate']).minimize(loss)
         else:
             print("ERROR: Invalid optimizer: \"" + params['optimizer'] + "\"")
-            sys.exit()
+            sys.exit(1)
 
         predict = tf.argmax(logits, axis=1)
 
@@ -373,7 +393,7 @@ train_X1, train_X2, train_y = zip(*zipped_train_data)
 
 tf.reset_default_graph()
 with tf.Graph().as_default() as graph:
-    inputs1, inputs2, labels, _, loss, train_step = BCN(hyperparameters, True)
+    inputs1, inputs2, labels, _, loss, train_step = BCN(hyperparameters, True, max_sent_len, glove_cove_dimensions)
 with tf.Session(graph=graph) as sess:
     print("\nTraining model...")
     tf.global_variables_initializer().run()
@@ -392,7 +412,7 @@ TEST
 
 tf.reset_default_graph()
 with tf.Graph().as_default() as graph:
-    inputs1, inputs2, labels, predict, _, _ = BCN(hyperparameters, False)
+    inputs1, inputs2, labels, predict, _, _ = BCN(hyperparameters, False, max_sent_len, glove_cove_dimensions)
 with tf.Session(graph=graph) as sess:
     print("\nTesting model...")
     tf.global_variables_initializer().run()
