@@ -165,7 +165,7 @@ hyperparameters = {
 
     'maxout_n_units1': 3200, # int
     'maxout_n_units2': 3200, # int
-    'maxout_n_units3': n_classes*10,  # int
+    'maxout_n_units3': n_classes,  # int
 
     'optimizer': "gradientdescent", # "adam" or "gradientdescent"
     'learning_rate': 0.001, # float
@@ -336,7 +336,7 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
         z3 = tf.matmul(maxout_ouputs2, maxout_weight3) + maxout_bias3
         maxout_outputs3 = maxout_with_batch_norm(z3, params['maxout_n_units3'], params['bn_decay3'], params['bn_epsilon3'], is_training)
 
-        loss = tf.reduce_mean(-tf.reduce_sum(labels * tf.log(maxout_outputs3), reduction_indices=1))
+        loss = tf.reduce_mean(-tf.reduce_sum(tf.cast(labels, tf.float32) * tf.log(maxout_outputs3), reduction_indices=1))
 
         if params['optimizer'] == "adam":
             train_step = tf.train.AdamOptimizer(params['learning_rate'], beta1=params['adam_beta1'], beta2=params['adam_beta2'], epsilon=params['adam_epsilon']).minimize(loss)
