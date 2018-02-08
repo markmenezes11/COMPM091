@@ -78,7 +78,7 @@ def maxout_with_batch_norm(inputs, num_units, decay, epsilon, is_training, axis=
   return MaxOut(num_units=num_units, axis=axis, name=name)(inputs, decay, epsilon, is_training)
 
 
-class MaxOut(base.Layer):
+class MaxOut(tf.contrib.layers.base.Layer):
   """Adds a maxout op from https://arxiv.org/abs/1302.4389
   "Maxout Networks" Ian J. Goodfellow, David Warde-Farley, Mehdi Mirza, Aaron
   Courville, Yoshua

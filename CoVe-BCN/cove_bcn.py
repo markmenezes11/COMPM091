@@ -165,7 +165,7 @@ hyperparameters = {
 
     'maxout_n_units1': 3200, # int
     'maxout_n_units2': 3200, # int
-    'maxout_n_units3': 3200,  # int
+    'maxout_n_units3': n_classes*10,  # int
 
     'optimizer': "gradientdescent", # "adam" or "gradientdescent"
     'learning_rate': 0.001, # float
