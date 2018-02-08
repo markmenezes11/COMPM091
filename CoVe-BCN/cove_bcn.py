@@ -16,6 +16,8 @@ args, _ = parser.parse_known_args()
 
 import numpy as np
 import tensorflow as tf
+
+from maxout import maxout_with_batch_norm
 from keras.models import load_model
 
 """
@@ -165,9 +167,6 @@ hyperparameters = {
     'maxout_n_units2': 3200, # int
     'maxout_n_units3': 3200,  # int
 
-    'final_weight_size': 0.1, # float
-    'final_bias_size': 0.1, # float
-
     'optimizer': "gradientdescent", # "adam" or "gradientdescent"
     'learning_rate': 0.001, # float
     'adam_beta1': 0.9, # float (used only if optimizer == "adam")
@@ -198,7 +197,7 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
         feedforward_weight = tf.get_variable("feedforward_weight", shape=[glove_cove_dimensions, glove_cove_dimensions], initializer=tf.random_uniform_initializer(-params['feedforward_weight_size'], params['feedforward_weight_size']))
         feedforward_bias = tf.get_variable("feedforward_bias", shape=[glove_cove_dimensions], initializer=tf.constant_initializer(params['feedforward_bias_size']))
         def feedforward(feedforward_input):
-            return params['feedforward_activation'](tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias) # TODO: Should this be a a fully_connected_layer or something? For reuse of ReLU?
+            return params['feedforward_activation'](tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias)
         feedforward_outputs1 = tf.map_fn(feedforward, inputs1)
         feedforward_outputs2 = tf.map_fn(feedforward, inputs2)
         assert dimensions_equal(feedforward_outputs1.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
@@ -305,8 +304,8 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
             # Self-attentive pooling
             Bx = tf.nn.softmax((tf.matmul(Xy, self_pool_weight1)) + self_pool_bias1)
             By = tf.nn.softmax((tf.matmul(Yx, self_pool_weight2)) + self_pool_bias2)
-            x_self = tf.squeeze(tf.matmul(Xy, Bx, transpose_a=True)) # TODO: Output of this should be 256 by 400? Or 400? Think 400 is correct
-            y_self = tf.squeeze(tf.matmul(Yx, By, transpose_a=True)) # TODO: Output of this should be 256 by 400? Or 400? Think 400 is correct
+            x_self = tf.squeeze(tf.matmul(Xy, Bx, transpose_a=True))
+            y_self = tf.squeeze(tf.matmul(Yx, By, transpose_a=True))
             assert dimensions_equal(x_self.shape, (params['bilstm_integrate_n_hidden1']*2,))
             assert dimensions_equal(y_self.shape, (params['bilstm_integrate_n_hidden2']*2,))
 
@@ -320,54 +319,24 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
 
     # Max-out network (3 layers, batch normalised)
     with tf.variable_scope("maxout"):
-        joined_representation = tf.concat([pool_outputs1, pool_outputs2], 1) # TODO: Do we join X and Y representations like this?
+        joined_representation = tf.concat([pool_outputs1, pool_outputs2], 1)
 
-        # This batch_norm_wrapper function was taken from:
-        #   https://r2rt.com/implementing-batch-normalization-in-tensorflow.html
-        # This is a simpler version of Tensorflow's 'official' version. See:
-        #   https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/layers/python/layers/layers.py#L102
-        def batch_norm_wrapper(inputs, decay=0.999, epsilon=1e-3):
-            scale = tf.Variable(tf.ones([inputs.get_shape()[-1]]))
-            beta = tf.Variable(tf.zeros([inputs.get_shape()[-1]]))
-            pop_mean = tf.Variable(tf.zeros([inputs.get_shape()[-1]]), trainable=False)
-            pop_var = tf.Variable(tf.ones([inputs.get_shape()[-1]]), trainable=False)
+        maxout_weight1 = tf.get_variable("maxout_weight1", shape=[params['bilstm_encoder_n_hidden1']*2*4*2, params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size1'], params['bn_weight_size1']))
+        maxout_bias1 = tf.get_variable("maxout_bias1", shape=[params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size1']))
+        z1 = tf.matmul(joined_representation, maxout_weight1) + maxout_bias1
+        maxout_outputs1 = maxout_with_batch_norm(z1, params['maxout_n_units1'], params['bn_decay1'], params['bn_epsilon1'], is_training)
 
-            if is_training:
-                batch_mean, batch_var = tf.nn.moments(inputs, [0])
-                train_mean = tf.assign(pop_mean, pop_mean * decay + batch_mean * (1 - decay))
-                train_var = tf.assign(pop_var, pop_var * decay + batch_var * (1 - decay))
-                with tf.control_dependencies([train_mean, train_var]):
-                    return tf.nn.batch_normalization(inputs, batch_mean, batch_var, beta, scale, epsilon)
-            else:
-                return tf.nn.batch_normalization(inputs, pop_mean, pop_var, beta, scale, epsilon)
+        maxout_weight2 = tf.get_variable("maxout_weight2", shape=[params['bilstm_encoder_n_hidden1']*2*4*2, params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size2'], params['bn_weight_size2']))
+        maxout_bias2 = tf.get_variable("maxout_bias2", shape=[params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size2']))
+        z2 = tf.matmul(maxout_outputs1, maxout_weight2) + maxout_bias2
+        maxout_ouputs2 = maxout_with_batch_norm(z2, params['maxout_n_units2'], params['bn_decay2'], params['bn_epsilon2'], is_training)
 
-        # TODO: Is this correct for 3 layers?
-        # Batch-normalisation layer 1
-        bn_weight1 = tf.get_variable("bn_weight1", shape=[params['bilstm_encoder_n_hidden1']*2*4*2, params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size1'], params['bn_weight_size1'])) # TODO: Should output size be different (smaller)?
-        bn_bias1 = tf.get_variable("bn_bias1", shape=[params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size1'])) # TODO: Should output size be different (smaller)?
-        z1 = tf.matmul(joined_representation, bn_weight1) + bn_bias1
-        bn1 = batch_norm_wrapper(z1, decay=params['bn_decay1'], epsilon=params['bn_epsilon1'])
-        l1 = tf.contrib.layers.maxout(bn1, params['maxout_n_units1'])
+        maxout_weight3 = tf.get_variable("maxout_weight3", shape=[params['bilstm_encoder_n_hidden1']*2*4*2, n_classes], initializer=tf.random_uniform_initializer(-params['bn_weight_size3'], params['bn_weight_size3']))
+        maxout_bias3 = tf.get_variable("maxout_bias3", shape=[n_classes], initializer=tf.constant_initializer(params['bn_bias_size3']))
+        z3 = tf.matmul(maxout_ouputs2, maxout_weight3) + maxout_bias3
+        maxout_outputs3 = maxout_with_batch_norm(z3, params['maxout_n_units3'], params['bn_decay3'], params['bn_epsilon3'], is_training)
 
-        # Batch-nomalisation layer 2
-        bn_weight2 = tf.get_variable("bn_weight2", shape=[params['bilstm_encoder_n_hidden1']*2*4*2, params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size2'], params['bn_weight_size2'])) # TODO: Should output size be different (smaller)?
-        bn_bias2 = tf.get_variable("bn_bias2", shape=[params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size2'])) # TODO: Should output size be different (smaller)?
-        z2 = tf.matmul(l1, bn_weight2) + bn_bias2
-        bn2 = batch_norm_wrapper(z2, decay=params['bn_decay2'], epsilon=params['bn_epsilon2'])
-        l2 = tf.contrib.layers.maxout(bn2, params['maxout_n_units2'])
-
-        # Batch-nomalisation layer 3
-        bn_weight3 = tf.get_variable("bn_weight3", shape=[params['bilstm_encoder_n_hidden1']*2*4*2, params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size3'], params['bn_weight_size3'])) # TODO: Should output size be different (smaller)?
-        bn_bias3 = tf.get_variable("bn_bias3", shape=[params['bilstm_encoder_n_hidden1']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size3'])) # TODO: Should output size be different (smaller)?
-        z3 = tf.matmul(l2, bn_weight3) + bn_bias3
-        bn3 = batch_norm_wrapper(z3, decay=params['bn_decay3'], epsilon=params['bn_epsilon3'])
-        l3 = tf.contrib.layers.maxout(bn3, params['maxout_n_units3'])
-
-        # Softmax layer
-        final_weight = tf.get_variable("final_weight", shape=[params['bilstm_encoder_n_hidden1']*2*4*2, n_classes], initializer=tf.random_uniform_initializer(-params['final_weight_size'], params['final_weight_size']))
-        final_bias = tf.get_variable("final_bias", shape=[n_classes], initializer=tf.constant_initializer(params['final_bias_size']))
-        logits = tf.matmul(l3, final_weight) + final_bias
-        loss = tf.reduce_sum(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels))
+        loss = tf.reduce_mean(-tf.reduce_sum(labels * tf.log(maxout_outputs3), reduction_indices=1))
 
         if params['optimizer'] == "adam":
             train_step = tf.train.AdamOptimizer(params['learning_rate'], beta1=params['adam_beta1'], beta2=params['adam_beta2'], epsilon=params['adam_epsilon']).minimize(loss)
@@ -377,7 +346,7 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
             print("ERROR: Invalid optimizer: \"" + params['optimizer'] + "\"")
             sys.exit(1)
 
-        predict = tf.argmax(logits, axis=1)
+        predict = tf.argmax(maxout_outputs3, axis=1)
 
     print("Successfully created BCN model.")
     return inputs1, inputs2, labels, predict, loss, train_step
