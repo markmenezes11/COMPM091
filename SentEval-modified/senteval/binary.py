@@ -49,6 +49,8 @@ class BinaryClassifierEval(object):
             # EDITED: Save embeddings to temp pickle file and store the filename and array index for future reference
             embeddings = batcher(params, batch) # (len(batch), embedding_length), i.e. (params_senteval.batch_size, embedding_length)
             filename = "temp/batch_" + str(batch_number) + ".pkl"
+            if not os.path.exists("temp/"):
+                os.makedirs("temp")
             with open(filename, "w") as f:
                 pickle.dump(embeddings, f)
             index = 0
