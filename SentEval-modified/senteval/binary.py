@@ -45,12 +45,19 @@ class BinaryClassifierEval(object):
         batch_number = 0
         for ii in range(0, self.n_samples, params.batch_size):
             batch = sorted_samples[ii:ii + params.batch_size]
-            embeddings = batcher(params, batch)
+
+            # EDITED: Save embeddings to temp pickle file and store the filename and array index for future reference
+            embeddings = batcher(params, batch) # (len(batch), embedding_length), i.e. (params_senteval.batch_size, embedding_length)
             filename = "temp/batch_" + str(batch_number) + ".pkl"
             with open(filename, "w") as f:
                 pickle.dump(embeddings, f)
+            index = 0
+            for _ in embeddings:
+                enc_input.append(np.array([[filename, index]]))
+                index += 1
             batch_number += 1
-            enc_input.append(filename)
+            ###############################
+
         enc_input = np.vstack(enc_input)
         logging.info('Generated sentence embeddings')
 
