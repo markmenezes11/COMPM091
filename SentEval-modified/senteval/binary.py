@@ -51,7 +51,7 @@ class BinaryClassifierEval(object):
             tempslash = "" if params['tempdir'][-1] == '/' else "/"
             filename = params['tempdir'] + tempslash + "batch_" + str(batch_number) + ".pkl"
             if not os.path.exists(params['tempdir']):
-                os.makedirs("temp")
+                os.makedirs(params['tempdir'])
             with open(filename, "w") as f:
                 pickle.dump(embeddings, f)
             index = 0
