@@ -34,6 +34,7 @@ parser = argparse.ArgumentParser(description='SentEval Evaluation of InferSent S
 parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run. Leave blank to run all of them")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval/", help="Path to SentEval repository")
 parser.add_argument("--modelpath", type=str, default='../../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
+parser.add_argument("--tempdir", type=str, default='/mnt/mmenezes/temp', help="Directory to save temp files with embeddings. Needs a lot of space!")
 parser.add_argument("--outputdir", type=str, default='.', help="Output directory to save results")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
 params, _ = parser.parse_known_args()
@@ -94,6 +95,7 @@ params_senteval = {'task_path': PATH_TO_DATA, 'usepytorch': True, 'kfold': 5, 's
 params_senteval['classifier'] = {'nhid': 0, 'optim': 'adam', 'batch_size': 64,
                                  'tenacity': 5, 'epoch_size': 4}
 params_senteval['inputdir'] = params.modelpath
+params_senteval['tempdir'] = params.tempdir
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
