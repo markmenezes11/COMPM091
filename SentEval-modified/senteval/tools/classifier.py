@@ -94,10 +94,10 @@ class PyTorchClassifier(object):
                 # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
                 Xbatch_embeddings = []
                 files = dict()
-                for j in range(i, i + self.batch_size):
+                for j in idx:
                     if j < len(X):
                         filename = X[j][0]
-                        index = X[j][1]
+                        index = int(X[j][1])
                         if filename not in files:
                             with open(filename) as f:
                                 files[filename] = pickle.load(f)
@@ -135,7 +135,7 @@ class PyTorchClassifier(object):
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
                     filename = devX[j][0]
-                    index = devX[j][1]
+                    index = int(devX[j][1])
                     if filename not in files:
                         with open(filename) as f:
                             files[filename] = pickle.load(f)
@@ -168,7 +168,7 @@ class PyTorchClassifier(object):
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
                     filename = devX[j][0]
-                    index = devX[j][1]
+                    index = int(devX[j][1])
                     if filename not in files:
                         with open(filename) as f:
                             files[filename] = pickle.load(f)
@@ -195,7 +195,7 @@ class PyTorchClassifier(object):
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
                     filename = devX[j][0]
-                    index = devX[j][1]
+                    index = int(devX[j][1])
                     if filename not in files:
                         with open(filename) as f:
                             files[filename] = pickle.load(f)
