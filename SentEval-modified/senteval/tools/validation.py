@@ -43,7 +43,7 @@ class InnerKFoldClassifier(object):
     def __init__(self, X, y, config):
         self.X = X
         self.y = y
-        self.featdim = X.shape[1]
+        self.featdim = config['featdim']
         self.nclasses = config['nclasses']
         self.seed = config['seed']
         self.devresults = []

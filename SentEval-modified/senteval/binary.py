@@ -41,13 +41,16 @@ class BinaryClassifierEval(object):
                                key=lambda z: (len(z[0]), z[1]))
         sorted_samples = [x for (x, y) in sorted_corpus]
         sorted_labels = [y for (x, y) in sorted_corpus]
+
+        # EDITED: Save embeddings to temp pickle file and store the filename and array index for future reference
         logging.info('Generating sentence embeddings')
         batch_number = 0
+        featdim = -1
         for ii in range(0, self.n_samples, params.batch_size):
             batch = sorted_samples[ii:ii + params.batch_size]
-
-            # EDITED: Save embeddings to temp pickle file and store the filename and array index for future reference
             embeddings = batcher(params, batch) # (len(batch), embedding_length), i.e. (params_senteval.batch_size, embedding_length)
+            if featdim == -1:
+                featdim = embeddings.shape[1]
             tempslash = "" if params['tempdir'][-1] == '/' else "/"
             filename = params['tempdir'] + tempslash + "batch_" + str(batch_number) + ".pkl"
             if not os.path.exists(params['tempdir']):
@@ -59,7 +62,7 @@ class BinaryClassifierEval(object):
                 enc_input.append(np.array([[filename, index]]))
                 index += 1
             batch_number += 1
-            ###############################
+        ###############################
 
         enc_input = np.vstack(enc_input)
         logging.info('Generated sentence embeddings')
@@ -67,7 +70,7 @@ class BinaryClassifierEval(object):
         config = {'nclasses': 2, 'seed': self.seed,
                   'usepytorch': params.usepytorch,
                   'classifier': params.classifier,
-                  'nhid': params.nhid, 'kfold': params.kfold}
+                  'nhid': params.nhid, 'kfold': params.kfold, 'featdim': featdim}
         clf = InnerKFoldClassifier(enc_input, np.array(sorted_labels), config)
         devacc, testacc = clf.run()
         logging.debug('Dev acc : {0} Test acc : {1}\n'.format(devacc, testacc))

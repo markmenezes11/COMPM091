@@ -109,16 +109,10 @@ class PyTorchClassifier(object):
                                 files[filename] = pickle.load(f)
                         Xbatch_embeddings.append(np.array([files[filename][index]]))
                 Xbatch = np.vstack(Xbatch_embeddings)
-                #print("Xbatch np shape: " + str(Xbatch.shape))
                 Xbatch = self.cast_to_float_tensor(Xbatch)
                 y_idx = torch.LongTensor(idx)
                 if isinstance(y, torch.cuda.LongTensor):
                     y_idx = y_idx.cuda()
-                #print("Xbatch shape: " + str(Xbatch.shape))
-                #print("ybatch shape: " + str(y.index_select(0, y_idx).shape))
-                print(Xbatch)
-                print(y.index_select(0, y_idx))
-                #import sys; sys.exit()
                 Xbatch = Variable(Xbatch)
                 ybatch = Variable(y.index_select(0, y_idx))
                 ###############################
@@ -126,8 +120,6 @@ class PyTorchClassifier(object):
                 if self.cudaEfficient:
                     Xbatch = Xbatch.cuda()
                     ybatch = ybatch.cuda()
-                print(Xbatch)
-                print(ybatch)
                 output = self.model(Xbatch)
                 # loss
                 loss = self.loss_fn(output, ybatch)
