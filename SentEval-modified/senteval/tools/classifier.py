@@ -50,11 +50,17 @@ class PyTorchClassifier(object):
             devX, devy = X[devidx], y[devidx]
         return trainX, trainy, devX, devy
 
-    def cast_to_tensor(self, arr):
+    def cast_to_float_tensor(self, arr):
         if not self.cudaEfficient:
             return torch.FloatTensor(arr).cuda()
         else:
             return torch.FloatTensor(arr)
+
+    def cast_to_long_tensor(self, arr):
+        if not self.cudaEfficient:
+            return torch.LongTensor(arr).cuda()
+        else:
+            return torch.LongTensor(arr)
 
     def fit(self, X, y, validation_data=None, validation_split=None,
             early_stop=True):
@@ -65,8 +71,8 @@ class PyTorchClassifier(object):
 
         # Preparing validation data
         trainX, trainy, devX, devy = self.prepare_split(X, y, validation_data, validation_split)
-        trainy = self.cast_to_tensor(trainy)
-        devy = self.cast_to_tensor(devy)
+        trainy = self.cast_to_long_tensor(trainy)
+        devy = self.cast_to_long_tensor(devy)
 
         # Training
         while not stop_train and self.nepoch <= self.max_epoch:
@@ -103,10 +109,16 @@ class PyTorchClassifier(object):
                                 files[filename] = pickle.load(f)
                         Xbatch_embeddings.append(np.array([files[filename][index]]))
                 Xbatch = np.vstack(Xbatch_embeddings)
-                Xbatch = self.cast_to_tensor(Xbatch)
+                #print("Xbatch np shape: " + str(Xbatch.shape))
+                Xbatch = self.cast_to_float_tensor(Xbatch)
                 y_idx = torch.LongTensor(idx)
-                if isinstance(Xbatch, torch.cuda.FloatTensor):
+                if isinstance(y, torch.cuda.LongTensor):
                     y_idx = y_idx.cuda()
+                #print("Xbatch shape: " + str(Xbatch.shape))
+                #print("ybatch shape: " + str(y.index_select(0, y_idx).shape))
+                print(Xbatch)
+                print(y.index_select(0, y_idx))
+                #import sys; sys.exit()
                 Xbatch = Variable(Xbatch)
                 ybatch = Variable(y.index_select(0, y_idx))
                 ###############################
@@ -114,6 +126,8 @@ class PyTorchClassifier(object):
                 if self.cudaEfficient:
                     Xbatch = Xbatch.cuda()
                     ybatch = ybatch.cuda()
+                print(Xbatch)
+                print(ybatch)
                 output = self.model(Xbatch)
                 # loss
                 loss = self.loss_fn(output, ybatch)
@@ -141,7 +155,7 @@ class PyTorchClassifier(object):
                             files[filename] = pickle.load(f)
                     devX_embeddings.append(np.array([files[filename][index]]))
             devX_embeddings = np.vstack(devX_embeddings)
-            devX_embeddings = self.cast_to_tensor(devX_embeddings)
+            devX_embeddings = self.cast_to_float_tensor(devX_embeddings)
             ###############################
 
             if not isinstance(devX_embeddings, torch.cuda.FloatTensor) or self.cudaEfficient:
