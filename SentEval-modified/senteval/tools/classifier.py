@@ -21,6 +21,7 @@ from torch import nn
 from torch.autograd import Variable
 import torch.nn.functional as F
 import pickle
+import gc
 
 class PyTorchClassifier(object):
     def __init__(self, inputdim, nclasses, l2reg=0., batch_size=64, seed=1111,
@@ -93,30 +94,42 @@ class PyTorchClassifier(object):
         for _ in range(self.nepoch, self.nepoch + epoch_size):
             permutation = np.random.permutation(len(X))
             all_costs = []
+
+            # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
+            files_in_mem = dict()
             for i in range(0, len(X), self.batch_size):
                 # forward
                 idx = permutation[i:i + self.batch_size]
 
-                # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
-                Xbatch_embeddings = []
-                files = dict()
+                # Optimisation to reduce number of file reads
+                files_to_keep_in_mem = []
+                for j in idx:
+                    if j < len(X):
+                        files_to_keep_in_mem.append(X[j][0])
+                files_to_delete = []
+                for file in files_in_mem:
+                    if file not in files_to_keep_in_mem:
+                        files_to_delete.append(file)
+                for file in files_to_delete:
+                    del files_in_mem[file]
+
+                Xbatch = []
                 for j in idx:
                     if j < len(X):
                         filename = X[j][0]
                         index = int(X[j][1])
-                        if filename not in files:
+                        if filename not in files_in_mem:
                             with open(filename) as f:
-                                files[filename] = pickle.load(f)
-                        Xbatch_embeddings.append(np.array([files[filename][index]]))
-                Xbatch = np.vstack(Xbatch_embeddings)
+                                files_in_mem[filename] = pickle.load(f)
+                        Xbatch.append(np.array([files_in_mem[filename][index]]))
+                Xbatch = np.vstack(Xbatch)
+
                 Xbatch = self.cast_to_float_tensor(Xbatch)
                 y_idx = torch.LongTensor(idx)
                 if isinstance(y, torch.cuda.LongTensor):
                     y_idx = y_idx.cuda()
                 Xbatch = Variable(Xbatch)
                 ybatch = Variable(y.index_select(0, y_idx))
-                ###############################
-
                 if self.cudaEfficient:
                     Xbatch = Xbatch.cuda()
                     ybatch = ybatch.cuda()
@@ -129,6 +142,10 @@ class PyTorchClassifier(object):
                 loss.backward()
                 # Update parameters
                 self.optimizer.step()
+
+            files_in_mem.clear()
+            gc.collect()
+            ###############################
         self.nepoch += epoch_size
 
     def score(self, devX, devy):
@@ -136,90 +153,137 @@ class PyTorchClassifier(object):
         correct = 0
         if not isinstance(devy, torch.cuda.LongTensor) or self.cudaEfficient:
             devy = torch.LongTensor(devy).cuda()
+
+        # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
+        files_in_mem = dict()
         for i in range(0, len(devX), self.batch_size):
-            # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
+            # Optimisation to reduce number of file reads
+            files_to_keep_in_mem = []
+            for j in range(i, i + self.batch_size):
+                if j < len(devX):
+                    files_to_keep_in_mem.append(devX[j][0])
+            files_to_delete = []
+            for file in files_in_mem:
+                if file not in files_to_keep_in_mem:
+                    files_to_delete.append(file)
+            for file in files_to_delete:
+                del files_in_mem[file]
+
             Xbatch = []
-            files = dict()
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
                     filename = devX[j][0]
                     index = int(devX[j][1])
-                    if filename not in files:
+                    if filename not in files_in_mem:
                         with open(filename) as f:
-                            files[filename] = pickle.load(f)
-                    Xbatch.append(np.array([files[filename][index]]))
+                            files_in_mem[filename] = pickle.load(f)
+                    Xbatch.append(np.array([files_in_mem[filename][index]]))
             Xbatch = np.vstack(Xbatch)
+
             Xbatch = self.cast_to_float_tensor(Xbatch)
             if not isinstance(Xbatch, torch.cuda.FloatTensor) or self.cudaEfficient:
                 Xbatch = torch.FloatTensor(Xbatch).cuda()
             Xbatch = Variable(Xbatch, volatile=True)
             ybatch = Variable(devy[i:i + self.batch_size], volatile=True)
-            ###############################
-
             if self.cudaEfficient:
                 Xbatch = Xbatch.cuda()
                 ybatch = ybatch.cuda()
             output = self.model(Xbatch)
             pred = output.data.max(1)[1]
             correct += pred.long().eq(ybatch.data.long()).sum()
+
+        files_in_mem.clear()
+        gc.collect()
+        ###############################
         accuracy = 1.0*correct / len(devX)
         return accuracy
 
     def predict(self, devX):
         self.model.eval()
         yhat = np.array([])
+
+        # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
+        files_in_mem = dict()
         for i in range(0, len(devX), self.batch_size):
-            # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
+            # Optimisation to reduce number of file reads
+            files_to_keep_in_mem = []
+            for j in range(i, i + self.batch_size):
+                if j < len(devX):
+                    files_to_keep_in_mem.append(devX[j][0])
+            files_to_delete = []
+            for file in files_in_mem:
+                if file not in files_to_keep_in_mem:
+                    files_to_delete.append(file)
+            for file in files_to_delete:
+                del files_in_mem[file]
+
             Xbatch = []
-            files = dict()
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
                     filename = devX[j][0]
                     index = int(devX[j][1])
-                    if filename not in files:
+                    if filename not in files_in_mem:
                         with open(filename) as f:
-                            files[filename] = pickle.load(f)
-                    Xbatch.append(np.array([files[filename][index]]))
+                            files_in_mem[filename] = pickle.load(f)
+                    Xbatch.append(np.array([files_in_mem[filename][index]]))
             Xbatch = np.vstack(Xbatch)
+
             #Xbatch = self.cast_to_float_tensor(Xbatch)
             if not isinstance(Xbatch, torch.cuda.FloatTensor):
                 Xbatch = torch.FloatTensor(Xbatch).cuda()
             Xbatch = Variable(Xbatch, volatile=True)
-            ###############################
-
             output = self.model(Xbatch)
-            yhat = np.append(yhat,
-                             output.data.max(1)[1].cpu().numpy())
+            yhat = np.append(yhat, output.data.max(1)[1].cpu().numpy())
+
+        files_in_mem.clear()
+        gc.collect()
+        ###############################
         yhat = np.vstack(yhat)
         return yhat
 
     def predict_proba(self, devX):
         self.model.eval()
         probas = []
+
+        # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
+        files_in_mem = dict()
         for i in range(0, len(devX), self.batch_size):
-            # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
+            # Optimisation to reduce number of file reads
+            files_to_keep_in_mem = []
+            for j in range(i, i + self.batch_size):
+                if j < len(devX):
+                    files_to_keep_in_mem.append(devX[j][0])
+            files_to_delete = []
+            for file in files_in_mem:
+                if file not in files_to_keep_in_mem:
+                    files_to_delete.append(file)
+            for file in files_to_delete:
+                del files_in_mem[file]
+
             Xbatch = []
-            files = dict()
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
                     filename = devX[j][0]
                     index = int(devX[j][1])
-                    if filename not in files:
+                    if filename not in files_in_mem:
                         with open(filename) as f:
-                            files[filename] = pickle.load(f)
-                    Xbatch.append(np.array([files[filename][index]]))
+                            files_in_mem[filename] = pickle.load(f)
+                    Xbatch.append(np.array([files_in_mem[filename][index]]))
             Xbatch = np.vstack(Xbatch)
+
             #Xbatch = self.cast_to_float_tensor(Xbatch)
             #if not isinstance(Xbatch, torch.cuda.FloatTensor):
             #    Xbatch = torch.FloatTensor(Xbatch).cuda()
             Xbatch = Variable(Xbatch, volatile=True)
-            ###############################
-
             vals = F.softmax(self.model(Xbatch).data.cpu().numpy())
             if not probas:
                 probas = vals
             else:
                 probas = np.concatenate(probas, vals, axis=0)
+                
+        files_in_mem.clear()
+        gc.collect()
+        ###############################
         return probas
 
 
