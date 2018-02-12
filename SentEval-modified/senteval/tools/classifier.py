@@ -134,7 +134,7 @@ class PyTorchClassifier(object):
     def score(self, devX, devy):
         self.model.eval()
         correct = 0
-        if not isinstance(devy, torch.cuda.FloatTensor) or self.cudaEfficient:
+        if not isinstance(devy, torch.cuda.LongTensor) or self.cudaEfficient:
             devy = torch.LongTensor(devy).cuda()
         for i in range(0, len(devX), self.batch_size):
             # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
