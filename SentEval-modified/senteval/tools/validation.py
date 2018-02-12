@@ -186,11 +186,12 @@ class SplitClassifier(object):
     """
     (train, valid, test) split classifier.
     """
-    def __init__(self, X, y, config):
+    def __init__(self, X, y, embeddings, config):
         self.X = X
         self.y = y
         self.nclasses = config['nclasses']
-        self.featdim = self.X['train'].shape[1]
+        self.embeddings = embeddings
+        self.featdim = self.embeddings.shape[1]
         self.seed = config['seed']
         self.usepytorch = config['usepytorch']
         self.classifier_config = config['classifier']
@@ -210,7 +211,7 @@ class SplitClassifier(object):
         scores = []
         for reg in regs:
             if self.usepytorch:
-                clf = MLP(self.classifier_config, inputdim=self.featdim,
+                clf = MLP(self.embeddings, self.classifier_config, inputdim=self.featdim,
                           nclasses=self.nclasses, l2reg=reg,
                           seed=self.seed, cudaEfficient=self.cudaEfficient)
 
@@ -231,7 +232,7 @@ class SplitClassifier(object):
         clf = LogisticRegression(C=optreg, random_state=self.seed)
         logging.info('Evaluating...')
         if self.usepytorch:
-            clf = MLP(self.classifier_config, inputdim=self.featdim,
+            clf = MLP(self.embeddings, self.classifier_config, inputdim=self.featdim,
                       nclasses=self.nclasses, l2reg=optreg,
                       seed=self.seed, cudaEfficient=self.cudaEfficient)
 

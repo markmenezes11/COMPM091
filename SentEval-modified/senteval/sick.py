@@ -182,31 +182,54 @@ class SICKEntailmentEval(SICKRelatednessEval):
                 sick_embed[key][txt_type] = np.vstack(sick_embed[key][txt_type])
             logging.info('Computed {0} embeddings'.format(key))
 
+        index = 0
+        embeddings = []
+
         # Train
         trainA = sick_embed['train']['X_A']
         trainB = sick_embed['train']['X_B']
         trainF = np.c_[np.abs(trainA - trainB), trainA * trainB]
+        trainF_indexes = []
+        for embedding in trainF:
+            embeddings.append(embedding)
+            trainF_indexes.append(index)
+            index += 1
+        trainF_indexes = np.vstack(trainF_indexes)
         trainY = np.array(self.sick_data['train']['y'])
 
         # Dev
         devA = sick_embed['dev']['X_A']
         devB = sick_embed['dev']['X_B']
         devF = np.c_[np.abs(devA - devB), devA * devB]
+        devF_indexes = []
+        for embedding in devF:
+            embeddings.append(embedding)
+            devF_indexes.append(index)
+            index += 1
+        devF_indexes = np.vstack(devF_indexes)
         devY = np.array(self.sick_data['dev']['y'])
 
         # Test
         testA = sick_embed['test']['X_A']
         testB = sick_embed['test']['X_B']
         testF = np.c_[np.abs(testA - testB), testA * testB]
+        testF_indexes = []
+        for embedding in testF:
+            embeddings.append(embedding)
+            testF_indexes.append(index)
+            index += 1
+        testF_indexes = np.vstack(testF_indexes)
         testY = np.array(self.sick_data['test']['y'])
+
+        embeddings = np.vstack(embeddings)
 
         config = {'nclasses': 3, 'seed': self.seed,
                   'usepytorch': params.usepytorch,
                   'classifier': params.classifier,
                   'nhid': params.nhid}
-        clf = SplitClassifier(X={'train': trainF, 'valid': devF, 'test': testF},
+        clf = SplitClassifier(X={'train': trainF_indexes, 'valid': devF_indexes, 'test': testF_indexes},
                               y={'train': trainY, 'valid': devY, 'test': testY},
-                              config=config)
+                              embeddings=embeddings, config=config)
 
         devacc, testacc = clf.run()
         logging.debug('\nDev acc : {0} Test acc : {1} for \
