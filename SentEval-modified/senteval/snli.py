@@ -94,20 +94,39 @@ class SNLIEval(object):
             self.X[key] = np.vstack(enc_input)
             self.y[key] = [dico_label[y] for y in mylabels]
 
+        ndev = len(self.data['valid'][0])
+        ntest = len(self.data['test'][0])
+        self.data = None
+
         config = {'nclasses': 3, 'seed': self.seed,
                   'usepytorch': params.usepytorch,
                   'cudaEfficient': True,
                   'nhid': params.nhid, 'noreg': True}
+
+        embeddings = []
+        index = 0
+        X_indexes = dict()
+        for key in ['train', 'valid', 'test']:
+            X_indexes[key] = []
+            for embedding in self.X[key]:
+                embeddings.append(embedding)
+                X_indexes[key].append(index)
+                index += 1
+            X_indexes[key] = np.vstack(X_indexes[key])
+            del self.X[key]
+
+        self.X = None
+        embeddings = np.vstack(embeddings)
 
         config_classifier = copy.deepcopy(params.classifier)
         config_classifier['max_epoch'] = 15
         config_classifier['epoch_size'] = 1
         config['classifier'] = config_classifier
 
-        clf = SplitClassifier(self.X, self.y, config)
+        clf = SplitClassifier(X_indexes, self.y, embeddings, config)
         devacc, testacc = clf.run()
         logging.debug('Dev acc : {0} Test acc : {1} for SNLI\n'
                       .format(devacc, testacc))
         return {'devacc': devacc, 'acc': testacc,
-                'ndev': len(self.data['valid'][0]),
-                'ntest': len(self.data['test'][0])}
+                'ndev': ndev,
+                'ntest': ntest}
