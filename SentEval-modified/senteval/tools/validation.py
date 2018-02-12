@@ -40,10 +40,11 @@ class InnerKFoldClassifier(object):
     """
     (train) split classifier : InnerKfold.
     """
-    def __init__(self, X, y, config):
+    def __init__(self, X, y, embeddings, config):
         self.X = X
         self.y = y
-        self.featdim = config['featdim']
+        self.embeddings = embeddings
+        self.featdim = self.embeddings.shape[1]
         self.nclasses = config['nclasses']
         self.seed = config['seed']
         self.devresults = []
@@ -75,7 +76,7 @@ class InnerKFoldClassifier(object):
                     X_in_train, X_in_test = X_train[inner_train_idx], X_train[inner_test_idx]
                     y_in_train, y_in_test = y_train[inner_train_idx], y_train[inner_test_idx]
                     if self.usepytorch:
-                        clf = MLP(self.classifier_config, inputdim=self.featdim,
+                        clf = MLP(self.embeddings, self.classifier_config, inputdim=self.featdim,
                                   nclasses=self.nclasses, l2reg=reg,
                                   seed=self.seed)
                         clf.fit(X_in_train, y_in_train,
@@ -91,7 +92,7 @@ class InnerKFoldClassifier(object):
             self.devresults.append(np.max(scores))
 
             if self.usepytorch:
-                clf = MLP(self.classifier_config, inputdim=self.featdim,
+                clf = MLP(self.embeddings, self.classifier_config, inputdim=self.featdim,
                           nclasses=self.nclasses, l2reg=optreg,
                           seed=self.seed)
 
