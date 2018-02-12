@@ -86,7 +86,7 @@ DATASET
 """
 
 # TODO: Get actual dataset, split it into train/test, and adjust max_sent_len and n_classes accordingly
-max_sent_len = 256
+max_sent_len = 128
 n_classes = 4
 
 dummy_dataset_X1 = [["This", "is", "the", "0th", "dummy", "sentence", "."],
@@ -283,19 +283,19 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
             assert dimensions_equal(Xy.shape, (max_sent_len, params['bilstm_integrate_n_hidden1']*2,))
             assert dimensions_equal(Xy.shape, (max_sent_len, params['bilstm_integrate_n_hidden2']*2,))
 
-            # Max pooling - just take the 256 "columns" in the matrix and get the max in each of them.
+            # Max pooling - just take the (max_sent_len) "columns" in the matrix and get the max in each of them.
             max_Xy = tf.reduce_max(Xy, axis=0)
             max_Yx = tf.reduce_max(Yx, axis=0)
             assert dimensions_equal(max_Xy.shape, (params['bilstm_integrate_n_hidden1']*2,))
             assert dimensions_equal(max_Yx.shape, (params['bilstm_integrate_n_hidden2']*2,))
 
-            # Mean pooling - just take the 256 "columns" in the matrix and get the mean in each of them.
+            # Mean pooling - just take the (max_sent_len) "columns" in the matrix and get the mean in each of them.
             mean_Xy = tf.reduce_mean(Xy, axis=0)
             mean_Yx = tf.reduce_mean(Yx, axis=0)
             assert dimensions_equal(mean_Xy.shape, (params['bilstm_integrate_n_hidden1']*2,))
             assert dimensions_equal(mean_Yx.shape, (params['bilstm_integrate_n_hidden2']*2,))
 
-            # Min pooling - just take the 256 "columns" in the matrix and get the min in each of them.
+            # Min pooling - just take the (max_sent_len) "columns" in the matrix and get the min in each of them.
             min_Xy = tf.reduce_min(Xy, axis=0)
             min_Yx = tf.reduce_min(Yx, axis=0)
             assert dimensions_equal(min_Xy.shape, (params['bilstm_integrate_n_hidden1']*2,))
