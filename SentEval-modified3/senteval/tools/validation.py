@@ -44,7 +44,7 @@ class InnerKFoldClassifier(object):
         self.X = X
         self.y = y
         self.embeddings = embeddings
-        self.featdim = X.shape[1]
+        self.featdim = self.embeddings.shape[1]
         self.nclasses = config['nclasses']
         self.seed = config['seed']
         self.devresults = []
@@ -92,7 +92,7 @@ class InnerKFoldClassifier(object):
             self.devresults.append(np.max(scores))
 
             if self.usepytorch:
-                clf = MLP(self.classifier_config, inputdim=self.featdim,
+                clf = MLP(self.embeddings, self.classifier_config, inputdim=self.featdim,
                           nclasses=self.nclasses, l2reg=optreg,
                           seed=self.seed)
 
