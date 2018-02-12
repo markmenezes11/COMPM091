@@ -81,30 +81,64 @@ class SICKRelatednessEval(object):
             sick_embed[key]['y'] = np.array(self.sick_data[key]['y'])
             logging.info('Computed {0} embeddings'.format(key))
 
+        index = 0
+        embeddings = []
+
         # Train
         trainA = sick_embed['train']['X_A']
         trainB = sick_embed['train']['X_B']
         trainF = np.c_[np.abs(trainA - trainB), trainA * trainB]
+        trainA = None
+        trainB = None
+        trainF_indexes = []
+        for embedding in trainF:
+            embeddings.append(embedding)
+            trainF_indexes.append(index)
+            index += 1
+        trainF_indexes = np.vstack(trainF_indexes)
+        trainF = None
         trainY = self.encode_labels(self.sick_data['train']['y'])
 
         # Dev
         devA = sick_embed['dev']['X_A']
         devB = sick_embed['dev']['X_B']
         devF = np.c_[np.abs(devA - devB), devA * devB]
+        devA_length = len(devA)
+        devA = None
+        devB = None
+        devF_indexes = []
+        for embedding in devF:
+            embeddings.append(embedding)
+            devF_indexes.append(index)
+            index += 1
+        devF_indexes = np.vstack(devF_indexes)
+        devF = None
         devY = self.encode_labels(self.sick_data['dev']['y'])
 
         # Test
         testA = sick_embed['test']['X_A']
         testB = sick_embed['test']['X_B']
         testF = np.c_[np.abs(testA - testB), testA * testB]
+        testA_length = len(testA)
+        testA = None
+        testB = None
+        testF_indexes = []
+        for embedding in testF:
+            embeddings.append(embedding)
+            testF_indexes.append(index)
+            index += 1
+        testF_indexes = np.vstack(testF_indexes)
+        testF = None
         testY = self.encode_labels(self.sick_data['test']['y'])
 
+        embeddings = np.vstack(embeddings)
+
         config = {'seed': self.seed, 'nclasses': 5}
-        clf = RelatednessPytorch(train={'X': trainF, 'y': trainY},
-                                 valid={'X': devF, 'y': devY},
-                                 test={'X': testF, 'y': testY},
+        clf = RelatednessPytorch(train={'X': trainF_indexes, 'y': trainY},
+                                 valid={'X': devF_indexes, 'y': devY},
+                                 test={'X': testF_indexes, 'y': testY},
                                  devscores=self.sick_data['dev']['y'],
-                                 config=config)
+                                 embeddings=embeddings, config=config)
 
         devpr, yhat = clf.run()
 
@@ -116,7 +150,7 @@ class SICKRelatednessEval(object):
                        for SICK Relatedness\n'.format(pr, sr, se))
 
         return {'devpearson': devpr, 'pearson': pr, 'spearman': sr, 'mse': se,
-                'yhat': yhat, 'ndev': len(devA), 'ntest': len(testA)}
+                'yhat': yhat, 'ndev': devA_length, 'ntest': testA_length}
 
     def encode_labels(self, labels, nclass=5):
         """
@@ -189,36 +223,47 @@ class SICKEntailmentEval(SICKRelatednessEval):
         trainA = sick_embed['train']['X_A']
         trainB = sick_embed['train']['X_B']
         trainF = np.c_[np.abs(trainA - trainB), trainA * trainB]
+        trainA = None
+        trainB = None
         trainF_indexes = []
         for embedding in trainF:
             embeddings.append(embedding)
             trainF_indexes.append(index)
             index += 1
         trainF_indexes = np.vstack(trainF_indexes)
+        trainF = None
         trainY = np.array(self.sick_data['train']['y'])
 
         # Dev
         devA = sick_embed['dev']['X_A']
         devB = sick_embed['dev']['X_B']
         devF = np.c_[np.abs(devA - devB), devA * devB]
+        devA_length = len(devA)
+        devA = None
+        devB = None
         devF_indexes = []
         for embedding in devF:
             embeddings.append(embedding)
             devF_indexes.append(index)
             index += 1
         devF_indexes = np.vstack(devF_indexes)
+        devF = None
         devY = np.array(self.sick_data['dev']['y'])
 
         # Test
         testA = sick_embed['test']['X_A']
         testB = sick_embed['test']['X_B']
         testF = np.c_[np.abs(testA - testB), testA * testB]
+        testA_length = len(testA)
+        testA = None
+        testB = None
         testF_indexes = []
         for embedding in testF:
             embeddings.append(embedding)
             testF_indexes.append(index)
             index += 1
         testF_indexes = np.vstack(testF_indexes)
+        testF = None
         testY = np.array(self.sick_data['test']['y'])
 
         embeddings = np.vstack(embeddings)
@@ -235,4 +280,4 @@ class SICKEntailmentEval(SICKRelatednessEval):
         logging.debug('\nDev acc : {0} Test acc : {1} for \
                        SICK entailment\n'.format(devacc, testacc))
         return {'devacc': devacc, 'acc': testacc,
-                'ndev': len(devA), 'ntest': len(testA)}
+                'ndev': devA_length, 'ntest': testA_length}

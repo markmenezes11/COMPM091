@@ -23,7 +23,7 @@ from scipy.stats import pearsonr
 
 class RelatednessPytorch(object):
     # Can be used for SICK-Relatedness, and STS14
-    def __init__(self, train, valid, test, devscores, config):
+    def __init__(self, train, valid, test, devscores, embeddings, config):
         # fix seed
         np.random.seed(config['seed'])
         torch.manual_seed(config['seed'])
@@ -35,7 +35,8 @@ class RelatednessPytorch(object):
         self.test = test
         self.devscores = devscores
 
-        self.inputdim = train['X'].shape[1]
+        self.embeddings = embeddings
+        self.inputdim = self.embeddings.shape[1]
         self.nclasses = config['nclasses']
         self.seed = config['seed']
         self.l2reg = 0.
@@ -59,12 +60,12 @@ class RelatednessPytorch(object):
 
     def prepare_data(self, trainX, trainy, devX, devy, testX, testy):
         # Transform probs to log-probs for KL-divergence
-        trainX = torch.FloatTensor(trainX).cuda()
+        #trainX = torch.FloatTensor(trainX).cuda()
         trainy = torch.FloatTensor(trainy).cuda()
-        devX = torch.FloatTensor(devX).cuda()
+        #devX = torch.FloatTensor(devX).cuda()
         devy = torch.FloatTensor(devy).cuda()
-        testX = torch.FloatTensor(testX).cuda()
-        testY = torch.FloatTensor(testy).cuda()
+        #testX = torch.FloatTensor(testX).cuda()
+        testy = torch.FloatTensor(testy).cuda()
 
         return trainX, trainy, devX, devy, testX, testy
 
@@ -107,9 +108,18 @@ class RelatednessPytorch(object):
             all_costs = []
             for i in range(0, len(X), self.batch_size):
                 # forward
-                idx = torch.from_numpy(permutation[i:i + self.batch_size]).long().cuda()
-                Xbatch = Variable(X.index_select(0, idx))
-                ybatch = Variable(y.index_select(0, idx))
+                idx = permutation[i:i + self.batch_size]
+
+                # EDITED: Get embeddings using indexes
+                Xbatch = []
+                for j in idx:
+                    if j < len(X):
+                        Xbatch.append(self.embeddings[X[j]])
+                Xbatch = np.vstack(Xbatch)
+                Xbatch = Variable(torch.FloatTensor(Xbatch).cuda())
+
+                y_idx = torch.from_numpy(idx).long().cuda()
+                ybatch = Variable(y.index_select(0, y_idx))
                 output = self.model(Xbatch)
                 # loss
                 loss = self.loss_fn(output, ybatch)
@@ -125,7 +135,14 @@ class RelatednessPytorch(object):
         self.model.eval()
         probas = []
         for i in range(0, len(devX), self.batch_size):
-            Xbatch = Variable(devX[i:i + self.batch_size], volatile=True)
+            # EDITED: Get embeddings using indexes
+            Xbatch = []
+            for j in range(i, i + self.batch_size):
+                if j < len(devX):
+                    Xbatch.append(self.embeddings[devX[j]])
+            Xbatch = np.vstack(Xbatch)
+            Xbatch = Variable(torch.FloatTensor(Xbatch).cuda(), volatile=True)
+
             if len(probas) == 0:
                 probas = self.model(Xbatch).data.cpu().numpy()
             else:
