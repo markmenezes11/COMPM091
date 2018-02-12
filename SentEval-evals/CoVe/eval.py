@@ -34,7 +34,6 @@ parser = argparse.ArgumentParser(description='SentEval Evaluation of InferSent S
 parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run. Leave blank to run all of them")
 parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval/", help="Path to SentEval repository")
 parser.add_argument("--modelpath", type=str, default='../../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
-parser.add_argument("--tempdir", type=str, default='/mnt/mmenezes/temp', help="Directory to save temp files with embeddings. Needs a lot of space!")
 parser.add_argument("--outputdir", type=str, default='.', help="Output directory to save results")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
 params, _ = parser.parse_known_args()
@@ -61,10 +60,11 @@ def prepare(params, samples):
 
 def batcher(params, batch):
     embeddings = []
-    max_sent_len = 256  # Looks like we have to force this to allow padded sentences for SentEval to work
+    max_sent_len = params.max_sent_len # Looks like we have to force this to allow padded sentences for SentEval to work
     for sentence in batch:
         if len(sentence) > max_sent_len:
-            sentence = sentence[:max_sent_len]
+            print("ERROR: Sentence is longer than max_sent_len.")
+            sys.exit(1)
         if len(sentence) == 0:
             embedding = np.zeros((1, max_sent_len * 600), dtype=float)
             embeddings.append(embedding)
@@ -95,7 +95,15 @@ params_senteval = {'task_path': PATH_TO_DATA, 'usepytorch': True, 'kfold': 5, 's
 params_senteval['classifier'] = {'nhid': 0, 'optim': 'adam', 'batch_size': 64,
                                  'tenacity': 5, 'epoch_size': 4}
 params_senteval['inputdir'] = params.modelpath
-params_senteval['tempdir'] = params.tempdir
+
+max_sent_lens = {'STS12': 41, 'STS13': 81, 'STS14': 61, 'STS15': 57, 'STS16': 52, 'MR': 62, 'CR': 106, 'MPQA': 44,
+                 'SUBJ': 122, 'SST2': 56, 'SST5': 56, 'TREC': 37, 'MRPC': 41, 'SNLI': 82,
+                 'SICKEntailment': 36, 'SICKRelatedness': 36, 'STSBenchmark': 61, 'ImageCaptionRetrieval': 50}
+if params.transfertask != "" and params.transfertask in max_sent_lens:
+    params_senteval['max_sent_len'] = max_sent_lens[params.transfertask]
+else:
+    params_senteval['max_sent_len'] = 128
+print("Sentences will be padded to length " + str(params_senteval['max_sent_len']) + ".")
 
 # Set up logger
 logging.basicConfig(format='%(asctime)s : %(message)s', level=logging.DEBUG)
