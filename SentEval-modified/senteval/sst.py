@@ -112,6 +112,7 @@ class SSTEval(object):
         del sst_embed['test']['y']
 
         sst_embed = None
+        embeddings = np.vstack(embeddings)
 
         config_classifier = {'nclasses': self.nclasses, 'seed': self.seed,
                              'usepytorch': params.usepytorch,
