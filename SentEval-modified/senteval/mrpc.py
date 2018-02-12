@@ -18,7 +18,7 @@ import io
 from senteval.tools.validation import KFoldClassifier
 
 from sklearn.metrics import f1_score
-import pickle
+
 
 class MRPCEval(object):
     def __init__(self, task_path, seed=1111):
@@ -72,10 +72,7 @@ class MRPCEval(object):
                 for ii in range(0, len(text_data['y']), params.batch_size):
                     batch = text_data[txt_type][ii:ii + params.batch_size]
                     embeddings = batcher(params, batch)
-                    with open("temp/batch_" + str(batch_number) + ".pkl", "w") as f:
-                        pickle.dump(embeddings, f)
-                    batch_number += 1
-                    #mrpc_embed[key][txt_type].append(embeddings)
+                    mrpc_embed[key][txt_type].append(embeddings)
                 mrpc_embed[key][txt_type] = np.vstack(mrpc_embed[key][txt_type])
             mrpc_embed[key]['y'] = np.array(text_data['y'])
             logging.info('Computed {0} embeddings'.format(key))

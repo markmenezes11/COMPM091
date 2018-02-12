@@ -134,9 +134,11 @@ class PyTorchClassifier(object):
     def score(self, devX, devy):
         self.model.eval()
         correct = 0
+        if not isinstance(devy, torch.cuda.FloatTensor) or self.cudaEfficient:
+            devy = torch.LongTensor(devy).cuda()
         for i in range(0, len(devX), self.batch_size):
             # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
-            devX_embeddings = []
+            Xbatch = []
             files = dict()
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
@@ -145,16 +147,15 @@ class PyTorchClassifier(object):
                     if filename not in files:
                         with open(filename) as f:
                             files[filename] = pickle.load(f)
-                    devX_embeddings.append(np.array([files[filename][index]]))
-            devX_embeddings = np.vstack(devX_embeddings)
-            devX_embeddings = self.cast_to_float_tensor(devX_embeddings)
+                    Xbatch.append(np.array([files[filename][index]]))
+            Xbatch = np.vstack(Xbatch)
+            Xbatch = self.cast_to_float_tensor(Xbatch)
+            if not isinstance(Xbatch, torch.cuda.FloatTensor) or self.cudaEfficient:
+                Xbatch = torch.FloatTensor(Xbatch).cuda()
+            Xbatch = Variable(Xbatch, volatile=True)
+            ybatch = Variable(devy[i:i + self.batch_size], volatile=True)
             ###############################
 
-            if not isinstance(devX_embeddings, torch.cuda.FloatTensor) or self.cudaEfficient:
-                devX_embeddings = torch.FloatTensor(devX_embeddings).cuda()
-                devy = torch.LongTensor(devy).cuda()
-            Xbatch = Variable(devX_embeddings, volatile=True)
-            ybatch = Variable(devy[i:i + self.batch_size], volatile=True)
             if self.cudaEfficient:
                 Xbatch = Xbatch.cuda()
                 ybatch = ybatch.cuda()
@@ -169,7 +170,7 @@ class PyTorchClassifier(object):
         yhat = np.array([])
         for i in range(0, len(devX), self.batch_size):
             # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
-            devX_embeddings = []
+            Xbatch = []
             files = dict()
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
@@ -178,13 +179,14 @@ class PyTorchClassifier(object):
                     if filename not in files:
                         with open(filename) as f:
                             files[filename] = pickle.load(f)
-                    devX_embeddings.append(np.array([files[filename][index]]))
-            devX_embeddings = np.vstack(devX_embeddings)
+                    Xbatch.append(np.array([files[filename][index]]))
+            Xbatch = np.vstack(Xbatch)
+            #Xbatch = self.cast_to_float_tensor(Xbatch)
+            if not isinstance(Xbatch, torch.cuda.FloatTensor):
+                Xbatch = torch.FloatTensor(Xbatch).cuda()
+            Xbatch = Variable(Xbatch, volatile=True)
             ###############################
 
-            if not isinstance(devX_embeddings, torch.cuda.FloatTensor):
-                devX_embeddings = torch.FloatTensor(devX_embeddings).cuda()
-            Xbatch = Variable(devX_embeddings, volatile=True)
             output = self.model(Xbatch)
             yhat = np.append(yhat,
                              output.data.max(1)[1].cpu().numpy())
@@ -196,7 +198,7 @@ class PyTorchClassifier(object):
         probas = []
         for i in range(0, len(devX), self.batch_size):
             # EDITED: Load embeddings from temp pickle file using the given filenames and array indexes
-            devX_embeddings = []
+            Xbatch = []
             files = dict()
             for j in range(i, i + self.batch_size):
                 if j < len(devX):
@@ -205,11 +207,14 @@ class PyTorchClassifier(object):
                     if filename not in files:
                         with open(filename) as f:
                             files[filename] = pickle.load(f)
-                    devX_embeddings.append(np.array([files[filename][index]]))
-            devX_embeddings = np.vstack(devX_embeddings)
+                    Xbatch.append(np.array([files[filename][index]]))
+            Xbatch = np.vstack(Xbatch)
+            #Xbatch = self.cast_to_float_tensor(Xbatch)
+            #if not isinstance(Xbatch, torch.cuda.FloatTensor):
+            #    Xbatch = torch.FloatTensor(Xbatch).cuda()
+            Xbatch = Variable(Xbatch, volatile=True)
             ###############################
 
-            Xbatch = Variable(devX_embeddings, volatile=True)
             vals = F.softmax(self.model(Xbatch).data.cpu().numpy())
             if not probas:
                 probas = vals
