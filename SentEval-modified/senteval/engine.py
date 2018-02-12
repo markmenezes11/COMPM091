@@ -34,6 +34,8 @@ class SE(object):
         params.nhid = 0 if 'nhid' not in params else params.nhid
         params.kfold = 5 if 'kfold' not in params else params.kfold
 
+        params.tempdir = "/mnt/mmenezes/temp" if 'tempdir' not in params else params.tempdir
+
         if 'classifier' not in params or not params['classifier']:
             params.classifier = {'nhid': 0}
 
