@@ -75,22 +75,60 @@ class SSTEval(object):
             sst_embed[key]['y'] = np.array(self.sst_data[key]['y'])
             logging.info('Computed {0} embeddings'.format(key))
 
+        dev_length = len(sst_embed['dev']['X'])
+        test_length = len(sst_embed['test']['X'])
+
+        embeddings = []
+        index = 0
+
+        trainX_indexes = []
+        for embedding in sst_embed['train']['X']:
+            embeddings.append(embedding)
+            trainX_indexes.append(index)
+            index += 1
+        trainX_indexes = np.vstack(trainX_indexes)
+        del sst_embed['train']['X']
+        trainy_indexes = sst_embed['train']['y']
+        del sst_embed['train']['y']
+
+        devX_indexes = []
+        for embedding in sst_embed['dev']['X']:
+            embeddings.append(embedding)
+            devX_indexes.append(index)
+            index += 1
+        devX_indexes = np.vstack(devX_indexes)
+        del sst_embed['dev']['X']
+        devy_indexes = sst_embed['dev']['y']
+        del sst_embed['dev']['y']
+
+        testX_indexes = []
+        for embedding in sst_embed['test']['X']:
+            embeddings.append(embedding)
+            testX_indexes.append(index)
+            index += 1
+        testX_indexes = np.vstack(testX_indexes)
+        del sst_embed['test']['X']
+        testy_indexes = sst_embed['test']['y']
+        del sst_embed['test']['y']
+
+        sst_embed = None
+
         config_classifier = {'nclasses': self.nclasses, 'seed': self.seed,
                              'usepytorch': params.usepytorch,
                              'classifier': params.classifier}
 
-        clf = SplitClassifier(X={'train': sst_embed['train']['X'],
-                                 'valid': sst_embed['dev']['X'],
-                                 'test': sst_embed['test']['X']},
-                              y={'train': sst_embed['train']['y'],
-                                 'valid': sst_embed['dev']['y'],
-                                 'test': sst_embed['test']['y']},
-                              config=config_classifier)
+        clf = SplitClassifier(X={'train': trainX_indexes,
+                                 'valid': devX_indexes,
+                                 'test': testX_indexes},
+                              y={'train': trainy_indexes,
+                                 'valid': devy_indexes,
+                                 'test': testy_indexes},
+                              embeddings=embeddings, config=config_classifier)
 
         devacc, testacc = clf.run()
         logging.debug('\nDev acc : {0} Test acc : {1} for \
             SST {2} classification\n'.format(devacc, testacc, self.task_name))
 
         return {'devacc': devacc, 'acc': testacc,
-                'ndev': len(sst_embed['dev']['X']),
-                'ntest': len(sst_embed['test']['X'])}
+                'ndev': dev_length,
+                'ntest': test_length}

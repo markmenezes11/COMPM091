@@ -1,6 +1,12 @@
 # SentEval-modified
 
-This is a modified version of the SentEval library (see below). The training process has been changed so that embeddings are stored in batches on disk, in the `./temp` folder, to save memory. They are rhen later loaded, batch by batch, for training.
+This is a modified version of the SentEval library (see below). The training process has been changed so that embeddings are stored in a single variable and only indexes are used when splitting the datasets. This greatly reduces memory usage (by ~200GB) if the embeddings are large.
+
+A lot of features (such as the non-PyTorch mode) will have likely been broken as the modification was done in a hacky way due to lack of time.
+
+At this time of writing only CR, MPQA, MR, SICKEntailment, SICKRelatedness, STS12, STS13, STS14, STS15, STS16, STSBenchmark and SUBJ have been tested. They were tested using the SentEval-Evals scripts in this repository (see parent folder) and the results are the same if on default settings, so this is sufficient for this project.
+
+See original README below (although some of those features will not work in this version).
 
 # SentEval: evaluation toolkit for sentence embeddings
 
