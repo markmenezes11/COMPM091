@@ -4,7 +4,9 @@ This is a modified version of the SentEval library (see below). The training pro
 
 A lot of features (such as the non-PyTorch mode) will have likely been broken as the modification was done in a hacky way due to lack of time.
 
-At this time of writing only CR, MPQA, MR, SICKEntailment, SICKRelatedness, SNLI, SST2, SST5, STS12, STS13, STS14, STS15, STS16, STSBenchmark and SUBJ have been tested. They were tested using the SentEval-Evals scripts in this repository (see parent folder) and the results are the same if on default settings, so this is sufficient for this project.
+It is **not** recommended to use this SentEval-modified library instead of the original SentEval library, unless you are running the CoVe/GloVe SentEval-evals on the transfer tasks mentioned below. Otherwise, stick with the original SentEval: https://github.com/facebookresearch/SentEval
+
+At this time of writing only CR, MPQA, MR, SICKEntailment, SICKRelatedness, SST2, SST5, STS12, STS13, STS14, STS15, STS16, STSBenchmark and SUBJ have been confirmed to use less memory than the original SentEval. SNLI and ImageCaptionRetrieval do work but it is recommended that you use the original SentEval if evaluating on those two transfer tasks. All of the transfer tasks have been tested to make sure they produce the correct results, though.
 
 See original README below (although some of those features will not work in this version).
 
