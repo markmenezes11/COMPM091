@@ -189,8 +189,8 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
     inputs1 = tf.placeholder(tf.float32, shape=[None, max_sent_len, glove_cove_dimensions])
     inputs2 = tf.placeholder(tf.float32, shape=[None, max_sent_len, glove_cove_dimensions])
     labels = tf.placeholder(tf.int32, [None])  # (n_sentences, n_classes)
-    assert dimensions_equal(inputs1.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
-    assert dimensions_equal(inputs2.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
+    assert dimensions_equal(inputs1.shape[1:], (params['batch_size'], max_sent_len, glove_cove_dimensions)[1:])
+    assert dimensions_equal(inputs2.shape[1:], (params['batch_size'], max_sent_len, glove_cove_dimensions)[1:])
 
     # Feedforward network with ReLU activation, applied to each word embedding (word) in the sequence (sentence)
     with tf.variable_scope("feedforward"):
@@ -200,8 +200,8 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
             return params['feedforward_activation'](tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias)
         feedforward_outputs1 = tf.map_fn(feedforward, inputs1)
         feedforward_outputs2 = tf.map_fn(feedforward, inputs2)
-        assert dimensions_equal(feedforward_outputs1.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
-        assert dimensions_equal(feedforward_outputs2.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
+        assert dimensions_equal(feedforward_outputs1.shape[1:], (params['batch_size'], max_sent_len, glove_cove_dimensions)[1:])
+        assert dimensions_equal(feedforward_outputs2.shape[1:], (params['batch_size'], max_sent_len, glove_cove_dimensions)[1:])
 
     # BiLSTM processes the resulting sequences
     # The BCN is symmetrical - not sure whether to use the same BiLSTM or or two separate BiLSTMs (one for each side).
@@ -224,10 +224,10 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
         with tf.variable_scope("bilstm_encoder_scope2"):
             bilstm_encoder_fw_cell2 = tf.contrib.rnn.LSTMCell(params['bilstm_encoder_n_hidden2'], forget_bias=params['bilstm_encoder_forget_bias2'])
             bilstm_encoder_bw_cell2 = tf.contrib.rnn.LSTMCell(params['bilstm_encoder_n_hidden2'], forget_bias=params['bilstm_encoder_forget_bias2'])
-            bilstm_encoder_raw_outputs2, _ = tf.nn.bidirectional_dynamic_rnn(bilstm_encoder_fw_cell2, bilstm_encoder_bw_cell2, params['feedforward_outputs2'], dtype=tf.float32)
+            bilstm_encoder_raw_outputs2, _ = tf.nn.bidirectional_dynamic_rnn(bilstm_encoder_fw_cell2, bilstm_encoder_bw_cell2, feedforward_outputs2, dtype=tf.float32)
             bilstm_encoder_outputs2 = tf.concat([bilstm_encoder_raw_outputs2[0], bilstm_encoder_raw_outputs2[-1]], 2)
-    assert dimensions_equal(bilstm_encoder_outputs1.shape, (params['batch_size'], max_sent_len, params['bilstm_encoder_n_hidden1']*2))
-    assert dimensions_equal(bilstm_encoder_outputs2.shape, (params['batch_size'], max_sent_len, params['bilstm_encoder_n_hidden2']*2))
+    assert dimensions_equal(bilstm_encoder_outputs1.shape[1:], (params['batch_size'], max_sent_len, params['bilstm_encoder_n_hidden1']*2)[1:])
+    assert dimensions_equal(bilstm_encoder_outputs2.shape[1:], (params['batch_size'], max_sent_len, params['bilstm_encoder_n_hidden2']*2)[1:])
 
     # Biattention mechanism [Seo et al., 2017, Xiong et al., 2017]
     def biattention(biattention_input):
@@ -254,8 +254,8 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
         biattention_output2 = tf.concat([Y, Y - Cx, tf.multiply(Y, Cx)], 1)
         return biattention_output1, biattention_output2
     biattention_outputs1, biattention_outputs2 = tf.map_fn(biattention, (bilstm_encoder_outputs1, bilstm_encoder_outputs2))
-    assert dimensions_equal(biattention_outputs1.shape, (params['batch_size'], max_sent_len, params['bilstm_encoder_n_hidden1']*2*3))
-    assert dimensions_equal(biattention_outputs2.shape, (params['batch_size'], max_sent_len, params['bilstm_encoder_n_hidden2']*2*3))
+    assert dimensions_equal(biattention_outputs1.shape[1:], (params['batch_size'], max_sent_len, params['bilstm_encoder_n_hidden1']*2*3)[1:])
+    assert dimensions_equal(biattention_outputs2.shape[1:], (params['batch_size'], max_sent_len, params['bilstm_encoder_n_hidden2']*2*3)[1:])
 
     # Integrate with two separate one-layer BiLSTMs
     with tf.variable_scope("bilstm_integrate_scope1"):
@@ -268,8 +268,8 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
         bilstm_integrate_bw_cell2 = tf.contrib.rnn.LSTMCell(params['bilstm_integrate_n_hidden2'], forget_bias=params['bilstm_integrate_forget_bias2'])
         bilstm_integrate_raw_outputs2, _ = tf.nn.bidirectional_dynamic_rnn(bilstm_integrate_fw_cell2, bilstm_integrate_bw_cell2, biattention_outputs2, dtype=tf.float32)
         bilstm_integrate_outputs2 = tf.concat([bilstm_integrate_raw_outputs2[0], bilstm_integrate_raw_outputs2[-1]], 2)
-    assert dimensions_equal(bilstm_integrate_outputs1.shape, (params['batch_size'], max_sent_len, params['bilstm_integrate_n_hidden1']*2))
-    assert dimensions_equal(bilstm_integrate_outputs2.shape, (params['batch_size'], max_sent_len, params['bilstm_integrate_n_hidden2']*2))
+    assert dimensions_equal(bilstm_integrate_outputs1.shape[1:], (params['batch_size'], max_sent_len, params['bilstm_integrate_n_hidden1']*2)[1:])
+    assert dimensions_equal(bilstm_integrate_outputs2.shape[1:], (params['batch_size'], max_sent_len, params['bilstm_integrate_n_hidden2']*2)[1:])
 
     # Max, mean, min and self-attentive pooling
     with tf.variable_scope("pool"):
@@ -314,8 +314,8 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
             pool_output2 = tf.concat([max_Yx, mean_Yx, min_Yx, y_self], 0)
             return pool_output1, pool_output2
         pool_outputs1, pool_outputs2 = tf.map_fn(pool, (bilstm_integrate_outputs1, bilstm_integrate_outputs2))
-        assert dimensions_equal(pool_outputs1.shape, (params['batch_size'], params['bilstm_encoder_n_hidden1']*2*4))
-        assert dimensions_equal(pool_outputs2.shape, (params['batch_size'], params['bilstm_encoder_n_hidden2']*2*4))
+        assert dimensions_equal(pool_outputs1.shape[1:], (params['batch_size'], params['bilstm_encoder_n_hidden1']*2*4)[1:])
+        assert dimensions_equal(pool_outputs2.shape[1:], (params['batch_size'], params['bilstm_encoder_n_hidden2']*2*4)[1:])
 
     # Max-out network (3 layers, batch normalised)
     with tf.variable_scope("maxout"):
