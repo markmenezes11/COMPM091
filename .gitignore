@@ -1,3 +1,4 @@
 *.vector_cache
 *.pyc
 CoVe-BCN/model
+*/senteval_data
