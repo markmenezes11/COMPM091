@@ -47,15 +47,21 @@ class TRECEval(object):
         train_embeddings, test_embeddings = [], []
 
         # Sort to reduce padding
-        sorted_corpus_train = sorted(zip(self.train['X'], self.train['y']),
-                                     key=lambda z: (len(z[0]), z[1]))
+        sorted_corpus_train = sorted(zip(self.train['X'], self.train['y']), key=lambda z: (len(z[0]), z[1]))
+
         train_samples = [x for (x, y) in sorted_corpus_train]
         train_labels = [y for (x, y) in sorted_corpus_train]
 
-        sorted_corpus_test = sorted(zip(self.test['X'], self.test['y']),
-                                    key=lambda z: (len(z[0]), z[1]))
+        sorted_corpus_test = sorted(zip(self.test['X'], self.test['y']), key=lambda z: (len(z[0]), z[1]))
         test_samples = [x for (x, y) in sorted_corpus_test]
         test_labels = [y for (x, y) in sorted_corpus_test]
+
+        ndev = len(self.train['X'])
+        ntest = len(self.test['X'])
+        self.train = None
+        self.test = None
+        sorted_corpus_train = None
+        sorted_corpus_test = None
 
         # Get train embeddings
         for ii in range(0, len(train_labels), params.batch_size):
@@ -63,6 +69,7 @@ class TRECEval(object):
             embeddings = batcher(params, batch)
             train_embeddings.append(embeddings)
         train_embeddings = np.vstack(train_embeddings)
+        train_samples = None
         logging.info('Computed train embeddings')
 
         # Get test embeddings
@@ -71,19 +78,41 @@ class TRECEval(object):
             embeddings = batcher(params, batch)
             test_embeddings.append(embeddings)
         test_embeddings = np.vstack(test_embeddings)
+        test_samples = None
         logging.info('Computed test embeddings')
+
+        index = 0
+        embeddings = []
+
+        train_embeddings_indexes = []
+        for embedding in train_embeddings:
+            embeddings.append(embedding)
+            train_embeddings_indexes.append(index)
+            index += 1
+        train_embeddings_indexes = np.vstack(train_embeddings_indexes)
+        train_embeddings = None
+
+        test_embeddings_indexes = []
+        for embedding in test_embeddings:
+            embeddings.append(embedding)
+            test_embeddings_indexes.append(index)
+            index += 1
+        test_embeddings_indexes = np.vstack(test_embeddings_indexes)
+        test_embeddings = None
+
+        embeddings = np.vstack(embeddings)
 
         config_classifier = {'nclasses': 6, 'seed': self.seed,
                              'usepytorch': params.usepytorch,
                              'classifier': params.classifier,
                              'kfold': params.kfold}
-        clf = KFoldClassifier({'X': train_embeddings,
+        clf = KFoldClassifier({'X': train_embeddings_indexes,
                                'y': np.array(train_labels)},
-                              {'X': test_embeddings,
+                              {'X': test_embeddings_indexes,
                                'y': np.array(test_labels)},
-                              config_classifier)
+                              embeddings, config_classifier)
         devacc, testacc, _ = clf.run()
         logging.debug('\nDev acc : {0} Test acc : {1} \
             for TREC\n'.format(devacc, testacc))
         return {'devacc': devacc, 'acc': testacc,
-                'ndev': len(self.train['X']), 'ntest': len(self.test['X'])}
+                'ndev': ndev, 'ntest': ntest}

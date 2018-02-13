@@ -66,6 +66,7 @@ class MRPCEval(object):
             text_data['A'] = [x for (x, y, z) in sorted_corpus]
             text_data['B'] = [y for (x, y, z) in sorted_corpus]
             text_data['y'] = [z for (x, y, z) in sorted_corpus]
+            sorted_corpus = None
 
             for txt_type in ['A', 'B']:
                 mrpc_embed[key][txt_type] = []
@@ -75,30 +76,60 @@ class MRPCEval(object):
                     mrpc_embed[key][txt_type].append(embeddings)
                 mrpc_embed[key][txt_type] = np.vstack(mrpc_embed[key][txt_type])
             mrpc_embed[key]['y'] = np.array(text_data['y'])
+            text_data = None
             logging.info('Computed {0} embeddings'.format(key))
+
+        self.mrpc_data = None
+
+        index = 0
+        embeddings = []
 
         # Train
         trainA = mrpc_embed['train']['A']
         trainB = mrpc_embed['train']['B']
         trainF = np.c_[np.abs(trainA - trainB), trainA * trainB]
+        ndev = len(trainA)
+        trainA = None
+        trainB = None
+        trainF_indexes = []
+        for embedding in trainF:
+            embeddings.append(embedding)
+            trainF_indexes.append(index)
+            index += 1
+        trainF_indexes = np.vstack(trainF_indexes)
+        trainF = None
         trainY = mrpc_embed['train']['y']
 
         # Test
         testA = mrpc_embed['test']['A']
         testB = mrpc_embed['test']['B']
         testF = np.c_[np.abs(testA - testB), testA * testB]
+        ntest = len(testA)
+        testA = None
+        testB = None
+        testF_indexes = []
+        for embedding in testF:
+            embeddings.append(embedding)
+            testF_indexes.append(index)
+            index += 1
+        testF_indexes = np.vstack(testF_indexes)
+        testF = None
         testY = mrpc_embed['test']['y']
+
+        mrpc_embed = None
+
+        embeddings = np.vstack(embeddings)
 
         config = {'nclasses': 2, 'seed': self.seed,
                   'usepytorch': params.usepytorch,
                   'classifier': params.classifier,
                   'nhid': params.nhid, 'kfold': params.kfold}
-        clf = KFoldClassifier(train={'X': trainF, 'y': trainY},
-                              test={'X': testF, 'y': testY}, config=config)
+        clf = KFoldClassifier(train={'X': trainF_indexes, 'y': trainY},
+                              test={'X': testF_indexes, 'y': testY}, embeddings=embeddings, config=config)
 
         devacc, testacc, yhat = clf.run()
         testf1 = round(100*f1_score(testY, yhat), 2)
         logging.debug('Dev acc : {0} Test acc {1}; Test F1 {2} for MRPC.\n'
                       .format(devacc, testacc, testf1))
         return {'devacc': devacc, 'acc': testacc, 'f1': testf1,
-                'ndev': len(trainA), 'ntest': len(testA)}
+                'ndev': ndev, 'ntest': ntest}

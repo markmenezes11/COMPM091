@@ -112,10 +112,11 @@ class KFoldClassifier(object):
     """
     (train, test) split classifier : cross-validation on train.
     """
-    def __init__(self, train, test, config):
+    def __init__(self, train, test, embeddings, config):
         self.train = train
         self.test = test
-        self.featdim = self.train['X'].shape[1]
+        self.embeddings = embeddings
+        self.featdim = self.embeddings.shape[1]
         self.nclasses = config['nclasses']
         self.seed = config['seed']
         self.usepytorch = config['usepytorch']
@@ -145,7 +146,7 @@ class KFoldClassifier(object):
 
                 # Train classifier
                 if self.usepytorch:
-                    clf = MLP(self.classifier_config, inputdim=self.featdim,
+                    clf = MLP(self.embeddings, self.classifier_config, inputdim=self.featdim,
                               nclasses=self.nclasses, l2reg=reg,
                               seed=self.seed)
                     clf.fit(X_train, y_train, validation_data=(X_test, y_test))
@@ -167,7 +168,7 @@ class KFoldClassifier(object):
 
         logging.info('Evaluating...')
         if self.usepytorch:
-            clf = MLP(self.classifier_config, inputdim=self.featdim,
+            clf = MLP(self.embeddings, self.classifier_config, inputdim=self.featdim,
                       nclasses=self.nclasses, l2reg=optreg,
                       seed=self.seed)
             clf.fit(self.train['X'], self.train['y'], validation_split=0.05)

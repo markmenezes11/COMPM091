@@ -131,6 +131,8 @@ class SICKRelatednessEval(object):
         testF = None
         testY = self.encode_labels(self.sick_data['test']['y'])
 
+        sick_embed = None
+
         embeddings = np.vstack(embeddings)
 
         config = {'seed': self.seed, 'nclasses': 5}
@@ -265,6 +267,9 @@ class SICKEntailmentEval(SICKRelatednessEval):
         testF_indexes = np.vstack(testF_indexes)
         testF = None
         testY = np.array(self.sick_data['test']['y'])
+
+        sick_data = None
+        sick_embed = None
 
         embeddings = np.vstack(embeddings)
 
