@@ -17,7 +17,6 @@ args, _ = parser.parse_known_args()
 import numpy as np
 import tensorflow as tf
 
-from maxout import maxout_with_batch_norm
 from keras.models import load_model
 
 """
@@ -87,7 +86,7 @@ DATASET
 
 # TODO: Get actual dataset, split it into train/test, and adjust max_sent_len and n_classes accordingly
 max_sent_len = 128
-n_classes = 4
+n_classes = 3
 
 dummy_dataset_X1 = [["This", "is", "the", "0th", "dummy", "sentence", "."],
                     ["This", "is", "the", "1st", "dummy", "sentence", "."],
@@ -127,8 +126,8 @@ HYPERPARAMETERS
 
 # TODO: Tune the following parameters
 hyperparameters = {
-    'n_epochs': 10, # int
-    'batch_size': 60, # int
+    'n_epochs': 12, # int
+    'batch_size': 64, # int
 
     'feedforward_weight_size': 0.1, # float
     'feedforward_bias_size': 0.1, # float
@@ -160,10 +159,6 @@ hyperparameters = {
     'bn_bias_size3': 0.1,  # float
     'bn_decay3': 0.999,  # float
     'bn_epsilon3': 1e-3,  # float
-
-    'maxout_n_units1': 3200, # int
-    'maxout_n_units2': 3200, # int
-    'maxout_n_units3': n_classes,  # int
 
     'optimizer': "gradientdescent", # "adam" or "gradientdescent"
     'learning_rate': 0.001, # float
@@ -301,6 +296,8 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
             # Self-attentive pooling
             Bx = tf.nn.softmax((tf.matmul(Xy, self_pool_weight1)) + self_pool_bias1)
             By = tf.nn.softmax((tf.matmul(Yx, self_pool_weight2)) + self_pool_bias2)
+            assert dimensions_equal(Bx.shape, (max_sent_len, 1))
+            assert dimensions_equal(By.shape, (max_sent_len, 1))
             x_self = tf.squeeze(tf.matmul(Xy, Bx, transpose_a=True))
             y_self = tf.squeeze(tf.matmul(Yx, By, transpose_a=True))
             assert dimensions_equal(x_self.shape, (params['bilstm_integrate_n_hidden']*2,))
@@ -319,33 +316,50 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
         joined_representation = tf.concat([pool_outputs1, pool_outputs2], 1)
         assert dimensions_equal(joined_representation.shape, (params['batch_size'], params['bilstm_integrate_n_hidden']*2*4*2))
 
-        maxout_weight1 = tf.get_variable("maxout_weight1", shape=[params['bilstm_integrate_n_hidden']*2*4*2, params['bilstm_integrate_n_hidden']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size1'], params['bn_weight_size1']))
-        maxout_bias1 = tf.get_variable("maxout_bias1", shape=[params['bilstm_integrate_n_hidden']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size1']))
-        z1 = tf.matmul(joined_representation, maxout_weight1) + maxout_bias1
-        maxout_outputs1 = maxout_with_batch_norm(z1, params['maxout_n_units1'], params['bn_decay1'], params['bn_epsilon1'], is_training)
+        # tf.contrib.layers.axout wrongly outputs a tensor of unknown shape. I have wrapped it in this function to fix that.
+        # Source: https://github.com/tensorflow/tensorflow/issues/16225 https://github.com/tensorflow/tensorflow/pull/16114/files
+        def maxout_patched(inputs, num_units, axis=-1, name=None):
+            outputs = tf.contrib.layers.maxout(inputs, num_units, axis, name)
+            shape = inputs.get_shape().as_list()
+            shape[axis] = num_units
+            outputs.set_shape(shape)
+            return outputs
+
+        #maxout_weight1 = tf.get_variable("maxout_weight1", shape=[params['bilstm_integrate_n_hidden']*2*4*2, params['bilstm_integrate_n_hidden']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size1'], params['bn_weight_size1']))
+        #maxout_bias1 = tf.get_variable("maxout_bias1", shape=[params['bilstm_integrate_n_hidden']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size1']))
+        h1 = joined_representation #h1 = tf.matmul(joined_representation, maxout_weight1) + maxout_bias1
+        bn1 = tf.layers.batch_normalization(h1, momentum=params['bn_decay1'], epsilon=params['bn_epsilon1'], center=True, scale=True, training=is_training, name='bn1')
+        assert dimensions_equal(bn1.shape, (params['batch_size'], params['bilstm_integrate_n_hidden']*2*4*2))
+        maxout_outputs1 = maxout_patched(bn1, params['bilstm_integrate_n_hidden']*2*4*2) # n_units must be a factor of number of features (bilstm_integrate_n_hidden*2*4*2)
         assert dimensions_equal(maxout_outputs1.shape, (params['batch_size'], params['bilstm_integrate_n_hidden']*2*4*2))
 
-        maxout_weight2 = tf.get_variable("maxout_weight2", shape=[params['bilstm_integrate_n_hidden']*2*4*2, params['bilstm_integrate_n_hidden']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size2'], params['bn_weight_size2']))
-        maxout_bias2 = tf.get_variable("maxout_bias2", shape=[params['bilstm_integrate_n_hidden']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size2']))
-        z2 = tf.matmul(maxout_outputs1, maxout_weight2) + maxout_bias2
-        maxout_outputs2 = maxout_with_batch_norm(z2, params['maxout_n_units2'], params['bn_decay2'], params['bn_epsilon2'], is_training)
+        #maxout_weight2 = tf.get_variable("maxout_weight2", shape=[params['bilstm_integrate_n_hidden']*2*4*2, params['bilstm_integrate_n_hidden']*2*4*2], initializer=tf.random_uniform_initializer(-params['bn_weight_size2'], params['bn_weight_size2']))
+        #maxout_bias2 = tf.get_variable("maxout_bias2", shape=[params['bilstm_integrate_n_hidden']*2*4*2], initializer=tf.constant_initializer(params['bn_bias_size2']))
+        h2 = maxout_outputs1 #h2 = tf.matmul(maxout_outputs1, maxout_weight2) + maxout_bias2
+        bn2 = tf.layers.batch_normalization(h2, momentum=params['bn_decay2'], epsilon=params['bn_epsilon2'], center=True, scale=True, training=is_training, name='bn2')
+        assert dimensions_equal(bn2.shape, (params['batch_size'], params['bilstm_integrate_n_hidden']*2*4*2))
+        maxout_outputs2 = maxout_patched(bn2, params['bilstm_integrate_n_hidden']*2*4*2) # n_units must be a factor of number of features (bilstm_integrate_n_hidden*2*4*2)
         assert dimensions_equal(maxout_outputs2.shape, (params['batch_size'], params['bilstm_integrate_n_hidden']*2*4*2))
 
         maxout_weight3 = tf.get_variable("maxout_weight3", shape=[params['bilstm_integrate_n_hidden']*2*4*2, n_classes], initializer=tf.random_uniform_initializer(-params['bn_weight_size3'], params['bn_weight_size3']))
         maxout_bias3 = tf.get_variable("maxout_bias3", shape=[n_classes], initializer=tf.constant_initializer(params['bn_bias_size3']))
-        z3 = tf.matmul(maxout_outputs2, maxout_weight3) + maxout_bias3
-        maxout_outputs3 = maxout_with_batch_norm(z3, params['maxout_n_units3'], params['bn_decay3'], params['bn_epsilon3'], is_training)
+        h3 = tf.matmul(maxout_outputs2, maxout_weight3) + maxout_bias3
+        bn3 = tf.layers.batch_normalization(h3, momentum=params['bn_decay3'], epsilon=params['bn_epsilon3'], center=True, scale=True, training=is_training, name='bn3')
+        assert dimensions_equal(bn3.shape, (params['batch_size'], n_classes))
+        maxout_outputs3 = maxout_patched(bn3, n_classes) # n_units must be a factor of number of features (n_classes)
         assert dimensions_equal(maxout_outputs3.shape, (params['batch_size'], n_classes))
 
         loss = tf.reduce_mean(-tf.reduce_sum(tf.cast(labels, tf.float32) * tf.log(maxout_outputs3), reduction_indices=1))
 
-        if params['optimizer'] == "adam":
-            train_step = tf.train.AdamOptimizer(params['learning_rate'], beta1=params['adam_beta1'], beta2=params['adam_beta2'], epsilon=params['adam_epsilon']).minimize(loss)
-        elif params['optimizer'] == "gradientdescent":
-            train_step = tf.train.GradientDescentOptimizer(params['learning_rate']).minimize(loss)
-        else:
-            print("ERROR: Invalid optimizer: \"" + params['optimizer'] + "\"")
-            sys.exit(1)
+        update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+        with tf.control_dependencies(update_ops): # Must attach update_ops to train_step for batch normalization to work properly
+            if params['optimizer'] == "adam":
+                train_step = tf.train.AdamOptimizer(params['learning_rate'], beta1=params['adam_beta1'], beta2=params['adam_beta2'], epsilon=params['adam_epsilon']).minimize(loss)
+            elif params['optimizer'] == "gradientdescent":
+                train_step = tf.train.GradientDescentOptimizer(params['learning_rate']).minimize(loss)
+            else:
+                print("ERROR: Invalid optimizer: \"" + params['optimizer'] + "\"")
+                sys.exit(1)
 
         predict = tf.argmax(maxout_outputs3, axis=1)
 
