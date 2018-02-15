@@ -186,9 +186,9 @@ def BCN(params, is_training, max_sent_len, glove_cove_dimensions):
     assert dimensions_equal(inputs2.shape, (params['batch_size'], max_sent_len, glove_cove_dimensions))
 
     # Feedforward network with ReLU activation, applied to each word embedding (word) in the sequence (sentence)
+    feedforward_weight = tf.get_variable("feedforward_weight", shape=[glove_cove_dimensions, glove_cove_dimensions], initializer=tf.random_uniform_initializer(-params['feedforward_weight_size'], params['feedforward_weight_size']))
+    feedforward_bias = tf.get_variable("feedforward_bias", shape=[glove_cove_dimensions], initializer=tf.constant_initializer(params['feedforward_bias_size']))
     with tf.variable_scope("feedforward"):
-        feedforward_weight = tf.get_variable("feedforward_weight", shape=[glove_cove_dimensions, glove_cove_dimensions], initializer=tf.random_uniform_initializer(-params['feedforward_weight_size'], params['feedforward_weight_size']))
-        feedforward_bias = tf.get_variable("feedforward_bias", shape=[glove_cove_dimensions], initializer=tf.constant_initializer(params['feedforward_bias_size']))
         def feedforward(feedforward_input):
             return params['feedforward_activation'](tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias)
         feedforward_outputs1 = tf.map_fn(feedforward, inputs1)
