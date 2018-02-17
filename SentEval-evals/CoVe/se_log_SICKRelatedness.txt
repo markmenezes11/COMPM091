@@ -1,0 +1,51 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+gpufree
+GPU 0 has memory used try next
+GPU 0 has memory used try next
+GPU 0 has memory used try next
+GPU 0 has memory used try next
+End Prolog
+gonzo-605-9.local
+Tue Feb 13 23:37:57 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  On   | 00000000:02:00.0 Off |                  N/A |
+| 35%   59C    P2    83W / 250W |  10737MiB / 11172MiB |     90%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  On   | 00000000:03:00.0 Off |                  N/A |
+| 46%   77C    P2    96W / 250W |  10745MiB / 11172MiB |     92%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  On   | 00000000:81:00.0 Off |                  N/A |
+| 43%   73C    P2   210W / 250W |  10745MiB / 11172MiB |     81%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  On   | 00000000:82:00.0 Off |                  N/A |
+| 23%   31C    P8    17W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      4574      C   ...c6_2.17/lib/x86_64-linux-gnu/ld-2.17.so 10725MiB |
+|    1      5760      C   ...c6_2.17/lib/x86_64-linux-gnu/ld-2.17.so 10733MiB |
+|    2      6887      C   ...c6_2.17/lib/x86_64-linux-gnu/ld-2.17.so 10733MiB |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: ""
+Sentences will be padded to length 36.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SICKRelatedness:
+{u'spearman': 0.6879498847746218, u'pearson': 0.7334667902297181, u'yhat': array([3.19395495, 3.9694027 , 1.49671607, ..., 3.00850868, 4.22070109,
+       4.67911305]), u'devpearson': 0.725734220558874, u'mse': 0.47088864043828477, u'ntest': 4927, u'ndev': 500}
+
+
+Real time taken to evaluate: 3829.33477998 seconds
+All done.
