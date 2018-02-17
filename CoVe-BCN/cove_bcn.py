@@ -71,11 +71,11 @@ def sentence_to_glove_cove(tokenized_sentence, max_sent_len, glove_dimensions, c
             assert glove_embedding.shape == (glove_dimensions,)
             glove_embeddings.append(glove_embedding)
     glove = np.array([glove_embeddings])
-    assert glove.shape == (1, len(sentence), glove_dimensions)
+    assert glove.shape == (1, len(tokenized_sentence), glove_dimensions)
     cove = cove_model.predict(glove)
-    assert cove.shape == (1, len(sentence), cove_dimensions)
+    assert cove.shape == (1, len(tokenized_sentence), cove_dimensions)
     glove_cove = np.concatenate([glove[0], cove[0]], axis=1)
-    for pad in range(max_sent_len - len(sentence)):
+    for pad in range(max_sent_len - len(tokenized_sentence)):
         glove_cove = np.append(glove_cove, np.full((1, glove_dimensions + cove_dimensions), 0.0), axis=0)
     assert glove_cove.shape == (max_sent_len, glove_dimensions + cove_dimensions)
     return glove_cove
