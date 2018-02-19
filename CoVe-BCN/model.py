@@ -261,6 +261,6 @@ class BCN:
             predicted = list(sess.run(predict, feed_dict={inputs1: data['test']['X1'], inputs2: data['test']['X2'],
                                                           labels: data['test']['y']}))
             accuracy = sum([p == a for p, a in zip(predicted, data['test']['y'])]) / float(len(data['test']['y']))
-            print("Predictions: " + str(predicted))
-            print("Actual:      " + str(data['test']['y']))
+            #print("Predictions: " + str(predicted))
+            #print("Actual:      " + str(data['test']['y']))
             print("Accuracy:    " + str(accuracy))
