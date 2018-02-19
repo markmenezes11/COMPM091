@@ -23,7 +23,7 @@ start_time = timeit.default_timer()
 
 parser = argparse.ArgumentParser(description='SentEval Evaluation of InferSent Sentence Representations')
 parser.add_argument("--transfertask", type=str, default="", help="Which SentEval transfer task to run. Leave blank to run all of them")
-parser.add_argument("--sentevalpath", type=str, default="../../SentEval-modified/", help="Path to SentEval repository")
+parser.add_argument("--sentevalpath", type=str, default="/mnt/mmenezes/libs/SentEval/", help="Path to SentEval repository")
 parser.add_argument("--outputdir", type=str, default='.', help="Output directory to save results")
 parser.add_argument("--gpu_id", type=int, default=0, help="GPU ID. Set to -1 for CPU mode")
 params, _ = parser.parse_known_args()
