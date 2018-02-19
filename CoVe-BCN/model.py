@@ -197,14 +197,14 @@ class BCN:
 
             one_hot_labels = tf.one_hot(labels, self.n_classes, dtype=tf.float32)
             assert dimensions_equal(one_hot_labels.shape, (self.params['batch_size'], self.n_classes))
-            loss = tf.reduce_mean(-tf.reduce_sum(tf.cast(one_hot_labels, tf.float32) * tf.log(logits), reduction_indices=1))
+            cost = tf.reduce_mean(-tf.reduce_sum(tf.cast(one_hot_labels, tf.float32) * tf.log(logits), reduction_indices=1))
 
             update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
             with tf.control_dependencies(update_ops): # Must attach update_ops to train_step for batch normalization to work properly
                 if self.params['optimizer'] == "adam":
                     train_step = tf.train.AdamOptimizer(self.params['learning_rate'], beta1=self.params['adam_beta1'], beta2=self.params['adam_beta2'], epsilon=self.params['adam_epsilon']).minimize(loss)
                 elif self.params['optimizer'] == "gradientdescent":
-                    train_step = tf.train.GradientDescentOptimizer(self.params['learning_rate']).minimize(loss)
+                    train_step = tf.train.GradientDescentOptimizer(self.params['learning_rate']).minimize(cost)
                 else:
                     print("ERROR: Invalid optimizer: \"" + self.params['optimizer'] + "\".")
                     sys.exit(1)
@@ -212,7 +212,7 @@ class BCN:
             predict = tf.argmax(logits, axis=1)
 
         print("Successfully created BCN model.")
-        return inputs1, inputs2, labels, predict, loss, train_step
+        return inputs1, inputs2, labels, predict, cost, train_step
 
     def dry_run(self):
         tf.reset_default_graph()
@@ -222,7 +222,7 @@ class BCN:
     def train(self, data):
         tf.reset_default_graph()
         with tf.Graph().as_default() as graph:
-            inputs1, inputs2, labels, _, loss, train_step = self.create_model(is_training=True)
+            inputs1, inputs2, labels, _, cost, train_step = self.create_model(is_training=True)
         with tf.Session(graph=graph) as sess:
             print("\nTraining model...")
             tf.global_variables_initializer().run()
@@ -242,7 +242,7 @@ class BCN:
                     batch_X1 = np.take(data['train']['X1'], batch_indexes, axis=0)
                     batch_X2 = np.take(data['train']['X2'], batch_indexes, axis=0)
                     batch_y = np.take(data['train']['y'], batch_indexes, axis=0)
-                    _, loss = sess.run([train_step, loss], feed_dict={inputs1: batch_X1, inputs2: batch_X2, labels: batch_y})
+                    _, loss = sess.run([train_step, cost], feed_dict={inputs1: batch_X1, inputs2: batch_X2, labels: batch_y})
                     done += 1
                     if done in milestones:
                         print("    " + milestones[done])
