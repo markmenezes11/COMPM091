@@ -13,10 +13,13 @@ import io
 import numpy as np
 
 class SSTBinaryDataset():
-    def __init__(self, data_dir):
+    def __init__(self, data_dir, dry_run=False):
         print("\nLoading SST Binary dataset...")
         self.n_classes = 2
-        train = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-train'))
+        if dry_run:
+            train = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-dev'))
+        else:
+            train = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-train'))
         dev = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-dev'))
         test = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-test'))
         self.textual_data = {'train': train, 'dev': dev, 'test': test}

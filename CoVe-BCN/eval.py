@@ -13,7 +13,7 @@ parser.add_argument("--ignoregloveheader", action="store_true", default=False, h
 parser.add_argument("--covepath", type=str, default='../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
 parser.add_argument("--covedim", type=int, default=600, help="Number of dimensions in CoVe embeddings (default: 600)")
 parser.add_argument("--datadir", type=str, default='datasets', help="Path to the directory that contains the datasets")
-parser.add_argument("--dryrun", action="store_true", default=False, help="Set this flag to just test creating the BCN model without running any training/tests.")
+parser.add_argument("--mode", type=int, default=0, help="0: Normal (train + test); 1: BCN model dry-run (just try creating the model and do nothing else); 2: Train + test dry-run (Load a smaller dataset and train + test on it)")
 args, _ = parser.parse_known_args()
 
 from data_processing import GloVeCoVeEncoder
@@ -25,7 +25,7 @@ HYPERPARAMETERS
 """
 
 hyperparameters = { # TODO: Tune the following parameters using the Dev set for validation
-    'n_epochs': 1, # int
+    'n_epochs': 2, # int
     'batch_size': 64, # int
 
     'feedforward_weight_size': 0.1, # float
@@ -63,7 +63,7 @@ hyperparameters = { # TODO: Tune the following parameters using the Dev set for 
     'adam_epsilon': 1e-08 # float (used only if optimizer == "adam")
 }
 
-if args.dryrun:
+if args.mode == 1:
     _ = BCN(hyperparameters, 3, 128, 900).dry_run()
     sys.exit()
 
@@ -74,7 +74,7 @@ DATASET
 if args.task == "SSTBinary":
     data_encoder = GloVeCoVeEncoder(args.glovepath, args.covepath, ignore_glove_header=args.ignoregloveheader, cove_dim=args.covedim)
     embeddings_length = data_encoder.get_embeddings_length()
-    dataset = SSTBinaryDataset(args.datadir)
+    dataset = SSTBinaryDataset(args.datadir, args.mode == 2)
     data = dataset.generate_embeddings(data_encoder)
     data_encoder = None # So that the GloVe embeddings and CoVe model can be garbage collected
     n_classes = dataset.get_n_classes()
