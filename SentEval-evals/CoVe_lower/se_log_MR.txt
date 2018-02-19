@@ -1,0 +1,46 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+gpufree
+GPU 0 free, Using GPU 0 
+gonzo-605-10.local
+Sat Feb 17 09:17:12 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   27C    P8     9W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  On   | 00000000:03:00.0 Off |                  N/A |
+| 25%   47C    P2    78W / 250W |  10823MiB / 11172MiB |     30%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  On   | 00000000:81:00.0 Off |                  N/A |
+| 39%   67C    P2    91W / 250W |  10745MiB / 11172MiB |    100%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  On   | 00000000:82:00.0 Off |                  N/A |
+| 26%   48C    P2   132W / 250W |  10823MiB / 11172MiB |     30%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    1     31904      C   ...c6_2.23/lib/x86_64-linux-gnu/ld-2.23.so 10813MiB |
+|    2     26834      C   ...c6_2.17/lib/x86_64-linux-gnu/ld-2.17.so 10733MiB |
+|    3     32268      C   ...c6_2.23/lib/x86_64-linux-gnu/ld-2.23.so 10813MiB |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "0"
+Sentences will be padded to length 62.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR MR:
+{u'acc': 73.0, u'ntest': 10662, u'devacc': 73.3, u'ndev': 10662}
+
+
+Real time taken to evaluate: 47136.3483839 seconds
+All done.
