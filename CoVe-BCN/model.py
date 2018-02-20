@@ -182,14 +182,14 @@ class BCN:
             #   https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/layers/python/layers/layers.py#L102
             # The batch normalisation functions currently provided by TensorFlow do not work properly at this time of writing:
             #   https://github.com/tensorflow/tensorflow/issues/14357
-            def batch_norm(inputs, decay, epsilon, is_training, scope):
+            def batch_norm(inputs, decay, epsilon, training, scope):
                 with tf.variable_scope(scope):
                     scale = tf.Variable(tf.ones([inputs.get_shape()[-1]]))
                     beta = tf.Variable(tf.zeros([inputs.get_shape()[-1]]))
                     pop_mean = tf.Variable(tf.zeros([inputs.get_shape()[-1]]), trainable=False)
                     pop_var = tf.Variable(tf.ones([inputs.get_shape()[-1]]), trainable=False)
 
-                    if is_training:
+                    if training:
                         batch_mean, batch_var = tf.nn.moments(inputs, [0])
                         train_mean = tf.assign(pop_mean, pop_mean * decay + batch_mean * (1 - decay))
                         train_var = tf.assign(pop_var, pop_var * decay + batch_var * (1 - decay))
@@ -198,17 +198,17 @@ class BCN:
                     else:
                         return tf.nn.batch_normalization(inputs, pop_mean, pop_var, beta, scale, epsilon)
 
-            bn1 = batch_norm(joined_representation, decay=self.params['bn_decay1'], epsilon=self.params['bn_epsilon1'], is_training=is_training, scope="bn1")
+            bn1 = batch_norm(joined_representation, decay=self.params['bn_decay1'], epsilon=self.params['bn_epsilon1'], training=is_training, scope="bn1")
             assert dimensions_equal(bn1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
             maxout_outputs1 = maxout_patched(bn1, self.params['bilstm_integrate_n_hidden']*2*4*2) # n_units must be a factor of number of features (bilstm_integrate_n_hidden*2*4*2)
             assert dimensions_equal(maxout_outputs1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
 
-            bn2 = batch_norm(maxout_outputs1, decay=self.params['bn_decay2'], epsilon=self.params['bn_epsilon2'], is_training=is_training, scope="bn2")
+            bn2 = batch_norm(maxout_outputs1, decay=self.params['bn_decay2'], epsilon=self.params['bn_epsilon2'], training=is_training, scope="bn2")
             assert dimensions_equal(bn2.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
             maxout_outputs2 = maxout_patched(bn2, self.params['bilstm_integrate_n_hidden']*2*4*2) # n_units must be a factor of number of features (bilstm_integrate_n_hidden*2*4*2)
             assert dimensions_equal(maxout_outputs2.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
 
-            bn3 = batch_norm(maxout_outputs2, decay=self.params['bn_decay3'], epsilon=self.params['bn_epsilon3'], is_training=is_training, scope="bn3")
+            bn3 = batch_norm(maxout_outputs2, decay=self.params['bn_decay3'], epsilon=self.params['bn_epsilon3'], training=is_training, scope="bn3")
             assert dimensions_equal(bn3.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
             maxout_outputs3 = maxout_patched(bn3, self.params['bilstm_integrate_n_hidden']*2*4*2)
             assert dimensions_equal(maxout_outputs3.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
@@ -223,7 +223,7 @@ class BCN:
             cost = tf.reduce_mean(-tf.reduce_sum(tf.cast(one_hot_labels, tf.float32) * tf.log(logits), reduction_indices=1))
 
             if self.params['optimizer'] == "adam":
-                train_step = tf.train.AdamOptimizer(self.params['learning_rate'], beta1=self.params['adam_beta1'], beta2=self.params['adam_beta2'], epsilon=self.params['adam_epsilon']).minimize(loss)
+                train_step = tf.train.AdamOptimizer(self.params['learning_rate'], beta1=self.params['adam_beta1'], beta2=self.params['adam_beta2'], epsilon=self.params['adam_epsilon']).minimize(cost)
             elif self.params['optimizer'] == "gradientdescent":
                 train_step = tf.train.GradientDescentOptimizer(self.params['learning_rate']).minimize(cost)
             else:
@@ -237,7 +237,7 @@ class BCN:
 
     def dry_run(self):
         tf.reset_default_graph()
-        with tf.Graph().as_default() as graph:
+        with tf.Graph().as_default():
             return self.create_model(is_training=True)
 
     def train(self, data):
@@ -267,7 +267,7 @@ class BCN:
                     done += 1
                     if done in milestones:
                         print("    " + milestones[done])
-            saved_model = tf.train.Saver().save(sess, 'model/model')
+            tf.train.Saver().save(sess, 'model/model')
             print("Finished training model. Model is saved in the model folder.")
 
     def test(self, data):

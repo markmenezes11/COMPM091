@@ -64,7 +64,7 @@ hyperparameters = { # TODO: Tune the following parameters using the Dev set for 
 }
 
 if args.mode == 1:
-    _ = BCN(hyperparameters, 3, 128, 900).dry_run()
+    BCN(hyperparameters, 3, 128, 900).dry_run()
     sys.exit()
 
 """
