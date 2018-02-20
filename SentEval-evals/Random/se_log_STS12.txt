@@ -1,0 +1,21 @@
+2018-02-19 16:25:08,410 : ***** Transfer task : STS12 *****
+
+
+2018-02-19 16:25:09,001 : MSRpar : pearson = 0.0143, spearman = -0.0001
+2018-02-19 16:25:09,302 : MSRvid : pearson = -0.0247, spearman = -0.0196
+2018-02-19 16:25:09,481 : SMTeuroparl : pearson = 0.0263, spearman = -0.0099
+2018-02-19 16:25:09,773 : surprise.OnWN : pearson = 0.0307, spearman = 0.0251
+2018-02-19 16:25:09,930 : surprise.SMTnews : pearson = -0.0239, spearman = -0.0522
+2018-02-19 16:25:09,930 : ALL (weighted average) : Pearson = 0.0057,             Spearman = -0.0069
+2018-02-19 16:25:09,930 : ALL (average) : Pearson = 0.0046,             Spearman = -0.0114
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS12:
+{u'all': {u'spearman': {u'wmean': -0.0068803779481653796, u'mean': -0.011356288412294153}, u'pearson': {u'wmean': 0.005738965374626246, u'mean': 0.004567627579414856}}, u'surprise.OnWN': {u'spearman': SpearmanrResult(correlation=0.025087538739477215, pvalue=0.49270519197148255), u'pearson': (0.030723273333447817, 0.40080385992374956), u'nsamples': 750}, u'surprise.SMTnews': {u'spearman': SpearmanrResult(correlation=-0.05220124398028608, pvalue=0.2982669836957583), u'pearson': (-0.02386308573487273, 0.6346180739550317), u'nsamples': 399}, u'SMTeuroparl': {u'spearman': SpearmanrResult(correlation=-0.009894262014174059, pvalue=0.8325715195465335), u'pearson': (0.02634997296016379, 0.5733751006070659), u'nsamples': 459}, u'MSRvid': {u'spearman': SpearmanrResult(correlation=-0.01964674315792558, pvalue=0.591127650715698), u'pearson': (-0.024697703919405865, 0.499453844581387), u'nsamples': 750}, u'MSRpar': {u'spearman': SpearmanrResult(correlation=-0.00012673164856225096, pvalue=0.9972354151378626), u'pearson': (0.014325681257741266, 0.6952867908149326), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 3.16037893295 seconds
+All done.

@@ -1,0 +1,13 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m2018-02-19 12:40:33,719 : ***** Transfer task : TREC *****
+
+
+2018-02-19 12:40:35,017 : Computed train embeddings
+2018-02-19 12:40:35,140 : Computed test embeddings
+2018-02-19 12:40:35,140 : Training pytorch-MLP-nhid0-adam-bs64 with 5-fold cross-validation
+2018-02-19 12:42:22,270 : [(u'reg:1e-05', 20.19), (u'reg:0.0001', 20.19), (u'reg:0.001', 20.19), (u'reg:0.01', 20.21)]
+2018-02-19 12:42:22,271 : Cross-validation : best param found is reg = 0.01             with score 20.21
+2018-02-19 12:42:22,271 : Evaluating...
+2018-02-19 12:42:27,844 : 
+Dev acc : 20.21 Test acc : 21.6             for TREC
+

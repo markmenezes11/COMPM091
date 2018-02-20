@@ -1,0 +1,21 @@
+2018-02-19 16:25:16,017 : ***** Transfer task : STS16 *****
+
+
+2018-02-19 16:25:16,414 : answer-answer : pearson = 0.1272, spearman = 0.1249
+2018-02-19 16:25:16,513 : headlines : pearson = -0.0865, spearman = -0.0722
+2018-02-19 16:25:16,604 : plagiarism : pearson = 0.0405, spearman = 0.0531
+2018-02-19 16:25:16,701 : postediting : pearson = 0.0281, spearman = 0.0225
+2018-02-19 16:25:16,783 : question-question : pearson = -0.0297, spearman = -0.0246
+2018-02-19 16:25:16,783 : ALL (weighted average) : Pearson = 0.0175,             Spearman = 0.0222
+2018-02-19 16:25:16,783 : ALL (average) : Pearson = 0.0159,             Spearman = 0.0208
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS16:
+{u'all': {u'spearman': {u'wmean': 0.02220440377375497, u'mean': 0.02076111840174783}, u'pearson': {u'wmean': 0.017471190492588357, u'mean': 0.01590807452616421}}, u'plagiarism': {u'spearman': SpearmanrResult(correlation=0.05313123203721663, pvalue=0.4225810388625797), u'pearson': (0.04052428487985788, 0.5408792300908916), u'nsamples': 230}, u'answer-answer': {u'spearman': SpearmanrResult(correlation=0.12491306416261154, pvalue=0.04672734724992526), u'pearson': (0.12718024641813233, 0.042851683392223394), u'nsamples': 254}, u'postediting': {u'spearman': SpearmanrResult(correlation=0.022520951084645663, pvalue=0.7263188503483878), u'pearson': (0.028072499762126314, 0.6625895445013392), u'nsamples': 244}, u'headlines': {u'spearman': SpearmanrResult(correlation=-0.07215057255536875, pvalue=0.256682548638516), u'pearson': (-0.08649411296498019, 0.1736598701202235), u'nsamples': 249}, u'question-question': {u'spearman': SpearmanrResult(correlation=-0.024609082720365938, pvalue=0.7235717635512007), u'pearson': (-0.02974254546431527, 0.6690160452577124), u'nsamples': 209}}
+
+
+Real time taken to evaluate: 0.949645042419 seconds
+All done.

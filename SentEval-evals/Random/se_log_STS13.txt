@@ -1,0 +1,19 @@
+2018-02-19 16:25:10,641 : ***** Transfer task : STS13 (-SMT) *****
+
+
+2018-02-19 16:25:10,932 : FNWN : pearson = 0.0260, spearman = 0.0522
+2018-02-19 16:25:11,224 : headlines : pearson = 0.0240, spearman = 0.0267
+2018-02-19 16:25:11,442 : OnWN : pearson = 0.0127, spearman = 0.0120
+2018-02-19 16:25:11,442 : ALL (weighted average) : Pearson = 0.0201,             Spearman = 0.0244
+2018-02-19 16:25:11,442 : ALL (average) : Pearson = 0.0209,             Spearman = 0.0303
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS13:
+{u'OnWN': {u'spearman': SpearmanrResult(correlation=0.011952521135828936, pvalue=0.7775759758226112), u'pearson': (0.012732109486525315, 0.7634868104767419), u'nsamples': 561}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.02666250894927577, pvalue=0.46594380275852754), u'pearson': (0.024031453820326332, 0.5111001302846638), u'nsamples': 750}, u'FNWN': {u'spearman': SpearmanrResult(correlation=0.05221886342566428, pvalue=0.47546510467098224), u'pearson': (0.025973770378492907, 0.7227609204892245), u'nsamples': 189}, u'all': {u'spearman': {u'wmean': 0.024381074171071607, u'mean': 0.03027796450358966}, u'pearson': {u'wmean': 0.02005023092581374, u'mean': 0.020912444561781516}}}
+
+
+Real time taken to evaluate: 0.98143196106 seconds
+All done.

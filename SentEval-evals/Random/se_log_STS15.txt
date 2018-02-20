@@ -1,0 +1,21 @@
+2018-02-19 16:25:14,058 : ***** Transfer task : STS15 *****
+
+
+2018-02-19 16:25:14,590 : answers-forums : pearson = -0.0459, spearman = -0.0306
+2018-02-19 16:25:14,883 : answers-students : pearson = 0.0109, spearman = -0.0038
+2018-02-19 16:25:15,033 : belief : pearson = 0.0431, spearman = 0.0538
+2018-02-19 16:25:15,325 : headlines : pearson = -0.0399, spearman = -0.0446
+2018-02-19 16:25:15,620 : images : pearson = 0.0057, spearman = 0.0079
+2018-02-19 16:25:15,621 : ALL (weighted average) : Pearson = -0.0062,             Spearman = -0.0072
+2018-02-19 16:25:15,621 : ALL (average) : Pearson = -0.0052,             Spearman = -0.0035
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS15:
+{u'answers-students': {u'spearman': SpearmanrResult(correlation=-0.003789215221733715, pvalue=0.9174874078548425), u'pearson': (0.010862236691466428, 0.766476286826734), u'nsamples': 750}, u'belief': {u'spearman': SpearmanrResult(correlation=0.05376165549753199, pvalue=0.29909994889922353), u'pearson': (0.043138955730455716, 0.4048553141991039), u'nsamples': 375}, u'all': {u'spearman': {u'wmean': -0.0072192365629835725, u'mean': -0.0034567407779178454}, u'pearson': {u'wmean': -0.006185403301987746, u'mean': -0.005228362505419991}}, u'images': {u'spearman': SpearmanrResult(correlation=0.00787830159832276, pvalue=0.8294557443514763), u'pearson': (0.005722454591646324, 0.8756737877024315), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=-0.04455927499086838, pvalue=0.2228912430886961), u'pearson': (-0.03992610517191477, 0.27481855017758255), u'nsamples': 750}, u'answers-forums': {u'spearman': SpearmanrResult(correlation=-0.03057517077284188, pvalue=0.555025067610446), u'pearson': (-0.045939354368753654, 0.37501953106612584), u'nsamples': 375}}
+
+
+Real time taken to evaluate: 1.7459628582 seconds
+All done.

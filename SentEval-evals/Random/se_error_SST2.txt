@@ -1,0 +1,17 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m2018-02-19 12:13:46,435 : ***** Transfer task : SST Binary classification *****
+
+
+2018-02-19 12:13:46,919 : Computing embedding for test
+2018-02-19 12:13:47,409 : Computed test embeddings
+2018-02-19 12:13:47,409 : Computing embedding for train
+2018-02-19 12:14:01,427 : Computed train embeddings
+2018-02-19 12:14:01,427 : Computing embedding for dev
+2018-02-19 12:14:01,627 : Computed dev embeddings
+2018-02-19 12:14:01,627 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-02-19 12:18:13,120 : [(u'reg:1e-05', 54.13), (u'reg:0.0001', 54.13), (u'reg:0.001', 54.13), (u'reg:0.01', 54.13)]
+2018-02-19 12:18:13,121 : Validation : best param found is reg = 1e-05 with score             54.13
+2018-02-19 12:18:13,121 : Evaluating...
+2018-02-19 12:19:13,426 : 
+Dev acc : 54.13 Test acc : 50.91 for             SST Binary classification
+

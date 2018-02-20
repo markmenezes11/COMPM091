@@ -1,0 +1,14 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m2018-02-19 11:34:47,629 : ***** Transfer task : MR *****
+
+
+2018-02-19 11:34:47,755 : Generating sentence embeddings
+2018-02-19 11:34:49,812 : Generated sentence embeddings
+2018-02-19 11:34:49,812 : Training pytorch-MLP-nhid0-adam-bs64 with (inner) 5-fold cross-validation
+2018-02-19 11:37:34,684 : Best param found at split 1: l2reg = 0.01                 with score 49.96
+2018-02-19 11:40:41,161 : Best param found at split 2: l2reg = 0.01                 with score 51.47
+2018-02-19 11:43:30,869 : Best param found at split 3: l2reg = 0.01                 with score 50.49
+2018-02-19 11:46:13,710 : Best param found at split 4: l2reg = 0.01                 with score 50.76
+2018-02-19 11:48:48,086 : Best param found at split 5: l2reg = 0.01                 with score 50.33
+2018-02-19 11:48:55,982 : Dev acc : 50.6 Test acc : 49.91
+

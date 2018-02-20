@@ -1,0 +1,14 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m2018-02-19 12:35:59,874 : ***** Transfer task : MRPC *****
+
+
+2018-02-19 12:36:00,033 : Computing embedding for test
+2018-02-19 12:36:00,802 : Computed test embeddings
+2018-02-19 12:36:00,802 : Computing embedding for train
+2018-02-19 12:36:02,599 : Computed train embeddings
+2018-02-19 12:36:03,119 : Training pytorch-MLP-nhid0-adam-bs64 with 5-fold cross-validation
+2018-02-19 12:37:41,374 : [(u'reg:1e-05', 64.57), (u'reg:0.0001', 64.57), (u'reg:0.001', 64.57), (u'reg:0.01', 64.57)]
+2018-02-19 12:37:41,375 : Cross-validation : best param found is reg = 1e-05             with score 64.57
+2018-02-19 12:37:41,375 : Evaluating...
+2018-02-19 12:37:48,027 : Dev acc : 64.57 Test acc 61.86; Test F1 74.96 for MRPC.
+

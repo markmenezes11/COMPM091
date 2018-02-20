@@ -1,0 +1,22 @@
+2018-02-19 16:25:11,884 : ***** Transfer task : STS14 *****
+
+
+2018-02-19 16:25:12,336 : deft-forum : pearson = 0.0091, spearman = 0.0039
+2018-02-19 16:25:12,455 : deft-news : pearson = -0.0686, spearman = -0.0526
+2018-02-19 16:25:12,747 : headlines : pearson = 0.0302, spearman = 0.0358
+2018-02-19 16:25:13,036 : images : pearson = -0.0408, spearman = -0.0238
+2018-02-19 16:25:13,328 : OnWN : pearson = -0.0073, spearman = -0.0152
+2018-02-19 16:25:13,618 : tweet-news : pearson = 0.0042, spearman = 0.0026
+2018-02-19 16:25:13,618 : ALL (weighted average) : Pearson = -0.0071,             Spearman = -0.0039
+2018-02-19 16:25:13,618 : ALL (average) : Pearson = -0.0122,             Spearman = -0.0082
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS14:
+{u'deft-news': {u'spearman': SpearmanrResult(correlation=-0.05256928790941627, pvalue=0.364220063453246), u'pearson': (-0.06864844955933068, 0.23583515005655975), u'nsamples': 300}, u'all': {u'spearman': {u'wmean': -0.0038594904597640343, u'mean': -0.008209946667650701}, u'pearson': {u'wmean': -0.007133728546873196, u'mean': -0.012204666126929456}}, u'deft-forum': {u'spearman': SpearmanrResult(correlation=0.003948362596414328, pvalue=0.9334342689812063), u'pearson': (0.009074289270969184, 0.8477709496289081), u'nsamples': 450}, u'OnWN': {u'spearman': SpearmanrResult(correlation=-0.01520769327858723, pvalue=0.6775496170029426), u'pearson': (-0.0072627975191053035, 0.8425985234237137), u'nsamples': 750}, u'tweet-news': {u'spearman': SpearmanrResult(correlation=0.0026430765492788675, pvalue=0.9423925882578612), u'pearson': (0.004211948482204934, 0.9083206217063122), u'nsamples': 750}, u'images': {u'spearman': SpearmanrResult(correlation=-0.023847007441370412, pvalue=0.5143491592780516), u'pearson': (-0.04076327159098487, 0.2648720207068681), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.03577286947777651, pvalue=0.3278965629698667), u'pearson': (0.030160284154670012, 0.4094945984138888), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 1.95018601418 seconds
+All done.
