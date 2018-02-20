@@ -166,8 +166,9 @@ class BCN:
             joined_representation = tf.concat([pool_outputs1, pool_outputs2], 1)
             assert dimensions_equal(joined_representation.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
 
-            # tf.contrib.layers.axout wrongly outputs a tensor of unknown shape. I have wrapped it in this function to fix that.
-            # Source: https://github.com/tensorflow/tensorflow/issues/16225 https://github.com/tensorflow/tensorflow/pull/16114/files
+            # tf.contrib.layers.maxout wrongly outputs a tensor of unknown shape. I have wrapped it in this function to fix that. Source:
+            #   https://github.com/tensorflow/tensorflow/issues/16225
+            #   https://github.com/tensorflow/tensorflow/pull/16114/files
             def maxout_patched(inputs, num_units, axis=-1, name=None):
                 outputs = tf.contrib.layers.maxout(inputs, num_units, axis, name)
                 shape = inputs.get_shape().as_list()
@@ -175,17 +176,39 @@ class BCN:
                 outputs.set_shape(shape)
                 return outputs
 
-            bn1 = tf.layers.batch_normalization(joined_representation, momentum=self.params['bn_decay1'], epsilon=self.params['bn_epsilon1'], center=True, scale=True, training=is_training, name='bn1')
+            # This batch_norm_wrapper function was taken from:
+            #   https://r2rt.com/implementing-batch-normalization-in-tensorflow.html
+            # This is a simpler version of Tensorflow's 'official' version. See:
+            #   https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/layers/python/layers/layers.py#L102
+            # The batch normalisation functions currently provided by TensorFlow do not work properly at this time of writing:
+            #   https://github.com/tensorflow/tensorflow/issues/14357
+            def batch_norm(inputs, decay, epsilon, is_training, scope):
+                with tf.variable_scope(scope):
+                    scale = tf.Variable(tf.ones([inputs.get_shape()[-1]]))
+                    beta = tf.Variable(tf.zeros([inputs.get_shape()[-1]]))
+                    pop_mean = tf.Variable(tf.zeros([inputs.get_shape()[-1]]), trainable=False)
+                    pop_var = tf.Variable(tf.ones([inputs.get_shape()[-1]]), trainable=False)
+
+                    if is_training:
+                        batch_mean, batch_var = tf.nn.moments(inputs, [0])
+                        train_mean = tf.assign(pop_mean, pop_mean * decay + batch_mean * (1 - decay))
+                        train_var = tf.assign(pop_var, pop_var * decay + batch_var * (1 - decay))
+                        with tf.control_dependencies([train_mean, train_var]):
+                            return tf.nn.batch_normalization(inputs, batch_mean, batch_var, beta, scale, epsilon)
+                    else:
+                        return tf.nn.batch_normalization(inputs, pop_mean, pop_var, beta, scale, epsilon)
+
+            bn1 = batch_norm(joined_representation, decay=self.params['bn_decay1'], epsilon=self.params['bn_epsilon1'], is_training=is_training, scope="bn1")
             assert dimensions_equal(bn1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
             maxout_outputs1 = maxout_patched(bn1, self.params['bilstm_integrate_n_hidden']*2*4*2) # n_units must be a factor of number of features (bilstm_integrate_n_hidden*2*4*2)
             assert dimensions_equal(maxout_outputs1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
 
-            bn2 = tf.layers.batch_normalization(maxout_outputs1, momentum=self.params['bn_decay2'], epsilon=self.params['bn_epsilon2'], center=True, scale=True, training=is_training, name='bn2')
+            bn2 = batch_norm(maxout_outputs1, decay=self.params['bn_decay2'], epsilon=self.params['bn_epsilon2'], is_training=is_training, scope="bn2")
             assert dimensions_equal(bn2.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
             maxout_outputs2 = maxout_patched(bn2, self.params['bilstm_integrate_n_hidden']*2*4*2) # n_units must be a factor of number of features (bilstm_integrate_n_hidden*2*4*2)
             assert dimensions_equal(maxout_outputs2.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
 
-            bn3 = tf.layers.batch_normalization(maxout_outputs2, momentum=self.params['bn_decay3'], epsilon=self.params['bn_epsilon3'], center=True, scale=True, training=is_training, name='bn3')
+            bn3 = batch_norm(maxout_outputs2, decay=self.params['bn_decay3'], epsilon=self.params['bn_epsilon3'], is_training=is_training, scope="bn3")
             assert dimensions_equal(bn3.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
             maxout_outputs3 = maxout_patched(bn3, self.params['bilstm_integrate_n_hidden']*2*4*2)
             assert dimensions_equal(maxout_outputs3.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
@@ -199,15 +222,13 @@ class BCN:
             assert dimensions_equal(one_hot_labels.shape, (self.params['batch_size'], self.n_classes))
             cost = tf.reduce_mean(-tf.reduce_sum(tf.cast(one_hot_labels, tf.float32) * tf.log(logits), reduction_indices=1))
 
-            update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
-            with tf.control_dependencies(update_ops): # Must attach update_ops to train_step for batch normalization to work properly
-                if self.params['optimizer'] == "adam":
-                    train_step = tf.train.AdamOptimizer(self.params['learning_rate'], beta1=self.params['adam_beta1'], beta2=self.params['adam_beta2'], epsilon=self.params['adam_epsilon']).minimize(loss)
-                elif self.params['optimizer'] == "gradientdescent":
-                    train_step = tf.train.GradientDescentOptimizer(self.params['learning_rate']).minimize(cost)
-                else:
-                    print("ERROR: Invalid optimizer: \"" + self.params['optimizer'] + "\".")
-                    sys.exit(1)
+            if self.params['optimizer'] == "adam":
+                train_step = tf.train.AdamOptimizer(self.params['learning_rate'], beta1=self.params['adam_beta1'], beta2=self.params['adam_beta2'], epsilon=self.params['adam_epsilon']).minimize(loss)
+            elif self.params['optimizer'] == "gradientdescent":
+                train_step = tf.train.GradientDescentOptimizer(self.params['learning_rate']).minimize(cost)
+            else:
+                print("ERROR: Invalid optimizer: \"" + self.params['optimizer'] + "\".")
+                sys.exit(1)
 
             predict = tf.argmax(logits, axis=1)
 
