@@ -48,7 +48,7 @@ class GloVeCoVeEncoder:
         print("Successfully loaded CoVe model.")
 
     # Input sequence (tokenized sentence) w is converted to sequence of vectors: w' = [GloVe(w); CoVe(w)]
-    def encode_sentence(self, tokenized_sentence, max_sent_len):
+    def encode_sentence(self, tokenized_sentence):
         glove_embeddings = []
         for word in tokenized_sentence:
             try:
@@ -63,10 +63,8 @@ class GloVeCoVeEncoder:
         cove = self.cove_model.predict(glove)
         assert cove.shape == (1, len(tokenized_sentence), self.cove_dim)
         glove_cove = np.concatenate([glove[0], cove[0]], axis=1)
-        for pad in range(max_sent_len - len(tokenized_sentence)):
-            glove_cove = np.append(glove_cove, np.full((1, self.glove_dim + self.cove_dim), 0.0), axis=0)
-        assert glove_cove.shape == (max_sent_len, self.glove_dim + self.cove_dim)
+        assert glove_cove.shape == (len(tokenized_sentence), self.glove_dim + self.cove_dim)
         return glove_cove
 
-    def get_embeddings_length(self):
+    def get_embed_dim(self):
         return self.glove_cove_dim

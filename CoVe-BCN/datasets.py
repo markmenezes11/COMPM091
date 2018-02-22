@@ -12,26 +12,28 @@ import os
 import io
 import numpy as np
 
-class SSTBinaryDataset():
-    def __init__(self, data_dir, dry_run=False):
+class SSTBinaryDataset:
+    def __init__(self, data_dir, encoder, dry_run=False):
         print("\nLoading SST Binary dataset...")
         self.n_classes = 2
+        self.embed_dim = encoder.get_embed_dim()
         if dry_run:
             train = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-dev'))
         else:
             train = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-train'))
         dev = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-dev'))
         test = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-test'))
-        self.textual_data = {'train': train, 'dev': dev, 'test': test}
+        textual_data = {'train': train, 'dev': dev, 'test': test}
         self.max_sent_len = -1
         self.total_sentences = 0
-        for key in self.textual_data:
-            for tokenized_sentence in self.textual_data[key]['X']:
+        for key in textual_data:
+            for tokenized_sentence in textual_data[key]['X']:
                 self.total_sentences += 1
                 if len(tokenized_sentence) > self.max_sent_len:
                     self.max_sent_len = len(tokenized_sentence)
         print("Successfully loaded dataset (classes: " + str(self.n_classes)
               + ", max sentence length: " + str(self.max_sent_len) + ").")
+        self.data = self.generate_embeddings(textual_data, encoder)
 
     def load_file(self, fpath):
         textual_data = {'X': [], 'y': []}
@@ -48,27 +50,47 @@ class SSTBinaryDataset():
         assert max(textual_data['y']) == self.n_classes - 1
         return textual_data
 
-    def generate_embeddings(self, encoder):
+    def generate_embeddings(self, textual_data, encoder):
         print("\nGenerating sentence embeddings,,,")
-        embeddings = {'train': {}, 'dev': {}, 'test': {}}
+        data = {'train': {}, 'dev': {}, 'test': {}}
         done = 0
         milestones = {int(self.total_sentences * 0.1): "10%", int(self.total_sentences * 0.2): "20%",
                       int(self.total_sentences * 0.3): "30%", int(self.total_sentences * 0.4): "40%",
                       int(self.total_sentences * 0.5): "50%", int(self.total_sentences * 0.6): "60%",
                       int(self.total_sentences * 0.7): "70%", int(self.total_sentences * 0.8): "80%",
                       int(self.total_sentences * 0.9): "90%", self.total_sentences: "100%"}
-        for key in self.textual_data:
-            embeddings[key]['X1'] = []
-            for tokenized_sentence in self.textual_data[key]['X']:
-                embeddings[key]['X1'].append([encoder.encode_sentence(tokenized_sentence, self.max_sent_len)])
+        for key in textual_data:
+            data[key]['X1'] = []
+            for tokenized_sentence in textual_data[key]['X']:
+                data[key]['X1'].append(encoder.encode_sentence(tokenized_sentence))
                 done += 1
                 if done in milestones:
                     print("  " + milestones[done])
-            embeddings[key]['X1'] = np.vstack(embeddings[key]['X1'])
-            embeddings[key]['X2'] = embeddings[key]['X1']
-            embeddings[key]['y'] = np.array(self.textual_data[key]['y'])
+            data[key]['X1'] = np.array(data[key]['X1'])
+            data[key]['X2'] = data[key]['X1'] # Only one input sentence is needed for SSTBinary so X1 is duplicated
+            data[key]['y'] = np.array(textual_data[key]['y'])
         print("Successfully generated sentence embeddings,")
-        return embeddings
+        return data
+
+    def get_total_samples(self, key):
+        return len(self.data[key]['y'])
+
+    def pad(self, embeddings):
+        padded_embeddings = []
+        for embedding in embeddings:
+            for pad in range(self.max_sent_len - len(embedding)):
+                embedding = np.append(embedding, np.full((1, self.embed_dim), 0.0), axis=0)
+            assert embedding.shape == (len(embedding), self.embed_dim)
+            padded_embeddings.append([embedding])
+        return np.vstack(padded_embeddings)
+
+    def get_samples(self, key, indexes=None):
+        if indexes is None:
+            return self.pad(self.data[key]['X1']), self.pad(self.data[key]['X2']), self.data[key]['y']
+        X1 = self.pad(np.take(self.data[key]['X1'], indexes, axis=0))
+        X2 = self.pad(np.take(self.data[key]['X2'], indexes, axis=0))
+        y = np.take(self.data[key]['y'], indexes, axis=0)
+        return X1, X2, y
 
     def get_n_classes(self):
         return self.n_classes
