@@ -4,6 +4,7 @@
 #
 
 import sys
+import os
 import argparse
 import timeit
 
@@ -24,15 +25,13 @@ parser.add_argument("--n_epochs", type=int, default=10, help="Number of epochs (
 parser.add_argument("--batch_size", type=int, default=64, help="Number of epochs (int)")
 parser.add_argument("--same_bilstm_for_encoder", action="store_true", default=False, help="Whether or not to use the same BiLSTM (when flag is set) or separate BiLSTMs (flag unset) for the encoder")
 parser.add_argument("--bilstm_encoder_n_hidden", type=int, default=300, help="Number of hidden states in encoder's BiLSTM(s) (int)")
-parser.add_argument("--bilstm_encoder_forget_bias1", type=float, default=1.0, help="Forget bias for encoder's first BiLSTM (float)")
-parser.add_argument("--bilstm_encoder_forget_bias2", type=float, default=1.0, help="Forget bias for encoder's second BiLSTM - only needs to be set if --same_bilstm_for_encoder is not set (float)")
-parser.add_argument("--bilstm_integrate_n_hidden", type=int, default=300, help="Number of hidden states in integrate's BiLSTM(s) (int)")
-parser.add_argument("--bilstm_integrate_forget_bias1", type=float, default=1.0, help="Forget bias for integrate's first BiLSTM (float)")
-parser.add_argument("--bilstm_integrate_forget_bias2", type=float, default=1.0, help="Forget bias for integrate's second BiLSTM (float)")
+parser.add_argument("--bilstm_encoder_forget_bias", type=float, default=1.0, help="Forget bias for encoder's BiLSTM(s) (float)")
+parser.add_argument("--bilstm_integrate_n_hidden", type=int, default=300, help="Number of hidden states in integrate's BiLSTMs (int)")
+parser.add_argument("--bilstm_integrate_forget_bias", type=float, default=1.0, help="Forget bias for integrate's BiLSTMs (float)")
 parser.add_argument("--dropout_ratio", type=float, default=0.1, help="Ratio for dropout applied before Feedforward Network and before each Batch Norm (float)")
 parser.add_argument("--maxout_reduction", type=int, default=2, help="On the first and second maxout layers, the dimensionality is divided by this number (int)")
-parser.add_argument("--bn_decay", type=float, default=0.999, help="Decay for each batch normalisation (float)")
-parser.add_argument("--bn_epsilon", type=float, default=1e-3, help="Epsilon for each batch normalisation (float)")
+parser.add_argument("--bn_decay", type=float, default=0.999, help="Decay for each batch normalisation layer (float)")
+parser.add_argument("--bn_epsilon", type=float, default=1e-3, help="Epsilon for each batch normalisation layer (float)")
 parser.add_argument("--optimizer", type=str, default="adam", help="Optimizer (adam or gradientdescent)")
 parser.add_argument("--learning_rate", type=float, default=0.001, help="Leaning rate (float)")
 parser.add_argument("--adam_beta1", type=float, default=0.9, help="Beta1 for adam optimiser if adam optimiser is used (float)")
@@ -50,17 +49,15 @@ HYPERPARAMETERS
 """
 
 hyperparameters = {
-    'n_epochs': args.n_epochs, # int # TODO: Tune this or implement early stopping
-    'batch_size': args.batch_size, # int # TODO: Tune this
+    'n_epochs': args.n_epochs, # int # TODO: Tune this or implement early stopping ########
+    'batch_size': args.batch_size, # int # TODO: Tune this ################################
 
-    'same_bilstm_for_encoder': args.same_bilstm_for_encoder, # boolean # TODO: Tune this
+    'same_bilstm_for_encoder': args.same_bilstm_for_encoder, # boolean # TODO: Tune this as either True or False #######
     'bilstm_encoder_n_hidden': args.bilstm_encoder_n_hidden, # int. Used by McCann et al.: 300
-    'bilstm_encoder_forget_bias1': args.bilstm_encoder_forget_bias1, # float # TODO: Tune this
-    'bilstm_encoder_forget_bias2': args.bilstm_encoder_forget_bias2, # float - only needs to be set if same_bilstm_for_encoder is False # TODO: Tune this
+    'bilstm_encoder_forget_bias': args.bilstm_encoder_forget_bias, # float # TODO: Tune this
 
     'bilstm_integrate_n_hidden': args.bilstm_integrate_n_hidden, # int. Used by McCann et al.: 300
-    'bilstm_integrate_forget_bias1': args.bilstm_integrate_forget_bias1, # float # TODO: Tune this
-    'bilstm_integrate_forget_bias2': args.bilstm_integrate_forget_bias2, # float # TODO: Tune this
+    'bilstm_integrate_forget_bias': args.bilstm_integrate_forget_bias, # float # TODO: Tune this
 
     'dropout_ratio': args.dropout_ratio, # float. Used by McCann et al.: 0.1, 0.2 or 0.3 # TODO: Tune this as either 0.1, 0.2 or 0.3 ##############
     'maxout_reduction': args.maxout_reduction, # int. Used by McCann et al.: 2, 4 or 8 # TODO: Tune this as either 2, 4 or 8 ######################
@@ -78,6 +75,13 @@ hyperparameters = {
 if args.mode == 1:
     BCN(hyperparameters, 3, 128, 900, args.outputdir).dry_run()
     sys.exit()
+
+if not os.path.exists(args.outputdir):
+    os.makedirs(args.outputdir)
+
+if not os.path.exists(os.path.join(args.outputdir, "info.txt")):
+    with open(os.path.join(args.outputdir, "info.txt"), "w") as outputfile:
+        outputfile.write(hyperparameters)
 
 """
 DATASET

@@ -57,9 +57,9 @@ class BCN:
         if self.params['same_bilstm_for_encoder']:
             with tf.variable_scope("bilstm_encoder_scope"):
                 encoder_fw_cell = tf.contrib.rnn.LSTMCell(self.params['bilstm_encoder_n_hidden'],
-                                                          forget_bias=self.params['bilstm_encoder_forget_bias1'])
+                                                          forget_bias=self.params['bilstm_encoder_forget_bias'])
                 encoder_bw_cell = tf.contrib.rnn.LSTMCell(self.params['bilstm_encoder_n_hidden'],
-                                                          forget_bias=self.params['bilstm_encoder_forget_bias1'])
+                                                          forget_bias=self.params['bilstm_encoder_forget_bias'])
                 encoder_inputs = tf.concat((feedforward_outputs1, feedforward_outputs2), 0)
                 encoder_raw_outputs, _ = tf.nn.bidirectional_dynamic_rnn(encoder_fw_cell, encoder_bw_cell,
                                                                          encoder_inputs, dtype=tf.float32)
@@ -67,17 +67,17 @@ class BCN:
         else:
             with tf.variable_scope("bilstm_encoder_scope1"):
                 encoder_fw_cell = tf.contrib.rnn.LSTMCell(self.params['bilstm_encoder_n_hidden'],
-                                                          forget_bias=self.params['bilstm_encoder_forget_bias1'])
+                                                          forget_bias=self.params['bilstm_encoder_forget_bias'])
                 encoder_bw_cell = tf.contrib.rnn.LSTMCell(self.params['bilstm_encoder_n_hidden'],
-                                                          forget_bias=self.params['bilstm_encoder_forget_bias1'])
+                                                          forget_bias=self.params['bilstm_encoder_forget_bias'])
                 encoder_raw_outputs1, _ = tf.nn.bidirectional_dynamic_rnn(encoder_fw_cell, encoder_bw_cell,
                                                                           feedforward_outputs1, dtype=tf.float32)
                 emcoder_outputs1 = tf.concat([encoder_raw_outputs1[0], encoder_raw_outputs1[-1]], 2)
             with tf.variable_scope("bilstm_encoder_scope2"):
                 encoder_fw_cell2 = tf.contrib.rnn.LSTMCell(self.params['bilstm_encoder_n_hidden'],
-                                                           forget_bias=self.params['bilstm_encoder_forget_bias2'])
+                                                           forget_bias=self.params['bilstm_encoder_forget_bias'])
                 encoder_bw_cell2 = tf.contrib.rnn.LSTMCell(self.params['bilstm_encoder_n_hidden'],
-                                                           forget_bias=self.params['bilstm_encoder_forget_bias2'])
+                                                           forget_bias=self.params['bilstm_encoder_forget_bias'])
                 encoder_raw_outputs2, _ = tf.nn.bidirectional_dynamic_rnn(encoder_fw_cell2, encoder_bw_cell2,
                                                                           feedforward_outputs2, dtype=tf.float32)
                 encoder_outputs2 = tf.concat([encoder_raw_outputs2[0], encoder_raw_outputs2[-1]], 2)
@@ -115,17 +115,17 @@ class BCN:
         # Integrate with two separate one-layer BiLSTMs
         with tf.variable_scope("bilstm_integrate_scope1"):
             integrate_fw_cell = tf.contrib.rnn.LSTMCell(self.params['bilstm_integrate_n_hidden'],
-                                                        forget_bias=self.params['bilstm_integrate_forget_bias1'])
+                                                        forget_bias=self.params['bilstm_integrate_forget_bias'])
             integrate_bw_cell = tf.contrib.rnn.LSTMCell(self.params['bilstm_integrate_n_hidden'],
-                                                        forget_bias=self.params['bilstm_integrate_forget_bias1'])
+                                                        forget_bias=self.params['bilstm_integrate_forget_bias'])
             integrate_raw_outputs1, _ = tf.nn.bidirectional_dynamic_rnn(integrate_fw_cell, integrate_bw_cell,
                                                                         biattention_outputs1, dtype=tf.float32)
             integrate_outputs1 = tf.concat([integrate_raw_outputs1[0], integrate_raw_outputs1[-1]], 2)
         with tf.variable_scope("bilstm_integrate_scope2"):
             integrate_fw_cell2 = tf.contrib.rnn.LSTMCell(self.params['bilstm_integrate_n_hidden'],
-                                                         forget_bias=self.params['bilstm_integrate_forget_bias2'])
+                                                         forget_bias=self.params['bilstm_integrate_forget_bias'])
             integrate_bw_cell2 = tf.contrib.rnn.LSTMCell(self.params['bilstm_integrate_n_hidden'],
-                                                         forget_bias=self.params['bilstm_integrate_forget_bias2'])
+                                                         forget_bias=self.params['bilstm_integrate_forget_bias'])
             integrate_raw_outputs2, _ = tf.nn.bidirectional_dynamic_rnn(integrate_fw_cell2, integrate_bw_cell2,
                                                                         biattention_outputs2, dtype=tf.float32)
             integrate_outputs2 = tf.concat([integrate_raw_outputs2[0], integrate_raw_outputs2[-1]], 2)
@@ -249,12 +249,10 @@ class BCN:
                                              initializer=tf.random_uniform_initializer(-self.W_init, self.W_init))
             softmax_bias = tf.get_variable("softmax_bias", shape=[self.n_classes],
                                            initializer=tf.constant_initializer(self.b_init))
-            logits = tf.nn.softmax(tf.matmul(maxout_outputs3, softmax_weight) + softmax_bias)
-            assert dimensions_equal(logits.shape, (self.params['batch_size'], self.n_classes))
+            logits = (tf.matmul(maxout_outputs3, softmax_weight) + softmax_bias)
 
-            one_hot_labels = tf.one_hot(labels, self.n_classes, dtype=tf.float32)
-            assert dimensions_equal(one_hot_labels.shape, (self.params['batch_size'], self.n_classes))
-            cost = tf.reduce_mean(-tf.reduce_sum(tf.cast(one_hot_labels, tf.float32) * tf.log(logits), reduction_indices=1))
+            cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels)
+            cost = tf.reduce_mean(cross_entropy)
 
             if self.params['optimizer'] == "adam":
                 train_step = tf.train.AdamOptimizer(self.params['learning_rate'],
@@ -267,7 +265,7 @@ class BCN:
                 print("ERROR: Invalid optimizer: \"" + self.params['optimizer'] + "\".")
                 sys.exit(1)
 
-            predict = tf.argmax(logits, axis=1)
+            predict = tf.argmax(tf.nn.softmax(logits), axis=1)
 
         print("Successfully created BCN model.")
         return inputs1, inputs2, labels, is_training, predict, cost, train_step
@@ -280,56 +278,66 @@ class BCN:
     def train(self, dataset):
         tf.reset_default_graph()
         with tf.Graph().as_default() as graph:
-            inputs1, inputs2, labels, is_training, predict, cost, train_step = self.create_model()
+            inputs1, inputs2, labels, is_training, predict, loss_op, train_op = self.create_model()
         with tf.Session(graph=graph) as sess:
             print("\nTraining model...")
-            tf.global_variables_initializer().run()
+            sess.run(tf.global_variables_initializer())
             train_data_len = dataset.get_total_samples("train")
-            total_batches = train_data_len // self.params['batch_size']
-            milestones = {int(total_batches * 0.1): "10%", int(total_batches * 0.2): "20%",
-                          int(total_batches * 0.3): "30%", int(total_batches * 0.4): "40%",
-                          int(total_batches * 0.5): "50%", int(total_batches * 0.6): "60%",
-                          int(total_batches * 0.7): "70%", int(total_batches * 0.8): "80%",
-                          int(total_batches * 0.9): "90%", total_batches: "100%"}
-            total_loss = 0
+            total_train_batches = train_data_len // self.params['batch_size']
+            train_milestones = {int(total_train_batches * 0.1): "10%", int(total_train_batches * 0.2): "20%",
+                                int(total_train_batches * 0.3): "30%", int(total_train_batches * 0.4): "40%",
+                                int(total_train_batches * 0.5): "50%", int(total_train_batches * 0.6): "60%",
+                                int(total_train_batches * 0.7): "70%", int(total_train_batches * 0.8): "80%",
+                                int(total_train_batches * 0.9): "90%", total_train_batches: "100%"}
             for epoch in range(self.params['n_epochs']):
                 print("  Epoch " + str(epoch + 1) + " of " + str(self.params['n_epochs']))
                 epoch_start_time = timeit.default_timer()
                 done = 0
+                average_loss = 0
                 indexes = np.random.permutation(train_data_len)
-                for i in range(total_batches):
+                for i in range(total_train_batches):
                     batch_indexes = indexes[i * self.params['batch_size']: (i + 1) * self.params['batch_size']]
                     batch_X1, batch_X2, batch_y = dataset.get_samples('train', batch_indexes)
-                    _, loss = sess.run([train_step, cost], feed_dict={inputs1: batch_X1, inputs2: batch_X2,
-                                                                      labels: batch_y, is_training: True})
-                    total_loss += loss
+                    _, loss = sess.run([train_op, loss_op], feed_dict={inputs1: batch_X1, inputs2: batch_X2,
+                                                                       labels: batch_y, is_training: True})
+                    average_loss += (loss / total_train_batches)
                     done += 1
-                    if done in milestones:
-                        print("    " + milestones[done])
-                print("  Loss: " + str(total_loss / total_batches))
+                    if done in train_milestones:
+                        print("    " + train_milestones[done])
+                print("  Loss: " + str(average_loss))
+
+                tvars = tf.trainable_variables()
+                tvars_vals = sess.run(tvars)
+                for var, val in zip(tvars, tvars_vals):
+                    if "/bn" in var.name:
+                        print(var.name, val)
+
                 print("  Computing train accuracy...")
                 train_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="train_cut")
                 print("    Train accuracy:" + str(train_accuracy))
                 print("  Computing dev accuracy...")
                 dev_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="dev")
                 print("    Dev accuracy:" + str(dev_accuracy))
+                print("  Computing test accuracy...")
+                test_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="test")
+                print("    Test accuracy:" + str(test_accuracy))
                 print("    Epoch took %s seconds" % (timeit.default_timer() - epoch_start_time))
             tf.train.Saver().save(sess, os.path.join(self.outputdir, 'model'))
             print("Finished training model. Model is saved in: " + self.outputdir)
 
     def calculate_accuracy(self, dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="test", verbose=False):
         test_data_len = dataset.get_total_samples(set_name)
-        total_batches = test_data_len // self.params['batch_size']
-        milestones = {int(total_batches * 0.1): "10%", int(total_batches * 0.2): "20%",
-                      int(total_batches * 0.3): "30%", int(total_batches * 0.4): "40%",
-                      int(total_batches * 0.5): "50%", int(total_batches * 0.6): "60%",
-                      int(total_batches * 0.7): "70%", int(total_batches * 0.8): "80%",
-                      int(total_batches * 0.9): "90%", total_batches: "100%"}
+        total_test_batches = test_data_len // self.params['batch_size']
+        test_milestones = {int(total_test_batches * 0.1): "10%", int(total_test_batches * 0.2): "20%",
+                           int(total_test_batches * 0.3): "30%", int(total_test_batches * 0.4): "40%",
+                           int(total_test_batches * 0.5): "50%", int(total_test_batches * 0.6): "60%",
+                           int(total_test_batches * 0.7): "70%", int(total_test_batches * 0.8): "80%",
+                           int(total_test_batches * 0.9): "90%", total_test_batches: "100%"}
         done = 0
         test_y = []
         predicted = []
         indexes = np.arange(test_data_len)
-        for i in range(total_batches):
+        for i in range(total_test_batches):
             batch_indexes = indexes[i * self.params['batch_size']: (i + 1) * self.params['batch_size']]
             batch_X1, batch_X2, batch_y = dataset.get_samples(set_name, batch_indexes)
             for item in batch_y:
@@ -339,8 +347,11 @@ class BCN:
             for item in batch_pred:
                 predicted.append(item)
             done += 1
-            if verbose and done in milestones:
-                print("  " + milestones[done])
+            if verbose and done in test_milestones:
+                print("  " + test_milestones[done])
+        if set_name == "train_cut":
+            print(predicted)
+            print(test_y)
         return sum([p == a for p, a in zip(predicted, test_y)]) / float(test_data_len)
 
     def test(self, dataset):
@@ -349,9 +360,15 @@ class BCN:
             inputs1, inputs2, labels, is_training, predict, _, _ = self.create_model()
         with tf.Session(graph=graph) as sess:
             print("\nComputing test accuracy...")
-            tf.global_variables_initializer().run()
-            saver = tf.train.import_meta_graph(os.path.join(self.outputdir, 'model.meta'))
-            saver.restore(sess, os.path.join(self.outputdir, 'model'))
+            sess.run(tf.global_variables_initializer())
+            tf.train.Saver().restore(sess, os.path.join(self.outputdir, 'model'))
+
+            tvars = tf.trainable_variables()
+            tvars_vals = sess.run(tvars)
+            for var, val in zip(tvars, tvars_vals):
+                if "/bn" in var.name:
+                    print(var.name, val)
+
             accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, verbose=True)
             print("Accuracy:    " + str(accuracy))
             with open(os.path.join(self.outputdir, "accuracy.txt"), "w") as outputfile:
