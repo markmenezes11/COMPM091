@@ -343,7 +343,7 @@ class BCN:
             for item in batch_y:
                 test_y.append(item)
             batch_pred = list(sess.run(predict, feed_dict={inputs1: batch_X1, inputs2: batch_X2,
-                                                           labels: batch_y, is_training: False})) # TODO: Find out why we only get good results when is_training is True here - probably due to batch norm? ############
+                                                           labels: batch_y, is_training: False}))
             for item in batch_pred:
                 predicted.append(item)
             done += 1
