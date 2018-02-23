@@ -10,6 +10,7 @@
 
 import os
 import io
+import random
 import numpy as np
 
 class SSTBinaryDataset:
@@ -23,7 +24,9 @@ class SSTBinaryDataset:
             train = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-train'))
         dev = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-dev'))
         test = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-test'))
-        textual_data = {'train': train, 'dev': dev, 'test': test}
+        train_cut_indexes = random.sample(range(len(train['y'])), len(dev['y']))
+        train_cut = {'X': [train['X'][i] for i in train_cut_indexes], 'y': [train['y'][i] for i in train_cut_indexes]}
+        textual_data = {'train': train, 'dev': dev, 'test': test, 'train_cut': train_cut}
         self.max_sent_len = -1
         self.total_sentences = 0
         for key in textual_data:
@@ -52,7 +55,7 @@ class SSTBinaryDataset:
 
     def generate_embeddings(self, textual_data, encoder):
         print("\nGenerating sentence embeddings,,,")
-        data = {'train': {}, 'dev': {}, 'test': {}}
+        data = dict()
         done = 0
         milestones = {int(self.total_sentences * 0.1): "10%", int(self.total_sentences * 0.2): "20%",
                       int(self.total_sentences * 0.3): "30%", int(self.total_sentences * 0.4): "40%",
@@ -60,6 +63,7 @@ class SSTBinaryDataset:
                       int(self.total_sentences * 0.7): "70%", int(self.total_sentences * 0.8): "80%",
                       int(self.total_sentences * 0.9): "90%", self.total_sentences: "100%"}
         for key in textual_data:
+            data[key] = {}
             data[key]['X1'] = []
             for tokenized_sentence in textual_data[key]['X']:
                 data[key]['X1'].append(encoder.encode_sentence(tokenized_sentence))

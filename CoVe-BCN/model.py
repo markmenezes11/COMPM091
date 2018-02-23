@@ -5,6 +5,7 @@
 
 import sys
 import os
+import timeit
 
 import numpy as np
 import tensorflow as tf
@@ -23,13 +24,14 @@ class BCN:
         self.W_init = weight_init
         self.b_init = bias_init
 
-    def create_model(self, is_training):
+    def create_model(self):
         print("\nCreating BCN model...")
 
         # Takes 2 input sequences, each of the form [GloVe(w); CoVe(w)] (duplicated if only one input sequence is needed)
         inputs1 = tf.placeholder(tf.float32, shape=[None, self.max_sent_len, self.embed_dim])
         inputs2 = tf.placeholder(tf.float32, shape=[None, self.max_sent_len, self.embed_dim])
         labels = tf.placeholder(tf.int32, [None])
+        is_training = tf.placeholder(tf.bool)
         assert dimensions_equal(inputs1.shape, (self.params['batch_size'], self.max_sent_len, self.embed_dim))
         assert dimensions_equal(inputs2.shape, (self.params['batch_size'], self.max_sent_len, self.embed_dim))
 
@@ -39,10 +41,12 @@ class BCN:
         feedforward_bias = tf.get_variable("feedforward_bias", shape=[self.embed_dim],
                                            initializer=tf.constant_initializer(self.b_init))
         with tf.variable_scope("feedforward"):
+            feedforward_inputs1 = tf.layers.dropout(inputs1, rate=self.params['dropout_ratio'], training=is_training)
+            feedforward_inputs2 = tf.layers.dropout(inputs2, rate=self.params['dropout_ratio'], training=is_training)
             def feedforward(feedforward_input):
                 return tf.nn.relu6(tf.matmul(feedforward_input, feedforward_weight) + feedforward_bias)
-            feedforward_outputs1 = tf.map_fn(feedforward, inputs1)
-            feedforward_outputs2 = tf.map_fn(feedforward, inputs2)
+            feedforward_outputs1 = tf.map_fn(feedforward, feedforward_inputs1)
+            feedforward_outputs2 = tf.map_fn(feedforward, feedforward_inputs2)
             assert dimensions_equal(feedforward_outputs1.shape, (self.params['batch_size'], self.max_sent_len, self.embed_dim))
             assert dimensions_equal(feedforward_outputs2.shape, (self.params['batch_size'], self.max_sent_len, self.embed_dim))
 
@@ -180,7 +184,7 @@ class BCN:
             assert dimensions_equal(pool_outputs1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4))
             assert dimensions_equal(pool_outputs2.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4))
 
-        # Max-out network (3 D->D batch-normalised maxout layers, followed by a softmax)
+        # Maxout network (3 batch-normalised maxout layers, followed by a softmax)
         with tf.variable_scope("maxout"):
             joined = tf.concat([pool_outputs1, pool_outputs2], 1)
             assert dimensions_equal(joined.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
@@ -202,38 +206,46 @@ class BCN:
             #   https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/layers/python/layers/layers.py#L102
             # The other batch norm functions provided by TensorFlow do not work properly at this time of writing:
             #   https://github.com/tensorflow/tensorflow/issues/14357
-            def batch_norm(inputs, decay, epsilon, training, scope):
+            def batch_norm(inputs, decay, epsilon, scope):
                 with tf.variable_scope(scope):
                     scale = tf.Variable(tf.ones([inputs.get_shape()[-1]]))
                     beta = tf.Variable(tf.zeros([inputs.get_shape()[-1]]))
                     pop_mean = tf.Variable(tf.zeros([inputs.get_shape()[-1]]), trainable=False)
                     pop_var = tf.Variable(tf.ones([inputs.get_shape()[-1]]), trainable=False)
 
-                    if training:
+                    def batch_norm_training():
                         batch_mean, batch_var = tf.nn.moments(inputs, [0])
                         train_mean = tf.assign(pop_mean, pop_mean * decay + batch_mean * (1 - decay))
                         train_var = tf.assign(pop_var, pop_var * decay + batch_var * (1 - decay))
                         with tf.control_dependencies([train_mean, train_var]):
                             return tf.nn.batch_normalization(inputs, batch_mean, batch_var, beta, scale, epsilon)
-                    else:
-                        return tf.nn.batch_normalization(inputs, pop_mean, pop_var, beta, scale, epsilon)
 
-            bn1 = batch_norm(joined, decay=self.params['bn_decay1'], epsilon=self.params['bn_epsilon1'], training=is_training, scope="bn1")
+                    return tf.cond(tf.equal(is_training, tf.constant(True)),
+                                   lambda: batch_norm_training(),
+                                   lambda: tf.nn.batch_normalization(inputs, pop_mean, pop_var, beta, scale, epsilon))
+
+            maxout_inputs1 = tf.layers.dropout(joined, rate=self.params['dropout_ratio'], training=is_training)
+            bn1 = batch_norm(maxout_inputs1, self.params['bn_decay'], self.params['bn_epsilon'], "bn1")
             assert dimensions_equal(bn1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
-            maxout_outputs1 = maxout_patched(bn1, self.params['bilstm_integrate_n_hidden']*2*4*2)
-            assert dimensions_equal(maxout_outputs1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
+            maxout_dim1 = (self.params['bilstm_integrate_n_hidden']*2*4*2) / self.params['maxout_reduction']
+            maxout_outputs1 = maxout_patched(bn1, maxout_dim1)
+            assert dimensions_equal(maxout_outputs1.shape, (self.params['batch_size'], maxout_dim1))
 
-            bn2 = batch_norm(maxout_outputs1, decay=self.params['bn_decay2'], epsilon=self.params['bn_epsilon2'], training=is_training, scope="bn2")
-            assert dimensions_equal(bn2.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
-            maxout_outputs2 = maxout_patched(bn2, self.params['bilstm_integrate_n_hidden']*2*4*2)
-            assert dimensions_equal(maxout_outputs2.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
+            maxout_inputs2 = tf.layers.dropout(maxout_outputs1, rate=self.params['dropout_ratio'], training=is_training)
+            bn2 = batch_norm(maxout_inputs2, self.params['bn_decay'], self.params['bn_epsilon'], "bn2")
+            assert dimensions_equal(bn2.shape, (self.params['batch_size'], maxout_dim1))
+            maxout_dim2 = maxout_dim1 / self.params['maxout_reduction']
+            maxout_outputs2 = maxout_patched(bn2, maxout_dim2)
+            assert dimensions_equal(maxout_outputs2.shape, (self.params['batch_size'], maxout_dim2))
 
-            bn3 = batch_norm(maxout_outputs2, decay=self.params['bn_decay3'], epsilon=self.params['bn_epsilon3'], training=is_training, scope="bn3")
-            assert dimensions_equal(bn3.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
-            maxout_outputs3 = maxout_patched(bn3, self.params['bilstm_integrate_n_hidden']*2*4*2)
-            assert dimensions_equal(maxout_outputs3.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
+            maxout_inputs3 = tf.layers.dropout(maxout_outputs2, rate=self.params['dropout_ratio'], training=is_training)
+            bn3 = batch_norm(maxout_inputs3, self.params['bn_decay'], self.params['bn_epsilon'], "bn3")
+            assert dimensions_equal(bn3.shape, (self.params['batch_size'], maxout_dim2))
+            maxout_dim3 = maxout_dim2 / 2
+            maxout_outputs3 = maxout_patched(bn3, maxout_dim3)
+            assert dimensions_equal(maxout_outputs3.shape, (self.params['batch_size'], maxout_dim3))
 
-            softmax_weight = tf.get_variable("softmax_weight", shape=[self.params['bilstm_integrate_n_hidden']*2*4*2, self.n_classes],
+            softmax_weight = tf.get_variable("softmax_weight", shape=[maxout_dim3, self.n_classes],
                                              initializer=tf.random_uniform_initializer(-self.W_init, self.W_init))
             softmax_bias = tf.get_variable("softmax_bias", shape=[self.n_classes],
                                            initializer=tf.constant_initializer(self.b_init))
@@ -258,17 +270,17 @@ class BCN:
             predict = tf.argmax(logits, axis=1)
 
         print("Successfully created BCN model.")
-        return inputs1, inputs2, labels, predict, cost, train_step
+        return inputs1, inputs2, labels, is_training, predict, cost, train_step
 
     def dry_run(self):
         tf.reset_default_graph()
         with tf.Graph().as_default():
-            return self.create_model(is_training=True)
+            return self.create_model()
 
     def train(self, dataset):
         tf.reset_default_graph()
         with tf.Graph().as_default() as graph:
-            inputs1, inputs2, labels, _, cost, train_step = self.create_model(is_training=True)
+            inputs1, inputs2, labels, is_training, predict, cost, train_step = self.create_model()
         with tf.Session(graph=graph) as sess:
             print("\nTraining model...")
             tf.global_variables_initializer().run()
@@ -279,50 +291,68 @@ class BCN:
                           int(total_batches * 0.5): "50%", int(total_batches * 0.6): "60%",
                           int(total_batches * 0.7): "70%", int(total_batches * 0.8): "80%",
                           int(total_batches * 0.9): "90%", total_batches: "100%"}
+            total_loss = 0
             for epoch in range(self.params['n_epochs']):
                 print("  Epoch " + str(epoch + 1) + " of " + str(self.params['n_epochs']))
+                epoch_start_time = timeit.default_timer()
                 done = 0
                 indexes = np.random.permutation(train_data_len)
                 for i in range(total_batches):
                     batch_indexes = indexes[i * self.params['batch_size']: (i + 1) * self.params['batch_size']]
                     batch_X1, batch_X2, batch_y = dataset.get_samples('train', batch_indexes)
-                    _, loss = sess.run([train_step, cost], feed_dict={inputs1: batch_X1, inputs2: batch_X2, labels: batch_y})
+                    _, loss = sess.run([train_step, cost], feed_dict={inputs1: batch_X1, inputs2: batch_X2,
+                                                                      labels: batch_y, is_training: True})
+                    total_loss += loss
                     done += 1
                     if done in milestones:
                         print("    " + milestones[done])
+                print("  Loss: " + str(total_loss / total_batches))
+                print("  Computing train accuracy...")
+                train_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="train_cut")
+                print("    Train accuracy:" + str(train_accuracy))
+                print("  Computing dev accuracy...")
+                dev_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="dev")
+                print("    Dev accuracy:" + str(dev_accuracy))
+                print("    Epoch took %s seconds" % (timeit.default_timer() - epoch_start_time))
             tf.train.Saver().save(sess, os.path.join(self.outputdir, 'model'))
-            print("Finished training model. Model is saved in the model folder.")
+            print("Finished training model. Model is saved in: " + self.outputdir)
+
+    def calculate_accuracy(self, dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="test", verbose=False):
+        test_data_len = dataset.get_total_samples(set_name)
+        total_batches = test_data_len // self.params['batch_size']
+        milestones = {int(total_batches * 0.1): "10%", int(total_batches * 0.2): "20%",
+                      int(total_batches * 0.3): "30%", int(total_batches * 0.4): "40%",
+                      int(total_batches * 0.5): "50%", int(total_batches * 0.6): "60%",
+                      int(total_batches * 0.7): "70%", int(total_batches * 0.8): "80%",
+                      int(total_batches * 0.9): "90%", total_batches: "100%"}
+        done = 0
+        test_y = []
+        predicted = []
+        indexes = np.arange(test_data_len)
+        for i in range(total_batches):
+            batch_indexes = indexes[i * self.params['batch_size']: (i + 1) * self.params['batch_size']]
+            batch_X1, batch_X2, batch_y = dataset.get_samples(set_name, batch_indexes)
+            for item in batch_y:
+                test_y.append(item)
+            batch_pred = list(sess.run(predict, feed_dict={inputs1: batch_X1, inputs2: batch_X2,
+                                                           labels: batch_y, is_training: False})) # TODO: Find out why we only get good results when is_training is True here - probably due to batch norm? ############
+            for item in batch_pred:
+                predicted.append(item)
+            done += 1
+            if verbose and done in milestones:
+                print("  " + milestones[done])
+        return sum([p == a for p, a in zip(predicted, test_y)]) / float(test_data_len)
 
     def test(self, dataset):
         tf.reset_default_graph()
         with tf.Graph().as_default() as graph:
-            inputs1, inputs2, labels, predict, _, _ = self.create_model(is_training=False)
+            inputs1, inputs2, labels, is_training, predict, _, _ = self.create_model()
         with tf.Session(graph=graph) as sess:
-            print("\nTesting model...")
+            print("\nComputing test accuracy...")
             tf.global_variables_initializer().run()
             saver = tf.train.import_meta_graph(os.path.join(self.outputdir, 'model.meta'))
             saver.restore(sess, os.path.join(self.outputdir, 'model'))
-            test_data_len = dataset.get_total_samples("test")
-            total_batches = test_data_len // self.params['batch_size']
-            milestones = {int(total_batches * 0.1): "10%", int(total_batches * 0.2): "20%",
-                          int(total_batches * 0.3): "30%", int(total_batches * 0.4): "40%",
-                          int(total_batches * 0.5): "50%", int(total_batches * 0.6): "60%",
-                          int(total_batches * 0.7): "70%", int(total_batches * 0.8): "80%",
-                          int(total_batches * 0.9): "90%", total_batches: "100%"}
-            done = 0
-            test_y = []
-            predicted = []
-            indexes = np.arange(test_data_len)
-            for i in range(total_batches):
-                batch_indexes = indexes[i * self.params['batch_size']: (i + 1) * self.params['batch_size']]
-                batch_X1, batch_X2, batch_y = dataset.get_samples('test', batch_indexes)
-                for item in batch_y:
-                    test_y.append(item)
-                batch_pred = list(sess.run(predict, feed_dict={inputs1: batch_X1, inputs2: batch_X2, labels: batch_y}))
-                for item in batch_pred:
-                    predicted.append(item)
-                done += 1
-                if done in milestones:
-                    print("  " + milestones[done])
-            accuracy = sum([p == a for p, a in zip(predicted, test_y)]) / float(test_data_len)
+            accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, verbose=True)
             print("Accuracy:    " + str(accuracy))
+            with open(os.path.join(self.outputdir, "accuracy.txt"), "w") as outputfile:
+                outputfile.write(str(accuracy))

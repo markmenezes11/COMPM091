@@ -29,13 +29,11 @@ parser.add_argument("--bilstm_encoder_forget_bias2", type=float, default=1.0, he
 parser.add_argument("--bilstm_integrate_n_hidden", type=int, default=300, help="Number of hidden states in integrate's BiLSTM(s) (int)")
 parser.add_argument("--bilstm_integrate_forget_bias1", type=float, default=1.0, help="Forget bias for integrate's first BiLSTM (float)")
 parser.add_argument("--bilstm_integrate_forget_bias2", type=float, default=1.0, help="Forget bias for integrate's second BiLSTM (float)")
-parser.add_argument("--bn_decay1", type=float, default=0.999, help="Decay for first batch normalisation (float)")
-parser.add_argument("--bn_epsilon1", type=float, default=1e-3, help="Epsilon for first batch normalisation (float)")
-parser.add_argument("--bn_decay2", type=float, default=0.999, help="Decay for second batch normalisation (float)")
-parser.add_argument("--bn_epsilon2", type=float, default=1e-3, help="Epsilon for second batch normalisation (float)")
-parser.add_argument("--bn_decay3", type=float, default=0.999, help="Decay for third batch normalisation (float)")
-parser.add_argument("--bn_epsilon3", type=float, default=1e-3, help="Epsilon for third batch normalisation (float)")
-parser.add_argument("--optimizer", type=str, default="gradientdescent", help="Optimizer (adam or gradientdescent)")
+parser.add_argument("--dropout_ratio", type=float, default=0.1, help="Ratio for dropout applied before Feedforward Network and before each Batch Norm (float)")
+parser.add_argument("--maxout_reduction", type=int, default=2, help="On the first and second maxout layers, the dimensionality is divided by this number (int)")
+parser.add_argument("--bn_decay", type=float, default=0.999, help="Decay for each batch normalisation (float)")
+parser.add_argument("--bn_epsilon", type=float, default=1e-3, help="Epsilon for each batch normalisation (float)")
+parser.add_argument("--optimizer", type=str, default="adam", help="Optimizer (adam or gradientdescent)")
 parser.add_argument("--learning_rate", type=float, default=0.001, help="Leaning rate (float)")
 parser.add_argument("--adam_beta1", type=float, default=0.9, help="Beta1 for adam optimiser if adam optimiser is used (float)")
 parser.add_argument("--adam_beta2", type=float, default=0.999, help="Beta2 for adam optimiser if adam optimiser is used (float)")
@@ -51,31 +49,30 @@ from model import BCN
 HYPERPARAMETERS
 """
 
-hyperparameters = { # TODO: Tune the following parameters using the Dev set for validation
-    'n_epochs': args.n_epochs, # int
-    'batch_size': args.batch_size, # int
+hyperparameters = {
+    'n_epochs': args.n_epochs, # int # TODO: Tune this or implement early stopping
+    'batch_size': args.batch_size, # int # TODO: Tune this
 
-    'same_bilstm_for_encoder': args.same_bilstm_for_encoder, # boolean
-    'bilstm_encoder_n_hidden': args.bilstm_encoder_n_hidden, # int
-    'bilstm_encoder_forget_bias1': args.bilstm_encoder_forget_bias1, # float
-    'bilstm_encoder_forget_bias2': args.bilstm_encoder_forget_bias2, # float - only needs to be set if same_bilstm_for_encoder is False
+    'same_bilstm_for_encoder': args.same_bilstm_for_encoder, # boolean # TODO: Tune this
+    'bilstm_encoder_n_hidden': args.bilstm_encoder_n_hidden, # int. Used by McCann et al.: 300
+    'bilstm_encoder_forget_bias1': args.bilstm_encoder_forget_bias1, # float # TODO: Tune this
+    'bilstm_encoder_forget_bias2': args.bilstm_encoder_forget_bias2, # float - only needs to be set if same_bilstm_for_encoder is False # TODO: Tune this
 
-    'bilstm_integrate_n_hidden': args.bilstm_integrate_n_hidden, # int
-    'bilstm_integrate_forget_bias1': args.bilstm_integrate_forget_bias1, # float
-    'bilstm_integrate_forget_bias2': args.bilstm_integrate_forget_bias2, # float
+    'bilstm_integrate_n_hidden': args.bilstm_integrate_n_hidden, # int. Used by McCann et al.: 300
+    'bilstm_integrate_forget_bias1': args.bilstm_integrate_forget_bias1, # float # TODO: Tune this
+    'bilstm_integrate_forget_bias2': args.bilstm_integrate_forget_bias2, # float # TODO: Tune this
 
-    'bn_decay1': args.bn_decay1, # float
-    'bn_epsilon1': args.bn_epsilon1, # float
-    'bn_decay2': args.bn_decay2, # float
-    'bn_epsilon2': args.bn_epsilon2, # float
-    'bn_decay3': args.bn_decay3,  # float
-    'bn_epsilon3': args.bn_epsilon3,  # float
+    'dropout_ratio': args.dropout_ratio, # float. Used by McCann et al.: 0.1, 0.2 or 0.3 # TODO: Tune this as either 0.1, 0.2 or 0.3 ##############
+    'maxout_reduction': args.maxout_reduction, # int. Used by McCann et al.: 2, 4 or 8 # TODO: Tune this as either 2, 4 or 8 ######################
 
-    'optimizer': args.optimizer, # "adam" or "gradientdescent"
-    'learning_rate': args.learning_rate, # float
-    'adam_beta1': args.adam_beta1, # float (used only if optimizer == "adam")
-    'adam_beta2': args.adam_beta2, # float (used only if optimizer == "adam")
-    'adam_epsilon': args.adam_epsilon # float (used only if optimizer == "adam")
+    'bn_decay': args.bn_decay, # float # TODO: Tune this
+    'bn_epsilon': args.bn_epsilon, # float # TODO: Tune this
+
+    'optimizer': args.optimizer, # "adam" or "gradientdescent". Used by McCann et al.: "adam"
+    'learning_rate': args.learning_rate, # float. Used by McCann et al.: 0.001
+    'adam_beta1': args.adam_beta1, # float (used only if optimizer == "adam") # TODO: Tune this
+    'adam_beta2': args.adam_beta2, # float (used only if optimizer == "adam") # TODO: Tune this
+    'adam_epsilon': args.adam_epsilon # float (used only if optimizer == "adam") # TODO: Tune this
 }
 
 if args.mode == 1:
@@ -105,4 +102,4 @@ bcn = BCN(hyperparameters, n_classes, max_sent_len, embed_dim, args.outputdir)
 bcn.train(dataset)
 bcn.test(dataset)
 
-print("\n\nReal time taken to train + test: %s seconds" % (timeit.default_timer() - start_time))
+print("\nReal time taken to train + test: %s seconds" % (timeit.default_timer() - start_time))
