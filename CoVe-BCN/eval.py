@@ -17,15 +17,16 @@ parser.add_argument("--ignoregloveheader", action="store_true", default=False, h
 parser.add_argument("--covepath", type=str, default='../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
 parser.add_argument("--covedim", type=int, default=600, help="Number of dimensions in CoVe embeddings (default: 600)")
 parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository")
+parser.add_argument("--infersentdim", type=int, default=4096, help="Number of dimensions in InferSent embeddings (default: 4096)")
 parser.add_argument("--datadir", type=str, default='datasets', help="Path to the directory that contains the datasets")
 parser.add_argument("--outputdir", type=str, default='model', help="Path to the directory where the BCN model will be saved")
 
 parser.add_argument("--mode", type=int, default=0, help="0: Normal (train + test); 1: BCN model dry-run (just try creating the model and do nothing else); 2: Train + test dry-run (Load a smaller dataset and train + test on it)")
 
-parser.add_argument("--type", type=str, default="CoVe", help="What sentence embeddings to use (InferSent or CoVe)")
-parser.add_argument("--transfer_task", type=str, default="SSTBinary", help="Transfer task used for training BCN and evaluating predictions (e.g. SSTBinary)")
+parser.add_argument("--type", type=str, default="CoVe", help="What sentence embeddings to use (InferSent or CoVe). For CoVe, [GloVe(w)CoVe(w)] embeddings will be used.")
+parser.add_argument("--transfer_task", type=str, default="SSTBinary", help="Transfer task used for training BCN and evaluating predictions (e.g. SSTBinary, SSTFine)")
 
-parser.add_argument("--n_epochs", type=int, default=10, help="Number of epochs (int)")
+parser.add_argument("--n_epochs", type=int, default=20, help="Number of epochs (int). After 5 epochs of worse dev accuracy, training will early stopped and the best epoch will be saved (based on dev accuracy).")
 parser.add_argument("--batch_size", type=int, default=64, help="Batch size (int)")
 parser.add_argument("--same_bilstm_for_encoder", action="store_true", default=False, help="Whether or not to use the same BiLSTM (when flag is set) or separate BiLSTMs (flag unset) for the encoder")
 parser.add_argument("--bilstm_encoder_n_hidden", type=int, default=300, help="Number of hidden states in encoder's BiLSTM(s) (int)")
@@ -44,8 +45,8 @@ parser.add_argument("--adam_epsilon", type=float, default=1e-8, help="Epsilon fo
 
 args, _ = parser.parse_known_args()
 
-from data_processing import GloVeCoVeEncoder
-from datasets import SSTBinaryDataset
+from sentence_encoders import GloVeCoVeEncoder, InferSentEncoder
+from datasets import SSTBinaryDataset, SSTFineDataset
 from model import BCN
 
 """
@@ -53,7 +54,7 @@ HYPERPARAMETERS
 """
 
 hyperparameters = {
-    'n_epochs': args.n_epochs, # int # TODO: Implement early stopping
+    'n_epochs': args.n_epochs, # int
     'batch_size': args.batch_size, # int
 
     'same_bilstm_for_encoder': args.same_bilstm_for_encoder, # boolean
@@ -93,25 +94,26 @@ DATASET
 
 if args.type == "CoVe":
     encoder = GloVeCoVeEncoder(args.glovepath, args.covepath, ignore_glove_header=args.ignoregloveheader, cove_dim=args.covedim)
-else: # TODO: Actually implement InferSent mode
+elif args.type == "InferSent":
+    encoder = InferSentEncoder(args.glovepath, args.infersentpath, infersent_dim=args.infersentdim)
+else:
     print("ERROR: Unknown embeddings type. Should be InferSent or CoVe. Set it correctly using the --type argument.")
     sys.exit(1)
 
 if args.transfer_task == "SSTBinary":
-    embed_dim = encoder.get_embed_dim()
-    dataset = SSTBinaryDataset(args.datadir, encoder, args.mode == 2)
-    encoder = None
-    n_classes = dataset.get_n_classes()
-    max_sent_len = dataset.get_max_sent_len()
-else: # TODO: Add more tasks
+    dataset = SSTBinaryDataset(args.datadir, encoder, dry_run=(args.mode == 2))
+elif args.transfer_task == "SSTFine":
+    dataset = SSTFineDataset(args.datadir, encoder, dry_run=(args.mode == 2))
+else: # TODO: Add more transfer tasks
     print("ERROR: Unknown transfer task. Set it correctly using the --transfer_task argument.")
     sys.exit(1)
+encoder = None
 
 """
 BCN MODEL
 """
 
-bcn = BCN(hyperparameters, n_classes, max_sent_len, embed_dim, args.outputdir)
+bcn = BCN(hyperparameters, dataset.get_n_classes(), dataset.get_max_sent_len(), dataset.get_embed_dim(), args.outputdir)
 bcn.train(dataset)
 bcn.test(dataset)
 

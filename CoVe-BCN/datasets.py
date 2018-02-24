@@ -13,17 +13,15 @@ import io
 import random
 import numpy as np
 
-class SSTBinaryDataset:
-    def __init__(self, data_dir, encoder, dry_run=False):
-        print("\nLoading SST Binary dataset...")
-        self.n_classes = 2
-        self.embed_dim = encoder.get_embed_dim()
+class SSTDataset(object):
+    def __init__(self, n_classes, folder, data_dir, encoder, dry_run=False):
+        self.n_classes = n_classes
         if dry_run:
-            train = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-dev'))
+            train = self.load_file(os.path.join(data_dir, folder, 'sentiment-dev'))
         else:
-            train = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-train'))
-        dev = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-dev'))
-        test = self.load_file(os.path.join(data_dir, 'SSTBinary/sentiment-test'))
+            train = self.load_file(os.path.join(data_dir, folder, 'sentiment-train'))
+        dev = self.load_file(os.path.join(data_dir, folder, 'sentiment-dev'))
+        test = self.load_file(os.path.join(data_dir, folder, 'sentiment-test'))
         train_cut_indexes = random.sample(range(len(train['y'])), len(dev['y']))
         train_cut = {'X': [train['X'][i] for i in train_cut_indexes], 'y': [train['y'][i] for i in train_cut_indexes]}
         textual_data = {'train': train, 'dev': dev, 'test': test, 'train_cut': train_cut}
@@ -37,6 +35,7 @@ class SSTBinaryDataset:
         print("Successfully loaded dataset (classes: " + str(self.n_classes)
               + ", max sentence length: " + str(self.max_sent_len) + ").")
         self.data = self.generate_embeddings(textual_data, encoder)
+        self.embed_dim = encoder.get_embed_dim()
 
     def load_file(self, fpath):
         textual_data = {'X': [], 'y': []}
@@ -88,7 +87,7 @@ class SSTBinaryDataset:
             padded_embeddings.append([embedding])
         return np.vstack(padded_embeddings)
 
-    def get_samples(self, key, indexes=None):
+    def get_batch(self, key, indexes=None):
         if indexes is None:
             return self.pad(self.data[key]['X1']), self.pad(self.data[key]['X2']), self.data[key]['y']
         X1 = self.pad(np.take(self.data[key]['X1'], indexes, axis=0))
@@ -101,3 +100,16 @@ class SSTBinaryDataset:
 
     def get_max_sent_len(self):
         return self.max_sent_len
+
+    def get_embed_dim(self):
+        return self.embed_dim
+
+class SSTBinaryDataset(SSTDataset):
+    def __init__(self, data_dir, encoder, dry_run=False):
+        print("\nLoading SST Binary dataset...")
+        super(SSTBinaryDataset, self).__init__(2, "SSTBinary", data_dir, encoder, dry_run=dry_run)
+
+class SSTFineDataset(SSTDataset):
+    def __init__(self, data_dir, encoder, dry_run=False):
+        print("\nLoading SST Fine dataset...")
+        super(SSTFineDataset, self).__init__(5, "SSTFine", data_dir, encoder, dry_run=dry_run)

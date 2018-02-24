@@ -289,15 +289,18 @@ class BCN:
                                 int(total_train_batches * 0.5): "50%", int(total_train_batches * 0.6): "60%",
                                 int(total_train_batches * 0.7): "70%", int(total_train_batches * 0.8): "80%",
                                 int(total_train_batches * 0.9): "90%", total_train_batches: "100%"}
+            best_dev_accuracy = -1
+            best_epoch_number = 0
+            epochs_since_last_save = 0
             for epoch in range(self.params['n_epochs']):
-                print("  Epoch " + str(epoch + 1) + " of " + str(self.params['n_epochs']))
+                print("  ============== Epoch " + str(epoch + 1) + " of " + str(self.params['n_epochs']) + " ==============")
                 epoch_start_time = timeit.default_timer()
                 done = 0
                 average_loss = 0
                 indexes = np.random.permutation(train_data_len)
                 for i in range(total_train_batches):
                     batch_indexes = indexes[i * self.params['batch_size']: (i + 1) * self.params['batch_size']]
-                    batch_X1, batch_X2, batch_y = dataset.get_samples('train', batch_indexes)
+                    batch_X1, batch_X2, batch_y = dataset.get_batch('train', batch_indexes)
                     _, loss = sess.run([train_op, loss_op], feed_dict={inputs1: batch_X1, inputs2: batch_X2,
                                                                        labels: batch_y, is_training: True})
                     average_loss += (loss / total_train_batches)
@@ -312,8 +315,19 @@ class BCN:
                 dev_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="dev")
                 print("      Dev accuracy:" + str(dev_accuracy))
                 print("    Epoch took %s seconds" % (timeit.default_timer() - epoch_start_time))
-            tf.train.Saver().save(sess, os.path.join(self.outputdir, 'model'))
-            print("Finished training model. Model is saved in: " + self.outputdir)
+                if dev_accuracy > best_dev_accuracy:
+                    # If dev accuracy improved, save the model after this epoch
+                    best_dev_accuracy = dev_accuracy
+                    best_epoch_number = epoch
+                    epochs_since_last_save = 0
+                    tf.train.Saver().save(sess, os.path.join(self.outputdir, 'model'))
+                else:
+                    # If dev accuracy got worse, don't save
+                    epochs_since_last_save += 1
+                if epochs_since_last_save >= 5:
+                    # If dev accuracy keeps getting worse, stop training (early stopping)
+                    break
+            print("Finished training model after " + str(best_epoch_number + 1) + " epochs. Model is saved in: " + self.outputdir)
 
     def calculate_accuracy(self, dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="test", verbose=False):
         test_data_len = dataset.get_total_samples(set_name)
@@ -329,7 +343,7 @@ class BCN:
         indexes = np.arange(test_data_len)
         for i in range(total_test_batches):
             batch_indexes = indexes[i * self.params['batch_size']: (i + 1) * self.params['batch_size']]
-            batch_X1, batch_X2, batch_y = dataset.get_samples(set_name, batch_indexes)
+            batch_X1, batch_X2, batch_y = dataset.get_batch(set_name, batch_indexes)
             for item in batch_y:
                 test_y.append(item)
             batch_pred = list(sess.run(predict, feed_dict={inputs1: batch_X1, inputs2: batch_X2,

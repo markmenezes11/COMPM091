@@ -68,3 +68,7 @@ class GloVeCoVeEncoder:
 
     def get_embed_dim(self):
         return self.glove_cove_dim
+
+class InferSentEncoder:
+    def __init__(self, glove_path, infersent_path, infersent_dim=900):
+        pass # TODO: Implement this

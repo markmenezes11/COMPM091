@@ -1,4 +1,4 @@
-import sys, os, time
+import os, time
 import argparse
 import itertools
 
@@ -29,8 +29,8 @@ params, _ = parser.parse_known_args()
 Parameters to sweep. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)
 """
 
-# Number of epochs (int)
-n_epochs = [20] # TODO: See if you need to tune this rather than using early stopping
+# Number of epochs (int). After 5 epochs of worse dev accuracy, training will early stopped and the best epoch will be saved (based on dev accuracy).
+n_epochs = [20]
 
 # Batch size (int)
 batch_size = [32, 64, 128] # TODO: Tune this ###########################################################################
@@ -81,13 +81,13 @@ adam_epsilon = [1e-8] # TODO: Tune this
 Model types (str: InferSent, CoVe)
 """
 
-types = ["InferSent", "CoVe"]
+types = ["CoVe", "InferSent"]
 
 """
-Transfer tasks to be used for training BCN and evaluating predictions (str: SSTBinary)
+Transfer tasks to be used for training BCN and evaluating predictions (str: SSTBinary, SSTFine)
 """
 
-transfer_tasks = ["SSTBinary"]
+transfer_tasks = ["SSTBinary, SSTFine"]
 
 """
 Sweep helper functions
