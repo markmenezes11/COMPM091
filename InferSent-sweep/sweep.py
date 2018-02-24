@@ -243,7 +243,7 @@ if params.mode == 0: # Full sweep (train + eval) on local machine
                            " --transfertask " + transfer_task,
                            outputdir + "se_output_" + transfer_task + ".txt")
 
-elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions on HPC cluster
+elif params.mode == 1: # Full sweep using qsub for job submissions on HPC cluster
     print("\n\n\n\n########## TRAIN ##########\n\n")
     iterations = get_iterations()
     iterationNumber = 0
@@ -275,7 +275,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
 
     def retry_failed_train_jobs(current_retry):
         iterations = get_iterations()
-        retried = 0
+        retried_ = 0
         for iteration in iterations:
             outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
@@ -285,7 +285,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
             if not os.path.exists(outputdir + "model.pickle") or not os.path.exists(outputdir + "model.pickle.encoder"):
                 print("\n\n\nPARAMETERS: " + iterationParams + "\n")
                 print("\nOUTPUT DIRECTORY: " + outputdir + "\n")
-                retried += 1
+                retried_ += 1
                 wait_for_jobs(params.n_jobs, True)
                 run_subprocess("qsub -cwd -o " + outputdir + "train_output" + str(current_retry) + ".txt" +
                                " -e " + outputdir + "train_error" + str(current_retry) + ".txt" +
@@ -297,7 +297,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                                iterationParams,
                                outputdir + "info.txt")
                 # The --gpu_id argument is set in the qsub script automatically
-        return retried
+        return retried_
 
     retried = 1
     max_retries = params.n_retries
@@ -359,7 +359,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
 
     def retry_failed_eval_jobs(current_retry):
         iterations = get_iterations()
-        retried = 0
+        retried_ = 0
         for iteration in iterations:
             outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration)
 
@@ -377,7 +377,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                     print("\n\n\nPARAMETERS: " + iterationParams + "\n")
                     print("\nOUTPUT DIRECTORY: " + outputdir + "\n")
                     print("\nTRANSFER TASK: " + transfer_task + "\n")
-                    retried += 1
+                    retried_ += 1
                     wait_for_jobs(params.n_jobs, True)
                     if transfer_task == "SNLI":
                         qsub_script = "snli_eval_qsub_helper.sh"
@@ -397,7 +397,7 @@ elif params.mode == 1: # Train sweep (train ONLY) using qsub for job submissions
                                    " --transfertask " + transfer_task,
                                    outputdir + "info.txt")
                     # The --gpu_id argument is set in the qsub script automatically
-        return retried
+        return retried_
 
     retried = 1
     max_retries = params.n_retries
