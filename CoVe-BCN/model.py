@@ -304,23 +304,13 @@ class BCN:
                     done += 1
                     if done in train_milestones:
                         print("    " + train_milestones[done])
-                print("  Loss: " + str(average_loss))
-
-                tvars = tf.trainable_variables()
-                tvars_vals = sess.run(tvars)
-                for var, val in zip(tvars, tvars_vals):
-                    if "/bn" in var.name:
-                        print(var.name, val)
-
-                print("  Computing train accuracy...")
+                print("    Loss: " + str(average_loss))
+                print("    Computing train accuracy...")
                 train_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="train_cut")
-                print("    Train accuracy:" + str(train_accuracy))
-                print("  Computing dev accuracy...")
+                print("      Train accuracy:" + str(train_accuracy))
+                print("    Computing dev accuracy...")
                 dev_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="dev")
-                print("    Dev accuracy:" + str(dev_accuracy))
-                print("  Computing test accuracy...")
-                test_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="test")
-                print("    Test accuracy:" + str(test_accuracy))
+                print("      Dev accuracy:" + str(dev_accuracy))
                 print("    Epoch took %s seconds" % (timeit.default_timer() - epoch_start_time))
             tf.train.Saver().save(sess, os.path.join(self.outputdir, 'model'))
             print("Finished training model. Model is saved in: " + self.outputdir)
@@ -349,9 +339,6 @@ class BCN:
             done += 1
             if verbose and done in test_milestones:
                 print("  " + test_milestones[done])
-        if set_name == "train_cut":
-            print(predicted)
-            print(test_y)
         return sum([p == a for p, a in zip(predicted, test_y)]) / float(test_data_len)
 
     def test(self, dataset):
@@ -362,13 +349,6 @@ class BCN:
             print("\nComputing test accuracy...")
             sess.run(tf.global_variables_initializer())
             tf.train.Saver().restore(sess, os.path.join(self.outputdir, 'model'))
-
-            tvars = tf.trainable_variables()
-            tvars_vals = sess.run(tvars)
-            for var, val in zip(tvars, tvars_vals):
-                if "/bn" in var.name:
-                    print(var.name, val)
-
             accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, verbose=True)
             print("Accuracy:    " + str(accuracy))
             with open(os.path.join(self.outputdir, "accuracy.txt"), "w") as outputfile:
