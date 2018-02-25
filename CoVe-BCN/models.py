@@ -60,7 +60,7 @@ class BLSTMEncoder(nn.Module):
 
         if sent_output.ndimension() == 3:
             sent_output = sent_output.squeeze(1)
-        
+
         return sent_output
 
         # Pooling (removed so that BCN gets word-by-word embeddings)
@@ -177,7 +177,7 @@ class BLSTMEncoder(nn.Module):
         sentences = [['<s>'] + s.split() + ['</s>'] if not tokenize else
                      ['<s>']+word_tokenize(s)+['</s>'] for s in sentences]
         n_w = np.sum([len(x) for x in sentences])
-
+        
         # filters words without glove vectors
         for i in range(len(sentences)):
             s_f = [word for word in sentences[i] if word in self.word_vec]

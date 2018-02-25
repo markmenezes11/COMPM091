@@ -25,21 +25,17 @@ class SSTDataset(object):
         train_cut_indexes = random.sample(range(len(train['y'])), len(dev['y']))
         train_cut = {'X': [train['X'][i] for i in train_cut_indexes], 'y': [train['y'][i] for i in train_cut_indexes]}
         textual_data = {'train': train, 'dev': dev, 'test': test, 'train_cut': train_cut}
-        self.max_sent_len = -1
         self.total_sentences = 0
         samples = set()
         for key in textual_data:
             for tokenized_sentence in textual_data[key]['X']:
                 self.total_sentences += 1
-                if len(tokenized_sentence) > self.max_sent_len:
-                    self.max_sent_len = len(tokenized_sentence)
                 for word in tokenized_sentence:
                     samples.add(word)
-        self.max_sent_len = encoder.convert_max_sent_len(self.max_sent_len)
-        print("Successfully loaded dataset (classes: " + str(self.n_classes)
-              + ", max sentence length (in sentence embeddings): " + str(self.max_sent_len) + ").")
+        print("Successfully loaded dataset (classes: " + str(self.n_classes) + ").")
         encoder.load(samples)
         self.data = self.generate_embeddings(textual_data, encoder)
+        self.max_sent_len = encoder.get_max_sent_len()
         self.embed_dim = encoder.get_embed_dim()
 
     def load_file(self, fpath):

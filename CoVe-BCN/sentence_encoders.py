@@ -7,8 +7,6 @@ import sys
 
 import numpy as np
 
-from keras.models import load_model
-
 class GloVeCoVeEncoder:
     def __init__(self, glove_path, cove_path, ignore_glove_header=False, cove_dim=900):
         self.glove_path = glove_path
@@ -19,6 +17,7 @@ class GloVeCoVeEncoder:
         self.glove_cove_dim = -1
         self.glove_embeddings_dict = dict()
         self.cove_model = None
+        self.max_sent_len = 0
         # load() must be called before sentence embeddings can be generated - see below
 
     def load(self, samples):
@@ -50,14 +49,12 @@ class GloVeCoVeEncoder:
         # - Example: self.cove_model.predict(np.random.rand(1, 10, self.glove_dime))
         # - For unknown words, use a dummy value different to the one used for padding - small non-zero value e.g. 1e-10
         print("\nLoading CoVe model...")
+        from keras.models import load_model
         self.glove_cove_dim = self.glove_dim + self.cove_dim
         self.cove_model = load_model(self.cove_path)
         test = self.cove_model.predict(np.random.rand(1, 10, 300))
         assert test.shape == (1, 10, self.cove_dim)
         print("Successfully loaded CoVe model.")
-
-    def convert_max_sent_len(self, max_sent_len):
-        return max_sent_len
 
     # Input sequence (tokenized sentence) w is converted to sequence of vectors: w' = [GloVe(w); CoVe(w)]
     def encode_sentence(self, tokenized_sentence):
@@ -79,7 +76,12 @@ class GloVeCoVeEncoder:
         assert cove.shape == (1, len(tokenized_sentence), self.cove_dim)
         glove_cove = np.concatenate([glove[0], cove[0]], axis=1)
         assert glove_cove.shape == (len(tokenized_sentence), self.glove_dim + self.cove_dim)
+        if glove_cove.shape[0] > self.max_sent_len:
+            self.max_sent_len = glove_cove.shape[0]
         return glove_cove
+
+    def get_max_sent_len(self):
+        return self.max_sent_len
 
     def get_embed_dim(self):
         return self.glove_cove_dim
@@ -90,24 +92,31 @@ class InferSentEncoder:
         self.infersent_path = infersent_path
         self.infersent_dim = infersent_dim
         self.infersent_model = None
+        self.max_sent_len = 0
         # load() must be called before sentence embeddings can be generated - see below
 
     def load(self, samples):
+        print("\nLoading InferSent model...")
         import torch
         self.infersent_model = torch.load(self.infersent_path)
         self.infersent_model.set_glove_path(self.glove_path)
-        self.infersent_model.build_vocab([' '.join(s) for s in samples], tokenize=False)
-
-    def convert_max_sent_len(self, max_sent_len):
-        return max_sent_len + 1
+        self.infersent_model.build_vocab(samples, tokenize=False)
+        print("Successfully loaded InferSent model.")
 
     def encode_sentence(self, tokenized_sentence):
         if self.infersent_model is None:
             print("ERROR: load() has not been called on encoder.")
             sys.exit(1)
         embeddings = self.infersent_model.encode([' '.join(tokenized_sentence)], bsize=1, tokenize=False)[0]
-        assert embeddings.shape == (len(tokenized_sentence) + 1, self.infersent_dim)
+        assert embeddings.shape[0] <= len(tokenized_sentence) + 2
+        assert embeddings.shape[1] == self.infersent_dim
+        assert len(embeddings.shape) == 2
+        if embeddings.shape[0] > self.max_sent_len:
+            self.max_sent_len = embeddings.shape[0]
         return embeddings
+
+    def get_max_sent_len(self):
+        return self.max_sent_len
 
     def get_embed_dim(self):
         return self.infersent_dim

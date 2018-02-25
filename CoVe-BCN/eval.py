@@ -16,7 +16,7 @@ parser.add_argument("--glovepath", type=str, default="../../Word2Vec_models/GloV
 parser.add_argument("--ignoregloveheader", action="store_true", default=False, help="Set this flag if the first line of the GloVe file is a header and not a (word, embedding) pair")
 parser.add_argument("--covepath", type=str, default='../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
 parser.add_argument("--covedim", type=int, default=600, help="Number of dimensions in CoVe embeddings (default: 600)")
-parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository")
+parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent/encoder/infersent.allnli.pickle", help="Path to InferSent repository")
 parser.add_argument("--infersentdim", type=int, default=4096, help="Number of dimensions in InferSent embeddings (default: 4096)")
 parser.add_argument("--datadir", type=str, default='datasets', help="Path to the directory that contains the datasets")
 parser.add_argument("--outputdir", type=str, default='model', help="Path to the directory where the BCN model will be saved")

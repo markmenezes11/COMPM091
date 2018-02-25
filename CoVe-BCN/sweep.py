@@ -17,7 +17,7 @@ parser.add_argument("--glovepath", type=str, default="/mnt/mmenezes/libs/InferSe
 parser.add_argument("--ignoregloveheader", action="store_true", default=False, help="Set this flag if the first line of the GloVe file is a header and not a (word, embedding) pair")
 parser.add_argument("--covepath", type=str, default='../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
 parser.add_argument("--covedim", type=int, default=600, help="Number of dimensions in CoVe embeddings (default: 600)")
-parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent", help="Path to InferSent repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
+parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent/encoder/infersent.allnli.pickle", help="Path to InferSent repository. If you are using Singularity, all paths must be the ones that Singularity can see (i.e. make sure to use relevant bindings)")
 parser.add_argument("--infersentdim", type=int, default=4096, help="Number of dimensions in InferSent embeddings (default: 4096)")
 parser.add_argument("--datadir", type=str, default='datasets', help="Path to the directory that contains the datasets")
 parser.add_argument("--outputdir", type=str, default='/cluster/project2/ishi_storage_1/mmenezes/BCN-models/sweep', help="Output directory (where models and output will be saved). MAKE SURE IT MAPS TO THE SAME PLACE AS SINGULARITYOUTPUTDIR")
