@@ -110,19 +110,19 @@ def replace_illegal_chars(string):
 def get_parameter_strings(iteration_, type_, transfer_task_):
     slash = "" if params.outputdir[-1] == "/" else "/"
     singularityslash = "" if params.singularityoutputdir[-1] == "/" else "/"
-    sweepdir = ("n_epochs__" + replace_illegal_chars(iteration_[0]) + "/" +
-                "batch_size__" + replace_illegal_chars(iteration_[1]) + "/" +
+    sweepdir = ("n_epochs__" + replace_illegal_chars(str(iteration_[0])) + "/" +
+                "batch_size__" + replace_illegal_chars(str(iteration_[1])) + "/" +
                 "same_bilstm_for_encoder__" + replace_illegal_chars(str(iteration_[2])) + "/" +
                 "bilstm_encoder_n_hidden__" + replace_illegal_chars(str(iteration_[3])) + "/" +
                 "bilstm_encoder_forget_bias__" + replace_illegal_chars(str(iteration_[4])) + "/" +
                 "bilstm_integrate_n_hidden__" + replace_illegal_chars(str(iteration_[5])) + "/" +
                 "bilstm_integrate_forget_bias__" + replace_illegal_chars(str(iteration_[6])) + "/" +
-                "dropout_ratio__" + replace_illegal_chars(iteration_[7]) + "/" +
+                "dropout_ratio__" + replace_illegal_chars(str(iteration_[7])) + "/" +
                 "maxout_reduction__" + replace_illegal_chars(str(iteration_[8])) + "/" +
                 "bn_decay__" + replace_illegal_chars(str(iteration_[9])) + "/" +
                 "bn_epsilon__" + replace_illegal_chars(str(iteration_[10])) + "/" +
                 "optimizer__" + replace_illegal_chars(str(iteration_[11])) + "/" +
-                "learning_rate__" + replace_illegal_chars(iteration_[12]) + "/" +
+                "learning_rate__" + replace_illegal_chars(str(iteration_[12])) + "/" +
                 "adam_beta1__" + replace_illegal_chars(str(iteration_[13])) + "/" +
                 "adam_beta2__" + replace_illegal_chars(str(iteration_[14])) + "/" +
                 "adam_epsilon__" + replace_illegal_chars(str(iteration_[15])) + "/")
@@ -223,7 +223,7 @@ for transfer_task in transfer_tasks:
                            iterationParams,
                            outputdir + "log.txt")
 
-        print("\n\n\n####### All train jobs submitted. Will now wait for them to complete, before retrying any failed jobs...")
+print("\n\n\n####### All train jobs submitted. Will now wait for them to complete, before retrying any failed jobs...")
 
 def retry_failed_jobs(current_retry_):
     retried_ = 0
