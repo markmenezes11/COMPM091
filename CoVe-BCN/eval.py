@@ -13,7 +13,7 @@ start_time = timeit.default_timer()
 parser = argparse.ArgumentParser(description='Replication of the CoVe Biattentive Classification Network (BCN)')
 
 parser.add_argument("--glovepath", type=str, default="../../Word2Vec_models/GloVe/glove.840B.300d.txt", help="Path to GloVe word embeddings. Download glove.840B.300d embeddings from https://nlp.stanford.edu/projects/glove/")
-parser.add_argument("--ignoregloveheader", action="store_true", default=False, help="Set this flag if the first line of the GloVe file is a header and not a (word, embedding) pair")
+parser.add_argument("--ignoregloveheader", type=str, default="False", help="Set this to \"True\" if the first line of the GloVe file is a header and not a (word, embedding) pair")
 parser.add_argument("--covepath", type=str, default='../CoVe-ported/Keras_CoVe_Python2.h5', help="Path to the CoVe model")
 parser.add_argument("--covedim", type=int, default=600, help="Number of dimensions in CoVe embeddings (default: 600)")
 parser.add_argument("--infersentpath", type=str, default="/mnt/mmenezes/libs/InferSent/encoder/infersent.allnli.pickle", help="Path to InferSent repository")
@@ -28,7 +28,7 @@ parser.add_argument("--transfer_task", type=str, default="SSTBinary", help="Tran
 
 parser.add_argument("--n_epochs", type=int, default=20, help="Number of epochs (int). After 5 epochs of worse dev accuracy, training will early stopped and the best epoch will be saved (based on dev accuracy).")
 parser.add_argument("--batch_size", type=int, default=64, help="Batch size (int)")
-parser.add_argument("--same_bilstm_for_encoder", action="store_true", default=False, help="Whether or not to use the same BiLSTM (when flag is set) or separate BiLSTMs (flag unset) for the encoder")
+parser.add_argument("--same_bilstm_for_encoder", type=str, default="False", help="Whether or not to use the same BiLSTM (when flag is set) or separate BiLSTMs (flag unset) for the encoder (str: True or False)")
 parser.add_argument("--bilstm_encoder_n_hidden", type=int, default=300, help="Number of hidden states in encoder's BiLSTM(s) (int)")
 parser.add_argument("--bilstm_encoder_forget_bias", type=float, default=1.0, help="Forget bias for encoder's BiLSTM(s) (float)")
 parser.add_argument("--bilstm_integrate_n_hidden", type=int, default=300, help="Number of hidden states in integrate's BiLSTMs (int)")
@@ -45,6 +45,9 @@ parser.add_argument("--adam_epsilon", type=float, default=1e-8, help="Epsilon fo
 
 args, _ = parser.parse_known_args()
 
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
+
 from sentence_encoders import GloVeCoVeEncoder, InferSentEncoder
 from datasets import SSTBinaryDataset, SSTFineDataset
 from model import BCN
@@ -57,7 +60,7 @@ hyperparameters = {
     'n_epochs': args.n_epochs, # int
     'batch_size': args.batch_size, # int
 
-    'same_bilstm_for_encoder': args.same_bilstm_for_encoder, # boolean
+    'same_bilstm_for_encoder': str2bool(args.same_bilstm_for_encoder), # boolean
     'bilstm_encoder_n_hidden': args.bilstm_encoder_n_hidden, # int. Used by McCann et al.: 300
     'bilstm_encoder_forget_bias': args.bilstm_encoder_forget_bias, # float
 
@@ -86,6 +89,8 @@ if not os.path.exists(args.outputdir):
 
 if not os.path.exists(os.path.join(args.outputdir, "info.txt")):
     with open(os.path.join(args.outputdir, "info.txt"), "w") as outputfile:
+        outputfile.write(str(args.type) + "\n")
+        outputfile.write(str(args.transfer_task) + "\n")
         outputfile.write(str(hyperparameters))
 
 """
@@ -93,7 +98,7 @@ DATASET
 """
 
 if args.type == "CoVe":
-    encoder = GloVeCoVeEncoder(args.glovepath, args.covepath, ignore_glove_header=args.ignoregloveheader, cove_dim=args.covedim)
+    encoder = GloVeCoVeEncoder(args.glovepath, args.covepath, ignore_glove_header=str2bool(args.ignoregloveheader), cove_dim=args.covedim)
 elif args.type == "InferSent":
     encoder = InferSentEncoder(args.glovepath, args.infersentpath, infersent_dim=args.infersentdim)
 else:

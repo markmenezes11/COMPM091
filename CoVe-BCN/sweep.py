@@ -10,8 +10,8 @@ Arguments
 
 parser = argparse.ArgumentParser(description='Parameter sweep script for the CoVe Biattentive Classification Network (BCN). Jobs are submitted on HPC using qsub.')
 
-parser.add_argument("--n_jobs", type=int, default=16, help="Maximum number of qsub jobs to be running simultaneously")
-parser.add_argument("--n_retries", type=int, default=16, help="Maximum number of retries for failed qsub jobs before giving up")
+parser.add_argument("--n_jobs", type=int, default=18, help="Maximum number of qsub jobs to be running simultaneously")
+parser.add_argument("--n_retries", type=int, default=18, help="Maximum number of retries for failed qsub jobs before giving up")
 
 parser.add_argument("--glovepath", type=str, default="/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt", help="Path to GloVe word embeddings. Download glove.840B.300d embeddings from https://nlp.stanford.edu/projects/glove/")
 parser.add_argument("--ignoregloveheader", action="store_true", default=False, help="Set this flag if the first line of the GloVe file is a header and not a (word, embedding) pair")
@@ -24,6 +24,7 @@ parser.add_argument("--outputdir", type=str, default='/cluster/project2/ishi_sto
 
 parser.add_argument("--singularitycommand", type=str, default='singularity exec --nv --bind /cluster/project2/ishi_storage_1:/mnt /cluster/project2/ishi_storage_1/mmenezes/markmenezes11-COMPM091-master.simg', help="If you are not using Singularity, make this argument blank. If you are using Singularity, it should be something along the lines of 'singularity exec --nv <extra-params> <path-to-simg-file>', e.g. 'singularity exec --nv --bind /cluster/project2/ishi_storage_1:/mnt /cluster/project2/ishi_storage_1/mmenezes/markmenezes11-COMPM091-master.simg'")
 parser.add_argument("--singularityoutputdir", type=str, default='/mnt/mmenezes/BCN-models/sweep', help="Output directory (where models and output will be saved), that Singularity can see (in case you use binding). If you are not using Singularity, make this the same as outputdir. MAKE SURE IT MAPS TO THE SAME PLACE AS OUTPUTDIR")
+
 params, _ = parser.parse_known_args()
 
 """
@@ -34,7 +35,7 @@ Parameters to sweep. If you are using Singularity, all paths must be the ones th
 n_epochs = [20]
 
 # Batch size (int)
-batch_size = [32, 64, 128] # TODO: Tune this ###########################################################################
+batch_size = [64] # TODO: Tune this if there is enough time ############################################################
 
 # Whether or not to use the same BiLSTM (when flag is set) or separate BiLSTMs (flag unset) for the encoder
 same_bilstm_for_encoder = [True, False] # TODO: Tune this as either True or False ######################################
@@ -43,13 +44,13 @@ same_bilstm_for_encoder = [True, False] # TODO: Tune this as either True or Fals
 bilstm_encoder_n_hidden = [300]
 
 # Forget bias for encoder's BiLSTM(s) (float)
-bilstm_encoder_forget_bias = [1.0] # TODO: Tune this
+bilstm_encoder_forget_bias = [1.0] # TODO: Tune this if needed
 
 # Number of hidden states in integrate's BiLSTMs (int)
 bilstm_integrate_n_hidden = [300]
 
 # Forget bias for integrate's BiLSTMs (float)
-bilstm_integrate_forget_bias = [1.0] # TODO: Tune this
+bilstm_integrate_forget_bias = [1.0] # TODO: Tune this if needed
 
 # Ratio for dropout applied before Feedforward Network and before each Batch Norm (float)
 dropout_ratio = [0.1, 0.2, 0.3] # TODO: Tune this as either 0.1, 0.2 or 0.3 ############################################
@@ -58,10 +59,10 @@ dropout_ratio = [0.1, 0.2, 0.3] # TODO: Tune this as either 0.1, 0.2 or 0.3 ####
 maxout_reduction = [2, 4, 8] # TODO: Tune this as either 2, 4 or 8 #####################################################
 
 # Decay for each batch normalisation layer (float)
-bn_decay = [0.999] # TODO: Tune this
+bn_decay = [0.999] # TODO: Tune this if needed
 
 # Epsilon for each batch normalisation layer (float)
-bn_epsilon = [1e-3] # TODO: Tune this
+bn_epsilon = [1e-3] # TODO: Tune this if needed
 
 # Optimizer (adam or gradientdescent)
 optimizer = ["adam"]
@@ -70,13 +71,13 @@ optimizer = ["adam"]
 learning_rate = [0.001]
 
 # Beta1 for adam optimiser if adam optimiser is used (float)
-adam_beta1 = [0.9] # TODO: Tune this
+adam_beta1 = [0.9] # TODO: Tune this if needed
 
 # Beta2 for adam optimiser if adam optimiser is used (float)
-adam_beta2 = [0.999] # TODO: Tune this
+adam_beta2 = [0.999] # TODO: Tune this if needed
 
 # Epsilon for adam optimiser if adam optimiser is used (float)
-adam_epsilon = [1e-8] # TODO: Tune this
+adam_epsilon = [1e-8] # TODO: Tune this if needed
 
 """
 Model types (str: InferSent, CoVe)
@@ -131,19 +132,19 @@ def get_parameter_strings(iteration_, type_, transfer_task_):
                             + "/" + replace_illegal_chars(transfer_task_) + "/" + sweepdir)
     iteration_params_ = (" --type " + type_ +
                          " --transfer_task " + transfer_task_ +
-                         " --n_epochs " + iteration_[0] +
-                         " --batch_size " + iteration_[1] +
+                         " --n_epochs " + str(iteration_[0]) +
+                         " --batch_size " + str(iteration_[1]) +
                          " --same_bilstm_for_encoder " + str(iteration_[2]) +
                          " --bilstm_encoder_n_hidden " + str(iteration_[3]) +
                          " --bilstm_encoder_forget_bias " + str(iteration_[4]) +
                          " --bilstm_integrate_n_hidden " + str(iteration_[5]) +
                          " --bilstm_integrate_forget_bias " + str(iteration_[6]) +
-                         " --dropout_ratio " + iteration_[7] +
+                         " --dropout_ratio " + str(iteration_[7]) +
                          " --maxout_reduction " + str(iteration_[8]) +
                          " --bn_decay " + str(iteration_[9]) +
                          " --bn_epsilon " + str(iteration_[10]) +
                          " --optimizer " + str(iteration_[11]) +
-                         " --learning_rate " + iteration_[12] +
+                         " --learning_rate " + str(iteration_[12]) +
                          " --adam_beta1 " + str(iteration_[13]) +
                          " --adam_beta2 " + str(iteration_[14]) +
                          " --adam_epsilon " + str(iteration_[15]))
@@ -191,8 +192,8 @@ for iteration in iterationsToCount:
 totalIterations *= (len(types) * len(transfer_tasks))
 iterationNumber = 0
 
-for model_type in types:
-    for transfer_task in transfer_tasks:
+for transfer_task in transfer_tasks:
+    for model_type in types:
         iterations = get_iterations()
         for iteration in iterations:
             iterationNumber += 1
@@ -212,11 +213,11 @@ for model_type in types:
                            " qsub_helper.sh " +
                            params.singularitycommand + " python eval.py" +
                            " --glovepath " + params.glovepath +
-                           " --ignoregloveheader " + params.ignoregloveheader +
+                           " --ignoregloveheader " + str(params.ignoregloveheader) +
                            " --covepath " + params.covepath +
-                           " --covedim " + params.covedim +
+                           " --covedim " + str(params.covedim) +
                            " --infersentpath " + params.infersentpath +
-                           " --infersentdim " + params.infersentdim +
+                           " --infersentdim " + str(params.infersentdim) +
                            " --datadir " + params.datadir +
                            " --outputdir " + singularityoutputdir +
                            iterationParams,
@@ -226,8 +227,8 @@ for model_type in types:
 
 def retry_failed_jobs(current_retry_):
     retried_ = 0
-    for model_type in types:
-        for transfer_task in transfer_tasks:
+    for transfer_task in transfer_tasks:
+        for model_type in types:
             iterations = get_iterations()
             for iteration in iterations:
                 outputdir, singularityoutputdir, iterationParams = get_parameter_strings(iteration, model_type, transfer_task)
@@ -247,11 +248,11 @@ def retry_failed_jobs(current_retry_):
                                    " qsub_helper.sh " +
                                    params.singularitycommand + " python eval.py" +
                                    " --glovepath " + params.glovepath +
-                                   " --ignoregloveheader " + params.ignoregloveheader +
+                                   " --ignoregloveheader " + str(params.ignoregloveheader) +
                                    " --covepath " + params.covepath +
-                                   " --covedim " + params.covedim +
+                                   " --covedim " + str(params.covedim) +
                                    " --infersentpath " + params.infersentpath +
-                                   " --infersentdim " + params.infersentdim +
+                                   " --infersentdim " + str(params.infersentdim) +
                                    " --datadir " + params.datadir +
                                    " --outputdir " + singularityoutputdir +
                                    iterationParams,

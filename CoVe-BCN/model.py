@@ -324,7 +324,7 @@ class BCN:
                 else:
                     # If dev accuracy got worse, don't save
                     epochs_since_last_save += 1
-                if epochs_since_last_save >= 5:
+                if epochs_since_last_save >= 7:
                     # If dev accuracy keeps getting worse, stop training (early stopping)
                     break
             print("Finished training model after " + str(best_epoch_number + 1) + " epochs. Model is saved in: " + self.outputdir)
