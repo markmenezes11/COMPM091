@@ -11,6 +11,7 @@
 import os
 import io
 import random
+
 import numpy as np
 
 class SSTDataset(object):
@@ -22,9 +23,10 @@ class SSTDataset(object):
             train = self.load_file(os.path.join(data_dir, folder, 'sentiment-train'))
         dev = self.load_file(os.path.join(data_dir, folder, 'sentiment-dev'))
         test = self.load_file(os.path.join(data_dir, folder, 'sentiment-test'))
-        train_cut_indexes = random.sample(range(len(train['y'])), len(dev['y']))
-        train_cut = {'X': [train['X'][i] for i in train_cut_indexes], 'y': [train['y'][i] for i in train_cut_indexes]}
-        textual_data = {'train': train, 'dev': dev, 'test': test, 'train_cut': train_cut}
+        #train_cut_indexes = random.sample(range(len(train['y'])), len(dev['y']))
+        #train_cut = {'X': [train['X'][i] for i in train_cut_indexes], 'y': [train['y'][i] for i in train_cut_indexes]}
+        #textual_data = {'train': train, 'dev': dev, 'test': test, 'train_cut': train_cut}
+        textual_data = {'train': train, 'dev': dev, 'test': test}
         self.total_sentences = 0
         samples = set()
         for key in textual_data:

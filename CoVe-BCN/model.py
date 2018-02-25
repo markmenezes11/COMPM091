@@ -6,6 +6,7 @@
 import sys
 import os
 import timeit
+import gc
 
 import numpy as np
 import tensorflow as tf
@@ -308,9 +309,9 @@ class BCN:
                     if done in train_milestones:
                         print("    " + train_milestones[done])
                 print("    Loss: " + str(average_loss))
-                print("    Computing train accuracy...")
-                train_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="train_cut")
-                print("      Train accuracy:" + str(train_accuracy))
+                #print("    Computing train accuracy...")
+                #train_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="train_cut")
+                #print("      Train accuracy:" + str(train_accuracy))
                 print("    Computing dev accuracy...")
                 dev_accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="dev")
                 print("      Dev accuracy:" + str(dev_accuracy))
@@ -324,6 +325,7 @@ class BCN:
                 else:
                     # If dev accuracy got worse, don't save
                     epochs_since_last_save += 1
+                gc.collect()
                 if epochs_since_last_save >= 7:
                     # If dev accuracy keeps getting worse, stop training (early stopping)
                     break

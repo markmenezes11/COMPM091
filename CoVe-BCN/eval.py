@@ -7,6 +7,7 @@ import sys
 import os
 import argparse
 import timeit
+import gc
 
 start_time = timeit.default_timer()
 
@@ -113,6 +114,7 @@ else: # TODO: Add more transfer tasks
     print("ERROR: Unknown transfer task. Set it correctly using the --transfer_task argument.")
     sys.exit(1)
 encoder = None
+gc.collect()
 
 """
 BCN MODEL
