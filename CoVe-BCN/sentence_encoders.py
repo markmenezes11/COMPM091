@@ -11,13 +11,22 @@ from keras.models import load_model
 
 class GloVeCoVeEncoder:
     def __init__(self, glove_path, cove_path, ignore_glove_header=False, cove_dim=900):
-        print("\nLoading GloVe embeddings...")
-        f = open(glove_path)
-        self.glove_embeddings_dict = dict()
+        self.glove_path = glove_path
+        self.cove_path = cove_path
+        self.ignore_glove_header = ignore_glove_header
+        self.cove_dim = cove_dim
         self.glove_dim = -1
+        self.glove_cove_dim = -1
+        self.glove_embeddings_dict = dict()
+        self.cove_model = None
+        # load() must be called before sentence embeddings can be generated - see below
+
+    def load(self, samples):
+        print("\nLoading GloVe embeddings...")
+        f = open(self.glove_path)
         first_line = True
         for line in f:
-            if first_line and ignore_glove_header:
+            if first_line and self.ignore_glove_header:
                 first_line = False
                 continue
             values = line.split()
@@ -26,7 +35,8 @@ class GloVeCoVeEncoder:
             if self.glove_dim == -1:
                 self.glove_dim = len(embedding)
             assert self.glove_dim == len(embedding)
-            self.glove_embeddings_dict[word] = embedding
+            if word in samples:
+                self.glove_embeddings_dict[word] = embedding
         f.close()
         if len(self.glove_embeddings_dict) == 0 or self.glove_dim == -1:
             print("ERROR: Failed to load GloVe embeddings.")
@@ -40,15 +50,20 @@ class GloVeCoVeEncoder:
         # - Example: self.cove_model.predict(np.random.rand(1, 10, self.glove_dime))
         # - For unknown words, use a dummy value different to the one used for padding - small non-zero value e.g. 1e-10
         print("\nLoading CoVe model...")
-        self.cove_dim = cove_dim
         self.glove_cove_dim = self.glove_dim + self.cove_dim
-        self.cove_model = load_model(cove_path)
+        self.cove_model = load_model(self.cove_path)
         test = self.cove_model.predict(np.random.rand(1, 10, 300))
         assert test.shape == (1, 10, self.cove_dim)
         print("Successfully loaded CoVe model.")
 
+    def convert_max_sent_len(self, max_sent_len):
+        return max_sent_len
+
     # Input sequence (tokenized sentence) w is converted to sequence of vectors: w' = [GloVe(w); CoVe(w)]
     def encode_sentence(self, tokenized_sentence):
+        if self.glove_dim == -1 or self.glove_cove_dim == -1:
+            print("ERROR: load() has not been called on encoder.")
+            sys.exit(1)
         glove_embeddings = []
         for word in tokenized_sentence:
             try:
@@ -71,4 +86,28 @@ class GloVeCoVeEncoder:
 
 class InferSentEncoder:
     def __init__(self, glove_path, infersent_path, infersent_dim=900):
-        pass # TODO: Implement this
+        self.glove_path = glove_path
+        self.infersent_path = infersent_path
+        self.infersent_dim = infersent_dim
+        self.infersent_model = None
+        # load() must be called before sentence embeddings can be generated - see below
+
+    def load(self, samples):
+        import torch
+        self.infersent_model = torch.load(self.infersent_path)
+        self.infersent_model.set_glove_path(self.glove_path)
+        self.infersent_model.build_vocab([' '.join(s) for s in samples], tokenize=False)
+
+    def convert_max_sent_len(self, max_sent_len):
+        return max_sent_len + 1
+
+    def encode_sentence(self, tokenized_sentence):
+        if self.infersent_model is None:
+            print("ERROR: load() has not been called on encoder.")
+            sys.exit(1)
+        embeddings = self.infersent_model.encode([' '.join(tokenized_sentence)], bsize=1, tokenize=False)[0]
+        assert embeddings.shape == (len(tokenized_sentence) + 1, self.infersent_dim)
+        return embeddings
+
+    def get_embed_dim(self):
+        return self.infersent_dim
