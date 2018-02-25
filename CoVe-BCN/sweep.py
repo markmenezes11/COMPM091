@@ -89,7 +89,7 @@ types = ["CoVe", "InferSent"]
 Transfer tasks to be used for training BCN and evaluating predictions (str: SSTBinary, SSTFine)
 """
 
-transfer_tasks = ["SSTBinary, SSTFine"]
+transfer_tasks = ["SSTBinary", "SSTFine"]
 
 """
 Sweep helper functions
