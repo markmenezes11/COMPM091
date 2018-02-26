@@ -3,8 +3,8 @@ import os
 import re
 import argparse
 
-parser = argparse.ArgumentParser(description='SentEval Evaluation of InferSent Sentence Representations')
-parser.add_argument("rootdir", type=str, help="Which SentEval transfer task to run. Leave blank to run all of them")
+parser = argparse.ArgumentParser(description='Results parser for SentEval-evals')
+parser.add_argument("rootdir", type=str, help="Root directory where depth-first search will start")
 params, _ = parser.parse_known_args()
 
 transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16',
