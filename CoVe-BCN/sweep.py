@@ -208,7 +208,7 @@ for transfer_task in transfer_tasks:
             prepare_directory(outputdir, iterationParams, model_type, transfer_task)
 
             wait_for_jobs(params.n_jobs, True)
-            qsub_helper = "qsub_helper_himem.sh" if transfer_task == "SSTBinary" and type == "InferSent" else "qsub_helper.sh"
+            qsub_helper = "qsub_helper_long.sh" if transfer_task == "SSTBinary" and model_type == "InferSent" else "qsub_helper.sh"
             run_subprocess("qsub -cwd -o " + outputdir + "output.txt" +
                            " -e " + outputdir + "error.txt" +
                            " " + qsub_helper + " " +
@@ -244,7 +244,7 @@ def retry_failed_jobs(current_retry_):
                     print("\nOUTPUT DIRECTORY: " + outputdir + "\n")
                     retried_ += 1
                     wait_for_jobs(params.n_jobs, True)
-                    qsub_helper = "qsub_helper_himem.sh" if transfer_task == "SSTBinary" and type == "InferSent" else "qsub_helper.sh"
+                    qsub_helper = "qsub_helper_long.sh" if transfer_task == "SSTBinary" and model_type == "InferSent" else "qsub_helper.sh"
                     run_subprocess("qsub -cwd -o " + outputdir + "output" + str(current_retry_) + ".txt" +
                                    " -e " + outputdir + "error.txt" + str(current_retry_) + "" +
                                    " " + qsub_helper + " " +
