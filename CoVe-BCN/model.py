@@ -277,6 +277,7 @@ class BCN:
             return self.create_model()
 
     def train(self, dataset):
+        best_dev_accuracy = -1
         tf.reset_default_graph()
         with tf.Graph().as_default() as graph:
             inputs1, inputs2, labels, is_training, predict, loss_op, train_op = self.create_model()
@@ -290,7 +291,6 @@ class BCN:
                                 int(total_train_batches * 0.5): "50%", int(total_train_batches * 0.6): "60%",
                                 int(total_train_batches * 0.7): "70%", int(total_train_batches * 0.8): "80%",
                                 int(total_train_batches * 0.9): "90%", total_train_batches: "100%"}
-            best_dev_accuracy = -1
             best_epoch_number = 0
             epochs_since_last_save = 0
             for epoch in range(self.params['n_epochs']):
@@ -330,6 +330,8 @@ class BCN:
                     # If dev accuracy keeps getting worse, stop training (early stopping)
                     break
             print("Finished training model after " + str(best_epoch_number + 1) + " epochs. Model is saved in: " + self.outputdir)
+            print("Best dev accuracy: " + str(best_dev_accuracy))
+        return best_dev_accuracy
 
     def calculate_accuracy(self, dataset, sess, inputs1, inputs2, labels, is_training, predict, set_name="test", verbose=False):
         test_data_len = dataset.get_total_samples(set_name)
@@ -366,6 +368,5 @@ class BCN:
             sess.run(tf.global_variables_initializer())
             tf.train.Saver().restore(sess, os.path.join(self.outputdir, 'model'))
             accuracy = self.calculate_accuracy(dataset, sess, inputs1, inputs2, labels, is_training, predict, verbose=True)
-            print("Accuracy:    " + str(accuracy))
-            with open(os.path.join(self.outputdir, "accuracy.txt"), "w") as outputfile:
-                outputfile.write(str(accuracy))
+            print("Test accuracy:    " + str(accuracy))
+        return accuracy

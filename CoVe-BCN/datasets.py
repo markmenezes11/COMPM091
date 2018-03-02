@@ -18,11 +18,11 @@ class SSTDataset(object):
     def __init__(self, n_classes, folder, data_dir, encoder, dry_run=False):
         self.n_classes = n_classes
         if dry_run:
-            train = self.load_file(os.path.join(data_dir, folder, 'sentiment-dev'))
+            train = self.load_file(os.path.join(data_dir, folder, 'dev.txt'))
         else:
-            train = self.load_file(os.path.join(data_dir, folder, 'sentiment-train'))
-        dev = self.load_file(os.path.join(data_dir, folder, 'sentiment-dev'))
-        test = self.load_file(os.path.join(data_dir, folder, 'sentiment-test'))
+            train = self.load_file(os.path.join(data_dir, folder, 'train.txt'))
+        dev = self.load_file(os.path.join(data_dir, folder, 'dev.txt'))
+        test = self.load_file(os.path.join(data_dir, folder, 'test.txt'))
         #train_cut_indexes = random.sample(range(len(train['y'])), len(dev['y']))
         #train_cut = {'X': [train['X'][i] for i in train_cut_indexes], 'y': [train['y'][i] for i in train_cut_indexes]}
         #textual_data = {'train': train, 'dev': dev, 'test': test, 'train_cut': train_cut}
@@ -44,14 +44,9 @@ class SSTDataset(object):
         textual_data = {'X': [], 'y': []}
         with io.open(fpath, 'r', encoding='utf-8') as f:
             for line in f:
-                if self.n_classes == 2:
-                    sample = line.strip().split('\t')
-                    textual_data['y'].append(int(sample[1]))
-                    textual_data['X'].append(sample[0].split())
-                elif self.n_classes == 5:
-                    sample = line.strip().split(' ', 1)
-                    textual_data['y'].append(int(sample[0]))
-                    textual_data['X'].append(sample[1].split())
+                sample = line.strip().split(' ', 1)
+                textual_data['y'].append(int(sample[0]))
+                textual_data['X'].append(sample[1].split())
         assert max(textual_data['y']) == self.n_classes - 1
         return textual_data
 

@@ -121,7 +121,11 @@ BCN MODEL
 """
 
 bcn = BCN(hyperparameters, dataset.get_n_classes(), dataset.get_max_sent_len(), dataset.get_embed_dim(), args.outputdir)
-bcn.train(dataset)
-bcn.test(dataset)
+dev_accuracy = bcn.train(dataset)
+test_accuracy = bcn.test(dataset)
+
+accuracy = {'dev': dev_accuracy, 'test': test_accuracy}
+with open(os.path.join(args.outputdir, "accuracy.txt"), "w") as outputfile:
+    outputfile.write(str(accuracy))
 
 print("\nReal time taken to train + test: %s seconds" % (timeit.default_timer() - start_time))
