@@ -195,7 +195,15 @@ class BCN:
             #   https://github.com/tensorflow/tensorflow/issues/16225
             #   https://github.com/tensorflow/tensorflow/pull/16114/files
             def maxout_patched(inputs, num_units, axis=-1, name=None):
-                outputs = tf.contrib.layers.maxout(inputs, num_units, axis, name)
+                try:
+                    outputs = tf.contrib.layers.maxout(inputs, num_units, axis, name)
+                except ValueError as e:
+                    print("These parameters cannot be run as the maxout network will not work correctly.")
+                    accuracy = {'dev': float('nan'), 'test': float('nan')}
+                    with open(os.path.join(self.outputdir, "accuracy.txt"), "w") as outputfile:
+                        outputfile.write(str(accuracy))
+                    raise e
+
                 shape = inputs.get_shape().as_list()
                 shape[axis] = num_units
                 outputs.set_shape(shape)
