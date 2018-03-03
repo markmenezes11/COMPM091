@@ -37,7 +37,7 @@ def find_and_parse_results(root):
                 hyperparameters = eval(remove_newlines(lines[2]))
             with open(accuracypath, "r") as outputfile:
                 lines = outputfile.readlines()
-                accuracy = eval(remove_newlines(lines[0]))
+                accuracy = eval(remove_newlines(lines[0]).replace("nan", "float('nan')"))
 
             if transfer_task not in results:
                 results[transfer_task] = {}
@@ -56,11 +56,11 @@ print("##############################################################")
 
 for transfer_task, embeddings_types in results.iteritems():
     print("\nTRANSFER TASK: " + transfer_task)
-    for embeddings_type, results in embeddings_types.iteritems():
+    for embeddings_type, results_ in embeddings_types.iteritems():
         print("\n   EMBEDDINGS TYPE: " + embeddings_type)
         result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
         result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
-        for result in results:
+        for result in results_:
             if not math.isnan(result.get_dev_accuracy()) and not math.isnan(result.get_test_accuracy()):
                 if result.get_test_accuracy() > result_with_best_test_accuracy.get_test_accuracy():
                     result_with_best_test_accuracy = result
