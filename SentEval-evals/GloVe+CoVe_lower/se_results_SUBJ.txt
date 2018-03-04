@@ -1,1 +1,0 @@
-{u'acc': 91.01, u'ntest': 10000, u'devacc': 90.77, u'ndev': 10000}
