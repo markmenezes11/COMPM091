@@ -10,7 +10,6 @@
 
 import os
 import io
-import random
 
 import numpy as np
 
@@ -111,3 +110,14 @@ class SSTFineDataset(SSTDataset):
     def __init__(self, data_dir, encoder, dry_run=False):
         print("\nLoading SST Fine dataset...")
         super(SSTFineDataset, self).__init__(5, "SSTFine", data_dir, encoder, dry_run=dry_run)
+
+class SSTBinaryLowerDataset(SSTDataset):
+    def __init__(self, data_dir, encoder, dry_run=False):
+        print("\nLoading SST Binary (lowercase) dataset...")
+        super(SSTBinaryLowerDataset, self).__init__(2, "SSTBinary_lower", data_dir, encoder, dry_run=dry_run)
+
+class SSTFineLowerDataset(SSTDataset):
+    def __init__(self, data_dir, encoder, dry_run=False):
+        print("\nLoading SST Fine (lowercase) dataset...")
+        super(SSTFineLowerDataset, self).__init__(5, "SSTFine_lower", data_dir, encoder, dry_run=dry_run)
+

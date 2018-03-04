@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser(description='Parses SST dataset files from PTB 
 parser.add_argument("infile", type=str, help="File in PTB format to parse")
 parser.add_argument("outfile", type=str, help="Filename of output")
 parser.add_argument("--binary", action='store_true', help="Whether to ignore neutrals and have single positive/negative classes")
+parser.add_argument("--lower", action='store_true', help="Whether or not all words/sentences should be lowercased")
 parser.add_argument("--ignore_subtrees", action='store_true', help="Only look at the outer-most sentence on each line")
 params, _ = parser.parse_known_args()
 
@@ -48,7 +49,7 @@ with io.open(params.infile, 'r', encoding='utf-8') as f:
         assert(check_for_illegals(parsed_tree) == False)
         parsed_lines.append(parsed_tree)
 
-def get_samples_from_parsed_lines(input, ignore_subtrees=False):
+def get_samples_from_parsed_lines(nodes, lower=False, ignore_subtrees=False):
     sentences_by_tags = [[], [], [], [], []]
     def dfs(node, ignore_subtrees, outer_node):
         if isinstance(node, (str, unicode)):
@@ -61,24 +62,22 @@ def get_samples_from_parsed_lines(input, ignore_subtrees=False):
         tag = node[0]
         sentence = node[1:]
 
-        not_a_leaf = False
-        for item in sentence:
-            if not isinstance(item, (str, unicode)) and isinstance(item, list):
-                not_a_leaf = True
-
         parsed_sentence = []
         for item in sentence:
             parsed_sentence = parsed_sentence + dfs(item, ignore_subtrees, False)
 
         #print(str(tag) + " " + str(parsed_sentence))
         if not ignore_subtrees or outer_node:
-            sentences_by_tags[int(tag)].append((' '.join(parsed_sentence)).lower())
+            if lower:
+                sentences_by_tags[int(tag)].append((' '.join(parsed_sentence)).lower())
+            else:
+                sentences_by_tags[int(tag)].append((' '.join(parsed_sentence)))
         return parsed_sentence
-    for node in input:
+    for node in nodes:
         dfs(node, ignore_subtrees, True)
     return sentences_by_tags
 
-sentences_by_tags = get_samples_from_parsed_lines(parsed_lines, ignore_subtrees=params.ignore_subtrees)
+sentences_by_tags = get_samples_from_parsed_lines(parsed_lines, lower=params.lower, ignore_subtrees=params.ignore_subtrees)
 with open(params.outfile, "w") as outputfile:
     if not params.binary:
         for i in range(len(sentences_by_tags)):
