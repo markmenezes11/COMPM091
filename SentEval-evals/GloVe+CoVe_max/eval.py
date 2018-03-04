@@ -89,7 +89,7 @@ def batcher(params, batch):
                 word_embedding.append(num)
             for num in context_vector:
                 word_embedding.append(num)
-            assert (len(word_embedding) == len(embedding) == 600)
+            assert (len(word_embedding) == len(embedding) == 900)
             for i in range(len(word_embedding)):
                 if word_embedding[i] > embedding[i]:
                     embedding[i] = word_embedding[i]

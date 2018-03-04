@@ -69,7 +69,7 @@ def batcher(params, batch):
 
         # Max poolibng based on the rest of the words
         for vector in vector_list:
-            assert (len(vector) == len(embedding) == 600)
+            assert (len(vector) == len(embedding) == 300)
             for i in range(len(vector)):
                 if vector[i] > embedding[i]:
                     embedding[i] = vector[i]
