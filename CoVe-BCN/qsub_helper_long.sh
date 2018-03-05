@@ -7,5 +7,6 @@
 hostname
 nvidia-smi
 echo CUDA_VISIBLE_DEVICES: \"$CUDA_VISIBLE_DEVICES\"
-CUDA_VISIBLE_DEVICES=$(nvidia-smi dmon -c 1 | grep -v "#" | awk '{ print $4 " " $1 }' | sort -n | awk '{ print $2 }' | tr -d "\n" | head -c 1) $@
+# CUDA_VISIBLE_DEVICES=$(nvidia-smi dmon -c 1 | grep -v "#" | awk '{ print $4 " " $1 }' | sort -n | awk '{ print $2 }' | tr -d "\n" | head -c 1) $@
+$@
 

@@ -11,7 +11,7 @@ Arguments
 parser = argparse.ArgumentParser(description='Parameter sweep script for the CoVe Biattentive Classification Network (BCN). Jobs are submitted on HPC using qsub.')
 
 parser.add_argument("--n_jobs", type=int, default=18, help="Maximum number of qsub jobs to be running simultaneously")
-parser.add_argument("--n_retries", type=int, default=18, help="Maximum number of retries for failed qsub jobs before giving up")
+parser.add_argument("--n_retries", type=int, default=7, help="Maximum number of retries for failed qsub jobs before giving up")
 
 parser.add_argument("--glovepath", type=str, default="/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt", help="Path to GloVe word embeddings. Download glove.840B.300d embeddings from https://nlp.stanford.edu/projects/glove/")
 parser.add_argument("--ignoregloveheader", action="store_true", default=False, help="Set this flag if the first line of the GloVe file is a header and not a (word, embedding) pair")
@@ -35,7 +35,7 @@ Parameters to sweep. If you are using Singularity, all paths must be the ones th
 n_epochs = [20]
 
 # Batch size (int)
-batch_size = [64] # TODO: Tune this if there is enough time ############################################################
+batch_size = [32, 64, 128] # TODO: Tune this if there is enough time ############################################################
 
 # Whether or not to use the same BiLSTM (when flag is set) or separate BiLSTMs (flag unset) for the encoder
 same_bilstm_for_encoder = [True, False] # TODO: Tune this as either True or False ######################################

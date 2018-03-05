@@ -23,13 +23,13 @@ def parse_results2(results):
     return results
 
 def parse_results3(results):
-    match = re.compile("u'pearson':\s*([0-9.]+)").findall(results)
+    match = re.compile("u'pearson':\s*([\-0-9.]+)").findall(results)
     results = [float(match[0])]
     assert len(results) == 1
     return results
 
 def parse_results4(results):
-    match = re.compile("\[\(([0-9.]+),\s*([0-9.]+),\s*([0-9.]+),\s*[0-9.]+\),\s*\(([0-9.]+),\s*([0-9.]+),\s*([0-9.]+)").findall(results) # TODO
+    match = re.compile("\[\(([\-0-9.]+),\s*([\-0-9.]+),\s*([\-0-9.]+),\s*[\-0-9.]+\),\s*\(([\-0-9.]+),\s*([\-0-9.]+),\s*([\-0-9.]+)").findall(results) # TODO
     results = [float(match[0][0]), float(match[0][1]), float(match[0][2]), # Cap (K=1), Cap (K=5), Cap (K=10)
                float(match[0][3]), float(match[0][4]), float(match[0][5])] # Img (K=1), Img (K=5), Img (K=10)
     assert len(results) == 6
