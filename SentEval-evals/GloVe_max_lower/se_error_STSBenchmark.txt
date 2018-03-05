@@ -1,0 +1,16 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m2018-03-05 10:56:42,728 : 
+
+***** Transfer task : STSBenchmark*****
+
+
+2018-03-05 10:56:42,964 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 10:56:47,098 : Computing embedding for test
+2018-03-05 10:56:49,229 : Computed test embeddings
+2018-03-05 10:56:49,229 : Computing embedding for train
+2018-03-05 10:56:58,356 : Computed train embeddings
+2018-03-05 10:56:58,357 : Computing embedding for dev
+2018-03-05 10:57:00,984 : Computed dev embeddings
+2018-03-05 10:58:47,126 : Dev : Pearson -0.0193339229252
+2018-03-05 10:58:47,126 : Test : Pearson -0.0102612203333 Spearman -0.00746570550182 MSE 2.654369324                        for SICK Relatedness
+

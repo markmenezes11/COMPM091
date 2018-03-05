@@ -1,0 +1,34 @@
+/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 10:50:12,275 : ***** Transfer task : STS15 *****
+
+
+2018-03-05 10:50:12,376 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 10:50:16.731616: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 10:50:16.974909: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.2155
+pciBusID: 0000:04:00.0
+totalMemory: 11.92GiB freeMemory: 11.81GiB
+2018-03-05 10:50:16.974937: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0, compute capability: 5.2)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 10:50:51,223 : answers-forums : pearson = 0.5199, spearman = 0.4899
+2018-03-05 10:51:35,183 : answers-students : pearson = 0.6910, spearman = 0.6879
+2018-03-05 10:52:06,462 : belief : pearson = 0.6246, spearman = 0.6218
+2018-03-05 10:52:40,492 : headlines : pearson = 0.5802, spearman = 0.5744
+2018-03-05 10:53:24,384 : images : pearson = 0.5936, spearman = 0.6030
+2018-03-05 10:53:24,384 : ALL (weighted average) : Pearson = 0.6093,             Spearman = 0.6053
+2018-03-05 10:53:24,384 : ALL (average) : Pearson = 0.6019,             Spearman = 0.5954
+
+Sentences will be padded to length 57.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS15:
+{u'answers-students': {u'spearman': SpearmanrResult(correlation=0.6878944702229719, pvalue=3.330933196085165e-106), u'pearson': (0.6909971807831664, 1.570826079139277e-107), u'nsamples': 750}, u'belief': {u'spearman': SpearmanrResult(correlation=0.6217744468622218, pvalue=1.7143491880734028e-41), u'pearson': (0.6245693928524022, 5.900553957331493e-42), u'nsamples': 375}, u'all': {u'spearman': {u'wmean': 0.605269279357496, u'mean': 0.5953785201537187}, u'pearson': {u'wmean': 0.6092618706285869, u'mean': 0.6018561775237291}}, u'images': {u'spearman': SpearmanrResult(correlation=0.602998518718305, pvalue=1.891311440963585e-75), u'pearson': (0.593580027630508, 1.363964111121333e-72), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.5743686451500977, pvalue=4.795810097067577e-67), u'pearson': (0.5802368689963759, 1.061229021783512e-68), u'nsamples': 750}, u'answers-forums': {u'spearman': SpearmanrResult(correlation=0.4898565198149967, pvalue=4.9910522274740356e-24), u'pearson': (0.5198974173561931, 2.3657341052206913e-27), u'nsamples': 375}}
+
+
+Real time taken to evaluate: 192.782840967 seconds
+All done.

@@ -1,0 +1,53 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+27498
+lockfile in use
+27497
+lockfile in use
+22463
+lockfile in use
+gpufree
+GPU 2 free, Using GPU 2 
+gonzo-605-8.local
+Mon Mar  5 09:57:11 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   37C    P2    60W / 250W |  10697MiB / 11172MiB |     15%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  On   | 00000000:03:00.0 Off |                  N/A |
+| 23%   40C    P2    59W / 250W |  10697MiB / 11172MiB |     18%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  On   | 00000000:81:00.0 Off |                  N/A |
+| 25%   37C    P8    16W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  On   | 00000000:82:00.0 Off |                  N/A |
+| 31%   53C    P2    74W / 250W |  10807MiB / 11172MiB |     32%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0     27737      C   python                                     10687MiB |
+|    1     27979      C   python                                     10687MiB |
+|    3     22696      C   python                                     10795MiB |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "2"
+Sentences will be padded to length 61.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STSBenchmark:
+{u'spearman': 0.7334875669950706, u'pearson': 0.734532756030317, u'yhat': array([1.72790106, 1.1581701 , 1.83279907, ..., 4.0694822 , 4.10048482,
+       2.84941729]), u'devpearson': 0.7793554556771557, u'mse': 1.2449475062069248, u'ntest': 1379, u'ndev': 1500}
+
+
+Real time taken to evaluate: 715.904196024 seconds
+All done.

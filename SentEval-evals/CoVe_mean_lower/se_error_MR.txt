@@ -1,0 +1,26 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 11:26:23,351 : ***** Transfer task : MR *****
+
+
+2018-03-05 11:26:23,495 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 11:27:01.236301: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 11:27:01.587825: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:81:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-03-05 11:27:01.587864: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:81:00.0, compute capability: 6.1)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 11:27:03,338 : Generating sentence embeddings
+2018-03-05 11:35:12,388 : Generated sentence embeddings
+2018-03-05 11:35:12,389 : Training pytorch-MLP-nhid0-adam-bs64 with (inner) 5-fold cross-validation
+2018-03-05 11:44:32,857 : Best param found at split 1: l2reg = 0.0001                 with score 76.42
+2018-03-05 11:53:27,653 : Best param found at split 2: l2reg = 1e-05                 with score 75.6
+2018-03-05 12:03:06,238 : Best param found at split 3: l2reg = 1e-05                 with score 76.27
+2018-03-05 12:10:44,781 : Best param found at split 4: l2reg = 1e-05                 with score 75.78
+2018-03-05 12:21:06,650 : Best param found at split 5: l2reg = 0.0001                 with score 76.05
+2018-03-05 12:21:30,288 : Dev acc : 76.02 Test acc : 75.31
+

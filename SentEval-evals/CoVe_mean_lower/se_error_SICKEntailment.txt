@@ -1,0 +1,29 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 11:25:31,116 : ***** Transfer task : SICK-Entailment*****
+
+
+2018-03-05 11:25:31,327 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 11:26:21.678931: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 11:26:21.958976: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: TITAN X (Pascal) major: 6 minor: 1 memoryClockRate(GHz): 1.531
+pciBusID: 0000:81:00.0
+totalMemory: 11.90GiB freeMemory: 11.75GiB
+2018-03-05 11:26:21.959019: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:81:00.0, compute capability: 6.1)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 11:26:23,756 : Computing embedding for test
+2018-03-05 11:30:21,989 : Computed test embeddings
+2018-03-05 11:30:21,989 : Computing embedding for train
+2018-03-05 11:33:58,626 : Computed train embeddings
+2018-03-05 11:33:58,626 : Computing embedding for dev
+2018-03-05 11:34:23,281 : Computed dev embeddings
+2018-03-05 11:34:23,452 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-03-05 11:37:09,669 : [(u'reg:1e-05', 82.2), (u'reg:0.0001', 81.8), (u'reg:0.001', 81.6), (u'reg:0.01', 79.8)]
+2018-03-05 11:37:09,670 : Validation : best param found is reg = 1e-05 with score             82.2
+2018-03-05 11:37:09,670 : Evaluating...
+2018-03-05 11:37:56,579 : 
+Dev acc : 82.2 Test acc : 79.38 for                        SICK entailment
+

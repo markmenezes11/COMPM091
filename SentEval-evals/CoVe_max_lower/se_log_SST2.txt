@@ -1,0 +1,46 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+827
+lockfile in use
+gpufree
+GPU 1 free, Using GPU 1 
+gonzo-605-14.local
+Mon Mar  5 11:24:52 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   21C    P8    24W / 250W |     10MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  On   | 00000000:03:00.0 Off |                  N/A |
+| 23%   25C    P8    17W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  On   | 00000000:81:00.0 Off |                  N/A |
+| 23%   26C    P8    16W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  On   | 00000000:82:00.0 Off |                  N/A |
+| 23%   22C    P8    16W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "1"
+Sentences will be padded to length 56.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SST2:
+{u'acc': 77.87, u'ntest': 1821, u'devacc': 80.16, u'ndev': 872}
+
+
+Real time taken to evaluate: 2448.15807104 seconds
+All done.

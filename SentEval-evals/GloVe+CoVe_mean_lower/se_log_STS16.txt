@@ -1,0 +1,34 @@
+/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 10:16:47,866 : ***** Transfer task : STS16 *****
+
+
+2018-03-05 10:16:47,960 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 10:16:52.303796: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 10:16:52.545946: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.2155
+pciBusID: 0000:04:00.0
+totalMemory: 11.92GiB freeMemory: 11.81GiB
+2018-03-05 10:16:52.546013: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0, compute capability: 5.2)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 10:17:11,950 : answer-answer : pearson = 0.4148, spearman = 0.4435
+2018-03-05 10:17:25,257 : headlines : pearson = 0.6161, spearman = 0.6594
+2018-03-05 10:17:46,439 : plagiarism : pearson = 0.5604, spearman = 0.5699
+2018-03-05 10:18:13,814 : postediting : pearson = 0.5610, spearman = 0.7285
+2018-03-05 10:18:28,746 : question-question : pearson = 0.4664, spearman = 0.5275
+2018-03-05 10:18:28,746 : ALL (weighted average) : Pearson = 0.5245,             Spearman = 0.5868
+2018-03-05 10:18:28,746 : ALL (average) : Pearson = 0.5237,             Spearman = 0.5858
+
+Sentences will be padded to length 52.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS16:
+{u'all': {u'spearman': {u'wmean': 0.5867796806044274, u'mean': 0.5857635966594337}, u'pearson': {u'wmean': 0.5244647765240721, u'mean': 0.5237359904667194}}, u'plagiarism': {u'spearman': SpearmanrResult(correlation=0.5698985181840214, pvalue=3.3060132983349197e-21), u'pearson': (0.5603900203832786, 2.0335498178605708e-20), u'nsamples': 230}, u'answer-answer': {u'spearman': SpearmanrResult(correlation=0.44347124172369334, pvalue=1.158996248407395e-13), u'pearson': (0.4147568019782243, 5.5645413829663285e-12), u'nsamples': 254}, u'postediting': {u'spearman': SpearmanrResult(correlation=0.728471497787126, pvalue=1.2428139492524464e-41), u'pearson': (0.5610256548582764, 1.2432511331535512e-21), u'nsamples': 244}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.6594291376440685, pvalue=1.8891716656929815e-32), u'pearson': (0.6160742620679778, 2.052189904795969e-27), u'nsamples': 249}, u'question-question': {u'spearman': SpearmanrResult(correlation=0.5275475879582587, pvalue=2.2670085213791404e-16), u'pearson': (0.4664332130458399, 1.095590432511078e-12), u'nsamples': 209}}
+
+
+Real time taken to evaluate: 101.534847975 seconds
+All done.

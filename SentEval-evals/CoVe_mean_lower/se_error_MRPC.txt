@@ -1,0 +1,26 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 11:25:06,966 : ***** Transfer task : MRPC *****
+
+
+2018-03-05 11:25:07,212 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 11:25:57.363885: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 11:25:57.681849: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:81:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-03-05 11:25:57.681888: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:81:00.0, compute capability: 6.1)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 11:25:59,077 : Computing embedding for test
+2018-03-05 11:28:40,656 : Computed test embeddings
+2018-03-05 11:28:40,656 : Computing embedding for train
+2018-03-05 11:35:09,533 : Computed train embeddings
+2018-03-05 11:35:09,651 : Training pytorch-MLP-nhid0-adam-bs64 with 5-fold cross-validation
+2018-03-05 11:42:51,547 : [(u'reg:1e-05', 75.0), (u'reg:0.0001', 75.0), (u'reg:0.001', 74.58), (u'reg:0.01', 73.92)]
+2018-03-05 11:42:51,548 : Cross-validation : best param found is reg = 1e-05             with score 75.0
+2018-03-05 11:42:51,548 : Evaluating...
+2018-03-05 11:43:12,140 : Dev acc : 75.0 Test acc 75.25; Test F1 83.57 for MRPC.
+

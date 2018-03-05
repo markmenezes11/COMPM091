@@ -1,0 +1,50 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+37789
+lockfile in use
+33082
+lockfile in use
+gpufree
+GPU 1 free, Using GPU 1 
+gonzo-605-8.local
+Mon Mar  5 10:57:16 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   31C    P2    56W / 250W |    371MiB / 11172MiB |      2%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  On   | 00000000:03:00.0 Off |                  N/A |
+| 23%   24C    P8    15W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  On   | 00000000:81:00.0 Off |                  N/A |
+| 37%   63C    P2    77W / 250W |  10807MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  On   | 00000000:82:00.0 Off |                  N/A |
+| 23%   23C    P8    15W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0     37933      C   python                                       361MiB |
+|    2     33372      C   python                                     10795MiB |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "1"
+Sentences will be padded to length 36.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SICKRelatedness:
+{u'spearman': 0.022210048656636835, u'pearson': 0.052799017559860904, u'yhat': array([3.19521722, 4.97607175, 3.80787395, ..., 4.0876995 , 4.0876995 ,
+       4.0876995 ]), u'devpearson': -0.05294937706694983, u'mse': 2.0968916970053284, u'ntest': 4927, u'ndev': 500}
+
+
+Real time taken to evaluate: 133.765187025 seconds
+All done.

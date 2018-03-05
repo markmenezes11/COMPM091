@@ -1,0 +1,27 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 11:25:01,730 : 
+
+***** Transfer task : STSBenchmark*****
+
+
+2018-03-05 11:25:01,992 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 11:25:49.495288: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 11:25:49.794752: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: TITAN X (Pascal) major: 6 minor: 1 memoryClockRate(GHz): 1.531
+pciBusID: 0000:02:00.0
+totalMemory: 11.90GiB freeMemory: 11.75GiB
+2018-03-05 11:25:49.794790: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:02:00.0, compute capability: 6.1)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 11:25:56,038 : Computing embedding for test
+2018-03-05 11:27:23,256 : Computed test embeddings
+2018-03-05 11:27:23,256 : Computing embedding for train
+2018-03-05 11:33:16,856 : Computed train embeddings
+2018-03-05 11:33:16,857 : Computing embedding for dev
+2018-03-05 11:34:58,689 : Computed dev embeddings
+2018-03-05 11:36:08,130 : Dev : Pearson 0.756686540885
+2018-03-05 11:36:08,131 : Test : Pearson 0.717903469103 Spearman 0.715699574992 MSE 1.36325207685                        for SICK Relatedness
+

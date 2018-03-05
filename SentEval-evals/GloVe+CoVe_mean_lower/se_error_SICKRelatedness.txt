@@ -1,0 +1,25 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 10:08:36,281 : ***** Transfer task : SICK-Relatedness*****
+
+
+2018-03-05 10:08:36,482 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 10:08:44.119737: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 10:08:44.450986: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: TITAN X (Pascal) major: 6 minor: 1 memoryClockRate(GHz): 1.531
+pciBusID: 0000:82:00.0
+totalMemory: 11.90GiB freeMemory: 11.75GiB
+2018-03-05 10:08:44.451035: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: TITAN X (Pascal), pci bus id: 0000:82:00.0, compute capability: 6.1)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 10:08:46,216 : Computing embedding for test
+2018-03-05 10:13:17,564 : Computed test embeddings
+2018-03-05 10:13:17,564 : Computing embedding for train
+2018-03-05 10:17:26,438 : Computed train embeddings
+2018-03-05 10:17:26,438 : Computing embedding for dev
+2018-03-05 10:17:54,353 : Computed dev embeddings
+2018-03-05 10:24:34,421 : Dev : Pearson 0.839355490182
+2018-03-05 10:24:34,421 : Test : Pearson 0.833296263054 Spearman 0.770120928632 MSE 0.311271601442                        for SICK Relatedness
+

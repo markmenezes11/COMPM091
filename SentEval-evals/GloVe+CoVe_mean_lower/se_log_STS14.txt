@@ -1,0 +1,35 @@
+/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 10:08:53,876 : ***** Transfer task : STS14 *****
+
+
+2018-03-05 10:08:53,964 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 10:08:58.424506: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 10:08:58.668953: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.2155
+pciBusID: 0000:04:00.0
+totalMemory: 11.92GiB freeMemory: 11.81GiB
+2018-03-05 10:08:58.669019: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0, compute capability: 5.2)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 10:09:27,465 : deft-forum : pearson = 0.3053, spearman = 0.3501
+2018-03-05 10:09:57,101 : deft-news : pearson = 0.6535, spearman = 0.6462
+2018-03-05 10:10:34,721 : headlines : pearson = 0.5870, spearman = 0.5504
+2018-03-05 10:11:21,598 : images : pearson = 0.6231, spearman = 0.6120
+2018-03-05 10:12:03,429 : OnWN : pearson = 0.5777, spearman = 0.6430
+2018-03-05 10:12:57,378 : tweet-news : pearson = 0.5454, spearman = 0.5446
+2018-03-05 10:12:57,378 : ALL (weighted average) : Pearson = 0.5555,             Spearman = 0.5637
+2018-03-05 10:12:57,378 : ALL (average) : Pearson = 0.5487,             Spearman = 0.5577
+
+Sentences will be padded to length 61.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS14:
+{u'deft-news': {u'spearman': SpearmanrResult(correlation=0.6462438148039507, pvalue=7.355408567913521e-37), u'pearson': (0.6534798605912342, 6.431247761419984e-38), u'nsamples': 300}, u'all': {u'spearman': {u'wmean': 0.5637295604844016, u'mean': 0.5577416847594163}, u'pearson': {u'wmean': 0.5555459227939374, u'mean': 0.548658145848446}}, u'deft-forum': {u'spearman': SpearmanrResult(correlation=0.3501400431302987, pvalue=2.00285427556282e-14), u'pearson': (0.3053283619156206, 3.649346779486993e-11), u'nsamples': 450}, u'OnWN': {u'spearman': SpearmanrResult(correlation=0.6430118019974315, pvalue=9.95327806337695e-89), u'pearson': (0.5777058980297206, 5.5430293379808525e-68), u'nsamples': 750}, u'tweet-news': {u'spearman': SpearmanrResult(correlation=0.5446394957158802, pvalue=3.746498835545357e-59), u'pearson': (0.5454228113818104, 2.3752414645336696e-59), u'nsamples': 750}, u'images': {u'spearman': SpearmanrResult(correlation=0.6120442937444679, pvalue=2.7580917670225244e-78), u'pearson': (0.623056275043861, 7.270844799387768e-82), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.5503706591644687, pvalue=1.2983602943227753e-60), u'pearson': (0.5869556681284289, 1.2278084392070207e-70), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 243.797378063 seconds
+All done.
