@@ -1,0 +1,33 @@
+/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-02-05 11:04:36,507 : ***** Transfer task : STS12 *****
+
+
+2018-02-05 11:04:37,746 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-02-05 11:04:42.002696: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-05 11:04:42.197702: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.2155
+pciBusID: 0000:04:00.0
+totalMemory: 11.92GiB freeMemory: 11.81GiB
+2018-02-05 11:04:42.197744: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0, compute capability: 5.2)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-02-05 11:06:45,644 : MSRpar : pearson = 0.2026, spearman = 0.2172
+2018-02-05 11:08:01,064 : MSRvid : pearson = 0.0628, spearman = 0.0599
+2018-02-05 11:08:57,093 : SMTeuroparl : pearson = 0.3345, spearman = 0.4076
+2018-02-05 11:10:15,998 : surprise.OnWN : pearson = 0.3862, spearman = 0.4021
+2018-02-05 11:11:07,094 : surprise.SMTnews : pearson = 0.1798, spearman = 0.1643
+2018-02-05 11:11:07,094 : ALL (weighted average) : Pearson = 0.2297,             Spearman = 0.2452
+2018-02-05 11:11:07,094 : ALL (average) : Pearson = 0.2332,             Spearman = 0.2502
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS12:
+{u'all': {u'spearman': {u'wmean': 0.24517663252186933, u'mean': 0.25020517786144414}, u'pearson': {u'wmean': 0.22970308674839515, u'mean': 0.2331636895432585}}, u'surprise.OnWN': {u'spearman': SpearmanrResult(correlation=0.4021357411522644, pvalue=1.608315822854248e-30), u'pearson': (0.38619966612624734, 4.362924624829027e-28), u'nsamples': 750}, u'surprise.SMTnews': {u'spearman': SpearmanrResult(correlation=0.1642645947277633, pvalue=0.0009902364138796697), u'pearson': (0.17981763645036705, 0.0003061332371965069), u'nsamples': 399}, u'SMTeuroparl': {u'spearman': SpearmanrResult(correlation=0.40757240671134326, pvalue=8.504306116555205e-20), u'pearson': (0.33446959374270874, 1.8495854565600295e-13), u'nsamples': 459}, u'MSRvid': {u'spearman': SpearmanrResult(correlation=0.05986162928928342, pvalue=0.10139811320617559), u'pearson': (0.06275760111679925, 0.08588525107683176), u'nsamples': 750}, u'MSRpar': {u'spearman': SpearmanrResult(correlation=0.21719151742656645, pvalue=1.8552516468584788e-09), u'pearson': (0.20257395028017, 2.186117709067843e-08), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 391.569508791 seconds
+All done.

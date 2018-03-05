@@ -1,0 +1,25 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-02-20 02:36:22,257 : ***** Transfer task : SICK-Relatedness*****
+
+
+2018-02-20 02:36:22,417 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-02-20 02:37:09.317702: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-20 02:37:09.651426: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:03:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-20 02:37:09.651467: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:03:00.0, compute capability: 6.1)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-02-20 02:37:12,141 : Computing embedding for test
+2018-02-20 02:42:54,762 : Computed test embeddings
+2018-02-20 02:42:54,762 : Computing embedding for train
+2018-02-20 02:47:51,408 : Computed train embeddings
+2018-02-20 02:47:51,408 : Computing embedding for dev
+2018-02-20 02:48:22,208 : Computed dev embeddings
+2018-02-20 03:51:12,408 : Dev : Pearson 0.658477485271
+2018-02-20 03:51:12,409 : Test : Pearson 0.662234281657 Spearman 0.616057910097 MSE 0.572949679043                        for SICK Relatedness
+

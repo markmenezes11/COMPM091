@@ -1,0 +1,29 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-02-17 09:22:37,845 : ***** Transfer task : SST Fine-Grained classification *****
+
+
+2018-02-17 09:22:38,409 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-02-17 09:22:45.870942: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-17 09:22:46.275614: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:81:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-17 09:22:46.275673: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:81:00.0, compute capability: 6.1)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-02-17 09:22:47,851 : Computing embedding for test
+2018-02-17 09:24:51,406 : Computed test embeddings
+2018-02-17 09:24:51,406 : Computing embedding for train
+2018-02-17 09:32:45,247 : Computed train embeddings
+2018-02-17 09:32:45,247 : Computing embedding for dev
+2018-02-17 09:33:46,489 : Computed dev embeddings
+2018-02-17 09:33:48,275 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-02-17 10:06:39,043 : [(u'reg:1e-05', 37.51), (u'reg:0.0001', 37.51), (u'reg:0.001', 37.51), (u'reg:0.01', 37.78)]
+2018-02-17 10:06:39,044 : Validation : best param found is reg = 0.01 with score             37.78
+2018-02-17 10:06:39,044 : Evaluating...
+2018-02-17 10:15:34,955 : 
+Dev acc : 37.78 Test acc : 40.05 for             SST Fine-Grained classification
+
