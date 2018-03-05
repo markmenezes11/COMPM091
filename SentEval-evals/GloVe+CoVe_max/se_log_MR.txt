@@ -1,0 +1,36 @@
+/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-04 18:32:54,733 : ***** Transfer task : MR *****
+
+
+2018-03-04 18:32:55,304 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-04 18:32:59.731327: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-04 18:32:59.987077: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.2155
+pciBusID: 0000:04:00.0
+totalMemory: 11.92GiB freeMemory: 11.81GiB
+2018-03-04 18:32:59.987146: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0, compute capability: 5.2)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-04 18:33:00,455 : Generating sentence embeddings
+2018-03-04 18:44:02,863 : Generated sentence embeddings
+2018-03-04 18:44:02,863 : Training pytorch-MLP-nhid0-adam-bs64 with (inner) 5-fold cross-validation
+Sentences will be padded to length 62.
+2018-03-04 18:53:30,705 : Best param found at split 1: l2reg = 0.001                 with score 77.05
+2018-03-04 19:03:23,912 : Best param found at split 2: l2reg = 0.001                 with score 76.81
+2018-03-04 19:11:22,905 : Best param found at split 3: l2reg = 0.01                 with score 76.65
+2018-03-04 19:20:35,691 : Best param found at split 4: l2reg = 1e-05                 with score 76.2
+2018-03-04 19:29:07,876 : Best param found at split 5: l2reg = 1e-05                 with score 76.51
+2018-03-04 19:29:29,375 : Dev acc : 76.64 Test acc : 75.75
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR MR:
+{u'acc': 75.75, u'ntest': 10662, u'devacc': 76.64, u'ndev': 10662}
+
+
+Real time taken to evaluate: 3395.37660885 seconds
+All done.

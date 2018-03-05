@@ -1,0 +1,23 @@
+2018-03-05 02:05:44,859 : ***** Transfer task : STS15 *****
+
+
+2018-03-05 02:05:44,941 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 02:05:48,315 : answers-forums : pearson = 0.3666, spearman = 0.3702
+2018-03-05 02:05:48,466 : answers-students : pearson = 0.6362, spearman = 0.6836
+2018-03-05 02:05:48,569 : belief : pearson = 0.4478, spearman = 0.5276
+2018-03-05 02:05:48,694 : headlines : pearson = 0.6621, spearman = 0.6621
+2018-03-05 02:05:48,844 : images : pearson = 0.6909, spearman = 0.7187
+2018-03-05 02:05:48,844 : ALL (weighted average) : Pearson = 0.5991,             Spearman = 0.6283
+2018-03-05 02:05:48,844 : ALL (average) : Pearson = 0.5607,             Spearman = 0.5925
+
+Sentences will be padded to length 57.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS15:
+{u'answers-students': {u'spearman': SpearmanrResult(correlation=0.6836211561565789, pvalue=2.100620906261685e-104), u'pearson': (0.6362486123266751, 2.4040711267579443e-86), u'nsamples': 750}, u'belief': {u'spearman': SpearmanrResult(correlation=0.5275803680301648, pvalue=2.9476245220226632e-28), u'pearson': (0.44778271555546695, 6.837881367718443e-20), u'nsamples': 375}, u'all': {u'spearman': {u'wmean': 0.6283446984320358, u'mean': 0.5924573385467535}, u'pearson': {u'wmean': 0.5991073761484395, u'mean': 0.5607205131412552}}, u'images': {u'spearman': SpearmanrResult(correlation=0.718747911346061, pvalue=3.458571836952938e-120), u'pearson': (0.6908844599787726, 1.7563514631255042e-107), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.6621018272198785, pvalue=8.610700197955746e-96), u'pearson': (0.6621233711757917, 8.448378118028774e-96), u'nsamples': 750}, u'answers-forums': {u'spearman': SpearmanrResult(correlation=0.37023542998108416, pvalue=1.2570420543296355e-13), u'pearson': (0.3665634066695699, 2.2754729765031136e-13), u'nsamples': 375}}
+
+
+Real time taken to evaluate: 4.21578502655 seconds
+All done.

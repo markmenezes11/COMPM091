@@ -1,0 +1,24 @@
+2018-03-05 02:06:49,671 : ***** Transfer task : STS14 *****
+
+
+2018-03-05 02:06:49,757 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 02:06:53,619 : deft-forum : pearson = 0.0835, spearman = 0.0584
+2018-03-05 02:06:54,370 : deft-news : pearson = 0.0593, spearman = 0.0340
+2018-03-05 02:06:55,159 : headlines : pearson = 0.0712, spearman = 0.1944
+2018-03-05 02:06:56,000 : images : pearson = -0.1028, spearman = -0.1247
+2018-03-05 02:06:56,757 : OnWN : pearson = -0.0496, spearman = 0.0657
+2018-03-05 02:06:57,965 : tweet-news : pearson = 0.0475, spearman = 0.1278
+2018-03-05 02:06:57,965 : ALL (weighted average) : Pearson = 0.0080,             Spearman = 0.0624
+2018-03-05 02:06:57,965 : ALL (average) : Pearson = 0.0182,             Spearman = 0.0593
+
+Sentences will be padded to length 61.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS14:
+{u'deft-news': {u'spearman': SpearmanrResult(correlation=0.0339771545858128, pvalue=0.5577316696977417), u'pearson': (0.05928736982626249, 0.3060710193843563), u'nsamples': 300}, u'all': {u'spearman': {u'wmean': 0.06238670871340675, u'mean': 0.05928066153743744}, u'pearson': {u'wmean': 0.00803810332609306, u'mean': 0.018194934702763562}}, u'deft-forum': {u'spearman': SpearmanrResult(correlation=0.0584103322652579, pvalue=0.21620588601604018), u'pearson': (0.08351667422589648, 0.07675685605364674), u'nsamples': 450}, u'OnWN': {u'spearman': SpearmanrResult(correlation=0.06573989572290069, pvalue=0.07197044956882018), u'pearson': (-0.04957256686905589, 0.17504504733692933), u'nsamples': 750}, u'tweet-news': {u'spearman': SpearmanrResult(correlation=0.12779583259549582, pvalue=0.00045082680913770723), u'pearson': (0.04750812146963357, 0.19372874766084555), u'nsamples': 750}, u'images': {u'spearman': SpearmanrResult(correlation=-0.12467753409628507, pvalue=0.0006213927463229832), u'pearson': (-0.10280588206352544, 0.004828929177412335), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.19443828815144246, pvalue=7.99078507560841e-08), u'pearson': (0.07123589162737017, 0.05116429655553253), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 9.19585800171 seconds
+All done.

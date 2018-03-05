@@ -1,0 +1,36 @@
+/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 00:40:08,127 : ***** Transfer task : SICK-Relatedness*****
+
+
+2018-03-05 00:40:08,256 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 00:40:12.606206: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 00:40:12.853142: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.2155
+pciBusID: 0000:04:00.0
+totalMemory: 11.92GiB freeMemory: 11.81GiB
+2018-03-05 00:40:12.853175: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:04:00.0, compute capability: 5.2)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 00:40:13,262 : Computing embedding for test
+2018-03-05 00:45:15,181 : Computed test embeddings
+2018-03-05 00:45:15,181 : Computing embedding for train
+2018-03-05 00:49:48,737 : Computed train embeddings
+2018-03-05 00:49:48,737 : Computing embedding for dev
+2018-03-05 00:50:20,253 : Computed dev embeddings
+Sentences will be padded to length 36.
+2018-03-05 00:54:23,729 : Dev : Pearson 0.840307172495
+2018-03-05 00:54:23,730 : Test : Pearson 0.833804452349 Spearman 0.760809492814 MSE 0.310512241851                        for SICK Relatedness
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SICKRelatedness:
+{u'spearman': 0.7608094928144444, u'pearson': 0.8338044523487488, u'yhat': array([2.83533892, 4.07215676, 1.0104118 , ..., 2.95904431, 4.70144912,
+       4.85220342]), u'devpearson': 0.8403071724954237, u'mse': 0.3105122418505993, u'ntest': 4927, u'ndev': 500}
+
+
+Real time taken to evaluate: 856.212631941 seconds
+All done.

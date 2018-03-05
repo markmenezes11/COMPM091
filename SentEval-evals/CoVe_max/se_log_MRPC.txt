@@ -1,0 +1,52 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+10810
+lockfile in use
+10809
+lockfile in use
+11813
+lockfile in use
+gpufree
+GPU 1 free, Using GPU 1 
+gonzo-605-8.local
+Mon Mar  5 00:53:42 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   38C    P2    62W / 250W |  10697MiB / 11172MiB |     18%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  On   | 00000000:03:00.0 Off |                  N/A |
+| 30%   43C    P8    17W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  On   | 00000000:81:00.0 Off |                  N/A |
+| 23%   41C    P2    56W / 250W |  10899MiB / 11172MiB |      3%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  On   | 00000000:82:00.0 Off |                  N/A |
+| 23%   30C    P2    58W / 250W |  10697MiB / 11172MiB |     15%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0     12134      C   python                                     10687MiB |
+|    2     11650      C   python                                     10889MiB |
+|    3     12506      C   python                                     10687MiB |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "1"
+Sentences will be padded to length 41.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR MRPC:
+{u'acc': 73.28, u'f1': 80.96, u'ntest': 1725, u'devacc': 74.53, u'ndev': 4076}
+
+
+Real time taken to evaluate: 764.288410902 seconds
+All done.

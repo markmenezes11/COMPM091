@@ -1,0 +1,18 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m2018-03-05 01:44:04,239 : ***** Transfer task : SICK-Entailment*****
+
+
+2018-03-05 01:44:04,412 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 01:44:27,656 : Computing embedding for test
+2018-03-05 01:44:33,284 : Computed test embeddings
+2018-03-05 01:44:33,284 : Computing embedding for train
+2018-03-05 01:44:38,437 : Computed train embeddings
+2018-03-05 01:44:38,437 : Computing embedding for dev
+2018-03-05 01:44:39,018 : Computed dev embeddings
+2018-03-05 01:44:39,075 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-03-05 01:45:04,719 : [(u'reg:1e-05', 61.6), (u'reg:0.0001', 61.6), (u'reg:0.001', 61.6), (u'reg:0.01', 61.6)]
+2018-03-05 01:45:04,719 : Validation : best param found is reg = 1e-05 with score             61.6
+2018-03-05 01:45:04,720 : Evaluating...
+2018-03-05 01:45:10,079 : 
+Dev acc : 61.6 Test acc : 57.05 for                        SICK entailment
+

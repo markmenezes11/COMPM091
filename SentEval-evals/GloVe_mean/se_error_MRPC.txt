@@ -1,0 +1,15 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m2018-03-05 01:53:05,514 : ***** Transfer task : MRPC *****
+
+
+2018-03-05 01:53:05,738 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 01:53:09,289 : Computing embedding for test
+2018-03-05 01:53:09,833 : Computed test embeddings
+2018-03-05 01:53:09,833 : Computing embedding for train
+2018-03-05 01:53:11,125 : Computed train embeddings
+2018-03-05 01:53:11,179 : Training pytorch-MLP-nhid0-adam-bs64 with 5-fold cross-validation
+2018-03-05 01:56:14,905 : [(u'reg:1e-05', 74.24), (u'reg:0.0001', 74.24), (u'reg:0.001', 74.14), (u'reg:0.01', 73.97)]
+2018-03-05 01:56:14,906 : Cross-validation : best param found is reg = 1e-05             with score 74.24
+2018-03-05 01:56:14,906 : Evaluating...
+2018-03-05 01:56:23,029 : Dev acc : 74.24 Test acc 72.41; Test F1 80.63 for MRPC.
+

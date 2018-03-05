@@ -1,0 +1,15 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m2018-03-05 01:49:50,195 : ***** Transfer task : MR *****
+
+
+2018-03-05 01:49:50,412 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 01:49:54,767 : Generating sentence embeddings
+2018-03-05 01:49:57,090 : Generated sentence embeddings
+2018-03-05 01:49:57,091 : Training pytorch-MLP-nhid0-adam-bs64 with (inner) 5-fold cross-validation
+2018-03-05 01:57:33,457 : Best param found at split 1: l2reg = 1e-05                 with score 77.84
+2018-03-05 02:05:26,241 : Best param found at split 2: l2reg = 1e-05                 with score 77.87
+2018-03-05 02:13:27,796 : Best param found at split 3: l2reg = 0.0001                 with score 77.9
+2018-03-05 02:22:36,440 : Best param found at split 4: l2reg = 1e-05                 with score 77.54
+2018-03-05 02:30:58,409 : Best param found at split 5: l2reg = 0.001                 with score 77.9
+2018-03-05 02:31:15,697 : Dev acc : 77.81 Test acc : 76.91
+

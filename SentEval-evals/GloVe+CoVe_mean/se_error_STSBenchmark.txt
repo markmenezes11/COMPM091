@@ -1,0 +1,27 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/home/mmenezes/.local/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+Using TensorFlow backend.
+2018-03-05 01:42:45,448 : 
+
+***** Transfer task : STSBenchmark*****
+
+
+2018-03-05 01:42:45,691 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 01:42:56.794119: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-03-05 01:42:57.436142: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:03:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-03-05 01:42:57.436178: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:03:00.0, compute capability: 6.1)
+/usr/local/lib/python2.7/dist-packages/keras/models.py:255: UserWarning: No training configuration found in save file: the model was *not* compiled. Compile it manually.
+  warnings.warn('No training configuration found in save file: '
+2018-03-05 01:42:59,317 : Computing embedding for test
+2018-03-05 01:44:33,910 : Computed test embeddings
+2018-03-05 01:44:33,911 : Computing embedding for train
+2018-03-05 01:51:16,846 : Computed train embeddings
+2018-03-05 01:51:16,847 : Computing embedding for dev
+2018-03-05 01:53:16,536 : Computed dev embeddings
+2018-03-05 01:56:49,898 : Dev : Pearson 0.775458037091
+2018-03-05 01:56:49,899 : Test : Pearson 0.725422903542 Spearman 0.717462166006 MSE 1.36365922995                        for SICK Relatedness
+

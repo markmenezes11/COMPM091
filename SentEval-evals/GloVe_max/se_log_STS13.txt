@@ -1,0 +1,21 @@
+2018-03-05 02:06:43,017 : ***** Transfer task : STS13 (-SMT) *****
+
+
+2018-03-05 02:06:43,055 : Loading vectors from .vector_cache/glove.840B.300d.txt.pt
+2018-03-05 02:06:46,806 : FNWN : pearson = 0.0583, spearman = -0.0223
+2018-03-05 02:06:47,578 : headlines : pearson = 0.1442, spearman = 0.1497
+2018-03-05 02:06:48,108 : OnWN : pearson = -0.0566, spearman = 0.0539
+2018-03-05 02:06:48,109 : ALL (weighted average) : Pearson = 0.0583,             Spearman = 0.0922
+2018-03-05 02:06:48,109 : ALL (average) : Pearson = 0.0486,             Spearman = 0.0604
+
+Sentences will be padded to length 81.
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS13:
+{u'OnWN': {u'spearman': SpearmanrResult(correlation=0.05390810760242262, pvalue=0.20233882482270402), u'pearson': (-0.05659287711027946, 0.18073016185045682), u'nsamples': 561}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.149699649222069, pvalue=3.853854817176168e-05), u'pearson': (0.14419857215656973, 7.39566550256006e-05), u'nsamples': 750}, u'FNWN': {u'spearman': SpearmanrResult(correlation=-0.02225888594599698, pvalue=0.7611151624292707), u'pearson': (0.058322073250109484, 0.42536061522539603), u'nsamples': 189}, u'all': {u'spearman': {u'wmean': 0.09220683722514494, u'mean': 0.06044962362616488}, u'pearson': {u'wmean': 0.058282131268554145, u'mean': 0.04864258943213325}}}
+
+
+Real time taken to evaluate: 5.35250115395 seconds
+All done.
