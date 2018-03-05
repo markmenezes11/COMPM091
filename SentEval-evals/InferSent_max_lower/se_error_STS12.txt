@@ -1,0 +1,16 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-05 23:15:31,523 : ***** Transfer task : STS12 *****
+
+
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_max_lower/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+2018-03-05 23:16:08,816 : MSRpar : pearson = 0.3998, spearman = 0.4216
+2018-03-05 23:16:09,434 : MSRvid : pearson = 0.8361, spearman = 0.8403
+2018-03-05 23:16:09,958 : SMTeuroparl : pearson = 0.4714, spearman = 0.5913
+2018-03-05 23:16:10,926 : surprise.OnWN : pearson = 0.6451, spearman = 0.6254
+2018-03-05 23:16:11,475 : surprise.SMTnews : pearson = 0.6079, spearman = 0.5468
+2018-03-05 23:16:11,476 : ALL (weighted average) : Pearson = 0.6016,             Spearman = 0.6129
+2018-03-05 23:16:11,476 : ALL (average) : Pearson = 0.5921,             Spearman = 0.6051
+

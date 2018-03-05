@@ -1,0 +1,17 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-05 23:16:26,520 : ***** Transfer task : TREC *****
+
+
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_max_lower/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+2018-03-05 23:16:34,183 : Computed train embeddings
+2018-03-05 23:16:34,368 : Computed test embeddings
+2018-03-05 23:16:34,369 : Training pytorch-MLP-nhid0-adam-bs64 with 5-fold cross-validation
+2018-03-05 23:19:27,162 : [(u'reg:1e-05', 84.37), (u'reg:0.0001', 84.46), (u'reg:0.001', 84.7), (u'reg:0.01', 83.64)]
+2018-03-05 23:19:27,163 : Cross-validation : best param found is reg = 0.001             with score 84.7
+2018-03-05 23:19:27,163 : Evaluating...
+2018-03-05 23:19:34,341 : 
+Dev acc : 84.7 Test acc : 90.8             for TREC
+

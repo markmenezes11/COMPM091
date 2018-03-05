@@ -1,0 +1,21 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-05 23:18:48,054 : ***** Transfer task : SST Binary classification *****
+
+
+2018-03-05 23:18:52,141 : Computing embedding for test
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_mean/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+2018-03-05 23:18:54,626 : Computed test embeddings
+2018-03-05 23:18:54,626 : Computing embedding for train
+2018-03-05 23:19:14,055 : Computed train embeddings
+2018-03-05 23:19:14,055 : Computing embedding for dev
+2018-03-05 23:19:14,616 : Computed dev embeddings
+2018-03-05 23:19:14,616 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-03-05 23:22:50,187 : [(u'reg:1e-05', 80.96), (u'reg:0.0001', 80.96), (u'reg:0.001', 80.96), (u'reg:0.01', 80.62)]
+2018-03-05 23:22:50,187 : Validation : best param found is reg = 1e-05 with score             80.96
+2018-03-05 23:22:50,188 : Evaluating...
+2018-03-05 23:23:43,841 : 
+Dev acc : 80.96 Test acc : 81.77 for             SST Binary classification
+

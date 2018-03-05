@@ -1,0 +1,47 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+9692
+lockfile in use
+gpufree
+GPU 0 free, Using GPU 0 
+gonzo-605-19.local
+Mon Mar  5 23:18:40 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  TITAN X (Pascal)    On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   28C    P8    15W / 250W |      0MiB / 12189MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  TITAN X (Pascal)    On   | 00000000:03:00.0 Off |                  N/A |
+| 23%   25C    P8    16W / 250W |     10MiB / 12189MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  TITAN X (Pascal)    On   | 00000000:81:00.0 Off |                  N/A |
+| 23%   26C    P8    16W / 250W |      0MiB / 12189MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  TITAN X (Pascal)    On   | 00000000:82:00.0 Off |                  N/A |
+| 23%   25C    P8    16W / 250W |      0MiB / 12189MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "0"
+Found 20797(/22638) words with glove vectors
+Vocab size : 20797
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SUBJ:
+{u'acc': 90.87, u'ntest': 10000, u'devacc': 91.5, u'ndev': 10000}
+
+
+Real time taken to evaluate: 920.168199778 seconds
+All done.

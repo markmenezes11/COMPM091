@@ -1,0 +1,21 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-05 23:15:13,951 : ***** Transfer task : SICK-Entailment*****
+
+
+2018-03-05 23:16:05,257 : Computing embedding for test
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_max_lower/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+2018-03-05 23:16:11,644 : Computed test embeddings
+2018-03-05 23:16:11,645 : Computing embedding for train
+2018-03-05 23:16:15,317 : Computed train embeddings
+2018-03-05 23:16:15,317 : Computing embedding for dev
+2018-03-05 23:16:15,846 : Computed dev embeddings
+2018-03-05 23:16:16,150 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-03-05 23:16:44,626 : [(u'reg:1e-05', 86.0), (u'reg:0.0001', 86.0), (u'reg:0.001', 86.0), (u'reg:0.01', 86.0)]
+2018-03-05 23:16:44,627 : Validation : best param found is reg = 1e-05 with score             86.0
+2018-03-05 23:16:44,627 : Evaluating...
+2018-03-05 23:16:51,017 : 
+Dev acc : 86.0 Test acc : 86.4 for                        SICK entailment
+

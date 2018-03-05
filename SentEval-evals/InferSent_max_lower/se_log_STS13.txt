@@ -1,0 +1,47 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+17345
+lockfile in use
+gpufree
+GPU 1 free, Using GPU 1 
+gonzo-605-12.local
+Mon Mar  5 23:16:52 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   38C    P2    59W / 250W |  10957MiB / 11172MiB |     12%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  On   | 00000000:03:00.0 Off |                  N/A |
+| 23%   29C    P8    17W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  On   | 00000000:81:00.0 Off |                  N/A |
+| 23%   26C    P8    15W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  On   | 00000000:82:00.0 Off |                  N/A |
+| 23%   22C    P8    17W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0     17782      C   python                                     10947MiB |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "1"
+Found 4957(/5153) words with glove vectors
+Vocab size : 4957
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS13:
+{u'OnWN': {u'spearman': SpearmanrResult(correlation=0.728480066987424, pvalue=6.913745762676715e-94), u'pearson': (0.7305451483013226, 1.1394317857163255e-94), u'nsamples': 561}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.6856077225718124, pvalue=3.086973382708884e-105), u'pearson': (0.6900986916773062, 3.819144795570533e-107), u'nsamples': 750}, u'FNWN': {u'spearman': SpearmanrResult(correlation=0.3484360948519104, pvalue=8.956680531321719e-07), u'pearson': (0.34477405216693696, 1.1845411139177382e-06), u'nsamples': 189}, u'all': {u'spearman': {u'wmean': 0.6591583542905435, u'mean': 0.5875079614703823}, u'pearson': {u'wmean': 0.6617147618763817, u'mean': 0.5884726307151885}}}
+
+
+Real time taken to evaluate: 10.0324959755 seconds
+All done.

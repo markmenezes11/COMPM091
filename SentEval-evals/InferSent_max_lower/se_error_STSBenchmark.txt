@@ -1,0 +1,19 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-05 23:15:40,110 : 
+
+***** Transfer task : STSBenchmark*****
+
+
+2018-03-05 23:16:05,258 : Computing embedding for test
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_max_lower/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+2018-03-05 23:16:08,625 : Computed test embeddings
+2018-03-05 23:16:08,625 : Computing embedding for train
+2018-03-05 23:16:13,102 : Computed train embeddings
+2018-03-05 23:16:13,103 : Computing embedding for dev
+2018-03-05 23:16:14,529 : Computed dev embeddings
+2018-03-05 23:16:51,637 : Dev : Pearson 0.807810434427
+2018-03-05 23:16:51,637 : Test : Pearson 0.756763112913 Spearman 0.752848749077 MSE 1.21883433644                        for SICK Relatedness
+

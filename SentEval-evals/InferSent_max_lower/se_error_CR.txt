@@ -1,0 +1,18 @@
+[33mWARNING: Skipping user bind, non existent bind point (file) in container: '/usr/bin/nvidia-smi'
+[0m/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-05 23:16:01,742 : ***** Transfer task : CR *****
+
+
+2018-03-05 23:16:05,236 : Generating sentence embeddings
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_max_lower/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+2018-03-05 23:16:08,716 : Generated sentence embeddings
+2018-03-05 23:16:08,717 : Training pytorch-MLP-nhid0-adam-bs64 with (inner) 5-fold cross-validation
+2018-03-05 23:17:11,267 : Best param found at split 1: l2reg = 0.001                 with score 87.68
+2018-03-05 23:18:19,451 : Best param found at split 2: l2reg = 0.0001                 with score 86.92
+2018-03-05 23:19:26,182 : Best param found at split 3: l2reg = 1e-05                 with score 87.12
+2018-03-05 23:20:29,597 : Best param found at split 4: l2reg = 0.001                 with score 86.73
+2018-03-05 23:21:41,602 : Best param found at split 5: l2reg = 0.01                 with score 87.12
+2018-03-05 23:21:44,452 : Dev acc : 87.11 Test acc : 86.7
+

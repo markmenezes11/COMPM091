@@ -1,0 +1,49 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+14060
+lockfile in use
+4867
+lockfile in use
+gpufree
+GPU 2 free, Using GPU 2 
+gonzo-605-20.local
+Mon Mar  5 23:16:00 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  TITAN X (Pascal)    On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   27C    P8    16W / 250W |    485MiB / 12189MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  TITAN X (Pascal)    On   | 00000000:03:00.0 Off |                  N/A |
+| 23%   24C    P8    15W / 250W |     10MiB / 12189MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  TITAN X (Pascal)    On   | 00000000:81:00.0 Off |                  N/A |
+| 23%   23C    P8    15W / 250W |      0MiB / 12189MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  TITAN X (Pascal)    On   | 00000000:82:00.0 Off |                  N/A |
+| 23%   25C    P8    17W / 250W |      0MiB / 12189MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0     14244      C   python                                       475MiB |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "2"
+Found 8596(/9118) words with glove vectors
+Vocab size : 8596
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS14:
+{u'deft-news': {u'spearman': SpearmanrResult(correlation=0.6315473197667285, pvalue=8.514008616252004e-35), u'pearson': (0.647448684834387, 4.924701851584891e-37), u'nsamples': 300}, u'all': {u'spearman': {u'wmean': 0.5924826665148278, u'mean': 0.5789838040692626}, u'pearson': {u'wmean': 0.5963162117211084, u'mean': 0.5841937623307891}}, u'deft-forum': {u'spearman': SpearmanrResult(correlation=0.3314027499534993, pvalue=5.375108072250718e-13), u'pearson': (0.3377807611963996, 1.798279593605135e-13), u'nsamples': 450}, u'OnWN': {u'spearman': SpearmanrResult(correlation=0.6686675214829603, pvalue=2.4208634080832892e-98), u'pearson': (0.6057783976082095, 2.5993951463624017e-76), u'nsamples': 750}, u'tweet-news': {u'spearman': SpearmanrResult(correlation=0.613595110646598, pvalue=8.812815723295827e-79), u'pearson': (0.625494382734761, 1.1212667533393135e-82), u'nsamples': 750}, u'images': {u'spearman': SpearmanrResult(correlation=0.6689639297702076, pvalue=1.850366793277815e-98), u'pearson': (0.688406898503575, 2.016742558978318e-106), u'nsamples': 750}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.5597261927955824, pvalue=4.656317687098577e-63), u'pearson': (0.6002534491074021, 1.3169682383840473e-74), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 26.3800060749 seconds
+All done.

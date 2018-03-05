@@ -1,0 +1,49 @@
+Starting Prolog
+GPNODE
+REQUESTED 1 GPUS
+33589
+lockfile in use
+11367
+lockfile in use
+gpufree
+GPU 0 free, Using GPU 0 
+gonzo-605-15.local
+Mon Mar  5 23:22:08 2018       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 387.26                 Driver Version: 387.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  On   | 00000000:02:00.0 Off |                  N/A |
+| 23%   28C    P8    16W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  On   | 00000000:03:00.0 Off |                  N/A |
+| 23%   24C    P8    16W / 250W |     10MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  On   | 00000000:81:00.0 Off |                  N/A |
+| 23%   41C    P2    59W / 250W |   7225MiB / 11172MiB |     17%   E. Process |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  On   | 00000000:82:00.0 Off |                  N/A |
+| 23%   22C    P8    15W / 250W |      0MiB / 11172MiB |      0%   E. Process |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    2     11749      C   python                                      7215MiB |
++-----------------------------------------------------------------------------+
+CUDA_VISIBLE_DEVICES: "0"
+Found 3827(/3973) words with glove vectors
+Vocab size : 3827
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS16:
+{u'all': {u'spearman': {u'wmean': 0.601280862554249, u'mean': 0.5984523146356787}, u'pearson': {u'wmean': 0.5690103298176474, u'mean': 0.5672877814074203}}, u'plagiarism': {u'spearman': SpearmanrResult(correlation=0.6053958051995723, pvalue=2.1679411410303193e-24), u'pearson': (0.6142178496404401, 3.032480394224112e-25), u'nsamples': 230}, u'answer-answer': {u'spearman': SpearmanrResult(correlation=0.48484033390217146, pvalue=2.2188889114249948e-16), u'pearson': (0.4478360872866568, 6.227812025546245e-14), u'nsamples': 254}, u'postediting': {u'spearman': SpearmanrResult(correlation=0.7625268958056377, pvalue=1.1424273408378827e-47), u'pearson': (0.6728673477451864, 1.5847543006788108e-33), u'nsamples': 244}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.6629216476767195, pvalue=6.822128375463482e-33), u'pearson': (0.6357240912886372, 1.3464811966403188e-29), u'nsamples': 249}, u'question-question': {u'spearman': SpearmanrResult(correlation=0.4765768905942931, pvalue=3.0044719840868625e-13), u'pearson': (0.4657935310761808, 1.1870382784114952e-12), u'nsamples': 209}}
+
+
+Real time taken to evaluate: 9.74053311348 seconds
+All done.
