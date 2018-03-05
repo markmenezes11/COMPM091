@@ -1,0 +1,1290 @@
+
+
+##############################################################
+########################## SUMMARY: ##########################
+##############################################################
+
+TRANSFER TASK: SSTBinary_lower
+
+   EMBEDDINGS TYPE: InferSent
+
+      BEST TEST ACCURACY (IGNORING DEV ACCURACY - ***NOT A GOOD METRIC FOR FINAL RESULTS***):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.753440366972
+         Test Accuracy: 0.839099395936
+
+      BEST DEV ACCURACY (AND ITS CORRESPONDING TEST ACCURACY):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.830275229358
+         Test Accuracy: 0.814936847886
+
+   EMBEDDINGS TYPE: CoVe
+
+      BEST TEST ACCURACY (IGNORING DEV ACCURACY - ***NOT A GOOD METRIC FOR FINAL RESULTS***):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.86123853211
+         Test Accuracy: 0.884129599121
+
+      BEST DEV ACCURACY (AND ITS CORRESPONDING TEST ACCURACY):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.864678899083
+         Test Accuracy: 0.874794069193
+
+TRANSFER TASK: SSTBinary
+
+   EMBEDDINGS TYPE: InferSent
+
+      BEST TEST ACCURACY (IGNORING DEV ACCURACY - ***NOT A GOOD METRIC FOR FINAL RESULTS***):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.725917431193
+         Test Accuracy: 0.841295991214
+
+      BEST DEV ACCURACY (AND ITS CORRESPONDING TEST ACCURACY):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.830275229358
+         Test Accuracy: 0.822075782537
+
+   EMBEDDINGS TYPE: CoVe
+
+      BEST TEST ACCURACY (IGNORING DEV ACCURACY - ***NOT A GOOD METRIC FOR FINAL RESULTS***):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.81995412844
+         Test Accuracy: 0.874794069193
+
+      BEST DEV ACCURACY (AND ITS CORRESPONDING TEST ACCURACY):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.869266055046
+         Test Accuracy: 0.872597473915
+
+TRANSFER TASK: SSTFine_lower
+
+   EMBEDDINGS TYPE: InferSent
+
+      BEST TEST ACCURACY (IGNORING DEV ACCURACY - ***NOT A GOOD METRIC FOR FINAL RESULTS***):
+         Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.425068119891
+         Test Accuracy: 0.428054298643
+
+      BEST DEV ACCURACY (AND ITS CORRESPONDING TEST ACCURACY):
+         Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.425068119891
+         Test Accuracy: 0.428054298643
+
+   EMBEDDINGS TYPE: CoVe
+
+      BEST TEST ACCURACY (IGNORING DEV ACCURACY - ***NOT A GOOD METRIC FOR FINAL RESULTS***):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.460490463215
+         Test Accuracy: 0.486425339367
+
+      BEST DEV ACCURACY (AND ITS CORRESPONDING TEST ACCURACY):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.478655767484
+         Test Accuracy: 0.47963800905
+
+TRANSFER TASK: SSTFine
+
+   EMBEDDINGS TYPE: InferSent
+
+      BEST TEST ACCURACY (IGNORING DEV ACCURACY - ***NOT A GOOD METRIC FOR FINAL RESULTS***):
+         Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.438692098093
+         Test Accuracy: 0.437104072398
+
+      BEST DEV ACCURACY (AND ITS CORRESPONDING TEST ACCURACY):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.439600363306
+         Test Accuracy: 0.424886877828
+
+   EMBEDDINGS TYPE: CoVe
+
+      BEST TEST ACCURACY (IGNORING DEV ACCURACY - ***NOT A GOOD METRIC FOR FINAL RESULTS***):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.473206176203
+         Test Accuracy: 0.485067873303
+
+      BEST DEV ACCURACY (AND ITS CORRESPONDING TEST ACCURACY):
+         Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+         Dev Accuracy: 0.473206176203
+         Test Accuracy: 0.485067873303
+
+
+##############################################################
+######################## RAW RESULTS: ########################
+##############################################################
+
+TRANSFER TASK: SSTBinary_lower
+
+   EMBEDDINGS TYPE: InferSent
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.747706422018
+      Test Accuracy: 0.767160900604
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.485091743119
+      Test Accuracy: 0.49203734212
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.794724770642
+      Test Accuracy: 0.825370675453
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.485091743119
+      Test Accuracy: 0.49203734212
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.801605504587
+      Test Accuracy: 0.825370675453
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.485091743119
+      Test Accuracy: 0.49203734212
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.553899082569
+      Test Accuracy: 0.581548599671
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.729357798165
+      Test Accuracy: 0.763316858869
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.771788990826
+      Test Accuracy: 0.792421746293
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.553899082569
+      Test Accuracy: 0.566721581549
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.692660550459
+      Test Accuracy: 0.716090060406
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.807339449541
+      Test Accuracy: 0.831960461285
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.730504587156
+      Test Accuracy: 0.717188358045
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.764908256881
+      Test Accuracy: 0.736408566722
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.799311926606
+      Test Accuracy: 0.784733662823
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.56995412844
+      Test Accuracy: 0.562328390994
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.830275229358
+      Test Accuracy: 0.814936847886
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.827981651376
+      Test Accuracy: 0.820977484898
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.811926605505
+      Test Accuracy: 0.803953871499
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.516055045872
+      Test Accuracy: 0.502471169687
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.643348623853
+      Test Accuracy: 0.629324546952
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.788990825688
+      Test Accuracy: 0.799560680945
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.821100917431
+      Test Accuracy: 0.82756727073
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.794724770642
+      Test Accuracy: 0.793520043932
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.606651376147
+      Test Accuracy: 0.668314113125
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.663990825688
+      Test Accuracy: 0.735859417902
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.715596330275
+      Test Accuracy: 0.806699615596
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.747706422018
+      Test Accuracy: 0.826468973092
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.748853211009
+      Test Accuracy: 0.814936847886
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.753440366972
+      Test Accuracy: 0.82756727073
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.719036697248
+      Test Accuracy: 0.790225151016
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.452981651376
+      Test Accuracy: 0.49203734212
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.715596330275
+      Test Accuracy: 0.796265788029
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.746559633028
+      Test Accuracy: 0.829763866008
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.753440366972
+      Test Accuracy: 0.839099395936
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.733944954128
+      Test Accuracy: 0.816035145524
+
+   EMBEDDINGS TYPE: CoVe
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.814220183486
+      Test Accuracy: 0.84459088413
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.816513761468
+      Test Accuracy: 0.857770455794
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.829128440367
+      Test Accuracy: 0.857770455794
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.792431192661
+      Test Accuracy: 0.82811641955
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.83371559633
+      Test Accuracy: 0.879187259747
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.831422018349
+      Test Accuracy: 0.863811092806
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.810779816514
+      Test Accuracy: 0.84404173531
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.821100917431
+      Test Accuracy: 0.85282811642
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.829128440367
+      Test Accuracy: 0.859967051071
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.813073394495
+      Test Accuracy: 0.847336628226
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.829128440367
+      Test Accuracy: 0.862163646348
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.815366972477
+      Test Accuracy: 0.862163646348
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.821100917431
+      Test Accuracy: 0.826468973092
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.776376146789
+      Test Accuracy: 0.755628775398
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.856651376147
+      Test Accuracy: 0.864360241625
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.862385321101
+      Test Accuracy: 0.859967051071
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.864678899083
+      Test Accuracy: 0.874794069193
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.846330275229
+      Test Accuracy: 0.850082372323
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.855504587156
+      Test Accuracy: 0.859417902252
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.81995412844
+      Test Accuracy: 0.816584294344
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.813073394495
+      Test Accuracy: 0.820428336079
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.839449541284
+      Test Accuracy: 0.858868753432
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.86123853211
+      Test Accuracy: 0.884129599121
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.855504587156
+      Test Accuracy: 0.854475562878
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.751146788991
+      Test Accuracy: 0.841295991214
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.75
+      Test Accuracy: 0.850082372323
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.767201834862
+      Test Accuracy: 0.866556836903
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.77752293578
+      Test Accuracy: 0.866007688083
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.76376146789
+      Test Accuracy: 0.866556836903
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.751146788991
+      Test Accuracy: 0.823723228995
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.760321100917
+      Test Accuracy: 0.859417902252
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.720183486239
+      Test Accuracy: 0.805601317957
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.761467889908
+      Test Accuracy: 0.872048325096
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.766055045872
+      Test Accuracy: 0.874244920373
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.756880733945
+      Test Accuracy: 0.859967051071
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.747706422018
+      Test Accuracy: 0.851180669962
+
+TRANSFER TASK: SSTBinary
+
+   EMBEDDINGS TYPE: InferSent
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.75
+      Test Accuracy: 0.771554091159
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.567660550459
+      Test Accuracy: 0.559582646897
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.740825688073
+      Test Accuracy: 0.768259198243
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.761467889908
+      Test Accuracy: 0.796265788029
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.75
+      Test Accuracy: 0.757825370675
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.799311926606
+      Test Accuracy: 0.827018121911
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.595183486239
+      Test Accuracy: 0.612300933553
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.506880733945
+      Test Accuracy: 0.510708401977
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.792431192661
+      Test Accuracy: 0.822624931356
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.784403669725
+      Test Accuracy: 0.83635365184
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.797018348624
+      Test Accuracy: 0.825370675453
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.463302752294
+      Test Accuracy: 0.48325096101
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.772935779817
+      Test Accuracy: 0.758923668314
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.5
+      Test Accuracy: 0.482701812191
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.829128440367
+      Test Accuracy: 0.830862163646
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.698394495413
+      Test Accuracy: 0.691927512356
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.830275229358
+      Test Accuracy: 0.822075782537
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.81995412844
+      Test Accuracy: 0.837451949478
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.518348623853
+      Test Accuracy: 0.494233937397
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.590596330275
+      Test Accuracy: 0.572762218561
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.830275229358
+      Test Accuracy: 0.832509610104
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.696100917431
+      Test Accuracy: 0.688083470621
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.797018348624
+      Test Accuracy: 0.790225151016
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.829128440367
+      Test Accuracy: 0.825370675453
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.646788990826
+      Test Accuracy: 0.701263042284
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.571100917431
+      Test Accuracy: 0.654036243822
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.675458715596
+      Test Accuracy: 0.768808347062
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.389908256881
+      Test Accuracy: 0.48325096101
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.714449541284
+      Test Accuracy: 0.830862163646
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.490825688073
+      Test Accuracy: 0.500823723229
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.682339449541
+      Test Accuracy: 0.798462383306
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.389908256881
+      Test Accuracy: 0.48325096101
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.706422018349
+      Test Accuracy: 0.820428336079
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.627293577982
+      Test Accuracy: 0.732564524986
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.725917431193
+      Test Accuracy: 0.841295991214
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.713302752294
+      Test Accuracy: 0.829214717188
+
+   EMBEDDINGS TYPE: CoVe
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.799311926606
+      Test Accuracy: 0.838550247117
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.463302752294
+      Test Accuracy: 0.48325096101
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.81880733945
+      Test Accuracy: 0.859417902252
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.825688073394
+      Test Accuracy: 0.863261943987
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.829128440367
+      Test Accuracy: 0.862163646348
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.81995412844
+      Test Accuracy: 0.874794069193
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.816513761468
+      Test Accuracy: 0.86875343218
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.772935779817
+      Test Accuracy: 0.804503020319
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.809633027523
+      Test Accuracy: 0.842394288852
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.799311926606
+      Test Accuracy: 0.835255354201
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.829128440367
+      Test Accuracy: 0.869302580999
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.817660550459
+      Test Accuracy: 0.85282811642
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.853211009174
+      Test Accuracy: 0.84459088413
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.807339449541
+      Test Accuracy: 0.790774299835
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.850917431193
+      Test Accuracy: 0.863261943987
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.854357798165
+      Test Accuracy: 0.863261943987
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.858944954128
+      Test Accuracy: 0.866556836903
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.856651376147
+      Test Accuracy: 0.86875343218
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.846330275229
+      Test Accuracy: 0.863261943987
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.689220183486
+      Test Accuracy: 0.692476661175
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.855504587156
+      Test Accuracy: 0.856123009336
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.836009174312
+      Test Accuracy: 0.845140032949
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.869266055046
+      Test Accuracy: 0.872597473915
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.854357798165
+      Test Accuracy: 0.866007688083
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.741972477064
+      Test Accuracy: 0.86106534871
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.407110091743
+      Test Accuracy: 0.496430532674
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.746559633028
+      Test Accuracy: 0.868204283361
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.73623853211
+      Test Accuracy: 0.845689181768
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.748853211009
+      Test Accuracy: 0.867105985722
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.393348623853
+      Test Accuracy: 0.485996705107
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.731651376147
+      Test Accuracy: 0.845689181768
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.649082568807
+      Test Accuracy: 0.751235584843
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.745412844037
+      Test Accuracy: 0.854475562878
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.75
+      Test Accuracy: 0.861614497529
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.733944954128
+      Test Accuracy: 0.846787479407
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.759174311927
+      Test Accuracy: 0.858868753432
+
+TRANSFER TASK: SSTFine_lower
+
+   EMBEDDINGS TYPE: InferSent
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.311534968211
+      Test Accuracy: 0.274660633484
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.413260672116
+      Test Accuracy: 0.381900452489
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.354223433243
+      Test Accuracy: 0.362443438914
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.255222524977
+      Test Accuracy: 0.233936651584
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.30881017257
+      Test Accuracy: 0.291402714932
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.268846503179
+      Test Accuracy: 0.272850678733
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.328792007266
+      Test Accuracy: 0.344343891403
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.322434150772
+      Test Accuracy: 0.310859728507
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.425068119891
+      Test Accuracy: 0.428054298643
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.295186194369
+      Test Accuracy: 0.248416289593
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.379654859219
+      Test Accuracy: 0.366968325792
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.313351498638
+      Test Accuracy: 0.31628959276
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.278837420527
+      Test Accuracy: 0.249321266968
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.260672116258
+      Test Accuracy: 0.286877828054
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.297910990009
+      Test Accuracy: 0.323529411765
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.257039055404
+      Test Accuracy: 0.284162895928
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.32970027248
+      Test Accuracy: 0.306787330317
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.249772933697
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.384196185286
+      Test Accuracy: 0.366063348416
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.260672116258
+      Test Accuracy: 0.286425339367
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.378746594005
+      Test Accuracy: 0.37556561086
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.249772933697
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.417801998183
+      Test Accuracy: 0.410407239819
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.360581289737
+      Test Accuracy: 0.38371040724
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.342415985468
+      Test Accuracy: 0.376470588235
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.262488646685
+      Test Accuracy: 0.249321266968
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.373297002725
+      Test Accuracy: 0.400452488688
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.246139872843
+      Test Accuracy: 0.257013574661
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.368755676658
+      Test Accuracy: 0.41628959276
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.233424159855
+      Test Accuracy: 0.228959276018
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.27974568574
+      Test Accuracy: 0.306334841629
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.269754768392
+      Test Accuracy: 0.261085972851
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.298819255223
+      Test Accuracy: 0.296832579186
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.354223433243
+      Test Accuracy: 0.385972850679
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.344232515895
+      Test Accuracy: 0.36742081448
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.233424159855
+      Test Accuracy: 0.228959276018
+
+   EMBEDDINGS TYPE: CoVe
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.455949137148
+      Test Accuracy: 0.44479638009
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.373297002725
+      Test Accuracy: 0.370135746606
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.427792915531
+      Test Accuracy: 0.438914027149
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.260672116258
+      Test Accuracy: 0.280542986425
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.454132606721
+      Test Accuracy: 0.467873303167
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.256130790191
+      Test Accuracy: 0.233936651584
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.454132606721
+      Test Accuracy: 0.472398190045
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.382379654859
+      Test Accuracy: 0.423981900452
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.431425976385
+      Test Accuracy: 0.445701357466
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.433242506812
+      Test Accuracy: 0.442986425339
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.410535876476
+      Test Accuracy: 0.400452488688
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.259763851045
+      Test Accuracy: 0.280995475113
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.439600363306
+      Test Accuracy: 0.464253393665
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.301544050863
+      Test Accuracy: 0.307239819005
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.405086285195
+      Test Accuracy: 0.447511312217
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.425068119891
+      Test Accuracy: 0.429411764706
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.415077202543
+      Test Accuracy: 0.416742081448
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.460490463215
+      Test Accuracy: 0.486425339367
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.314259763851
+      Test Accuracy: 0.280995475113
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.3851044505
+      Test Accuracy: 0.406787330317
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.462306993642
+      Test Accuracy: 0.464705882353
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.35876475931
+      Test Accuracy: 0.39185520362
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.433242506812
+      Test Accuracy: 0.477375565611
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.478655767484
+      Test Accuracy: 0.47963800905
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.324250681199
+      Test Accuracy: 0.35520361991
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.233424159855
+      Test Accuracy: 0.228959276018
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.420526793824
+      Test Accuracy: 0.464253393665
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.298819255223
+      Test Accuracy: 0.348416289593
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.437783832879
+      Test Accuracy: 0.478733031674
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.436875567666
+      Test Accuracy: 0.43665158371
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.35876475931
+      Test Accuracy: 0.398190045249
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.297002724796
+      Test Accuracy: 0.284615384615
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.369663941871
+      Test Accuracy: 0.364253393665
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.417801998183
+      Test Accuracy: 0.428959276018
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.429609445958
+      Test Accuracy: 0.453393665158
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.375113533152
+      Test Accuracy: 0.398190045249
+
+TRANSFER TASK: SSTFine
+
+   EMBEDDINGS TYPE: InferSent
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.309718437784
+      Test Accuracy: 0.272850678733
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.266121707539
+      Test Accuracy: 0.242986425339
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.388737511353
+      Test Accuracy: 0.406334841629
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.354223433243
+      Test Accuracy: 0.342081447964
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.295186194369
+      Test Accuracy: 0.319909502262
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.391462306994
+      Test Accuracy: 0.385520361991
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.379654859219
+      Test Accuracy: 0.410407239819
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.359673024523
+      Test Accuracy: 0.361085972851
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.345140781108
+      Test Accuracy: 0.282352941176
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.426884650318
+      Test Accuracy: 0.414479638009
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.262488646685
+      Test Accuracy: 0.286425339367
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.360581289737
+      Test Accuracy: 0.377375565611
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.349682107175
+      Test Accuracy: 0.364705882353
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.38782924614
+      Test Accuracy: 0.40407239819
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.438692098093
+      Test Accuracy: 0.437104072398
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.337874659401
+      Test Accuracy: 0.371040723982
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.366030881017
+      Test Accuracy: 0.419457013575
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.259763851045
+      Test Accuracy: 0.239366515837
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.346049046322
+      Test Accuracy: 0.350226244344
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.289736603088
+      Test Accuracy: 0.255656108597
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.372388737511
+      Test Accuracy: 0.347511312217
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.254314259764
+      Test Accuracy: 0.231221719457
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.405086285195
+      Test Accuracy: 0.391402714932
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.297910990009
+      Test Accuracy: 0.296832579186
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.386920980926
+      Test Accuracy: 0.362443438914
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.326067211626
+      Test Accuracy: 0.341628959276
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.39055404178
+      Test Accuracy: 0.4
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.439600363306
+      Test Accuracy: 0.424886877828
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.339691189827
+      Test Accuracy: 0.401357466063
+
+   EMBEDDINGS TYPE: CoVe
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.460490463215
+      Test Accuracy: 0.471945701357
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.372388737511
+      Test Accuracy: 0.414027149321
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.441416893733
+      Test Accuracy: 0.471040723982
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.394187102634
+      Test Accuracy: 0.416742081448
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.44323342416
+      Test Accuracy: 0.471945701357
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.360581289737
+      Test Accuracy: 0.376470588235
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.35876475931
+      Test Accuracy: 0.366063348416
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.377838328792
+      Test Accuracy: 0.411312217195
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.378746594005
+      Test Accuracy: 0.378280542986
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.473206176203
+      Test Accuracy: 0.485067873303
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 64, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.418710263397
+      Test Accuracy: 0.416742081448
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.409627611262
+      Test Accuracy: 0.427601809955
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.343324250681
+      Test Accuracy: 0.415837104072
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.375113533152
+      Test Accuracy: 0.343891402715
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.44050862852
+      Test Accuracy: 0.476923076923
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.447774750227
+      Test Accuracy: 0.476470588235
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.427792915531
+      Test Accuracy: 0.426696832579
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.424159854678
+      Test Accuracy: 0.434841628959
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.413260672116
+      Test Accuracy: 0.417647058824
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.448683015441
+      Test Accuracy: 0.454751131222
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.444141689373
+      Test Accuracy: 0.461990950226
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.465940054496
+      Test Accuracy: 0.459728506787
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 32, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.453224341508
+      Test Accuracy: 0.477828054299
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.392370572207
+      Test Accuracy: 0.415384615385
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.300635785649
+      Test Accuracy: 0.307692307692
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.407811080836
+      Test Accuracy: 0.437104072398
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.262488646685
+      Test Accuracy: 0.286425339367
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.435059037239
+      Test Accuracy: 0.443438914027
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': True, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.404178019982
+      Test Accuracy: 0.415837104072
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.323342415985
+      Test Accuracy: 0.43665158371
+
+      Hyperparameters: {'dropout_ratio': 0.1, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.38782924614
+      Test Accuracy: 0.392760180995
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.405994550409
+      Test Accuracy: 0.417647058824
+
+      Hyperparameters: {'dropout_ratio': 0.2, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.35876475931
+      Test Accuracy: 0.428054298643
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 2, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.407811080836
+      Test Accuracy: 0.466063348416
+
+      Hyperparameters: {'dropout_ratio': 0.3, 'bilstm_encoder_n_hidden': 300, 'maxout_reduction': 4, 'learning_rate': 0.001, 'adam_beta1': 0.9, 'batch_size': 128, 'n_epochs': 20, 'bilstm_integrate_forget_bias': 1.0, 'same_bilstm_for_encoder': False, 'adam_beta2': 0.999, 'bilstm_encoder_forget_bias': 1.0, 'bn_decay': 0.999, 'optimizer': 'adam', 'bilstm_integrate_n_hidden': 300, 'adam_epsilon': 1e-08, 'bn_epsilon': 0.001}
+      Dev Accuracy: 0.25340599455
+      Test Accuracy: 0.230769230769
