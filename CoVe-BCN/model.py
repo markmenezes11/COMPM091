@@ -233,34 +233,46 @@ class BCN:
                                    lambda: batch_norm_training(),
                                    lambda: tf.nn.batch_normalization(inputs, pop_mean, pop_var, beta, scale, epsilon))
 
-            maxout_inputs1 = tf.layers.dropout(joined, rate=self.params['dropout_ratio'], training=is_training)
-            bn1 = batch_norm(maxout_inputs1, self.params['bn_decay'], self.params['bn_epsilon'], "bn1")
+            # Maxout layer 1: Dropout, batch norm, D->D fully-connected layer, D->(D/(2 or 4 or 8)) maxout
+            dp1 = tf.layers.dropout(joined, rate=self.params['dropout_ratio'], training=is_training)
+            bn1 = batch_norm(dp1, self.params['bn_decay'], self.params['bn_epsilon'], "bn1")
             assert dimensions_equal(bn1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
+            maxout_weight1 = tf.get_variable("maxout_weight1", shape=[self.params['bilstm_integrate_n_hidden']*2*4*2,
+                                                                      self.params['bilstm_integrate_n_hidden']*2*4*2],
+                                             initializer=tf.random_uniform_initializer(-self.W_init, self.W_init))
+            maxout_bias1 = tf.get_variable("maxout_bias1", shape=[self.params['bilstm_integrate_n_hidden']*2*4*2],
+                                           initializer=tf.constant_initializer(self.b_init))
             maxout_dim1 = (self.params['bilstm_integrate_n_hidden']*2*4*2) / self.params['maxout_reduction']
-            maxout_outputs1 = maxout_patched(bn1, maxout_dim1)
+            maxout_outputs1 = maxout_patched((tf.matmul(bn1, maxout_weight1) + maxout_bias1), maxout_dim1)
             assert dimensions_equal(maxout_outputs1.shape, (self.params['batch_size'], maxout_dim1))
 
-            maxout_inputs2 = tf.layers.dropout(maxout_outputs1, rate=self.params['dropout_ratio'], training=is_training)
-            bn2 = batch_norm(maxout_inputs2, self.params['bn_decay'], self.params['bn_epsilon'], "bn2")
+            # Maxout layer 2: Dropout, batch norm, D->D fully-connected layer, D->(D/2) maxout
+            dp2 = tf.layers.dropout(maxout_outputs1, rate=self.params['dropout_ratio'], training=is_training)
+            bn2 = batch_norm(dp2, self.params['bn_decay'], self.params['bn_epsilon'], "bn2")
             assert dimensions_equal(bn2.shape, (self.params['batch_size'], maxout_dim1))
-            maxout_dim2 = maxout_dim1 / self.params['maxout_reduction']
-            maxout_outputs2 = maxout_patched(bn2, maxout_dim2)
+            maxout_weight2 = tf.get_variable("maxout_weight2", shape=[maxout_dim1, maxout_dim1],
+                                             initializer=tf.random_uniform_initializer(-self.W_init, self.W_init))
+            maxout_bias2 = tf.get_variable("maxout_bias2", shape=[maxout_dim1],
+                                           initializer=tf.constant_initializer(self.b_init))
+            maxout_dim2 = maxout_dim1 / 2
+            maxout_outputs2 = maxout_patched((tf.matmul(bn2, maxout_weight2) + maxout_bias2), maxout_dim2)
             assert dimensions_equal(maxout_outputs2.shape, (self.params['batch_size'], maxout_dim2))
 
-            maxout_inputs3 = tf.layers.dropout(maxout_outputs2, rate=self.params['dropout_ratio'], training=is_training)
-            bn3 = batch_norm(maxout_inputs3, self.params['bn_decay'], self.params['bn_epsilon'], "bn3")
-            assert dimensions_equal(bn3.shape, (self.params['batch_size'], maxout_dim2))
-            maxout_dim3 = maxout_dim2 / 2
-            maxout_outputs3 = maxout_patched(bn3, maxout_dim3)
+            # Maxout layer 3: Dropout, D->D maxout
+            dp3 = tf.layers.dropout(maxout_outputs2, rate=self.params['dropout_ratio'], training=is_training)
+            assert dimensions_equal(dp3.shape, (self.params['batch_size'], maxout_dim2))
+            maxout_dim3 = maxout_dim2
+            maxout_outputs3 = maxout_patched(dp3, maxout_dim3)
             assert dimensions_equal(maxout_outputs3.shape, (self.params['batch_size'], maxout_dim3))
 
+            # SoftMax layer: D->n_classes fully-connected layer, SoftMax
             softmax_weight = tf.get_variable("softmax_weight", shape=[maxout_dim3, self.n_classes],
                                              initializer=tf.random_uniform_initializer(-self.W_init, self.W_init))
             softmax_bias = tf.get_variable("softmax_bias", shape=[self.n_classes],
                                            initializer=tf.constant_initializer(self.b_init))
             logits = (tf.matmul(maxout_outputs3, softmax_weight) + softmax_bias)
-
             cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels)
+
             cost = tf.reduce_mean(cross_entropy)
 
             if self.params['optimizer'] == "adam":
