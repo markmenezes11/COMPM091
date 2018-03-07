@@ -185,7 +185,7 @@ class BCN:
             assert dimensions_equal(pool_outputs1.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4))
             assert dimensions_equal(pool_outputs2.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4))
 
-        # Maxout network (3 batch-normalised maxout layers, followed by a softmax)
+        # Maxout network (2 batch-normalised maxout layers, followed by a softmax)
         with tf.variable_scope("maxout"):
             joined = tf.concat([pool_outputs1, pool_outputs2], 1)
             assert dimensions_equal(joined.shape, (self.params['batch_size'], self.params['bilstm_integrate_n_hidden']*2*4*2))
@@ -258,19 +258,14 @@ class BCN:
             maxout_outputs2 = maxout_patched((tf.matmul(bn2, maxout_weight2) + maxout_bias2), maxout_dim2)
             assert dimensions_equal(maxout_outputs2.shape, (self.params['batch_size'], maxout_dim2))
 
-            # Maxout layer 3: Dropout, D->D maxout
+            # SoftMax layer: Dropout, D->n_classes fully-connected layer, SoftMax
             dp3 = tf.layers.dropout(maxout_outputs2, rate=self.params['dropout_ratio'], training=is_training)
             assert dimensions_equal(dp3.shape, (self.params['batch_size'], maxout_dim2))
-            maxout_dim3 = maxout_dim2
-            maxout_outputs3 = maxout_patched(dp3, maxout_dim3)
-            assert dimensions_equal(maxout_outputs3.shape, (self.params['batch_size'], maxout_dim3))
-
-            # SoftMax layer: D->n_classes fully-connected layer, SoftMax
-            softmax_weight = tf.get_variable("softmax_weight", shape=[maxout_dim3, self.n_classes],
+            softmax_weight = tf.get_variable("softmax_weight", shape=[maxout_dim2, self.n_classes],
                                              initializer=tf.random_uniform_initializer(-self.W_init, self.W_init))
             softmax_bias = tf.get_variable("softmax_bias", shape=[self.n_classes],
                                            initializer=tf.constant_initializer(self.b_init))
-            logits = (tf.matmul(maxout_outputs3, softmax_weight) + softmax_bias)
+            logits = (tf.matmul(dp3, softmax_weight) + softmax_bias)
             cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels)
 
             cost = tf.reduce_mean(cross_entropy)
