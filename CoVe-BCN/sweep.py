@@ -35,34 +35,34 @@ Parameters to sweep. If you are using Singularity, all paths must be the ones th
 n_epochs = [20]
 
 # Batch size (int)
-batch_size = [32, 64, 128] # TODO: Tune this if there is enough time ############################################################
+batch_size = [32, 64, 128] # TODO: Tune this if needed
 
 # Whether or not to use the same BiLSTM (when flag is set) or separate BiLSTMs (flag unset) for the encoder
-same_bilstm_for_encoder = [True, False] # TODO: Tune this as either True or False ######################################
+same_bilstm_for_encoder = [True, False] # TODO: Tune this as True or False as it is unclear in CoVe paper ##############
 
 # Number of hidden states in encoder's BiLSTM(s) (int)
 bilstm_encoder_n_hidden = [300]
 
 # Forget bias for encoder's BiLSTM(s) (float)
-bilstm_encoder_forget_bias = [1.0] # TODO: Tune this if needed
+bilstm_encoder_forget_bias = [1.0]
 
 # Number of hidden states in integrate's BiLSTMs (int)
 bilstm_integrate_n_hidden = [300]
 
 # Forget bias for integrate's BiLSTMs (float)
-bilstm_integrate_forget_bias = [1.0] # TODO: Tune this if needed
+bilstm_integrate_forget_bias = [1.0]
 
 # Ratio for dropout applied before Feedforward Network and before each Batch Norm (float)
-dropout_ratio = [0.1, 0.2, 0.3] # TODO: Tune this as either 0.1, 0.2 or 0.3 ############################################
+dropout_ratio = [0.1, 0.2, 0.3] # TODO: Tune this as 0.1, 0.2 or 0.3  as done in CoVe paper ############################
 
 # On the first and second maxout layers, the dimensionality is divided by this number (int)
-maxout_reduction = [2, 4, 8] # TODO: Tune this as either 2, 4 or 8 #####################################################
+maxout_reduction = [2, 4, 8] # TODO: Tune this as 2, 4 or 8 as done in CoVe paper ######################################
 
 # Decay for each batch normalisation layer (float)
-bn_decay = [0.999] # TODO: Tune this if needed
+bn_decay = [0.999, 0.99, 0.9] # TODO: Tune this if needed
 
 # Epsilon for each batch normalisation layer (float)
-bn_epsilon = [1e-3] # TODO: Tune this if needed
+bn_epsilon = [1e-5]
 
 # Optimizer (adam or gradientdescent)
 optimizer = ["adam"]
@@ -71,13 +71,13 @@ optimizer = ["adam"]
 learning_rate = [0.001]
 
 # Beta1 for adam optimiser if adam optimiser is used (float)
-adam_beta1 = [0.9] # TODO: Tune this if needed
+adam_beta1 = [0.9]
 
 # Beta2 for adam optimiser if adam optimiser is used (float)
-adam_beta2 = [0.999] # TODO: Tune this if needed
+adam_beta2 = [0.999]
 
 # Epsilon for adam optimiser if adam optimiser is used (float)
-adam_epsilon = [1e-8] # TODO: Tune this if needed
+adam_epsilon = [1e-8]
 
 """
 Model types (str: InferSent, CoVe)
