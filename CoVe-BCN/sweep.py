@@ -62,7 +62,7 @@ maxout_reduction = [2, 4, 8] # TODO: Tune this as 2, 4 or 8 as done in CoVe pape
 bn_decay = [0.999, 0.99, 0.9] # TODO: Tune this if needed
 
 # Epsilon for each batch normalisation layer (float)
-bn_epsilon = [1e-5]
+bn_epsilon = [1e-3, 1e-5]
 
 # Optimizer (adam or gradientdescent)
 optimizer = ["adam"]
