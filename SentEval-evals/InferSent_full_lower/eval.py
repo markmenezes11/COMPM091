@@ -51,7 +51,7 @@ def prepare(params, samples):
 
 def batcher(params, batch):
     embeddings = []
-    max_sent_len = params.max_sent_len  # Looks like we have to force this to allow padded sentences for SentEval to work
+    max_sent_len = params.max_sent_len + 2  # Looks like we have to force this to allow padded sentences for SentEval to work
     for raw_sentence in batch:
         sentence = [word.lower() for word in raw_sentence]
         vector_list = params.infersent.encode([' '.join(sentence)], bsize=1, tokenize=False)[0]
@@ -61,8 +61,9 @@ def batcher(params, batch):
         for vector in vector_list:
             for num in vector:
                 embedding.append(num)
-        for pad in range((max_sent_len - len(sentence)) * 4096):
+        for pad in range((max_sent_len - vector_list.shape[0]) * 4096):
             embedding.append(0.0)
+        embeddings.append(np.array([embedding]))
     embeddings = np.vstack(embeddings)
     return embeddings
 
