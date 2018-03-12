@@ -1,4 +1,4 @@
-# Training and Evaluating Sentence Representations 
+# Training and Evaluating Sentence Representations
 
 This repository contains the code created/used for my MEng Computer Science Undergraduate Final Year Individual Projct (COMPM091).
 
@@ -146,3 +146,9 @@ python cove_bcn.py
 - Conneau, A  et al. (Jul 2017). "Supervised Learning of Universal Sentence Representations from Natural Language Inference Data". [online]. Available at: https://arxiv.org/pdf/1705.02364.pdf
 - McCann, B et al. (Aug 2017). "Learned in Translation: Contextualized Word Vectors". [online]. Available at: https://arxiv.org/pdf/1708.00107.pdf
 - Pennington, J, Socher, R and Manning, C. (2014). "GloVe: Global Vectors for Word Representation". [online]. Available at: https://nlp.stanford.edu/pubs/glove.pdf
+- Martin Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Ian Goodfellow, Andrew Harp, Geoffrey Irving, Michael Isard, Rafal Jozefowicz, Yangqing Jia, Lukasz Kaiser, Manjunath Kudlur, Josh Levenberg, Dan Mane, Mike Schuster, Rajat Monga, Sherry Moore, Derek Murray, Chris Olah, Jonathon Shlens, Benoit Steiner, Ilya Sutskever, Kunal Talwar, Paul Tucker, Vincent Vanhoucke, Vijay Vasudevan, Fernanda Viegas, Oriol Vinyals, Pete Warden, Martin Wattenberg, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. TensorFlow: Large-scale machine learning on heterogeneous systems, 2015. Software available from tensorflow.org.
+- Pytorch. [online]. Available at: https://github.com/pytorch/pytorch
+- Keras: Chollet, Francois et al. Keras. https://github.com/keras-team/keras, 2015.
+- Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang, Christopher Manning, Andrew Ng and Christopher Potts. 2013. Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank. In Conference on Empirical Methods in Natural Language Processing (EMNLP 2013).
+
+Libraries and algorithms are referenced in the files they are used.

@@ -1,6 +1,29 @@
-# CoVe is taken from:
-# B. McCann, J. Bradbury, C. Xiong, R. Socher, Learned in Translation: Contextualized Word Vectors
-# https://github.com/salesforce/cove
+# This file makes use of the InferSent, SentEval and CoVe libraries, and may contain adapted code from the repositories
+# containing these libraries. Their licenses can be found in <this-repository>/Licenses.
+#
+# InferSent and SentEval:
+#   Copyright (c) 2017-present, Facebook, Inc. All rights reserved.
+#   InferSent repository: https://github.com/facebookresearch/InferSent
+#   SentEval repository: https://github.com/facebookresearch/SentEval
+#   Reference: Conneau, Alexis, Kiela, Douwe, Schwenk, Holger, Barrault, Loic, and Bordes, Antoine. Supervised learning
+#              of universal sentence representations from natural language inference data. In Proceedings of the 2017
+#              Conference on Empirical Methods in Natural Language Processing, pp. 670-680. Association for
+#              Computational Linguistics, 2017.
+#
+# CoVe:
+#   Copyright (c) 2017, Salesforce.com, Inc. All rights reserved.
+#   Repository: https://github.com/salesforce/cove
+#   Reference: McCann, Bryan, Bradbury, James, Xiong, Caiming, and Socher, Richard. Learned in translation:
+#              Contextualized word vectors. In Advances in Neural Information Processing Systems 30, pp, 6297-6308.
+#              Curran Associates, Inc., 2017.
+#
+# This code also makes use of TensorFlow: Martin Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig
+# Citro, Greg S. Corrado, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Ian Goodfellow, Andrew Harp,
+# Geoffrey Irving, Michael Isard, Rafal Jozefowicz, Yangqing Jia, Lukasz Kaiser, Manjunath Kudlur, Josh Levenberg, Dan
+# Mane, Mike Schuster, Rajat Monga, Sherry Moore, Derek Murray, Chris Olah, Jonathon Shlens, Benoit Steiner, Ilya
+# Sutskever, Kunal Talwar, Paul Tucker, Vincent Vanhoucke, Vijay Vasudevan, Fernanda Viegas, Oriol Vinyals, Pete Warden,
+# Martin Wattenberg, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. TensorFlow: Large-scale machine learning on
+# heterogeneous systems, 2015. Software available from tensorflow.org.
 #
 
 import sys
@@ -192,8 +215,12 @@ class BCN:
 
             # tf.contrib.layers.maxout wrongly outputs a tensor of unknown shape.
             # I have wrapped it in this function to fix that. Source:
-            #   https://github.com/tensorflow/tensorflow/issues/16225
-            #   https://github.com/tensorflow/tensorflow/pull/16114/files
+            #   maxout lose the number of features in the shape of its output #16225. [online] Available at:
+            #     https://github.com/tensorflow/tensorflow/issues/16225
+            #     https://github.com/tensorflow/tensorflow/pull/16114/files
+            # Maxout Networks Reference: Goodfellow, Ian J., Warde-Farley, David, Mirza, Mehdi, Courville, Aaron C.,
+            # and Bengio, Yoshua. Maxout networks. In ICML, 2013.
+
             def maxout_patched(inputs, num_units, axis=-1, name=None):
                 try:
                     outputs = tf.contrib.layers.maxout(inputs, num_units, axis, name)
@@ -210,11 +237,15 @@ class BCN:
                 return outputs
 
             # This batch_norm_wrapper function was taken from:
-            #   https://r2rt.com/implementing-batch-normalization-in-tensorflow.html
+            #   R2RT. Implementing Batch Normalization in Tensorflow. [online]. Available at:
+            #     https://r2rt.com/implementing-batch-normalization-in-tensorflow.html
             # This is a simpler version of Tensorflow's 'official' version. See:
             #   https://github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/layers/python/layers/layers.py#L102
             # The other batch norm functions provided by TensorFlow do not work properly at this time of writing:
-            #   https://github.com/tensorflow/tensorflow/issues/14357
+            #   Following instructions in batch_normalization docs produces an exception. [online]. Available at:
+            #     https://github.com/tensorflow/tensorflow/issues/14357
+            # Batch Normalisation Reference: Ioffe, Sergey and Szegedy, Christian. Batch normalization: Accelerating
+            # deep network training by reducing internal covariate shift. In ICML, 2015.
             def batch_norm(inputs, decay, epsilon, scope):
                 with tf.variable_scope(scope):
                     scale = tf.Variable(tf.ones([inputs.get_shape()[-1]]))

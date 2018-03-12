@@ -1,13 +1,25 @@
-# Copyright (c) 2017-present, Facebook, Inc.
-# All rights reserved.
+# This file makes use of the InferSent, SentEval and CoVe libraries, and may contain adapted code from the repositories
+# containing these libraries. Their licenses can be found in <this-repository>/Licenses.
 #
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of the InferSent and SentEval
-# source trees.
+# InferSent and SentEval:
+#   Copyright (c) 2017-present, Facebook, Inc. All rights reserved.
+#   InferSent repository: https://github.com/facebookresearch/InferSent
+#   SentEval repository: https://github.com/facebookresearch/SentEval
+#   Reference: Conneau, Alexis, Kiela, Douwe, Schwenk, Holger, Barrault, Loic, and Bordes, Antoine. Supervised learning
+#              of universal sentence representations from natural language inference data. In Proceedings of the 2017
+#              Conference on Empirical Methods in Natural Language Processing, pp. 670-680. Association for
+#              Computational Linguistics, 2017.
 #
-# The source code below is a modified version of source code from:
-# InferSent: https://github.com/facebookresearch/InferSent
-# SentEval: https://github.com/facebookresearch/SentEval
+# CoVe:
+#   Copyright (c) 2017, Salesforce.com, Inc. All rights reserved.
+#   Repository: https://github.com/salesforce/cove
+#   Reference: McCann, Bryan, Bradbury, James, Xiong, Caiming, and Socher, Richard. Learned in translation:
+#              Contextualized word vectors. In Advances in Neural Information Processing Systems 30, pp, 6297-6308.
+#              Curran Associates, Inc., 2017.
+#
+# This code also makes use of Keras: Chollet, Francois et al. Keras. https://github.com/keras-team/keras, 2015
+#
+# This code also makes use of PyTorch: Pytorch. [online]. Available at: https://github.com/pytorch/pytorch
 #
 
 from __future__ import absolute_import, division, unicode_literals

@@ -10,6 +10,20 @@ At this time of writing only CR, MPQA, MR, SICKEntailment, SICKRelatedness, SST2
 
 See original README below (although some of those features will not work in this version).
 
+# SentEval Reference
+
+Copyright (c) 2017-present, Facebook, Inc. All rights reserved.
+
+SentEval repository: https://github.com/facebookresearch/SentEval
+
+Conneau, Alexis, Kiela, Douwe, Schwenk, Holger, Barrault, Loic, and Bordes, Antoine. Supervised learning of universal sentence representations from natural language inference data. In Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing, pp. 670-680. Association for Computational Linguistics, 2017.
+
+# PyTorch Reference
+
+This code makes extensive use of PyTorch, although this PyTorch usage was all implemented by Conneau et al. as part of SentEval.
+
+Pytorch. [online]. Available at: https://github.com/pytorch/pytorch
+
 # SentEval: evaluation toolkit for sentence embeddings
 
 SentEval is a library for evaluating the quality of sentence embeddings. We assess their generalization power by using them as features on a broad and diverse set of "transfer" tasks. **SentEval currently includes 17 tasks**. Our goal is to ease the study and the development of general-purpose fixed-size sentence representations.

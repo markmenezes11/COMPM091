@@ -1,12 +1,26 @@
-# Copyright (c) 2017-present, Facebook, Inc.
-# All rights reserved.
+# This file makes use of the InferSent, SentEval and CoVe libraries, and may contain adapted code from the repositories
+# containing these libraries. Their licenses can be found in <this-repository>/Licenses.
 #
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of the SentEval source tree.
-# The license can also be found in the datasets folder.
+# InferSent and SentEval:
+#   Copyright (c) 2017-present, Facebook, Inc. All rights reserved.
+#   InferSent repository: https://github.com/facebookresearch/InferSent
+#   SentEval repository: https://github.com/facebookresearch/SentEval
+#   Reference: Conneau, Alexis, Kiela, Douwe, Schwenk, Holger, Barrault, Loic, and Bordes, Antoine. Supervised learning
+#              of universal sentence representations from natural language inference data. In Proceedings of the 2017
+#              Conference on Empirical Methods in Natural Language Processing, pp. 670-680. Association for
+#              Computational Linguistics, 2017.
 #
-# The source code below is a modified version of source code from:
-# SentEval: https://github.com/facebookresearch/SentEval
+# CoVe:
+#   Copyright (c) 2017, Salesforce.com, Inc. All rights reserved.
+#   Repository: https://github.com/salesforce/cove
+#   Reference: McCann, Bryan, Bradbury, James, Xiong, Caiming, and Socher, Richard. Learned in translation:
+#              Contextualized word vectors. In Advances in Neural Information Processing Systems 30, pp, 6297-6308.
+#              Curran Associates, Inc., 2017.
+#
+# This code also makes use of the Stanford SST dataset: Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang,
+# Christopher Manning, Andrew Ng and Christopher Potts. 2013. Recursive Deep Models for Semantic Compositionality Over a
+# Sentiment Treebank. In Conference on Empirical Methods in Natural Language Processing (EMNLP 2013).
+#
 
 import os
 import io
