@@ -1,0 +1,33 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-11 01:26:29,577 : ***** Transfer task : SST Fine-Grained classification *****
+
+
+2018-03-11 01:26:33,128 : Computing embedding for test
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_full/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Sentences will be padded to length 56.
+Found 18209(/19538) words with glove vectors
+Vocab size : 18209
+2018-03-11 01:28:04,702 : Computed test embeddings
+2018-03-11 01:28:04,702 : Computing embedding for train
+2018-03-11 01:34:02,249 : Computed train embeddings
+2018-03-11 01:34:02,249 : Computing embedding for dev
+2018-03-11 01:34:48,044 : Computed dev embeddings
+2018-03-11 01:34:55,404 : Training pytorch-MLP-nhid0-adam-bs64 with standard validation..
+2018-03-11 05:14:35,549 : [(u'reg:1e-05', 40.15), (u'reg:0.0001', 40.05), (u'reg:0.001', 39.96), (u'reg:0.01', 40.51)]
+2018-03-11 05:14:35,549 : Validation : best param found is reg = 0.01 with score             40.51
+2018-03-11 05:14:35,549 : Evaluating...
+2018-03-11 06:11:06,022 : 
+Dev acc : 40.51 Test acc : 38.37 for             SST Fine-Grained classification
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR SST5:
+{u'acc': 38.37, u'ntest': 2210, u'devacc': 40.51, u'ndev': 1101}
+
+
+Real time taken to evaluate: 17079.2631299 seconds
+All done.

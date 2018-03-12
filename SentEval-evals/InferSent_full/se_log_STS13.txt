@@ -1,0 +1,26 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-10 01:53:41,257 : ***** Transfer task : STS13 (-SMT) *****
+
+
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_full/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Sentences will be padded to length 81.
+Found 4957(/5153) words with glove vectors
+Vocab size : 4957
+2018-03-10 01:54:10,703 : FNWN : pearson = 0.1810, spearman = 0.1862
+2018-03-10 01:55:18,906 : headlines : pearson = 0.3315, spearman = 0.3263
+2018-03-10 01:56:10,359 : OnWN : pearson = -0.0473, spearman = 0.0140
+2018-03-10 01:56:10,359 : ALL (weighted average) : Pearson = 0.1708,             Spearman = 0.1919
+2018-03-10 01:56:10,360 : ALL (average) : Pearson = 0.1551,             Spearman = 0.1755
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS13:
+{u'OnWN': {u'spearman': SpearmanrResult(correlation=0.014049821409305264, pvalue=0.7398512547685159), u'pearson': (-0.047331081518485876, 0.2630615345545105), u'nsamples': 561}, u'headlines': {u'spearman': SpearmanrResult(correlation=0.32629032882343945, pvalue=4.5937406060003316e-20), u'pearson': (0.33149287274151223, 1.076930090995961e-20), u'nsamples': 750}, u'FNWN': {u'spearman': SpearmanrResult(correlation=0.18618360815137633, pvalue=0.010314922877733525), u'pearson': (0.18098823913233575, 0.012692311891776553), u'nsamples': 189}, u'all': {u'spearman': {u'wmean': 0.1918589322458733, u'mean': 0.17550791946137367}, u'pearson': {u'wmean': 0.1708491300135167, u'mean': 0.15505001011845404}}}
+
+
+Real time taken to evaluate: 151.593287945 seconds
+All done.

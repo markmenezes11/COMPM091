@@ -1,0 +1,28 @@
+/usr/local/lib/python2.7/dist-packages/torch/serialization.py:286: SourceChangeWarning: source code of class 'models.BLSTMEncoder' has changed. you can retrieve the original source code by accessing the object's source attribute or set `torch.nn.Module.dump_patches = True` and use the patch tool to revert the changes.
+  warnings.warn(msg, SourceChangeWarning)
+2018-03-10 01:50:23,161 : ***** Transfer task : STS12 *****
+
+
+/home/mmenezes/Dev/COMPM091/SentEval-evals/InferSent_full/models.py:53: UserWarning: RNN module weights are not part of single contiguous chunk of memory. This means they need to be compacted at every call, possibly greately increasing memory usage. To compact weights again call flatten_parameters().
+  sent_output = self.enc_lstm(sent_packed)[0]  # seqlen x batch x 2*nhid
+Sentences will be padded to length 41.
+Found 7792(/8129) words with glove vectors
+Vocab size : 7792
+2018-03-10 01:51:21,968 : MSRpar : pearson = 0.2244, spearman = 0.2485
+2018-03-10 01:52:02,666 : MSRvid : pearson = 0.2168, spearman = 0.2388
+2018-03-10 01:52:30,734 : SMTeuroparl : pearson = 0.3951, spearman = 0.4697
+2018-03-10 01:53:12,839 : surprise.OnWN : pearson = 0.4703, spearman = 0.5126
+2018-03-10 01:53:37,909 : surprise.SMTnews : pearson = 0.3251, spearman = 0.2747
+2018-03-10 01:53:37,909 : ALL (weighted average) : Pearson = 0.3200,             Spearman = 0.3459
+2018-03-10 01:53:37,909 : ALL (average) : Pearson = 0.3263,             Spearman = 0.3489
+
+
+
+SENTEVAL RESULTS:
+
+RESULTS FOR STS12:
+{u'all': {u'spearman': {u'wmean': 0.3459290582710681, u'mean': 0.34886548558489494}, u'pearson': {u'wmean': 0.3200239738186674, u'mean': 0.3263231909798993}}, u'surprise.OnWN': {u'spearman': SpearmanrResult(correlation=0.5126419823420584, pvalue=1.697991633921119e-51), u'pearson': (0.4702639661093833, 1.5652816019261504e-42), u'nsamples': 750}, u'surprise.SMTnews': {u'spearman': SpearmanrResult(correlation=0.2747175517579177, pvalue=2.4338112358492347e-08), u'pearson': (0.3251123223052343, 2.8254128800547634e-11), u'nsamples': 399}, u'SMTeuroparl': {u'spearman': SpearmanrResult(correlation=0.4696639078001625, pvalue=1.4653482874275238e-26), u'pearson': (0.39506196019610706, 1.3510093757223532e-18), u'nsamples': 459}, u'MSRvid': {u'spearman': SpearmanrResult(correlation=0.23878343678642813, pvalue=3.48412424594745e-11), u'pearson': (0.2168172637372046, 1.980618221219826e-09), u'nsamples': 750}, u'MSRpar': {u'spearman': SpearmanrResult(correlation=0.24852054923790798, pvalue=5.082521914686099e-12), u'pearson': (0.22436044255156748, 5.181811817571054e-10), u'nsamples': 750}}
+
+
+Real time taken to evaluate: 197.511786222 seconds
+All done.
