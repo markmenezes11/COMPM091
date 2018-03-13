@@ -266,7 +266,7 @@ def retry_failed_jobs(current_retry_):
                     wait_for_jobs(params.n_jobs, True)
                     qsub_helper = "qsub_helper.sh" # Can also use qsub_helper_long.sh for longer tasks but this is not needed yet
                     run_subprocess("qsub -cwd -o " + outputdir + "output" + str(current_retry_) + ".txt" +
-                                   " -e " + outputdir + "error.txt" + str(current_retry_) + "" +
+                                   " -e " + outputdir + "error" + str(current_retry_) + ".txt" +
                                    " " + qsub_helper + " " +
                                    params.singularitycommand + " python eval.py" +
                                    " --glovepath " + params.glovepath +
