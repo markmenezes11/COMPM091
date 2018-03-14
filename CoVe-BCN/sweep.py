@@ -30,7 +30,7 @@ Arguments
 
 parser = argparse.ArgumentParser(description='Parameter sweep script for the CoVe Biattentive Classification Network (BCN). Jobs are submitted on HPC using qsub.')
 
-parser.add_argument("--n_jobs", type=int, default=18, help="Maximum number of qsub jobs to be running simultaneously")
+parser.add_argument("--n_jobs", type=int, default=20, help="Maximum number of qsub jobs to be running simultaneously")
 parser.add_argument("--n_retries", type=int, default=7, help="Maximum number of retries for failed qsub jobs before giving up")
 
 parser.add_argument("--glovepath", type=str, default="/mnt/mmenezes/libs/InferSent/dataset/GloVe/glove.840B.300d.txt", help="Path to GloVe word embeddings. Download glove.840B.300d embeddings from https://nlp.stanford.edu/projects/glove/")
