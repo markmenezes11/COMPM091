@@ -11,6 +11,8 @@ The code for InferSent, SentEval and CoVe were cloned from the following reposit
 
 In the `libs.zip` file, you will find snapshots of these repositories - the versions of them that were used in my project, at this time of writing. If you have problems with any newer versions of these libraries, it is therefore recommended that you use the versions contained in `libs.zip`. 
 
+*Note: A CUDA-enabled GPU is required, and at least 16GB RAM is recommended to run most of the scripts. A small minority of scripts will need more than this, hence why they were run on UCL's HPC cluster.*
+
 
 
 
@@ -64,6 +66,12 @@ For "Run" instructions, see the relevant README(s) in the subfolder(s) within th
 - The `InferSent-sweep` folder contains code for performing a parameter sweep on InferSent, including training the InferSent model based on many different parameters, and evaluating the model using SentEval. The sweep script can either use qsub job submissions for running jobs in parallel or it can be run locally.
 - The `SentEval-evals` folder contains scripts and test results from evaluating InferSent (Conneau et al. (2017)), CoVe (McCann et al. (2017)) and GloVe (Pennington et al. (2014)) sentence representations using SentEval for evaluation on various transfer tasks.
 - The `Utils` folder contains helper scripta, for example for displaying RAM usage, for giving summaries based on lots of results files, and for manipulating datasets.
+
+Also have a look at the `qsub_helper` scripts in these folders if you want to use `qsub` to submit HPC jobs. They can mostly be run using `qsub <qsub-params> <qsub_helper-script> <command>`. The <command> bit can use singularity by running the `singularity exec` command instead of `singularity run`. For example:
+
+```
+qsub -cwd -o $PWD/se_log_STS12.txt -e $PWD/se_error_STS12.txt ../qsub_helper.sh singularity exec --nv --bind /cluster/project2/ishi_storage_1:/mnt /cluster/project2/ishi_storage_1/mmenezes/markmenezes11-COMPM091-master.simg python eval.py --transfertask STS12
+```
 
 
 
