@@ -55,41 +55,51 @@ def parse_results4(results):
     assert len(results) == 6
     return results
 
-def parse_results(dir, parsers):
-    printed_header = False
+def find_and_parse_results(root):
+    # Results are presented differently depending on the transfer task, so different parsers are needed
+    parsers = {"STS12": parse_results1, "STS13": parse_results1, "STS14": parse_results1, "STS15": parse_results1, "STS16": parse_results1,
+               "MR": parse_results2, "CR": parse_results2, "MPQA": parse_results2, "SUBJ": parse_results2,
+               "SST2": parse_results2, "SST5": parse_results2, "TREC": parse_results2, "MRPC": parse_results2,
+               "SNLI": parse_results2, "SICKEntailment": parse_results2,
+               "SICKRelatedness": parse_results3, "STSBenchmark": parse_results3,
+               "ImageCaptionRetrieval": parse_results4}
+    results = {}
+    def parse_results(dir):
+        for transfer_task in transfer_tasks:
+            path = os.path.join(dir, "se_results" + "_" + transfer_task + ".txt")
+            if os.path.exists(path):
+                with open(path, "r") as outputfile:
+                    lines = outputfile.readlines()
+                    parsed_results = parsers[transfer_task]("".join(lines).replace('\n', ' ').replace('\r', ''))
+                if dir not in results:
+                    results[dir] = {}
+                results[dir][transfer_task] = parsed_results
+    for subdir, dirs, files in os.walk(root):
+        parse_results(subdir)
+    return results
+
+results = find_and_parse_results(params.rootdir)
+
+print("\n\n##############################################################")
+print("########################## SUMMARY: ##########################")
+print("##############################################################")
+
+for transfer_task in transfer_tasks:
+    if transfer_task != "ImageCaptionRetrieval":
+        print("\n" + transfer_task + ":")
+        results_for_transfer_task = {}
+        for dir, transfer_tasks_ in results.iteritems():
+            if transfer_task in transfer_tasks_:
+                results_for_transfer_task[dir] = transfer_tasks_[transfer_task][0]
+        for key, val in sorted(results_for_transfer_task.items(), key=lambda x: x[1])[::-1]:
+            print("   " + str(val) + "  " + key)
+
+print("\n\n##############################################################")
+print("######################## RAW RESULTS: ########################")
+print("##############################################################")
+
+for dir, transfer_tasks_ in results.iteritems():
+    print("\nResults for: " + dir)
     for transfer_task in transfer_tasks:
-        outputslash = "" if dir[-1] == "/" else "/"
-        path = dir + outputslash + "se_results" + "_" + transfer_task + ".txt"
-        if os.path.exists(path):
-            if not printed_header:
-                print("\nResults for: " + dir)
-                printed_header = True
-            with open(path, "r") as outputfile:
-                lines = outputfile.readlines()
-                results = "".join(lines).replace('\n', ' ').replace('\r', '')
-                parsed_results = parsers[transfer_task](results)
-                print(transfer_task + ": " + str(parsed_results))
-                # TODO: Do something with the parsed results (e.g. LaTeX table, LaTeX graph)
-
-# Results are presented differently depending on the transfer task, so different parsers are needed
-parsers = {"STS12": parse_results1,
-           "STS13": parse_results1,
-           "STS14": parse_results1,
-           "STS15": parse_results1,
-           "STS16": parse_results1,
-           "MR": parse_results2,
-           "CR": parse_results2,
-           "MPQA": parse_results2,
-           "SUBJ": parse_results2,
-           "SST2": parse_results2,
-           "SST5": parse_results2,
-           "TREC": parse_results2,
-           "MRPC": parse_results2,
-           "SNLI": parse_results2,
-           "SICKEntailment": parse_results2,
-           "SICKRelatedness": parse_results3,
-           "STSBenchmark": parse_results3,
-           "ImageCaptionRetrieval": parse_results4}
-
-for subdir, dirs, files in os.walk(params.rootdir):
-    parse_results(subdir, parsers)
+        if transfer_task in transfer_tasks_:
+            print("   " + transfer_task + ":" + str(transfer_tasks_[transfer_task]))
