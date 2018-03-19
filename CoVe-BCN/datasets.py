@@ -21,6 +21,9 @@
 # Christopher Manning, Andrew Ng and Christopher Potts. 2013. Recursive Deep Models for Semantic Compositionality Over a
 # Sentiment Treebank. In Conference on Empirical Methods in Natural Language Processing (EMNLP 2013).
 #
+# This code also makes use of the TREC dataset:
+#   Xin Li, Dan Roth, Learning Question Classifiers. COLING'02, Aug., 2002.
+#   E. M. Voorhees and D. M. Tice. The TREC-8 question answering track evaluation. In TREC, volume 1999, page 82, 1999.
 
 import os
 import io

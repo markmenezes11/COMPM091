@@ -98,5 +98,7 @@ qsub -cwd -o $PWD/se_log_STS12.txt -e $PWD/se_error_STS12.txt ../qsub_helper.sh 
 - Pytorch. [online]. Available at: https://github.com/pytorch/pytorch.
 - Chollet, Francois et al. Keras. [online]. Available at: https://github.com/keras-team/keras, 2015.
 - Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang, Christopher Manning, Andrew Ng and Christopher Potts. 2013. Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank. In Conference on Empirical Methods in Natural Language Processing (EMNLP 2013).
+- Xin Li, Dan Roth, Learning Question Classifiers. COLING'02, Aug., 2002.
+- E. M. Voorhees and D. M. Tice. The TREC-8 question answering track evaluation. In TREC, volume 1999, page 82, 1999.
 
 Libraries and algorithms are referenced in the files they are used.
