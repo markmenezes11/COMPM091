@@ -101,8 +101,9 @@ print("\n\n##############################################################")
 print("########################### LATEX: ###########################")
 print("##############################################################")
 
-for transfer_task, embeddings_types in results.iteritems():
-    print("\nTRANSFER TASK: " + transfer_task)
+for transfer_task in sorted(results):
+    embeddings_types = results[transfer_task]
+    print("\nLaTeX Table code for: " + transfer_task)
     print("\\hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\\\")
     print("\\hline")
 
@@ -118,11 +119,43 @@ for transfer_task, embeddings_types in results.iteritems():
                 if result.get_dev_accuracy() > result_with_best_dev_accuracy.get_dev_accuracy():
                     result_with_best_dev_accuracy = result
 
-        table_row.append(str(result_with_best_test_accuracy.get_test_accuracy()))
-        table_row.append(str(result_with_best_dev_accuracy.get_dev_accuracy()))
-        table_row.append("\\textbf{" + str(result_with_best_dev_accuracy.get_test_accuracy()) + "}")
+        table_row.append(str(round(result_with_best_test_accuracy.get_test_accuracy(), 2)))
+        table_row.append(str(round(result_with_best_dev_accuracy.get_dev_accuracy(), 2)))
+        table_row.append("\\textbf{" + str(round(result_with_best_dev_accuracy.get_test_accuracy(), 2)) + "}")
         print("\\hline " + " & ".join(table_row) + " \\\\")
     print("\\hline")
+
+print("\nLaTeX Graph code:")
+print("symbolic x coords={" + ", ".join([x.replace("_lower", "\\textsubscript{lower}") for x in sorted(results)]) + "}")
+results_for_graph = {}
+for transfer_task in sorted(results):
+    embeddings_types = results[transfer_task]
+
+    for embeddings_type, results_ in embeddings_types.iteritems():
+        table_row = [embeddings_type.replace("CoVe", "GloVe+CoVe\\textsubscript{full}").replace("InferSent", "InferSent\\textsubscript{full}")]
+
+        result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+        result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+        for result in results_:
+            if not math.isnan(result.get_dev_accuracy()) and not math.isnan(result.get_test_accuracy()):
+                if result.get_test_accuracy() > result_with_best_test_accuracy.get_test_accuracy():
+                    result_with_best_test_accuracy = result
+                if result.get_dev_accuracy() > result_with_best_dev_accuracy.get_dev_accuracy():
+                    result_with_best_dev_accuracy = result
+
+        if embeddings_type not in results_for_graph:
+            results_for_graph[embeddings_type] = {}
+        results_for_graph[embeddings_type][transfer_task] = str(round(result_with_best_dev_accuracy.get_test_accuracy(), 2))
+
+colourNumber = 0
+for embeddings_type in sorted(results_for_graph):
+    tuples_for_graph = []
+    for transfer_task in sorted(results_for_graph[embeddings_type]):
+        tuples_for_graph.append((transfer_task, results_for_graph[embeddings_type][transfer_task]))
+    print("\\addplot[style={colour" + str(colourNumber) + ",fill=colour" + str(colourNumber) + ",mark=none}]\n" +
+          "    coordinates {" + " ".join(["(" + str(x[0].replace("_lower", "\\textsubscript{lower}")) + ", " + str(x[1]) + ")" for x in tuples_for_graph]) + "};")
+    colourNumber += 1
+print("\\legend{{" + "}, {".join([str(x).replace("CoVe", "GloVe+CoVe\\textsubscript{full}").replace("InferSent", "InferSent\\textsubscript{full}") for x in sorted(results_for_graph)]) + "}}")
 
 print("\n\n##############################################################")
 print("######################## RAW RESULTS: ########################")
