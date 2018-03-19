@@ -40,7 +40,7 @@ parser.add_argument("--outputdir", type=str, default='model', help="Path to the 
 parser.add_argument("--mode", type=int, default=0, help="0: Normal (train + test); 1: BCN model dry-run (just try creating the model and do nothing else); 2: Train + test dry-run (Load a smaller dataset and train + test on it)")
 
 parser.add_argument("--type", type=str, default="CoVe", help="What sentence embeddings to use (InferSent or CoVe). For CoVe, [GloVe(w)CoVe(w)] embeddings will be used.")
-parser.add_argument("--transfer_task", type=str, default="SSTBinary", help="Transfer task used for training BCN and evaluating predictions (e.g. SSTBinary, SSTFine, SSTBinary_lower, SSTFine_lower)")
+parser.add_argument("--transfer_task", type=str, default="SSTBinary", help="Transfer task used for training BCN and evaluating predictions (e.g. SSTBinary, SSTFine, SSTBinary_lower, SSTFine_lower, TREC6, TREC50, TREC6_lower, TREC50_lower)")
 
 parser.add_argument("--n_epochs", type=int, default=20, help="Number of epochs (int). After 5 epochs of worse dev accuracy, training will early stopped and the best epoch will be saved (based on dev accuracy).")
 parser.add_argument("--batch_size", type=int, default=64, help="Batch size (int)")
@@ -65,7 +65,7 @@ def str2bool(v):
   return v.lower() in ("yes", "true", "t", "1")
 
 from sentence_encoders import GloVeCoVeEncoder, InferSentEncoder
-from datasets import SSTBinaryDataset, SSTFineDataset, SSTBinaryLowerDataset, SSTFineLowerDataset
+from datasets import SSTBinaryDataset, SSTFineDataset, SSTBinaryLowerDataset, SSTFineLowerDataset, TREC6Dataset, TREC50Dataset, TREC6LowerDataset, TREC50LowerDataset
 from model import BCN
 
 """
@@ -129,7 +129,15 @@ elif args.transfer_task == "SSTBinary_lower":
     dataset = SSTBinaryLowerDataset(args.datadir, encoder, dry_run=(args.mode == 2))
 elif args.transfer_task == "SSTFine_lower":
     dataset = SSTFineLowerDataset(args.datadir, encoder, dry_run=(args.mode == 2))
-else: # TODO: Add more transfer tasks
+elif args.transfer_task == "TREC6":
+    dataset = TREC6Dataset(args.datadir, encoder, dry_run=(args.mode == 2))
+elif args.transfer_task == "TREC50":
+    dataset = TREC50Dataset(args.datadir, encoder, dry_run=(args.mode == 2))
+elif args.transfer_task == "TREC6_lower":
+    dataset = TREC6LowerDataset(args.datadir, encoder, dry_run=(args.mode == 2))
+elif args.transfer_task == "TREC50_lower":
+    dataset = TREC50LowerDataset(args.datadir, encoder, dry_run=(args.mode == 2))
+else:
     print("ERROR: Unknown transfer task. Set it correctly using the --transfer_task argument.")
     sys.exit(1)
 encoder = None

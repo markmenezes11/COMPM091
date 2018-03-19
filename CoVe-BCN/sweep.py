@@ -106,10 +106,10 @@ Model types (str: InferSent, CoVe)
 types = ["CoVe", "InferSent"]
 
 """
-Transfer tasks to be used for training BCN and evaluating predictions (str: "SSTBinary", "SSTFine", "SSTBinary_lower", "SSTFine_lower")
+Transfer tasks to be used for training BCN and evaluating predictions (str: "SSTBinary", "SSTFine", "SSTBinary_lower", "SSTFine_lower", "TREC6", "TREC50", "TREC6_lower", "TREC50_lower")
 """
 
-transfer_tasks = ["SSTBinary", "SSTFine", "SSTBinary_lower", "SSTFine_lower"]
+transfer_tasks = ["SSTBinary", "SSTFine", "SSTBinary_lower", "SSTFine_lower", "TREC6", "TREC50", "TREC6_lower", "TREC50_lower"]
 
 """
 Sweep helper functions
