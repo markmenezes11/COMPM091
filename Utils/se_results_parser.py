@@ -27,9 +27,9 @@ parser = argparse.ArgumentParser(description='Results parser for SentEval-evals'
 parser.add_argument("rootdir", type=str, help="Root directory where depth-first search will start")
 params, _ = parser.parse_known_args()
 
-transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16',
+transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark',
                   'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
-                  'SICKEntailment', 'SICKRelatedness', 'STSBenchmark', 'ImageCaptionRetrieval']
+                  'SICKEntailment', 'SICKRelatedness', 'ImageCaptionRetrieval']
 
 def parse_results1(results):
     match = re.compile("u'all':\s*.*?}}").findall(results)
@@ -85,14 +85,46 @@ print("########################## SUMMARY: ##########################")
 print("##############################################################")
 
 for transfer_task in transfer_tasks:
-    if transfer_task != "ImageCaptionRetrieval":
+    if transfer_task != "ImageCaptionRetrieval" and transfer_task != "SNLI":
         print("\n" + transfer_task + ":")
         results_for_transfer_task = {}
-        for dir, transfer_tasks_ in results.iteritems():
-            if transfer_task in transfer_tasks_:
-                results_for_transfer_task[dir] = transfer_tasks_[transfer_task][0]
+        for dir in sorted(results):
+            if transfer_task in results[dir]:
+                results_for_transfer_task[dir] = results[dir][transfer_task][0]
         for key, val in sorted(results_for_transfer_task.items(), key=lambda x: x[1])[::-1]:
             print("   " + str(val) + "  " + key)
+
+print("\n\n##############################################################")
+print("########################### LATEX: ###########################")
+print("##############################################################")
+
+def make_table(lower, sts_and_sst):
+    print("\nLaTeX Table code for lower=" + str(lower) + ", sts=" + str(sts_and_sst) + ":")
+    table_rows = []
+    included_transfer_tasks = [x for x in transfer_tasks if x != "ImageCaptionRetrieval" and x != "SNLI"
+                               and ((sts_and_sst and ("STS" in x or "SST" in x)) or (not sts_and_sst and ("STS" not in x and "SST" not in x)))]
+    table_rows.append(["Representation"] + [x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR")
+                                            for x in included_transfer_tasks])
+    for dir in sorted(results):
+        if ((lower and "_lower" in dir) or (not lower and "_lower" not in dir)):
+            table_row = []
+            table_row.append(dir.replace("./", "").replace("_lower", "").replace("_full", "\\textsubscript{full}").replace("_max", "\\textsubscript{max}").replace("_mean", "\\textsubscript{mean}"))
+            for transfer_task in included_transfer_tasks:
+                if transfer_task in results[dir]:
+                    table_row.append(str(round(results[dir][transfer_task][0], 2)))
+                else:
+                    table_row.append("-")
+            table_rows.append(table_row)
+    print("\\hline " + " & ".join(table_rows[0]) + " \\\\")
+    print("\\hline")
+    for table_row in table_rows[1:]:
+        print("\\hline " + " & ".join(table_row) + " \\\\")
+    print("\\hline")
+
+make_table(lower=False, sts_and_sst=True)
+make_table(lower=False, sts_and_sst=False)
+make_table(lower=True, sts_and_sst=True)
+make_table(lower=True, sts_and_sst=False)
 
 print("\n\n##############################################################")
 print("######################## RAW RESULTS: ########################")

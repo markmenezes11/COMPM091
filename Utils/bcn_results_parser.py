@@ -98,6 +98,33 @@ for transfer_task, embeddings_types in results.iteritems():
               + "         Test Accuracy: " + str(result_with_best_dev_accuracy.get_test_accuracy()))
 
 print("\n\n##############################################################")
+print("########################### LATEX: ###########################")
+print("##############################################################")
+
+for transfer_task, embeddings_types in results.iteritems():
+    print("\nTRANSFER TASK: " + transfer_task)
+    print("\\hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\\\")
+    print("\\hline")
+
+    for embeddings_type, results_ in embeddings_types.iteritems():
+        table_row = [embeddings_type.replace("CoVe", "GloVe+CoVe\\textsubscript{full}").replace("InferSent", "InferSent\\textsubscript{full}")]
+
+        result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+        result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+        for result in results_:
+            if not math.isnan(result.get_dev_accuracy()) and not math.isnan(result.get_test_accuracy()):
+                if result.get_test_accuracy() > result_with_best_test_accuracy.get_test_accuracy():
+                    result_with_best_test_accuracy = result
+                if result.get_dev_accuracy() > result_with_best_dev_accuracy.get_dev_accuracy():
+                    result_with_best_dev_accuracy = result
+
+        table_row.append(str(result_with_best_test_accuracy.get_test_accuracy()))
+        table_row.append(str(result_with_best_dev_accuracy.get_dev_accuracy()))
+        table_row.append("\\textbf{" + str(result_with_best_dev_accuracy.get_test_accuracy()) + "}")
+        print("\\hline " + " & ".join(table_row) + " \\\\")
+    print("\\hline")
+
+print("\n\n##############################################################")
 print("######################## RAW RESULTS: ########################")
 print("##############################################################")
 for transfer_task, embeddings_types in results.iteritems():
