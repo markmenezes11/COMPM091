@@ -39,7 +39,7 @@ parser.add_argument("--outputdir", type=str, default='model', help="Path to the 
 
 parser.add_argument("--mode", type=int, default=0, help="0: Normal (train + test); 1: BCN model dry-run (just try creating the model and do nothing else); 2: Train + test dry-run (Load a smaller dataset and train + test on it)")
 
-parser.add_argument("--type", type=str, default="CoVe", help="What sentence embeddings to use (InferSent or CoVe). For CoVe, [GloVe(w)CoVe(w)] embeddings will be used.")
+parser.add_argument("--type", type=str, default="CoVe", help="What sentence embeddings to use (GloVe, InferSent or CoVe). For CoVe, [GloVe(w)CoVe(w)] embeddings will be used.")
 parser.add_argument("--transfer_task", type=str, default="SSTBinary", help="Transfer task used for training BCN and evaluating predictions (e.g. SSTBinary, SSTFine, SSTBinary_lower, SSTFine_lower, TREC6, TREC50, TREC6_lower, TREC50_lower)")
 
 parser.add_argument("--n_epochs", type=int, default=20, help="Number of epochs (int). After 5 epochs of worse dev accuracy, training will early stopped and the best epoch will be saved (based on dev accuracy).")
@@ -64,7 +64,7 @@ args, _ = parser.parse_known_args()
 def str2bool(v):
   return v.lower() in ("yes", "true", "t", "1")
 
-from sentence_encoders import GloVeCoVeEncoder, InferSentEncoder
+from sentence_encoders import GloVeEncoder, GloVeCoVeEncoder, InferSentEncoder
 from datasets import SSTBinaryDataset, SSTFineDataset, SSTBinaryLowerDataset, SSTFineLowerDataset, TREC6Dataset, TREC50Dataset, TREC6LowerDataset, TREC50LowerDataset
 from model import BCN
 
@@ -113,12 +113,14 @@ if not os.path.exists(os.path.join(args.outputdir, "info.txt")):
 DATASET
 """
 
+if args.type == "GloVe":
+    encoder = GloVeEncoder(args.glovepath, ignore_glove_header=str2bool(args.ignoregloveheader))
 if args.type == "CoVe":
     encoder = GloVeCoVeEncoder(args.glovepath, args.covepath, ignore_glove_header=str2bool(args.ignoregloveheader), cove_dim=args.covedim)
 elif args.type == "InferSent":
     encoder = InferSentEncoder(args.glovepath, args.infersentpath, infersent_dim=args.infersentdim)
 else:
-    print("ERROR: Unknown embeddings type. Should be InferSent or CoVe. Set it correctly using the --type argument.")
+    print("ERROR: Unknown embeddings type. Should be GloVe, InferSent or CoVe. Set it correctly using the --type argument.")
     sys.exit(1)
 
 if args.transfer_task == "SSTBinary":

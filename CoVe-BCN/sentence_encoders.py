@@ -29,6 +29,64 @@ import sys
 
 import numpy as np
 
+class GloVeEncoder:
+    def __init__(self, glove_path, ignore_glove_header=False):
+        self.glove_path = glove_path
+        self.ignore_glove_header = ignore_glove_header
+        self.glove_dim = -1
+        self.glove_embeddings_dict = dict()
+        self.max_sent_len = 0
+        # load() must be called before sentence embeddings can be generated - see below
+
+    def load(self, samples):
+        print("\nLoading GloVe embeddings...")
+        f = open(self.glove_path)
+        first_line = True
+        for line in f:
+            if first_line and self.ignore_glove_header:
+                first_line = False
+                continue
+            values = line.split()
+            word = values[0]
+            embedding = np.asarray(values[1:], dtype='float32')
+            if self.glove_dim == -1:
+                self.glove_dim = len(embedding)
+            assert self.glove_dim == len(embedding)
+            if word in samples:
+                self.glove_embeddings_dict[word] = embedding
+        f.close()
+        if len(self.glove_embeddings_dict) == 0 or self.glove_dim == -1:
+            print("ERROR: Failed to load GloVe embeddings.")
+            sys.exit(1)
+        print("Successfully loaded GloVe embeddings (vocab size: " + str(
+            len(self.glove_embeddings_dict)) + ", dimensions: " + str(self.glove_dim) + ").")
+
+    # Input sequence (tokenized sentence) w is converted to sequence of vectors: w' = [GloVe(w); CoVe(w)]
+    def encode_sentence(self, tokenized_sentence):
+        if self.glove_dim == -1:
+            print("ERROR: load() has not been called on encoder.")
+            sys.exit(1)
+        glove_embeddings = []
+        for word in tokenized_sentence:
+            try:
+                glove_embedding = np.array(self.glove_embeddings_dict[word])
+            except KeyError:
+                # 1e-10 for unknown words, as recommended on https://github.com/rgsachin/CoVe
+                glove_embedding = np.full(self.glove_dim, 1e-10)
+            assert glove_embedding.shape == (self.glove_dim,)
+            glove_embeddings.append(glove_embedding)
+        glove = np.array([glove_embeddings])
+        assert glove.shape == (1, len(tokenized_sentence), self.glove_dim)
+        if glove.shape[0] > self.max_sent_len:
+            self.max_sent_len = glove.shape[0]
+        return glove
+
+    def get_max_sent_len(self):
+        return self.max_sent_len
+
+    def get_embed_dim(self):
+        return self.glove_dim
+
 class GloVeCoVeEncoder:
     def __init__(self, glove_path, cove_path, ignore_glove_header=False, cove_dim=900):
         self.glove_path = glove_path
