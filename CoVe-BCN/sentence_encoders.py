@@ -76,7 +76,8 @@ class GloVeEncoder:
             assert glove_embedding.shape == (self.glove_dim,)
             glove_embeddings.append(glove_embedding)
         glove = np.array([glove_embeddings])
-        assert glove.shape == (1, len(tokenized_sentence), self.glove_dim)
+        glove = glove[0]
+        assert glove.shape == (len(tokenized_sentence), self.glove_dim)
         if glove.shape[0] > self.max_sent_len:
             self.max_sent_len = glove.shape[0]
         return glove
