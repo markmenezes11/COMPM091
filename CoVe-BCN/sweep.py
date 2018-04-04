@@ -103,7 +103,7 @@ adam_epsilon = [1e-8]
 Model types (str: GloVe, InferSent, CoVe, CoVe_without_GloVe)
 """
 
-types = ["CoVe", "InferSent", "GloVe", "CoVe_without_GloVe"]
+types = ["CoVe", "InferSent", "GloVe", "CoVe_without_GloVe", "GloVe+InferSent"]
 
 """
 Transfer tasks to be used for training BCN and evaluating predictions (str: "SSTBinary", "SSTFine", "SSTBinary_lower", "SSTFine_lower", "TREC6", "TREC50", "TREC6_lower", "TREC50_lower")

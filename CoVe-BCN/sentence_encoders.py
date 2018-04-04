@@ -245,6 +245,83 @@ class GloVeCoVeEncoder:
     def get_embed_dim(self):
         return self.glove_cove_dim
 
+class GloVeInferSentEncoder:
+    def __init__(self, glove_path, infersent_path, infersent_dim=900, ignore_glove_header=False):
+        self.glove_path = glove_path
+        self.infersent_path = infersent_path
+        self.infersent_dim = infersent_dim
+        self.infersent_model = None
+        self.max_sent_len = 0
+        self.glove_embeddings_dict = dict()
+        self.ignore_glove_header = ignore_glove_header
+        # load() must be called before sentence embeddings can be generated - see below
+
+    def load(self, samples):
+        print("\nLoading GloVe embeddings...")
+        f = open(self.glove_path)
+        first_line = True
+        for line in f:
+            if first_line and self.ignore_glove_header:
+                first_line = False
+                continue
+            values = line.split()
+            word = values[0]
+            embedding = np.asarray(values[1:], dtype='float32')
+            if self.glove_dim == -1:
+                self.glove_dim = len(embedding)
+            assert self.glove_dim == len(embedding)
+            if word in samples:
+                self.glove_embeddings_dict[word] = embedding
+        f.close()
+        if len(self.glove_embeddings_dict) == 0 or self.glove_dim == -1:
+            print("ERROR: Failed to load GloVe embeddings.")
+            sys.exit(1)
+        print("Successfully loaded GloVe embeddings (vocab size: " + str(
+            len(self.glove_embeddings_dict)) + ", dimensions: " + str(self.glove_dim) + ").")
+        self.glove_infersent_dim = self.glove_dim + self.infersent_dim
+
+        print("\nLoading InferSent model...")
+        import torch
+        self.infersent_model = torch.load(self.infersent_path)
+        self.infersent_model.set_glove_path(self.glove_path)
+        self.infersent_model.build_vocab(samples, tokenize=False)
+        print("Successfully loaded InferSent model.")
+
+    def encode_sentence(self, tokenized_sentence):
+        if self.infersent_model is None or self.glove_infersent_dim == -1:
+            print("ERROR: load() has not been called on encoder.")
+            sys.exit(1)
+        infersent_emb = self.infersent_model.encode([' '.join(tokenized_sentence)], bsize=1, tokenize=False)[0]
+        assert infersent_emb.shape[0] <= len(tokenized_sentence) + 2
+        assert infersent_emb.shape[1] == self.infersent_dim
+        assert len(infersent_emb.shape) == 2
+        if infersent_emb.shape[0] > self.max_sent_len:
+            self.max_sent_len = infersent_emb.shape[0]
+
+        glove_embeddings = []
+        glove_embeddings.append(np.full(self.glove_dim, 0)) # For <w> tag
+        for word in tokenized_sentence:
+            try:
+                glove_embedding = np.array(self.glove_embeddings_dict[word])
+                assert glove_embedding.shape == (self.glove_dim,)
+                glove_embeddings.append(glove_embedding)
+            except KeyError:
+                pass # InferSent ignores unknown words
+        glove_embeddings.append(np.full(self.glove_dim, 0)) # For </w> tag
+        glove_emb = np.array([glove_embeddings])
+        assert glove_emb.shape[0] == infersent_emb.shape[0]
+        assert glove_emb.shape[1] == self.glove_dim
+
+        glove_infersent = np.concatenate([glove_emb, infersent_emb], axis=1)
+        assert glove_infersent.shape == (infersent_emb.shape[0], self.glove_dim + self.infersent_dim)
+        return glove_infersent
+
+    def get_max_sent_len(self):
+        return self.max_sent_len
+
+    def get_embed_dim(self):
+        return self.glove_infersent_dim
+
 class InferSentEncoder:
     def __init__(self, glove_path, infersent_path, infersent_dim=900):
         self.glove_path = glove_path
