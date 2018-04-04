@@ -251,6 +251,7 @@ class GloVeInferSentEncoder:
         self.infersent_path = infersent_path
         self.infersent_dim = infersent_dim
         self.infersent_model = None
+        self.glove_dim = -1
         self.max_sent_len = 0
         self.glove_embeddings_dict = dict()
         self.ignore_glove_header = ignore_glove_header

@@ -122,7 +122,7 @@ elif args.type == "CoVe":
 elif args.type == "InferSent":
     encoder = InferSentEncoder(args.glovepath, args.infersentpath, infersent_dim=args.infersentdim)
 elif args.type == "GloVe+InferSent":
-    encoder = GloVeInferSentEncoder(args.glovepath, args.infersentpath, infersent_dim=args.infersentdim)
+    encoder = GloVeInferSentEncoder(args.glovepath, args.infersentpath, infersent_dim=args.infersentdim, ignore_glove_header=str2bool(args.ignoregloveheader))
 else:
     print("ERROR: Unknown embeddings type. Should be GloVe, InferSent or CoVe. Set it correctly using the --type argument.")
     sys.exit(1)
