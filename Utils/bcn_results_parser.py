@@ -121,7 +121,7 @@ for transfer_task in sorted(results):
 
         table_row.append(str(round(100*result_with_best_test_accuracy.get_test_accuracy(), 2)))
         table_row.append(str(round(100*result_with_best_dev_accuracy.get_dev_accuracy(), 2)))
-        table_row.append("\\textbf{" + str(100*round(result_with_best_dev_accuracy.get_test_accuracy(), 2)) + "}")
+        table_row.append("\\textbf{" + str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2)) + "}")
         print("\\hline " + " & ".join(table_row) + " \\\\")
     print("\\hline")
 
@@ -145,7 +145,7 @@ for transfer_task in sorted(results):
 
         if embeddings_type not in results_for_graph:
             results_for_graph[embeddings_type] = {}
-        results_for_graph[embeddings_type][transfer_task] = str(100*round(result_with_best_dev_accuracy.get_test_accuracy(), 2))
+        results_for_graph[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
 
 colourNumber = 0
 for embeddings_type in sorted(results_for_graph):
