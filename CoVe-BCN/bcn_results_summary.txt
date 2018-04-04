@@ -220,65 +220,65 @@ TRANSFER TASK: TREC6
 LaTeX Table code for: SSTBinary
 \hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\
 \hline
-\hline InferSent\textsubscript{full} & 85.34 & 84.52 & \textbf{84.0} \\
-\hline GloVe+CoVe\textsubscript{full} & 87.92 & 87.5 & \textbf{86.0} \\
+\hline InferSent\textsubscript{full} & 85.34 & 84.52 & \textbf{84.18} \\
+\hline GloVe+CoVe\textsubscript{full} & 87.92 & 87.5 & \textbf{85.89} \\
 \hline
 
 LaTeX Table code for: SSTBinary_lower
 \hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\
 \hline
-\hline InferSent\textsubscript{full} & 84.73 & 85.21 & \textbf{83.0} \\
-\hline GloVe+CoVe\textsubscript{full} & 88.47 & 87.73 & \textbf{87.0} \\
+\hline InferSent\textsubscript{full} & 84.73 & 85.21 & \textbf{82.87} \\
+\hline GloVe+CoVe\textsubscript{full} & 88.47 & 87.73 & \textbf{87.26} \\
 \hline
 
 LaTeX Table code for: SSTFine
 \hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\
 \hline
-\hline InferSent\textsubscript{full} & 47.96 & 47.59 & \textbf{47.0} \\
-\hline GloVe+CoVe\textsubscript{full} & 51.04 & 48.96 & \textbf{50.0} \\
+\hline InferSent\textsubscript{full} & 47.96 & 47.59 & \textbf{47.19} \\
+\hline GloVe+CoVe\textsubscript{full} & 51.04 & 48.96 & \textbf{49.64} \\
 \hline
 
 LaTeX Table code for: SSTFine_lower
 \hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\
 \hline
-\hline InferSent\textsubscript{full} & 48.05 & 48.23 & \textbf{47.0} \\
-\hline GloVe+CoVe\textsubscript{full} & 51.54 & 49.5 & \textbf{48.0} \\
+\hline InferSent\textsubscript{full} & 48.05 & 48.23 & \textbf{47.1} \\
+\hline GloVe+CoVe\textsubscript{full} & 51.54 & 49.5 & \textbf{48.42} \\
 \hline
 
 LaTeX Table code for: TREC50
 \hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\
 \hline
-\hline InferSent\textsubscript{full} & 82.8 & 83.58 & \textbf{74.0} \\
-\hline GloVe+CoVe\textsubscript{full} & 84.0 & 88.07 & \textbf{82.0} \\
+\hline InferSent\textsubscript{full} & 82.8 & 83.58 & \textbf{74.4} \\
+\hline GloVe+CoVe\textsubscript{full} & 84.0 & 88.07 & \textbf{81.8} \\
 \hline
 
 LaTeX Table code for: TREC50_lower
 \hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\
 \hline
-\hline InferSent\textsubscript{full} & 81.6 & 85.14 & \textbf{81.0} \\
-\hline GloVe+CoVe\textsubscript{full} & 84.2 & 88.07 & \textbf{81.0} \\
+\hline InferSent\textsubscript{full} & 81.6 & 85.14 & \textbf{80.6} \\
+\hline GloVe+CoVe\textsubscript{full} & 84.2 & 88.07 & \textbf{80.8} \\
 \hline
 
 LaTeX Table code for: TREC6
 \hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\
 \hline
-\hline InferSent\textsubscript{full} & 91.2 & 92.02 & \textbf{90.0} \\
-\hline GloVe+CoVe\textsubscript{full} & 91.4 & 93.49 & \textbf{90.0} \\
+\hline InferSent\textsubscript{full} & 91.2 & 92.02 & \textbf{89.8} \\
+\hline GloVe+CoVe\textsubscript{full} & 91.4 & 93.49 & \textbf{89.8} \\
 \hline
 
 LaTeX Table code for: TREC6_lower
 \hline Representation & Best Test Accuracy & Best Dev Accuracy & Actual Test Accuracy \\
 \hline
-\hline InferSent\textsubscript{full} & 90.6 & 92.29 & \textbf{87.0} \\
-\hline GloVe+CoVe\textsubscript{full} & 90.8 & 93.76 & \textbf{89.0} \\
+\hline InferSent\textsubscript{full} & 90.6 & 92.29 & \textbf{86.8} \\
+\hline GloVe+CoVe\textsubscript{full} & 90.8 & 93.76 & \textbf{89.4} \\
 \hline
 
 LaTeX Graph code:
 symbolic x coords={SSTBinary, SSTBinary\textsubscript{lower}, SSTFine, SSTFine\textsubscript{lower}, TREC50, TREC50\textsubscript{lower}, TREC6, TREC6\textsubscript{lower}}
 \addplot[style={colour0,fill=colour0,mark=none}]
-    coordinates {(SSTBinary, 86.0) (SSTBinary\textsubscript{lower}, 87.0) (SSTFine, 50.0) (SSTFine\textsubscript{lower}, 48.0) (TREC50, 82.0) (TREC50\textsubscript{lower}, 81.0) (TREC6, 90.0) (TREC6\textsubscript{lower}, 89.0)};
+    coordinates {(SSTBinary, 85.89) (SSTBinary\textsubscript{lower}, 87.26) (SSTFine, 49.64) (SSTFine\textsubscript{lower}, 48.42) (TREC50, 81.8) (TREC50\textsubscript{lower}, 80.8) (TREC6, 89.8) (TREC6\textsubscript{lower}, 89.4)};
 \addplot[style={colour1,fill=colour1,mark=none}]
-    coordinates {(SSTBinary, 84.0) (SSTBinary\textsubscript{lower}, 83.0) (SSTFine, 47.0) (SSTFine\textsubscript{lower}, 47.0) (TREC50, 74.0) (TREC50\textsubscript{lower}, 81.0) (TREC6, 90.0) (TREC6\textsubscript{lower}, 87.0)};
+    coordinates {(SSTBinary, 84.18) (SSTBinary\textsubscript{lower}, 82.87) (SSTFine, 47.19) (SSTFine\textsubscript{lower}, 47.1) (TREC50, 74.4) (TREC50\textsubscript{lower}, 80.6) (TREC6, 89.8) (TREC6\textsubscript{lower}, 86.8)};
 \legend{{GloVe+CoVe\textsubscript{full}}, {InferSent\textsubscript{full}}}
 
 
