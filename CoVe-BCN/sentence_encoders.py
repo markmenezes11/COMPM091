@@ -310,6 +310,11 @@ class GloVeInferSentEncoder:
                 pass # InferSent ignores unknown words
         glove_embeddings.append(np.full(self.glove_dim, 0)) # For </w> tag
         glove_emb = np.array([glove_embeddings])
+        glove_emb = glove_emb[0]
+        
+        #print(infersent_emb.shape)
+        #print(glove_emb.shape)
+
         assert glove_emb.shape[0] == infersent_emb.shape[0]
         assert glove_emb.shape[1] == self.glove_dim
 
