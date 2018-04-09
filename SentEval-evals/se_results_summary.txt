@@ -566,6 +566,7 @@ InferSent\textsubscript{mean} & \textbf{\underline{0.86}} & \textbf{\underline{8
 \hline
 Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
 \hline
+\hline
 GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 0.57 \\
 CoVe\textsubscript{full} & 0.20 & 0.13 & 0.13 & 0.32 & 0.29 & \textbf{0.56} & \textbf{0.73} \\
 GloVe+CoVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.43 & 0.66 \\
@@ -585,6 +586,7 @@ InferSent\textsubscript{mean} & \textbf{0.57} & \textbf{0.57} & \textbf{0.60} & 
 
 \hline
 Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline
 \hline
 GloVe\textsubscript{full} & 67.93 & 67.77 & \textbf{78.20} & 39.46 & 72.92 & 86.78 & 73.75 & \underline{90.60} & 90.10 \\
 CoVe\textsubscript{full} & \textbf{77.86} & 68.70 & 77.92 & \textbf{40.05} & 73.10 & \textbf{88.20} & 74.15 & \cellcolor{yellow!18}\textbf{\underline{91.40}} & \underline{90.34} \\
@@ -606,15 +608,16 @@ InferSent\textsubscript{mean} & \textbf{83.05} & \textbf{76.17} & 81.77 & 45.11 
 \hline
 Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
 \hline
-GloVe\textsubscript{max} & 0.05 & 53.38 & 66.49 & 58.81 & 13.00 & 58.16 \\
-CoVe\textsubscript{max} & 0.81 & \underline{81.41} & 75.07 & 73.00 & 87.20 & 88.85 \\
-GloVe+CoVe\textsubscript{max} & \underline{0.84} & 81.69 & \underline{75.65} & 75.62 & 90.00 & 91.51 \\
-InferSent\textsubscript{max} & \cellcolor{yellow!18}\textbf{\underline{0.88}} & \cellcolor{yellow!18}\textbf{\underline{86.40}} & \textbf{75.71} & \cellcolor{yellow!18}\textbf{\underline{81.71}} & \cellcolor{yellow!18}\textbf{\underline{90.80}} & \cellcolor{yellow!18}\textbf{\underline{92.58}} \\
 \hline
 GloVe\textsubscript{full} & 0.57 & 67.73 & 65.04 & 72.90 & \underline{88.20} & 90.02 \\
 CoVe\textsubscript{full} & \textbf{0.73} & \textbf{78.18} & 69.04 & 73.00 & \underline{89.80} & \underline{90.23} \\
 GloVe+CoVe\textsubscript{full} & 0.66 & 71.02 & \textbf{70.09} & \textbf{73.57} & \textbf{\underline{90.40}} & \textbf{91.01} \\
 InferSent\textsubscript{full} & - & - & - & - & 90.20 & - \\
+\hline
+GloVe\textsubscript{max} & 0.05 & 53.38 & 66.49 & 58.81 & 13.00 & 58.16 \\
+CoVe\textsubscript{max} & 0.81 & \underline{81.41} & 75.07 & 73.00 & 87.20 & 88.85 \\
+GloVe+CoVe\textsubscript{max} & \underline{0.84} & 81.69 & \underline{75.65} & 75.62 & 90.00 & 91.51 \\
+InferSent\textsubscript{max} & \cellcolor{yellow!18}\textbf{\underline{0.88}} & \cellcolor{yellow!18}\textbf{\underline{86.40}} & \textbf{75.71} & \cellcolor{yellow!18}\textbf{\underline{81.71}} & \cellcolor{yellow!18}\textbf{\underline{90.80}} & \cellcolor{yellow!18}\textbf{\underline{92.58}} \\
 \hline
 GloVe\textsubscript{mean} & \underline{0.80} & \underline{78.85} & \underline{72.12} & \underline{76.90} & 82.00 & \underline{91.32} \\
 CoVe\textsubscript{mean} & \underline{0.82} & 79.38 & \underline{75.25} & \underline{75.31} & 86.60 & 89.56 \\

@@ -345,8 +345,8 @@ make_merged_table(lower=False, include=['SICKEntailment', 'MRPC', 'SST2', 'SST5'
 
 print("\n")
 
-make_merged_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_max", "CoVe_max", "GloVe+CoVe_max", "InferSent_max"], header=True)
-make_merged_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full"])
+make_merged_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full"], header=True)
+make_merged_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_max", "CoVe_max", "GloVe+CoVe_max", "InferSent_max"])
 make_merged_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_mean", "CoVe_mean", "GloVe+CoVe_mean", "InferSent_mean"])
 
 print("\n\n##############################################################")
