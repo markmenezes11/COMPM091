@@ -101,6 +101,11 @@ print("\n\n##############################################################")
 print("########################### LATEX: ###########################")
 print("##############################################################")
 
+sorted_embeddings_types = ["GloVe", "CoVe_without_GloVe", "CoVe", "InferSent"]
+sorted_transfer_tasks = ["SSTBinary", "SSTBinary_lower", "SSTFine", "SSTFine_lower", "TREC6", "TREC6_lower", "TREC50", "TREC50_lower"]
+representations_dict = {"CoVe": "GloVe+CoVe\\textsubscript{full}", "InferSent": "InferSent\\textsubscript{full}", "GloVe": "GloVe\\textsubscript{full}", "CoVe_without_GloVe": "CoVe\\textsubscript{full}"}
+print("########## INDIVIDUAL TABLES ##########")
+
 for transfer_task in sorted(results):
     embeddings_types = results[transfer_task]
     print("\nLaTeX Table code for: " + transfer_task)
@@ -108,7 +113,7 @@ for transfer_task in sorted(results):
     print("\\hline")
 
     for embeddings_type, results_ in embeddings_types.iteritems():
-        table_row = [embeddings_type.replace("CoVe", "GloVe+CoVe\\textsubscript{full}").replace("InferSent", "InferSent\\textsubscript{full}")]
+        table_row = [representations_dict[embeddings_type]]
 
         result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
         result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
@@ -125,15 +130,54 @@ for transfer_task in sorted(results):
         print("\\hline " + " & ".join(table_row) + " \\\\")
     print("\\hline")
 
-print("\nLaTeX Graph code:")
+print("########## MERGED TABLE ##########")
+
+print("symbolic x coords={" + ", ".join([x.replace("_lower", "\\textsubscript{lower}") for x in sorted(results)]) + "}")
+results_for_table = {}
+for transfer_task in sorted(results):
+    embeddings_types = results[transfer_task]
+    for embeddings_type, results_ in embeddings_types.iteritems():
+        result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+        result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+        for result in results_:
+            if not math.isnan(result.get_dev_accuracy()) and not math.isnan(result.get_test_accuracy()):
+                if result.get_test_accuracy() > result_with_best_test_accuracy.get_test_accuracy():
+                    result_with_best_test_accuracy = result
+                if result.get_dev_accuracy() > result_with_best_dev_accuracy.get_dev_accuracy():
+                    result_with_best_dev_accuracy = result
+
+        if embeddings_type not in results_for_table:
+            results_for_table[embeddings_type] = {}
+        results_for_table[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
+
+included_transfer_tasks = []
+for embeddings_type in sorted_embeddings_types:
+    if embeddings_type in results_for_table:
+        for transfer_task in sorted_transfer_tasks:
+            if transfer_task in results_for_table[embeddings_type]:
+                included_transfer_tasks.append(transfer_task)
+
+print("\\hline")
+print("\\textbf{Representation} & " + " & ".join(["\\textbf{" + x.replace("_lower", "\\textsubscript{lower}") + "}" for x in included_transfer_tasks]))
+print("\\hline")
+print("\\hline")
+
+for embeddings_type in sorted_embeddings_types:
+    if embeddings_type in results_for_table:
+        row = []
+        row.append(representations_dict[embeddings_type])
+        for transfer_task in sorted_transfer_tasks:
+            if transfer_task in results_for_table[embeddings_type]:
+                row.append(results_for_table[embeddings_type][transfer_task])
+        print(" & ".join(row))
+
+print("########## GRAPH ##########")
+
 print("symbolic x coords={" + ", ".join([x.replace("_lower", "\\textsubscript{lower}") for x in sorted(results)]) + "}")
 results_for_graph = {}
 for transfer_task in sorted(results):
     embeddings_types = results[transfer_task]
-
     for embeddings_type, results_ in embeddings_types.iteritems():
-        table_row = [embeddings_type.replace("CoVe", "GloVe+CoVe\\textsubscript{full}").replace("InferSent", "InferSent\\textsubscript{full}")]
-
         result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
         result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
         for result in results_:
@@ -148,14 +192,16 @@ for transfer_task in sorted(results):
         results_for_graph[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
 
 colourNumber = 0
-for embeddings_type in sorted(results_for_graph):
-    tuples_for_graph = []
-    for transfer_task in sorted(results_for_graph[embeddings_type]):
-        tuples_for_graph.append((transfer_task, results_for_graph[embeddings_type][transfer_task]))
-    print("\\addplot[style={colour" + str(colourNumber) + ",fill=colour" + str(colourNumber) + ",mark=none}]\n" +
-          "    coordinates {" + " ".join(["(" + str(x[0].replace("_lower", "\\textsubscript{lower}")) + ", " + str(x[1]) + ")" for x in tuples_for_graph]) + "};")
-    colourNumber += 1
-print("\\legend{{" + "}, {".join([str(x).replace("CoVe", "GloVe+CoVe\\textsubscript{full}").replace("InferSent", "InferSent\\textsubscript{full}") for x in sorted(results_for_graph)]) + "}}")
+for embeddings_type in sorted_embeddings_types:
+    if embeddings_type in results_for_graph:
+        tuples_for_graph = []
+        for transfer_task in sorted_transfer_tasks:
+            if transfer_task in results_for_graph[embeddings_type]:
+                tuples_for_graph.append((transfer_task, results_for_graph[embeddings_type][transfer_task]))
+        print("\\addplot[style={colour" + str(colourNumber) + ",fill=colour" + str(colourNumber) + ",mark=none}]\n" +
+              "    coordinates {" + " ".join(["(" + str(x[0].replace("_lower", "\\textsubscript{lower}")) + ", " + str(x[1]) + ")" for x in tuples_for_graph]) + "};")
+        colourNumber += 1
+print("\\legend{{" + "}, {".join([representations_dict[x] for x in sorted_embeddings_types]) + "}}")
 
 print("\n\n##############################################################")
 print("######################## RAW RESULTS: ########################")
