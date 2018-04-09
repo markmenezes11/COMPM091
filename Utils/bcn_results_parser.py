@@ -130,10 +130,10 @@ for transfer_task in sorted(results):
         print("\\hline " + " & ".join(table_row) + " \\\\")
     print("\\hline")
 
-print("########## MERGED TABLE ##########")
+print("\n\n########## MERGED TABLE ##########")
 
 for lower in [True, False]:
-    print("Merged table for lower=" + str(lower))
+    print("\nMerged table for lower=" + str(lower))
     results_for_table = {}
     for transfer_task in sorted(results):
         embeddings_types = results[transfer_task]
@@ -171,11 +171,10 @@ for lower in [True, False]:
                 row.append(results_for_table[embeddings_type][transfer_task])
             print(" & ".join(row))
 
-print("########## GRAPH ##########")
+print("\n\n########## GRAPH ##########")
 
 for lower in [True, False]:
-    print("Graph for lower=" + str(lower))
-    print("symbolic x coords={" + ", ".join([x.replace("_lower", "\\textsubscript{lower}") for x in sorted(results)]) + "}")
+    print("\nGraph for lower=" + str(lower))
     results_for_graph = {}
     for transfer_task in sorted(results):
         embeddings_types = results[transfer_task]
@@ -199,6 +198,8 @@ for lower in [True, False]:
             for transfer_task in sorted_transfer_tasks:
                 if transfer_task in results_for_graph[embeddings_type] and ((lower and "lower" in transfer_task) or (not lower and "lower" not in transfer_task)):
                     included_transfer_tasks.append(transfer_task)
+
+    print("symbolic x coords={" + ", ".join([x.replace("_lower", "") for x in included_transfer_tasks]) + "}")
 
     colourNumber = 0
     for embeddings_type in sorted_embeddings_types:
