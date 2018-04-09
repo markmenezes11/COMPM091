@@ -166,105 +166,80 @@ STSBenchmark:
    -0.0102612203333  ./GloVe_max_lower
    -0.0102612203333  ./GloVe_max
 
-MR:
-   81.71  ./InferSent_max_lower
-   81.54  ./InferSent_max
-   78.15  ./GloVe+CoVe_mean_lower
-   78.12  ./GloVe+CoVe_mean
-   77.62  ./InferSent_mean
-   77.09  ./InferSent_mean_lower
-   76.91  ./GloVe_mean
-   76.9  ./GloVe_mean_lower
-   75.75  ./GloVe+CoVe_max
-   75.62  ./GloVe+CoVe_max_lower
-   75.46  ./CoVe_mean
-   75.31  ./CoVe_mean_lower
-   73.6  ./GloVe+CoVe_full
-   73.57  ./GloVe+CoVe_full_lower
-   73.16  ./CoVe_max
-   73.1  ./CoVe_full
-   73.0  ./CoVe_full_lower
-   73.0  ./CoVe_max_lower
-   72.92  ./GloVe_full
-   72.9  ./GloVe_full_lower
-   58.84  ./GloVe_max
-   58.81  ./GloVe_max_lower
-   49.91  ./Random
+SICKRelatedness:
+   0.883487358293  ./InferSent_max
+   0.88073755486  ./InferSent_max_lower
+   0.864119751806  ./InferSent_mean_lower
+   0.863184732324  ./InferSent_mean
+   0.835473471082  ./GloVe+CoVe_max_lower
+   0.834511822667  ./GloVe+CoVe_mean
+   0.833804452349  ./GloVe+CoVe_max
+   0.833296263054  ./GloVe+CoVe_mean_lower
+   0.819998092592  ./CoVe_mean_lower
+   0.812639582925  ./CoVe_mean
+   0.810561440799  ./CoVe_max_lower
+   0.800384470365  ./CoVe_max
+   0.799523392183  ./GloVe_mean_lower
+   0.799366607642  ./GloVe_mean
+   0.73481053963  ./CoVe_full_lower
+   0.73346679023  ./CoVe_full
+   0.662234281657  ./GloVe+CoVe_full_lower
+   0.655228846321  ./GloVe+CoVe_full
+   0.5684236322  ./GloVe_full_lower
+   0.567879795789  ./GloVe_full
+   0.059256529472  ./GloVe_max
+   0.0527990175599  ./GloVe_max_lower
+   0.00571186296092  ./Random
 
-CR:
-   86.7  ./InferSent_max
-   86.7  ./InferSent_max_lower
-   79.89  ./GloVe+CoVe_mean_lower
-   79.89  ./GloVe+CoVe_mean
-   79.44  ./InferSent_mean
-   79.44  ./InferSent_mean_lower
-   79.1  ./GloVe+CoVe_max_lower
-   79.1  ./GloVe+CoVe_max
-   78.81  ./GloVe_mean
-   78.81  ./GloVe_mean_lower
-   76.13  ./CoVe_max_lower
-   76.13  ./CoVe_max
-   75.76  ./CoVe_mean
-   75.76  ./CoVe_mean_lower
-   75.13  ./GloVe+CoVe_full
-   75.13  ./GloVe+CoVe_full_lower
-   74.15  ./CoVe_full_lower
-   74.15  ./CoVe_full
-   73.75  ./GloVe_full
-   73.75  ./GloVe_full_lower
-   63.76  ./GloVe_max_lower
-   63.76  ./GloVe_max
-   53.32  ./Random
+SICKEntailment:
+   86.42  ./InferSent_max
+   86.4  ./InferSent_max_lower
+   83.95  ./InferSent_mean_lower
+   83.05  ./InferSent_mean
+   82.38  ./GloVe+CoVe_mean_lower
+   81.69  ./GloVe+CoVe_max_lower
+   81.41  ./CoVe_max_lower
+   81.35  ./GloVe+CoVe_mean
+   81.0  ./CoVe_max
+   80.58  ./GloVe+CoVe_max
+   79.38  ./CoVe_mean_lower
+   78.87  ./CoVe_mean
+   78.85  ./GloVe_mean_lower
+   78.57  ./GloVe_mean
+   78.18  ./CoVe_full_lower
+   77.86  ./CoVe_full
+   72.21  ./GloVe+CoVe_full
+   71.02  ./GloVe+CoVe_full_lower
+   67.93  ./GloVe_full
+   67.73  ./GloVe_full_lower
+   57.05  ./GloVe_max
+   55.35  ./Random
+   53.38  ./GloVe_max_lower
 
-MPQA:
-   90.63  ./InferSent_max
-   90.63  ./InferSent_max_lower
-   89.4  ./GloVe+CoVe_mean_lower
-   89.4  ./GloVe+CoVe_mean
-   89.36  ./CoVe_mean
-   89.36  ./CoVe_mean_lower
-   89.02  ./CoVe_max_lower
-   89.02  ./CoVe_max
-   88.3  ./GloVe+CoVe_max_lower
-   88.3  ./GloVe+CoVe_max
-   88.2  ./CoVe_full_lower
-   88.2  ./CoVe_full
-   88.0  ./InferSent_mean
-   88.0  ./InferSent_mean_lower
-   87.64  ./GloVe+CoVe_full
-   87.64  ./GloVe+CoVe_full_lower
-   87.57  ./GloVe_mean
-   87.57  ./GloVe_mean_lower
-   86.78  ./GloVe_full
-   86.78  ./GloVe_full_lower
-   80.65  ./GloVe_max_lower
-   80.65  ./GloVe_max
-   57.28  ./Random
-
-SUBJ:
-   92.58  ./InferSent_max
-   92.58  ./InferSent_max_lower
-   92.35  ./GloVe+CoVe_mean_lower
-   92.35  ./GloVe+CoVe_mean
-   91.51  ./GloVe+CoVe_max_lower
-   91.51  ./GloVe+CoVe_max
-   91.32  ./GloVe_mean
-   91.32  ./GloVe_mean_lower
-   91.01  ./GloVe+CoVe_full
-   91.01  ./GloVe+CoVe_full_lower
-   90.87  ./InferSent_mean
-   90.87  ./InferSent_mean_lower
-   90.34  ./CoVe_full
-   90.23  ./CoVe_full_lower
-   90.1  ./GloVe_full
-   90.02  ./GloVe_full_lower
-   89.68  ./CoVe_mean
-   89.56  ./CoVe_mean_lower
-   88.87  ./CoVe_max
-   88.85  ./CoVe_max_lower
-   58.16  ./GloVe_max_lower
-   58.16  ./GloVe_max
-   49.89  ./Random
+MRPC:
+   76.52  ./InferSent_max
+   76.17  ./InferSent_mean
+   75.77  ./InferSent_mean_lower
+   75.71  ./InferSent_max_lower
+   75.65  ./GloVe+CoVe_max_lower
+   75.25  ./CoVe_mean_lower
+   75.07  ./CoVe_max_lower
+   75.07  ./GloVe+CoVe_mean_lower
+   74.14  ./GloVe+CoVe_max
+   73.91  ./GloVe+CoVe_mean
+   73.8  ./CoVe_mean
+   73.28  ./CoVe_max
+   72.41  ./GloVe_mean
+   72.12  ./GloVe_mean_lower
+   70.2  ./GloVe+CoVe_full
+   70.09  ./GloVe+CoVe_full_lower
+   69.04  ./CoVe_full_lower
+   68.7  ./CoVe_full
+   67.77  ./GloVe_full
+   66.49  ./GloVe_max_lower
+   66.14  ./GloVe_max
+   65.04  ./GloVe_full_lower
+   61.86  ./Random
 
 SST2:
    85.01  ./InferSent_max
@@ -318,12 +293,89 @@ SST5:
    28.91  ./GloVe_max
    23.98  ./Random
 
+MR:
+   81.71  ./InferSent_max_lower
+   81.54  ./InferSent_max
+   78.15  ./GloVe+CoVe_mean_lower
+   78.12  ./GloVe+CoVe_mean
+   77.62  ./InferSent_mean
+   77.09  ./InferSent_mean_lower
+   76.91  ./GloVe_mean
+   76.9  ./GloVe_mean_lower
+   75.75  ./GloVe+CoVe_max
+   75.62  ./GloVe+CoVe_max_lower
+   75.46  ./CoVe_mean
+   75.31  ./CoVe_mean_lower
+   73.6  ./GloVe+CoVe_full
+   73.57  ./GloVe+CoVe_full_lower
+   73.16  ./CoVe_max
+   73.1  ./CoVe_full
+   73.0  ./CoVe_full_lower
+   73.0  ./CoVe_max_lower
+   72.92  ./GloVe_full
+   72.9  ./GloVe_full_lower
+   58.84  ./GloVe_max
+   58.81  ./GloVe_max_lower
+   49.91  ./Random
+
+MPQA:
+   90.63  ./InferSent_max
+   90.63  ./InferSent_max_lower
+   89.4  ./GloVe+CoVe_mean_lower
+   89.4  ./GloVe+CoVe_mean
+   89.36  ./CoVe_mean
+   89.36  ./CoVe_mean_lower
+   89.02  ./CoVe_max_lower
+   89.02  ./CoVe_max
+   88.3  ./GloVe+CoVe_max_lower
+   88.3  ./GloVe+CoVe_max
+   88.2  ./CoVe_full_lower
+   88.2  ./CoVe_full
+   88.0  ./InferSent_mean
+   88.0  ./InferSent_mean_lower
+   87.64  ./GloVe+CoVe_full
+   87.64  ./GloVe+CoVe_full_lower
+   87.57  ./GloVe_mean
+   87.57  ./GloVe_mean_lower
+   86.78  ./GloVe_full
+   86.78  ./GloVe_full_lower
+   80.65  ./GloVe_max_lower
+   80.65  ./GloVe_max
+   57.28  ./Random
+
+CR:
+   86.7  ./InferSent_max
+   86.7  ./InferSent_max_lower
+   79.89  ./GloVe+CoVe_mean_lower
+   79.89  ./GloVe+CoVe_mean
+   79.44  ./InferSent_mean
+   79.44  ./InferSent_mean_lower
+   79.1  ./GloVe+CoVe_max_lower
+   79.1  ./GloVe+CoVe_max
+   78.81  ./GloVe_mean
+   78.81  ./GloVe_mean_lower
+   76.13  ./CoVe_max_lower
+   76.13  ./CoVe_max
+   75.76  ./CoVe_mean
+   75.76  ./CoVe_mean_lower
+   75.13  ./GloVe+CoVe_full
+   75.13  ./GloVe+CoVe_full_lower
+   74.15  ./CoVe_full_lower
+   74.15  ./CoVe_full
+   73.75  ./GloVe_full
+   73.75  ./GloVe_full_lower
+   63.76  ./GloVe_max_lower
+   63.76  ./GloVe_max
+   53.32  ./Random
+
 TREC:
    91.4  ./CoVe_full
    91.2  ./GloVe+CoVe_full
    90.8  ./InferSent_max_lower
    90.6  ./GloVe_full
+   90.4  ./InferSent_full
    90.4  ./GloVe+CoVe_full_lower
+   90.2  ./InferSent_full_lower
    90.0  ./GloVe+CoVe_max_lower
    89.8  ./CoVe_full_lower
    88.2  ./GloVe_full_lower
@@ -343,154 +395,231 @@ TREC:
    21.6  ./Random
    13.0  ./GloVe_max_lower
 
-MRPC:
-   76.52  ./InferSent_max
-   76.17  ./InferSent_mean
-   75.77  ./InferSent_mean_lower
-   75.71  ./InferSent_max_lower
-   75.65  ./GloVe+CoVe_max_lower
-   75.25  ./CoVe_mean_lower
-   75.07  ./CoVe_max_lower
-   75.07  ./GloVe+CoVe_mean_lower
-   74.14  ./GloVe+CoVe_max
-   73.91  ./GloVe+CoVe_mean
-   73.8  ./CoVe_mean
-   73.28  ./CoVe_max
-   72.41  ./GloVe_mean
-   72.12  ./GloVe_mean_lower
-   70.2  ./GloVe+CoVe_full
-   70.09  ./GloVe+CoVe_full_lower
-   69.04  ./CoVe_full_lower
-   68.7  ./CoVe_full
-   67.77  ./GloVe_full
-   66.49  ./GloVe_max_lower
-   66.14  ./GloVe_max
-   65.04  ./GloVe_full_lower
-   61.86  ./Random
-
-SICKEntailment:
-   86.42  ./InferSent_max
-   86.4  ./InferSent_max_lower
-   83.95  ./InferSent_mean_lower
-   83.05  ./InferSent_mean
-   82.38  ./GloVe+CoVe_mean_lower
-   81.69  ./GloVe+CoVe_max_lower
-   81.41  ./CoVe_max_lower
-   81.35  ./GloVe+CoVe_mean
-   81.0  ./CoVe_max
-   80.58  ./GloVe+CoVe_max
-   79.38  ./CoVe_mean_lower
-   78.87  ./CoVe_mean
-   78.85  ./GloVe_mean_lower
-   78.57  ./GloVe_mean
-   78.18  ./CoVe_full_lower
-   77.86  ./CoVe_full
-   72.21  ./GloVe+CoVe_full
-   71.02  ./GloVe+CoVe_full_lower
-   67.93  ./GloVe_full
-   67.73  ./GloVe_full_lower
-   57.05  ./GloVe_max
-   55.35  ./Random
-   53.38  ./GloVe_max_lower
-
-SICKRelatedness:
-   0.883487358293  ./InferSent_max
-   0.88073755486  ./InferSent_max_lower
-   0.864119751806  ./InferSent_mean_lower
-   0.863184732324  ./InferSent_mean
-   0.835473471082  ./GloVe+CoVe_max_lower
-   0.834511822667  ./GloVe+CoVe_mean
-   0.833804452349  ./GloVe+CoVe_max
-   0.833296263054  ./GloVe+CoVe_mean_lower
-   0.819998092592  ./CoVe_mean_lower
-   0.812639582925  ./CoVe_mean
-   0.810561440799  ./CoVe_max_lower
-   0.800384470365  ./CoVe_max
-   0.799523392183  ./GloVe_mean_lower
-   0.799366607642  ./GloVe_mean
-   0.73481053963  ./CoVe_full_lower
-   0.73346679023  ./CoVe_full
-   0.662234281657  ./GloVe+CoVe_full_lower
-   0.655228846321  ./GloVe+CoVe_full
-   0.5684236322  ./GloVe_full_lower
-   0.567879795789  ./GloVe_full
-   0.059256529472  ./GloVe_max
-   0.0527990175599  ./GloVe_max_lower
-   0.00571186296092  ./Random
+SUBJ:
+   92.58  ./InferSent_max
+   92.58  ./InferSent_max_lower
+   92.35  ./GloVe+CoVe_mean_lower
+   92.35  ./GloVe+CoVe_mean
+   91.51  ./GloVe+CoVe_max_lower
+   91.51  ./GloVe+CoVe_max
+   91.32  ./GloVe_mean
+   91.32  ./GloVe_mean_lower
+   91.01  ./GloVe+CoVe_full
+   91.01  ./GloVe+CoVe_full_lower
+   90.87  ./InferSent_mean
+   90.87  ./InferSent_mean_lower
+   90.34  ./CoVe_full
+   90.23  ./CoVe_full_lower
+   90.1  ./GloVe_full
+   90.02  ./GloVe_full_lower
+   89.68  ./CoVe_mean
+   89.56  ./CoVe_mean_lower
+   88.87  ./CoVe_max
+   88.85  ./CoVe_max_lower
+   58.16  ./GloVe_max_lower
+   58.16  ./GloVe_max
+   49.89  ./Random
 
 
 ##############################################################
 ########################### LATEX: ###########################
 ##############################################################
 
-LaTeX Table code for lower=False, sts=True:
-\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSBenchmark & SST2 & SST5 \\
+############## FULL TABLE ##############
+
+LaTeX Table code for lower=False, tasks=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']:
+\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
 \hline
-\hline CoVe\textsubscript{full} & 0.2 & 0.13 & 0.13 & 0.32 & 0.29 & 0.56 & 77.92 & 40.05 \\
-\hline CoVe\textsubscript{max} & 0.37 & 0.35 & 0.45 & 0.54 & 0.45 & 0.72 & 77.87 & 42.13 \\
-\hline CoVe\textsubscript{mean} & 0.44 & 0.48 & 0.53 & 0.61 & 0.54 & 0.74 & 81.49 & 43.94 \\
-\hline GloVe+CoVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.43 & 77.59 & 39.68 \\
-\hline GloVe+CoVe\textsubscript{max} & 0.54 & 0.6 & 0.64 & 0.7 & 0.68 & 0.73 & 80.23 & 41.63 \\
-\hline GloVe+CoVe\textsubscript{mean} & 0.53 & 0.54 & 0.56 & 0.6 & 0.52 & 0.73 & 83.42 & 45.34 \\
-\hline GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 78.2 & 39.46 \\
-\hline GloVe\textsubscript{max} & 0.05 & 0.06 & 0.01 & 0.02 & -0.04 & -0.01 & 50.96 & 28.91 \\
-\hline GloVe\textsubscript{mean} & 0.53 & 0.54 & 0.55 & 0.6 & 0.51 & 0.65 & 79.96 & 44.84 \\
-\hline InferSent\textsubscript{full} & 0.32 & 0.17 & 0.2 & 0.36 & 0.32 & 0.54 & - & 38.37 \\
-\hline InferSent\textsubscript{max} & 0.6 & 0.66 & 0.71 & 0.73 & 0.72 & 0.76 & 85.01 & 45.48 \\
-\hline InferSent\textsubscript{mean} & 0.57 & 0.57 & 0.6 & 0.65 & 0.57 & 0.72 & 81.77 & 45.11 \\
-\hline Random & 0.01 & 0.02 & -0.01 & -0.01 & 0.02 & 0.01 & 50.91 & 23.98 \\
+GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 0.57 \\
+GloVe\textsubscript{max} & 0.05 & 0.06 & 0.01 & 0.02 & -0.04 & -0.01 & 0.06 \\
+GloVe\textsubscript{mean} & 0.53 & 0.54 & 0.55 & 0.60 & 0.51 & 0.65 & 0.80 \\
+CoVe\textsubscript{full} & 0.20 & 0.13 & 0.13 & 0.32 & 0.29 & 0.56 & 0.73 \\
+CoVe\textsubscript{max} & 0.37 & 0.35 & 0.45 & 0.54 & 0.45 & 0.72 & 0.80 \\
+CoVe\textsubscript{mean} & 0.44 & 0.48 & 0.53 & 0.61 & 0.54 & \textbf{0.74} & 0.81 \\
+GloVe+CoVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.43 & 0.66 \\
+GloVe+CoVe\textsubscript{max} & 0.54 & \textbf{0.60} & \textbf{0.64} & \textbf{0.70} & \textbf{0.68} & 0.73 & 0.83 \\
+GloVe+CoVe\textsubscript{mean} & 0.53 & 0.54 & 0.56 & 0.60 & 0.52 & 0.73 & 0.83 \\
+InferSent\textsubscript{full} & 0.32 & 0.17 & 0.20 & 0.36 & 0.32 & 0.54 & - \\
+InferSent\textsubscript{max} & \textbf{\underline{0.60}} & \textbf{\underline{0.66}} & \textbf{\underline{0.71}} & \textbf{\underline{0.73}} & \textbf{\underline{0.72}} & \textbf{\underline{0.76}} & \textbf{\underline{0.88}} \\
+InferSent\textsubscript{mean} & \textbf{0.57} & 0.57 & 0.60 & 0.65 & 0.57 & 0.72 & \textbf{0.86} \\
 \hline
 
-LaTeX Table code for lower=False, sts=False:
-\hline Representation & MR & CR & MPQA & SUBJ & TREC & MRPC & SICKE & SICKR \\
+LaTeX Table code for lower=False, tasks=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ']:
+\hline Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
 \hline
-\hline CoVe\textsubscript{full} & 73.1 & 74.15 & 88.2 & 90.34 & 91.4 & 68.7 & 77.86 & 0.73 \\
-\hline CoVe\textsubscript{max} & 73.16 & 76.13 & 89.02 & 88.87 & 82.8 & 73.28 & 81.0 & 0.8 \\
-\hline CoVe\textsubscript{mean} & 75.46 & 75.76 & 89.36 & 89.68 & 83.8 & 73.8 & 78.87 & 0.81 \\
-\hline GloVe+CoVe\textsubscript{full} & 73.6 & 75.13 & 87.64 & 91.01 & 91.2 & 70.2 & 72.21 & 0.66 \\
-\hline GloVe+CoVe\textsubscript{max} & 75.75 & 79.1 & 88.3 & 91.51 & 87.8 & 74.14 & 80.58 & 0.83 \\
-\hline GloVe+CoVe\textsubscript{mean} & 78.12 & 79.89 & 89.4 & 92.35 & 88.0 & 73.91 & 81.35 & 0.83 \\
-\hline GloVe\textsubscript{full} & 72.92 & 73.75 & 86.78 & 90.1 & 90.6 & 67.77 & 67.93 & 0.57 \\
-\hline GloVe\textsubscript{max} & 58.84 & 63.76 & 80.65 & 58.16 & 30.6 & 66.14 & 57.05 & 0.06 \\
-\hline GloVe\textsubscript{mean} & 76.91 & 78.81 & 87.57 & 91.32 & 83.4 & 72.41 & 78.57 & 0.8 \\
-\hline InferSent\textsubscript{full} & - & - & - & - & - & - & - & - \\
-\hline InferSent\textsubscript{max} & 81.54 & 86.7 & 90.63 & 92.58 & 88.2 & 76.52 & 86.42 & 0.88 \\
-\hline InferSent\textsubscript{mean} & 77.62 & 79.44 & 88.0 & 90.87 & 82.0 & 76.17 & 83.05 & 0.86 \\
-\hline Random & 49.91 & 53.32 & 57.28 & 49.89 & 21.6 & 61.86 & 55.35 & 0.01 \\
-\hline
-
-LaTeX Table code for lower=True, sts=True:
-\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSBenchmark & SST2 & SST5 \\
-\hline
-\hline CoVe\textsubscript{full} & 0.2 & 0.13 & 0.13 & 0.32 & 0.29 & 0.56 & 77.92 & 40.05 \\
-\hline CoVe\textsubscript{max} & 0.37 & 0.35 & 0.45 & 0.54 & 0.45 & 0.72 & 77.87 & 42.13 \\
-\hline CoVe\textsubscript{mean} & 0.44 & 0.48 & 0.53 & 0.61 & 0.54 & 0.74 & 81.49 & 43.94 \\
-\hline GloVe+CoVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.43 & 77.59 & 39.68 \\
-\hline GloVe+CoVe\textsubscript{max} & 0.54 & 0.6 & 0.64 & 0.7 & 0.68 & 0.73 & 80.23 & 41.63 \\
-\hline GloVe+CoVe\textsubscript{mean} & 0.53 & 0.54 & 0.56 & 0.6 & 0.52 & 0.73 & 83.42 & 45.34 \\
-\hline GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 78.2 & 39.46 \\
-\hline GloVe\textsubscript{max} & 0.05 & 0.06 & 0.01 & 0.02 & -0.04 & -0.01 & 50.96 & 28.91 \\
-\hline GloVe\textsubscript{mean} & 0.53 & 0.54 & 0.55 & 0.6 & 0.51 & 0.65 & 79.96 & 44.84 \\
-\hline InferSent\textsubscript{full} & 0.32 & 0.17 & 0.2 & 0.36 & 0.32 & 0.54 & - & 38.37 \\
-\hline InferSent\textsubscript{max} & 0.6 & 0.66 & 0.71 & 0.73 & 0.72 & 0.76 & 85.01 & 45.48 \\
-\hline InferSent\textsubscript{mean} & 0.57 & 0.57 & 0.6 & 0.65 & 0.57 & 0.72 & 81.77 & 45.11 \\
+GloVe\textsubscript{full} & 67.93 & 67.77 & 78.20 & 39.46 & 72.92 & 86.78 & 73.75 & 90.60 & 90.10 \\
+GloVe\textsubscript{max} & 57.05 & 66.14 & 50.96 & 28.91 & 58.84 & 80.65 & 63.76 & 30.60 & 58.16 \\
+GloVe\textsubscript{mean} & 78.57 & 72.41 & 79.96 & 44.84 & 76.91 & 87.57 & 78.81 & 83.40 & 91.32 \\
+CoVe\textsubscript{full} & 77.86 & 68.70 & 77.92 & 40.05 & 73.10 & 88.20 & 74.15 & \textbf{\underline{91.40}} & 90.34 \\
+CoVe\textsubscript{max} & 81.00 & 73.28 & 77.87 & 42.13 & 73.16 & 89.02 & 76.13 & 82.80 & 88.87 \\
+CoVe\textsubscript{mean} & 78.87 & 73.80 & 81.49 & 43.94 & 75.46 & 89.36 & 75.76 & 83.80 & 89.68 \\
+GloVe+CoVe\textsubscript{full} & 72.21 & 70.20 & 77.59 & 39.68 & 73.60 & 87.64 & 75.13 & \textbf{91.20} & 91.01 \\
+GloVe+CoVe\textsubscript{max} & 80.58 & 74.14 & 80.23 & 41.63 & 75.75 & 88.30 & 79.10 & 87.80 & 91.51 \\
+GloVe+CoVe\textsubscript{mean} & 81.35 & 73.91 & \textbf{83.42} & \textbf{45.34} & \textbf{78.12} & \textbf{89.40} & \textbf{79.89} & 88.00 & \textbf{92.35} \\
+InferSent\textsubscript{full} & - & - & - & 38.37 & - & - & - & 90.40 & - \\
+InferSent\textsubscript{max} & \textbf{\underline{86.42}} & \textbf{\underline{76.52}} & \textbf{\underline{85.01}} & \textbf{\underline{45.48}} & \textbf{\underline{81.54}} & \textbf{\underline{90.63}} & \textbf{\underline{86.70}} & 88.20 & \textbf{\underline{92.58}} \\
+InferSent\textsubscript{mean} & \textbf{83.05} & \textbf{76.17} & 81.77 & 45.11 & 77.62 & 88.00 & 79.44 & 82.00 & 90.87 \\
 \hline
 
-LaTeX Table code for lower=True, sts=False:
-\hline Representation & MR & CR & MPQA & SUBJ & TREC & MRPC & SICKE & SICKR \\
+LaTeX Table code for lower=True, tasks=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ']:
+\hline Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
 \hline
-\hline CoVe\textsubscript{full} & 73.0 & 74.15 & 88.2 & 90.23 & 89.8 & 69.04 & 78.18 & 0.73 \\
-\hline CoVe\textsubscript{max} & 73.0 & 76.13 & 89.02 & 88.85 & 87.2 & 75.07 & 81.41 & 0.81 \\
-\hline CoVe\textsubscript{mean} & 75.31 & 75.76 & 89.36 & 89.56 & 86.6 & 75.25 & 79.38 & 0.82 \\
-\hline GloVe+CoVe\textsubscript{full} & 73.57 & 75.13 & 87.64 & 91.01 & 90.4 & 70.09 & 71.02 & 0.66 \\
-\hline GloVe+CoVe\textsubscript{max} & 75.62 & 79.1 & 88.3 & 91.51 & 90.0 & 75.65 & 81.69 & 0.84 \\
-\hline GloVe+CoVe\textsubscript{mean} & 78.15 & 79.89 & 89.4 & 92.35 & 87.4 & 75.07 & 82.38 & 0.83 \\
-\hline GloVe\textsubscript{full} & 72.9 & 73.75 & 86.78 & 90.02 & 88.2 & 65.04 & 67.73 & 0.57 \\
-\hline GloVe\textsubscript{max} & 58.81 & 63.76 & 80.65 & 58.16 & 13.0 & 66.49 & 53.38 & 0.05 \\
-\hline GloVe\textsubscript{mean} & 76.9 & 78.81 & 87.57 & 91.32 & 82.0 & 72.12 & 78.85 & 0.8 \\
-\hline InferSent\textsubscript{full} & - & - & - & - & - & - & - & - \\
-\hline InferSent\textsubscript{max} & 81.71 & 86.7 & 90.63 & 92.58 & 90.8 & 75.71 & 86.4 & 0.88 \\
-\hline InferSent\textsubscript{mean} & 77.09 & 79.44 & 88.0 & 90.87 & 82.4 & 75.77 & 83.95 & 0.86 \\
+GloVe\textsubscript{full} & 0.57 & 67.73 & 65.04 & 72.90 & 88.20 & 90.02 \\
+GloVe\textsubscript{max} & 0.05 & 53.38 & 66.49 & 58.81 & 13.00 & 58.16 \\
+GloVe\textsubscript{mean} & 0.80 & 78.85 & 72.12 & 76.90 & 82.00 & 91.32 \\
+CoVe\textsubscript{full} & 0.73 & 78.18 & 69.04 & 73.00 & 89.80 & 90.23 \\
+CoVe\textsubscript{max} & 0.81 & 81.41 & 75.07 & 73.00 & 87.20 & 88.85 \\
+CoVe\textsubscript{mean} & 0.82 & 79.38 & 75.25 & 75.31 & 86.60 & 89.56 \\
+GloVe+CoVe\textsubscript{full} & 0.66 & 71.02 & 70.09 & 73.57 & \textbf{90.40} & 91.01 \\
+GloVe+CoVe\textsubscript{max} & 0.84 & 81.69 & 75.65 & 75.62 & 90.00 & 91.51 \\
+GloVe+CoVe\textsubscript{mean} & 0.83 & 82.38 & 75.07 & \textbf{78.15} & 87.40 & \textbf{92.35} \\
+InferSent\textsubscript{full} & - & - & - & - & 90.20 & - \\
+InferSent\textsubscript{max} & \textbf{\underline{0.88}} & \textbf{\underline{86.40}} & \textbf{75.71} & \textbf{\underline{81.71}} & \textbf{\underline{90.80}} & \textbf{\underline{92.58}} \\
+InferSent\textsubscript{mean} & \textbf{0.86} & \textbf{83.95} & \textbf{\underline{75.77}} & 77.09 & 82.40 & 90.87 \\
+\hline
+
+############## SPLIT TABLES ##############
+
+LaTeX Table code for lower=False, tasks=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']:
+\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\hline
+GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 0.57 \\
+CoVe\textsubscript{full} & 0.20 & 0.13 & 0.13 & 0.32 & 0.29 & \textbf{\underline{0.56}} & \textbf{\underline{0.73}} \\
+GloVe+CoVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.43 & 0.66 \\
+InferSent\textsubscript{full} & \textbf{\underline{0.32}} & \textbf{\underline{0.17}} & \textbf{\underline{0.20}} & \textbf{\underline{0.36}} & \textbf{\underline{0.32}} & 0.54 & - \\
+\hline
+
+LaTeX Table code for lower=False, tasks=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ']:
+\hline Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline
+GloVe\textsubscript{full} & 67.93 & 67.77 & \textbf{\underline{78.20}} & 39.46 & 72.92 & 86.78 & 73.75 & 90.60 & 90.10 \\
+CoVe\textsubscript{full} & \textbf{\underline{77.86}} & 68.70 & 77.92 & \textbf{\underline{40.05}} & 73.10 & \textbf{\underline{88.20}} & 74.15 & \textbf{\underline{91.40}} & 90.34 \\
+GloVe+CoVe\textsubscript{full} & 72.21 & \textbf{\underline{70.20}} & 77.59 & 39.68 & \textbf{\underline{73.60}} & 87.64 & \textbf{\underline{75.13}} & 91.20 & \textbf{\underline{91.01}} \\
+InferSent\textsubscript{full} & - & - & - & 38.37 & - & - & - & 90.40 & - \\
+\hline
+
+LaTeX Table code for lower=True, tasks=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ']:
+\hline Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\hline
+GloVe\textsubscript{full} & 0.57 & 67.73 & 65.04 & 72.90 & 88.20 & 90.02 \\
+CoVe\textsubscript{full} & \textbf{\underline{0.73}} & \textbf{\underline{78.18}} & 69.04 & 73.00 & 89.80 & 90.23 \\
+GloVe+CoVe\textsubscript{full} & 0.66 & 71.02 & \textbf{\underline{70.09}} & \textbf{\underline{73.57}} & \textbf{\underline{90.40}} & \textbf{\underline{91.01}} \\
+InferSent\textsubscript{full} & - & - & - & - & 90.20 & - \\
+\hline
+
+LaTeX Table code for lower=False, tasks=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']:
+\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\hline
+GloVe\textsubscript{max} & 0.05 & 0.06 & 0.01 & 0.02 & -0.04 & -0.01 & 0.06 \\
+CoVe\textsubscript{max} & 0.37 & 0.35 & 0.45 & 0.54 & 0.45 & 0.72 & 0.80 \\
+GloVe+CoVe\textsubscript{max} & 0.54 & 0.60 & 0.64 & 0.70 & 0.68 & 0.73 & 0.83 \\
+InferSent\textsubscript{max} & \textbf{\underline{0.60}} & \textbf{\underline{0.66}} & \textbf{\underline{0.71}} & \textbf{\underline{0.73}} & \textbf{\underline{0.72}} & \textbf{\underline{0.76}} & \textbf{\underline{0.88}} \\
+\hline
+
+LaTeX Table code for lower=False, tasks=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ']:
+\hline Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline
+GloVe\textsubscript{max} & 57.05 & 66.14 & 50.96 & 28.91 & 58.84 & 80.65 & 63.76 & 30.60 & 58.16 \\
+CoVe\textsubscript{max} & 81.00 & 73.28 & 77.87 & 42.13 & 73.16 & 89.02 & 76.13 & 82.80 & 88.87 \\
+GloVe+CoVe\textsubscript{max} & 80.58 & 74.14 & 80.23 & 41.63 & 75.75 & 88.30 & 79.10 & 87.80 & 91.51 \\
+InferSent\textsubscript{max} & \textbf{\underline{86.42}} & \textbf{\underline{76.52}} & \textbf{\underline{85.01}} & \textbf{\underline{45.48}} & \textbf{\underline{81.54}} & \textbf{\underline{90.63}} & \textbf{\underline{86.70}} & \textbf{\underline{88.20}} & \textbf{\underline{92.58}} \\
+\hline
+
+LaTeX Table code for lower=True, tasks=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ']:
+\hline Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\hline
+GloVe\textsubscript{max} & 0.05 & 53.38 & 66.49 & 58.81 & 13.00 & 58.16 \\
+CoVe\textsubscript{max} & 0.81 & 81.41 & 75.07 & 73.00 & 87.20 & 88.85 \\
+GloVe+CoVe\textsubscript{max} & 0.84 & 81.69 & 75.65 & 75.62 & 90.00 & 91.51 \\
+InferSent\textsubscript{max} & \textbf{\underline{0.88}} & \textbf{\underline{86.40}} & \textbf{\underline{75.71}} & \textbf{\underline{81.71}} & \textbf{\underline{90.80}} & \textbf{\underline{92.58}} \\
+\hline
+
+LaTeX Table code for lower=False, tasks=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']:
+\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\hline
+GloVe\textsubscript{mean} & 0.53 & 0.54 & 0.55 & 0.60 & 0.51 & 0.65 & 0.80 \\
+CoVe\textsubscript{mean} & 0.44 & 0.48 & 0.53 & 0.61 & 0.54 & \textbf{\underline{0.74}} & 0.81 \\
+GloVe+CoVe\textsubscript{mean} & 0.53 & 0.54 & 0.56 & 0.60 & 0.52 & 0.73 & 0.83 \\
+InferSent\textsubscript{mean} & \textbf{\underline{0.57}} & \textbf{\underline{0.57}} & \textbf{\underline{0.60}} & \textbf{\underline{0.65}} & \textbf{\underline{0.57}} & 0.72 & \textbf{\underline{0.86}} \\
+\hline
+
+LaTeX Table code for lower=False, tasks=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ']:
+\hline Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline
+GloVe\textsubscript{mean} & 78.57 & 72.41 & 79.96 & 44.84 & 76.91 & 87.57 & 78.81 & 83.40 & 91.32 \\
+CoVe\textsubscript{mean} & 78.87 & 73.80 & 81.49 & 43.94 & 75.46 & 89.36 & 75.76 & 83.80 & 89.68 \\
+GloVe+CoVe\textsubscript{mean} & 81.35 & 73.91 & \textbf{\underline{83.42}} & \textbf{\underline{45.34}} & \textbf{\underline{78.12}} & \textbf{\underline{89.40}} & \textbf{\underline{79.89}} & \textbf{\underline{88.00}} & \textbf{\underline{92.35}} \\
+InferSent\textsubscript{mean} & \textbf{\underline{83.05}} & \textbf{\underline{76.17}} & 81.77 & 45.11 & 77.62 & 88.00 & 79.44 & 82.00 & 90.87 \\
+\hline
+
+LaTeX Table code for lower=True, tasks=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ']:
+\hline Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\hline
+GloVe\textsubscript{mean} & 0.80 & 78.85 & 72.12 & 76.90 & 82.00 & 91.32 \\
+CoVe\textsubscript{mean} & 0.82 & 79.38 & 75.25 & 75.31 & 86.60 & 89.56 \\
+GloVe+CoVe\textsubscript{mean} & 0.83 & 82.38 & 75.07 & \textbf{\underline{78.15}} & \textbf{\underline{87.40}} & \textbf{\underline{92.35}} \\
+InferSent\textsubscript{mean} & \textbf{\underline{0.86}} & \textbf{\underline{83.95}} & \textbf{\underline{75.77}} & 77.09 & 82.40 & 90.87 \\
+\hline
+
+############## MERGED TABLE ##############
+
+\hline
+Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\hline
+GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 0.57 \\
+CoVe\textsubscript{full} & 0.20 & 0.13 & 0.13 & 0.32 & 0.29 & \textbf{0.56} & \textbf{0.73} \\
+GloVe+CoVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.43 & 0.66 \\
+InferSent\textsubscript{full} & \textbf{0.32} & \textbf{0.17} & \textbf{0.20} & \textbf{0.36} & \textbf{0.32} & 0.54 & - \\
+\hline
+GloVe\textsubscript{max} & 0.05 & 0.06 & 0.01 & 0.02 & -0.04 & -0.01 & 0.06 \\
+CoVe\textsubscript{max} & 0.37 & 0.35 & 0.45 & 0.54 & 0.45 & 0.72 & 0.80 \\
+GloVe+CoVe\textsubscript{max} & \underline{0.54} & \underline{0.60} & \underline{0.64} & \underline{0.70} & \underline{0.68} & \underline{0.73} & \underline{0.83} \\
+InferSent\textsubscript{max} & \cellcolor{yellow!18}\textbf{\underline{0.60}} & \cellcolor{yellow!18}\textbf{\underline{0.66}} & \cellcolor{yellow!18}\textbf{\underline{0.71}} & \cellcolor{yellow!18}\textbf{\underline{0.73}} & \cellcolor{yellow!18}\textbf{\underline{0.72}} & \cellcolor{yellow!18}\textbf{\underline{0.76}} & \cellcolor{yellow!18}\textbf{\underline{0.88}} \\
+\hline
+GloVe\textsubscript{mean} & \underline{0.53} & \underline{0.54} & \underline{0.55} & \underline{0.60} & \underline{0.51} & \underline{0.65} & \underline{0.80} \\
+CoVe\textsubscript{mean} & \underline{0.44} & \underline{0.48} & \underline{0.53} & \underline{0.61} & \underline{0.54} & \textbf{\underline{0.74}} & \underline{0.81} \\
+GloVe+CoVe\textsubscript{mean} & 0.53 & 0.54 & 0.56 & 0.60 & 0.52 & \underline{0.73} & \underline{0.83} \\
+InferSent\textsubscript{mean} & \textbf{0.57} & \textbf{0.57} & \textbf{0.60} & \textbf{0.65} & \textbf{0.57} & 0.72 & \textbf{0.86} \\
+\hline
+
+
+\hline
+Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline
+GloVe\textsubscript{full} & 67.93 & 67.77 & \textbf{78.20} & 39.46 & 72.92 & 86.78 & 73.75 & \underline{90.60} & 90.10 \\
+CoVe\textsubscript{full} & \textbf{77.86} & 68.70 & 77.92 & \textbf{40.05} & 73.10 & \textbf{88.20} & 74.15 & \cellcolor{yellow!18}\textbf{\underline{91.40}} & \underline{90.34} \\
+GloVe+CoVe\textsubscript{full} & 72.21 & \textbf{70.20} & 77.59 & 39.68 & \textbf{73.60} & 87.64 & \textbf{75.13} & \underline{91.20} & \textbf{91.01} \\
+InferSent\textsubscript{full} & - & - & - & 38.37 & - & - & - & \underline{90.40} & - \\
+\hline
+GloVe\textsubscript{max} & 57.05 & 66.14 & 50.96 & 28.91 & 58.84 & 80.65 & 63.76 & 30.60 & 58.16 \\
+CoVe\textsubscript{max} & \underline{81.00} & 73.28 & 77.87 & 42.13 & 73.16 & 89.02 & \underline{76.13} & 82.80 & 88.87 \\
+GloVe+CoVe\textsubscript{max} & 80.58 & \underline{74.14} & 80.23 & 41.63 & 75.75 & 88.30 & 79.10 & 87.80 & 91.51 \\
+InferSent\textsubscript{max} & \cellcolor{yellow!18}\textbf{\underline{86.42}} & \cellcolor{yellow!18}\textbf{\underline{76.52}} & \cellcolor{yellow!18}\textbf{\underline{85.01}} & \cellcolor{yellow!18}\textbf{\underline{45.48}} & \cellcolor{yellow!18}\textbf{\underline{81.54}} & \cellcolor{yellow!18}\textbf{\underline{90.63}} & \cellcolor{yellow!18}\textbf{\underline{86.70}} & \textbf{88.20} & \cellcolor{yellow!18}\textbf{\underline{92.58}} \\
+\hline
+GloVe\textsubscript{mean} & \underline{78.57} & \underline{72.41} & \underline{79.96} & \underline{44.84} & \underline{76.91} & \underline{87.57} & \underline{78.81} & 83.40 & \underline{91.32} \\
+CoVe\textsubscript{mean} & 78.87 & \underline{73.80} & \underline{81.49} & \underline{43.94} & \underline{75.46} & \underline{89.36} & 75.76 & 83.80 & 89.68 \\
+GloVe+CoVe\textsubscript{mean} & \underline{81.35} & 73.91 & \textbf{\underline{83.42}} & \textbf{\underline{45.34}} & \textbf{\underline{78.12}} & \textbf{\underline{89.40}} & \textbf{\underline{79.89}} & \textbf{88.00} & \textbf{\underline{92.35}} \\
+InferSent\textsubscript{mean} & \textbf{83.05} & \textbf{76.17} & 81.77 & 45.11 & 77.62 & 88.00 & 79.44 & 82.00 & 90.87 \\
+\hline
+
+
+\hline
+Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\hline
+GloVe\textsubscript{max} & 0.05 & 53.38 & 66.49 & 58.81 & 13.00 & 58.16 \\
+CoVe\textsubscript{max} & 0.81 & \underline{81.41} & 75.07 & 73.00 & 87.20 & 88.85 \\
+GloVe+CoVe\textsubscript{max} & \underline{0.84} & 81.69 & \underline{75.65} & 75.62 & 90.00 & 91.51 \\
+InferSent\textsubscript{max} & \cellcolor{yellow!18}\textbf{\underline{0.88}} & \cellcolor{yellow!18}\textbf{\underline{86.40}} & \textbf{75.71} & \cellcolor{yellow!18}\textbf{\underline{81.71}} & \cellcolor{yellow!18}\textbf{\underline{90.80}} & \cellcolor{yellow!18}\textbf{\underline{92.58}} \\
+\hline
+GloVe\textsubscript{full} & 0.57 & 67.73 & 65.04 & 72.90 & \underline{88.20} & 90.02 \\
+CoVe\textsubscript{full} & \textbf{0.73} & \textbf{78.18} & 69.04 & 73.00 & \underline{89.80} & \underline{90.23} \\
+GloVe+CoVe\textsubscript{full} & 0.66 & 71.02 & \textbf{70.09} & \textbf{73.57} & \textbf{\underline{90.40}} & \textbf{91.01} \\
+InferSent\textsubscript{full} & - & - & - & - & 90.20 & - \\
+\hline
+GloVe\textsubscript{mean} & \underline{0.80} & \underline{78.85} & \underline{72.12} & \underline{76.90} & 82.00 & \underline{91.32} \\
+CoVe\textsubscript{mean} & \underline{0.82} & 79.38 & \underline{75.25} & \underline{75.31} & 86.60 & 89.56 \\
+GloVe+CoVe\textsubscript{mean} & 0.83 & \underline{82.38} & 75.07 & \textbf{\underline{78.15}} & \textbf{87.40} & \textbf{\underline{92.35}} \\
+InferSent\textsubscript{mean} & \textbf{0.86} & \textbf{83.95} & \cellcolor{yellow!18}\textbf{\underline{75.77}} & 77.09 & 82.40 & 90.87 \\
 \hline
 
 
@@ -505,16 +634,16 @@ Results for: ./CoVe_max
    STS15:[0.5434239252088042]
    STS16:[0.4453186295694822]
    STSBenchmark:[0.717903469102996]
-   MR:[73.16]
-   CR:[76.13]
-   MPQA:[89.02]
-   SUBJ:[88.87]
+   SICKRelatedness:[0.8003844703648801]
+   SICKEntailment:[81.0]
+   MRPC:[73.28]
    SST2:[77.87]
    SST5:[42.13]
+   MR:[73.16]
+   MPQA:[89.02]
+   CR:[76.13]
    TREC:[82.8]
-   MRPC:[73.28]
-   SICKEntailment:[81.0]
-   SICKRelatedness:[0.8003844703648801]
+   SUBJ:[88.87]
 
 Results for: ./GloVe+CoVe_mean
    STS12:[0.532970038424316]
@@ -523,16 +652,16 @@ Results for: ./GloVe+CoVe_mean
    STS15:[0.603264763865208]
    STS16:[0.5244647765240721]
    STSBenchmark:[0.7254229035419024]
-   MR:[78.12]
-   CR:[79.89]
-   MPQA:[89.4]
-   SUBJ:[92.35]
+   SICKRelatedness:[0.8345118226668881]
+   SICKEntailment:[81.35]
+   MRPC:[73.91]
    SST2:[83.42]
    SST5:[45.34]
+   MR:[78.12]
+   MPQA:[89.4]
+   CR:[79.89]
    TREC:[88.0]
-   MRPC:[73.91]
-   SICKEntailment:[81.35]
-   SICKRelatedness:[0.8345118226668881]
+   SUBJ:[92.35]
 
 Results for: ./GloVe_max
    STS12:[0.051611420527376564]
@@ -541,16 +670,16 @@ Results for: ./GloVe_max
    STS15:[0.02488882805971337]
    STS16:[-0.03832976163683009]
    STSBenchmark:[-0.010261220333290402]
-   MR:[58.84]
-   CR:[63.76]
-   MPQA:[80.65]
-   SUBJ:[58.16]
+   SICKRelatedness:[0.05925652947199242]
+   SICKEntailment:[57.05]
+   MRPC:[66.14]
    SST2:[50.96]
    SST5:[28.91]
+   MR:[58.84]
+   MPQA:[80.65]
+   CR:[63.76]
    TREC:[30.6]
-   MRPC:[66.14]
-   SICKEntailment:[57.05]
-   SICKRelatedness:[0.05925652947199242]
+   SUBJ:[58.16]
 
 Results for: ./GloVe+CoVe_full_lower
    STS12:[0.22970308674839515]
@@ -559,16 +688,16 @@ Results for: ./GloVe+CoVe_full_lower
    STS15:[0.283128692887493]
    STS16:[0.27011362382005866]
    STSBenchmark:[0.42630329583788684]
-   MR:[73.57]
-   CR:[75.13]
-   MPQA:[87.64]
-   SUBJ:[91.01]
+   SICKRelatedness:[0.6622342816570873]
+   SICKEntailment:[71.02]
+   MRPC:[70.09]
    SST2:[77.59]
    SST5:[39.68]
+   MR:[73.57]
+   MPQA:[87.64]
+   CR:[75.13]
    TREC:[90.4]
-   MRPC:[70.09]
-   SICKEntailment:[71.02]
-   SICKRelatedness:[0.6622342816570873]
+   SUBJ:[91.01]
 
 Results for: ./GloVe+CoVe_mean_lower
    STS12:[0.532970038424316]
@@ -577,16 +706,16 @@ Results for: ./GloVe+CoVe_mean_lower
    STS15:[0.603264763865208]
    STS16:[0.5244647765240721]
    STSBenchmark:[0.7254229035419024]
-   MR:[78.15]
-   CR:[79.89]
-   MPQA:[89.4]
-   SUBJ:[92.35]
+   SICKRelatedness:[0.8332962630537499]
+   SICKEntailment:[82.38]
+   MRPC:[75.07]
    SST2:[83.42]
    SST5:[45.34]
+   MR:[78.15]
+   MPQA:[89.4]
+   CR:[79.89]
    TREC:[87.4]
-   MRPC:[75.07]
-   SICKEntailment:[82.38]
-   SICKRelatedness:[0.8332962630537499]
+   SUBJ:[92.35]
 
 Results for: ./GloVe_mean_lower
    STS12:[0.530890025911705]
@@ -595,16 +724,16 @@ Results for: ./GloVe_mean_lower
    STS15:[0.5991073761484395]
    STS16:[0.5147597254745054]
    STSBenchmark:[0.647068208085504]
-   MR:[76.9]
-   CR:[78.81]
-   MPQA:[87.57]
-   SUBJ:[91.32]
+   SICKRelatedness:[0.799523392183357]
+   SICKEntailment:[78.85]
+   MRPC:[72.12]
    SST2:[79.96]
    SST5:[44.84]
+   MR:[76.9]
+   MPQA:[87.57]
+   CR:[78.81]
    TREC:[82.0]
-   MRPC:[72.12]
-   SICKEntailment:[78.85]
-   SICKRelatedness:[0.799523392183357]
+   SUBJ:[91.32]
 
 Results for: ./GloVe+CoVe_max
    STS12:[0.542261332891119]
@@ -613,16 +742,16 @@ Results for: ./GloVe+CoVe_max
    STS15:[0.7011391566258487]
    STS16:[0.6778561188661705]
    STSBenchmark:[0.734532756030317]
-   MR:[75.75]
-   CR:[79.1]
-   MPQA:[88.3]
-   SUBJ:[91.51]
+   SICKRelatedness:[0.8338044523487488]
+   SICKEntailment:[80.58]
+   MRPC:[74.14]
    SST2:[80.23]
    SST5:[41.63]
+   MR:[75.75]
+   MPQA:[88.3]
+   CR:[79.1]
    TREC:[87.8]
-   MRPC:[74.14]
-   SICKEntailment:[80.58]
-   SICKRelatedness:[0.8338044523487488]
+   SUBJ:[91.51]
 
 Results for: ./CoVe_mean_lower
    STS12:[0.4414221681403092]
@@ -631,16 +760,16 @@ Results for: ./CoVe_mean_lower
    STS15:[0.6092618706285869]
    STS16:[0.5432107575913135]
    STSBenchmark:[0.7369063198010156]
-   MR:[75.31]
-   CR:[75.76]
-   MPQA:[89.36]
-   SUBJ:[89.56]
+   SICKRelatedness:[0.8199980925920696]
+   SICKEntailment:[79.38]
+   MRPC:[75.25]
    SST2:[81.49]
    SST5:[43.94]
+   MR:[75.31]
+   MPQA:[89.36]
+   CR:[75.76]
    TREC:[86.6]
-   MRPC:[75.25]
-   SICKEntailment:[79.38]
-   SICKRelatedness:[0.8199980925920696]
+   SUBJ:[89.56]
 
 Results for: ./GloVe_max_lower
    STS12:[0.051611420527376564]
@@ -649,16 +778,16 @@ Results for: ./GloVe_max_lower
    STS15:[0.02488882805971337]
    STS16:[-0.03832976163683009]
    STSBenchmark:[-0.010261220333290402]
-   MR:[58.81]
-   CR:[63.76]
-   MPQA:[80.65]
-   SUBJ:[58.16]
+   SICKRelatedness:[0.052799017559860904]
+   SICKEntailment:[53.38]
+   MRPC:[66.49]
    SST2:[50.96]
    SST5:[28.91]
+   MR:[58.81]
+   MPQA:[80.65]
+   CR:[63.76]
    TREC:[13.0]
-   MRPC:[66.49]
-   SICKEntailment:[53.38]
-   SICKRelatedness:[0.052799017559860904]
+   SUBJ:[58.16]
 
 Results for: ./GloVe+CoVe_full
    STS12:[0.22970308674839515]
@@ -667,16 +796,16 @@ Results for: ./GloVe+CoVe_full
    STS15:[0.283128692887493]
    STS16:[0.27011362382005866]
    STSBenchmark:[0.42630329583788684]
-   MR:[73.6]
-   CR:[75.13]
-   MPQA:[87.64]
-   SUBJ:[91.01]
+   SICKRelatedness:[0.6552288463211194]
+   SICKEntailment:[72.21]
+   MRPC:[70.2]
    SST2:[77.59]
    SST5:[39.68]
+   MR:[73.6]
+   MPQA:[87.64]
+   CR:[75.13]
    TREC:[91.2]
-   MRPC:[70.2]
-   SICKEntailment:[72.21]
-   SICKRelatedness:[0.6552288463211194]
+   SUBJ:[91.01]
 
 Results for: ./Random
    STS12:[0.005738965374626246]
@@ -685,16 +814,16 @@ Results for: ./Random
    STS15:[-0.006185403301987746]
    STS16:[0.017471190492588357]
    STSBenchmark:[0.009700820009374354]
-   MR:[49.91]
-   CR:[53.32]
-   MPQA:[57.28]
-   SUBJ:[49.89]
+   SICKRelatedness:[0.005711862960916694]
+   SICKEntailment:[55.35]
+   MRPC:[61.86]
    SST2:[50.91]
    SST5:[23.98]
+   MR:[49.91]
+   MPQA:[57.28]
+   CR:[53.32]
    TREC:[21.6]
-   MRPC:[61.86]
-   SICKEntailment:[55.35]
-   SICKRelatedness:[0.005711862960916694]
+   SUBJ:[49.89]
 
 Results for: ./CoVe_max_lower
    STS12:[0.37367388832433596]
@@ -703,16 +832,16 @@ Results for: ./CoVe_max_lower
    STS15:[0.5434239252088042]
    STS16:[0.4453186295694822]
    STSBenchmark:[0.717903469102996]
-   MR:[73.0]
-   CR:[76.13]
-   MPQA:[89.02]
-   SUBJ:[88.85]
+   SICKRelatedness:[0.8105614407986899]
+   SICKEntailment:[81.41]
+   MRPC:[75.07]
    SST2:[77.87]
    SST5:[42.13]
+   MR:[73.0]
+   MPQA:[89.02]
+   CR:[76.13]
    TREC:[87.2]
-   MRPC:[75.07]
-   SICKEntailment:[81.41]
-   SICKRelatedness:[0.8105614407986899]
+   SUBJ:[88.85]
 
 Results for: ./CoVe_mean
    STS12:[0.4414221681403092]
@@ -721,16 +850,16 @@ Results for: ./CoVe_mean
    STS15:[0.6092618706285869]
    STS16:[0.5432107575913135]
    STSBenchmark:[0.7369063198010156]
-   MR:[75.46]
-   CR:[75.76]
-   MPQA:[89.36]
-   SUBJ:[89.68]
+   SICKRelatedness:[0.8126395829252967]
+   SICKEntailment:[78.87]
+   MRPC:[73.8]
    SST2:[81.49]
    SST5:[43.94]
+   MR:[75.46]
+   MPQA:[89.36]
+   CR:[75.76]
    TREC:[83.8]
-   MRPC:[73.8]
-   SICKEntailment:[78.87]
-   SICKRelatedness:[0.8126395829252967]
+   SUBJ:[89.68]
 
 Results for: ./InferSent_max_lower
    STS12:[0.6015860238387792]
@@ -739,16 +868,16 @@ Results for: ./InferSent_max_lower
    STS15:[0.725654116426559]
    STS16:[0.716182606932271]
    STSBenchmark:[0.7567631129130402]
-   MR:[81.71]
-   CR:[86.7]
-   MPQA:[90.63]
-   SUBJ:[92.58]
+   SICKRelatedness:[0.880737554860217]
+   SICKEntailment:[86.4]
+   MRPC:[75.71]
    SST2:[85.01]
    SST5:[45.48]
+   MR:[81.71]
+   MPQA:[90.63]
+   CR:[86.7]
    TREC:[90.8]
-   MRPC:[75.71]
-   SICKEntailment:[86.4]
-   SICKRelatedness:[0.880737554860217]
+   SUBJ:[92.58]
 
 Results for: ./InferSent_max
    STS12:[0.6015860244821974]
@@ -757,17 +886,17 @@ Results for: ./InferSent_max
    STS15:[0.725654117079792]
    STS16:[0.7161826132507928]
    STSBenchmark:[0.7567631165299396]
-   MR:[81.54]
-   CR:[86.7]
-   MPQA:[90.63]
-   SUBJ:[92.58]
+   SICKRelatedness:[0.8834873582927422]
+   SICKEntailment:[86.42]
+   MRPC:[76.52]
    SST2:[85.01]
    SST5:[45.48]
+   MR:[81.54]
+   MPQA:[90.63]
+   CR:[86.7]
    TREC:[88.2]
-   MRPC:[76.52]
+   SUBJ:[92.58]
    SNLI:[83.72]
-   SICKEntailment:[86.42]
-   SICKRelatedness:[0.8834873582927422]
    ImageCaptionRetrieval:[42.64, 75.64, 87.53999999999999, 33.784, 69.612, 83.712]
 
 Results for: ./GloVe_mean
@@ -777,16 +906,16 @@ Results for: ./GloVe_mean
    STS15:[0.5991073761484395]
    STS16:[0.5147597254745054]
    STSBenchmark:[0.647068208085504]
-   MR:[76.91]
-   CR:[78.81]
-   MPQA:[87.57]
-   SUBJ:[91.32]
+   SICKRelatedness:[0.7993666076424478]
+   SICKEntailment:[78.57]
+   MRPC:[72.41]
    SST2:[79.96]
    SST5:[44.84]
+   MR:[76.91]
+   MPQA:[87.57]
+   CR:[78.81]
    TREC:[83.4]
-   MRPC:[72.41]
-   SICKEntailment:[78.57]
-   SICKRelatedness:[0.7993666076424478]
+   SUBJ:[91.32]
 
 Results for: ./InferSent_full
    STS12:[0.3200239738186674]
@@ -796,6 +925,7 @@ Results for: ./InferSent_full
    STS16:[0.3178276277472868]
    STSBenchmark:[0.5417130921902168]
    SST5:[38.37]
+   TREC:[90.4]
 
 Results for: ./GloVe_full_lower
    STS12:[0.22975855759278868]
@@ -804,16 +934,16 @@ Results for: ./GloVe_full_lower
    STS15:[0.28077325477578713]
    STS16:[0.2677558368216754]
    STSBenchmark:[0.24376545109167413]
-   MR:[72.9]
-   CR:[73.75]
-   MPQA:[86.78]
-   SUBJ:[90.02]
+   SICKRelatedness:[0.5684236322003073]
+   SICKEntailment:[67.73]
+   MRPC:[65.04]
    SST2:[78.2]
    SST5:[39.46]
+   MR:[72.9]
+   MPQA:[86.78]
+   CR:[73.75]
    TREC:[88.2]
-   MRPC:[65.04]
-   SICKEntailment:[67.73]
-   SICKRelatedness:[0.5684236322003073]
+   SUBJ:[90.02]
 
 Results for: ./GloVe+CoVe_max_lower
    STS12:[0.542261332891119]
@@ -822,16 +952,16 @@ Results for: ./GloVe+CoVe_max_lower
    STS15:[0.7011391566258487]
    STS16:[0.6778561188661705]
    STSBenchmark:[0.734532756030317]
-   MR:[75.62]
-   CR:[79.1]
-   MPQA:[88.3]
-   SUBJ:[91.51]
+   SICKRelatedness:[0.8354734710822866]
+   SICKEntailment:[81.69]
+   MRPC:[75.65]
    SST2:[80.23]
    SST5:[41.63]
+   MR:[75.62]
+   MPQA:[88.3]
+   CR:[79.1]
    TREC:[90.0]
-   MRPC:[75.65]
-   SICKEntailment:[81.69]
-   SICKRelatedness:[0.8354734710822866]
+   SUBJ:[91.51]
 
 Results for: ./CoVe_full
    STS12:[0.20448545889013317]
@@ -840,16 +970,16 @@ Results for: ./CoVe_full
    STS15:[0.3169443491459299]
    STS16:[0.28672143460690386]
    STSBenchmark:[0.5601327165208462]
-   MR:[73.1]
-   CR:[74.15]
-   MPQA:[88.2]
-   SUBJ:[90.34]
+   SICKRelatedness:[0.7334667902297181]
+   SICKEntailment:[77.86]
+   MRPC:[68.7]
    SST2:[77.92]
    SST5:[40.05]
+   MR:[73.1]
+   MPQA:[88.2]
+   CR:[74.15]
    TREC:[91.4]
-   MRPC:[68.7]
-   SICKEntailment:[77.86]
-   SICKRelatedness:[0.7334667902297181]
+   SUBJ:[90.34]
 
 Results for: ./CoVe_full_lower
    STS12:[0.20448545889013317]
@@ -858,16 +988,16 @@ Results for: ./CoVe_full_lower
    STS15:[0.3169443491459299]
    STS16:[0.28672143460690386]
    STSBenchmark:[0.5601327165208462]
-   MR:[73.0]
-   CR:[74.15]
-   MPQA:[88.2]
-   SUBJ:[90.23]
+   SICKRelatedness:[0.7348105396302606]
+   SICKEntailment:[78.18]
+   MRPC:[69.04]
    SST2:[77.92]
    SST5:[40.05]
+   MR:[73.0]
+   MPQA:[88.2]
+   CR:[74.15]
    TREC:[89.8]
-   MRPC:[69.04]
-   SICKEntailment:[78.18]
-   SICKRelatedness:[0.7348105396302606]
+   SUBJ:[90.23]
 
 Results for: ./InferSent_mean
    STS12:[0.5679371451191275]
@@ -876,16 +1006,16 @@ Results for: ./InferSent_mean
    STS15:[0.6470013536564909]
    STS16:[0.5690103298176474]
    STSBenchmark:[0.7161529591270516]
-   MR:[77.62]
-   CR:[79.44]
-   MPQA:[88.0]
-   SUBJ:[90.87]
+   SICKRelatedness:[0.8631847323236195]
+   SICKEntailment:[83.05]
+   MRPC:[76.17]
    SST2:[81.77]
    SST5:[45.11]
+   MR:[77.62]
+   MPQA:[88.0]
+   CR:[79.44]
    TREC:[82.0]
-   MRPC:[76.17]
-   SICKEntailment:[83.05]
-   SICKRelatedness:[0.8631847323236195]
+   SUBJ:[90.87]
 
 Results for: ./InferSent_full_lower
    STS12:[0.3200239738186674]
@@ -895,6 +1025,7 @@ Results for: ./InferSent_full_lower
    STS16:[0.3178276277472868]
    STSBenchmark:[0.5417130921902168]
    SST5:[38.37]
+   TREC:[90.2]
 
 Results for: ./GloVe_full
    STS12:[0.22975855759278868]
@@ -903,16 +1034,16 @@ Results for: ./GloVe_full
    STS15:[0.28077325477578713]
    STS16:[0.2677558368216754]
    STSBenchmark:[0.24376545109167413]
-   MR:[72.92]
-   CR:[73.75]
-   MPQA:[86.78]
-   SUBJ:[90.1]
+   SICKRelatedness:[0.5678797957890566]
+   SICKEntailment:[67.93]
+   MRPC:[67.77]
    SST2:[78.2]
    SST5:[39.46]
+   MR:[72.92]
+   MPQA:[86.78]
+   CR:[73.75]
    TREC:[90.6]
-   MRPC:[67.77]
-   SICKEntailment:[67.93]
-   SICKRelatedness:[0.5678797957890566]
+   SUBJ:[90.1]
 
 Results for: ./InferSent_mean_lower
    STS12:[0.5679371451191275]
@@ -921,13 +1052,13 @@ Results for: ./InferSent_mean_lower
    STS15:[0.6470013536564909]
    STS16:[0.5690103298176474]
    STSBenchmark:[0.7161529591270516]
-   MR:[77.09]
-   CR:[79.44]
-   MPQA:[88.0]
-   SUBJ:[90.87]
+   SICKRelatedness:[0.8641197518064883]
+   SICKEntailment:[83.95]
+   MRPC:[75.77]
    SST2:[81.77]
    SST5:[45.11]
+   MR:[77.09]
+   MPQA:[88.0]
+   CR:[79.44]
    TREC:[82.4]
-   MRPC:[75.77]
-   SICKEntailment:[83.95]
-   SICKRelatedness:[0.8641197518064883]
+   SUBJ:[90.87]

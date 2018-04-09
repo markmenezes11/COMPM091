@@ -23,13 +23,12 @@ import os
 import re
 import argparse
 
-parser = argparse.ArgumentParser(description='Results parser for SentEval-evals')
+parser = argparse.ArgumentParser(description='Results parser for SentEval-evals. Note: LaTeX code will not be produced for SNLI or ImageCaptionRetrieval results')
 parser.add_argument("rootdir", type=str, help="Root directory where depth-first search will start")
 params, _ = parser.parse_known_args()
 
-transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark',
-                  'MR', 'CR', 'MPQA', 'SUBJ', 'SST2', 'SST5', 'TREC', 'MRPC', 'SNLI',
-                  'SICKEntailment', 'SICKRelatedness', 'ImageCaptionRetrieval']
+transfer_tasks = ['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness', 'SICKEntailment',
+                  'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ', 'SNLI', 'ImageCaptionRetrieval']
 
 def parse_results1(results):
     match = re.compile("u'all':\s*.*?}}").findall(results)
@@ -98,33 +97,257 @@ print("\n\n##############################################################")
 print("########################### LATEX: ###########################")
 print("##############################################################")
 
-def make_table(lower, sts_and_sst):
-    print("\nLaTeX Table code for lower=" + str(lower) + ", sts=" + str(sts_and_sst) + ":")
+print("\n############## FULL TABLE ##############")
+
+def make_full_table(lower, include, representations):
+    print("\nLaTeX Table code for lower=" + str(lower) + ", tasks=" + str(include) + ":")
     table_rows = []
-    included_transfer_tasks = [x for x in transfer_tasks if x != "ImageCaptionRetrieval" and x != "SNLI"
-                               and ((sts_and_sst and ("STS" in x or "SST" in x)) or (not sts_and_sst and ("STS" not in x and "SST" not in x)))]
-    table_rows.append(["Representation"] + [x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR")
+    included_transfer_tasks = [x for x in transfer_tasks if
+                               x != "ImageCaptionRetrieval" and x != "SNLI" and x in include]
+    table_rows.append(["Representation"] + [x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB")
                                             for x in included_transfer_tasks])
-    for dir in sorted(results):
-        if ((lower and "_lower" in dir) or (not lower and "_lower" not in dir)):
+
+    raw_table_rows = []
+    for representation in representations:
+        for dir in sorted(results):
+            if ((lower and "_lower" in dir) or (not lower and "_lower" not in dir)) and dir.replace("./", "").replace(
+                    "_lower", "") == representation:
+                raw_table_row = []
+                raw_table_row.append(
+                    dir.replace("./", "").replace("_lower", "").replace("_full", "\\textsubscript{full}").replace(
+                        "_max", "\\textsubscript{max}").replace("_mean", "\\textsubscript{mean}"))
+                for transfer_task in included_transfer_tasks:
+                    if transfer_task in results[dir]:
+                        raw_table_row.append(format(results[dir][transfer_task][0], ".2f"))
+                    else:
+                        raw_table_row.append("-")
+                raw_table_rows.append(raw_table_row)
+
+    if len(raw_table_rows) > 0:
+        for raw_table_row in raw_table_rows:
             table_row = []
-            table_row.append(dir.replace("./", "").replace("_lower", "").replace("_full", "\\textsubscript{full}").replace("_max", "\\textsubscript{max}").replace("_mean", "\\textsubscript{mean}"))
-            for transfer_task in included_transfer_tasks:
-                if transfer_task in results[dir]:
-                    table_row.append(str(round(results[dir][transfer_task][0], 2)))
+            for i in range(len(raw_table_rows[0])):
+                if i == 0:
+                    table_row.append(raw_table_row[i])
                 else:
-                    table_row.append("-")
+                    ranked_set = set()
+                    ranked_set.add(-100000)
+                    ranked_set.add(-100000)  # Yeah this was rushed
+                    for ranked_row in raw_table_rows:
+                        if ranked_row[i] != "-":
+                            ranked_set.add(int(ranked_row[i].replace(".", "")))
+                    ranked = sorted(list(ranked_set))
+                    if raw_table_row[i] == "-":
+                        table_row.append(raw_table_row[i])
+                    elif int(raw_table_row[i].replace(".", "")) == ranked[-1]:
+                        table_row.append("\\textbf{\\underline{" + raw_table_row[i] + "}}")
+                    elif int(raw_table_row[i].replace(".", "")) == ranked[-2]:
+                        table_row.append("\\textbf{" + raw_table_row[i] + "}")
+                    else:
+                        table_row.append(raw_table_row[i])
             table_rows.append(table_row)
+
     print("\\hline " + " & ".join(table_rows[0]) + " \\\\")
     print("\\hline")
     for table_row in table_rows[1:]:
-        print("\\hline " + " & ".join(table_row) + " \\\\")
+        print(" & ".join(table_row) + " \\\\")
     print("\\hline")
 
-make_table(lower=False, sts_and_sst=True)
-make_table(lower=False, sts_and_sst=False)
-make_table(lower=True, sts_and_sst=True)
-make_table(lower=True, sts_and_sst=False)
+make_full_table(lower=False, include=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness'], representations = ["GloVe_full", "GloVe_max", "GloVe_mean", "CoVe_full", "CoVe_max", "CoVe_mean", "GloVe+CoVe_full", "GloVe+CoVe_max", "GloVe+CoVe_mean", "InferSent_full", "InferSent_max", "InferSent_mean"])
+make_full_table(lower=False, include=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ'], representations = ["GloVe_full", "GloVe_max", "GloVe_mean", "CoVe_full", "CoVe_max", "CoVe_mean", "GloVe+CoVe_full", "GloVe+CoVe_max", "GloVe+CoVe_mean", "InferSent_full", "InferSent_max", "InferSent_mean"])
+make_full_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_full", "GloVe_max", "GloVe_mean", "CoVe_full", "CoVe_max", "CoVe_mean", "GloVe+CoVe_full", "GloVe+CoVe_max", "GloVe+CoVe_mean", "InferSent_full", "InferSent_max", "InferSent_mean"])
+
+print("\n############## SPLIT TABLES ##############")
+
+def make_table(lower, include, representations):
+    print("\nLaTeX Table code for lower=" + str(lower) + ", tasks=" + str(include) + ":")
+    table_rows = []
+    included_transfer_tasks = [x for x in transfer_tasks if x != "ImageCaptionRetrieval" and x != "SNLI" and x in include]
+    table_rows.append(["Representation"] + [x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB")
+                                            for x in included_transfer_tasks])
+    raw_table_rows = []
+    for representation in representations:
+        for dir in sorted(results):
+            if ((lower and "_lower" in dir) or (not lower and "_lower" not in dir)) and dir.replace("./", "").replace("_lower", "") == representation:
+                raw_table_row = []
+                raw_table_row.append(dir.replace("./", "").replace("_lower", "").replace("_full", "\\textsubscript{full}").replace("_max", "\\textsubscript{max}").replace("_mean", "\\textsubscript{mean}"))
+                for transfer_task in included_transfer_tasks:
+                    if transfer_task in results[dir]:
+                        raw_table_row.append(format(results[dir][transfer_task][0], ".2f"))
+                    else:
+                        raw_table_row.append("-")
+                raw_table_rows.append(raw_table_row)
+
+    if len(raw_table_rows) > 0:
+        for raw_table_row in raw_table_rows:
+            table_row = []
+            for i in range(len(raw_table_rows[0])):
+                if i == 0:
+                    table_row.append(raw_table_row[i])
+                else:
+                    ranked_set = set()
+                    ranked_set.add(-100000)
+                    ranked_set.add(-100000) # Yeah this was rushed
+                    for ranked_row in raw_table_rows:
+                        if ranked_row[i] != "-":
+                            ranked_set.add(int(ranked_row[i].replace(".", "")))
+                    ranked = sorted(list(ranked_set))
+                    if raw_table_row[i] == "-":
+                        table_row.append(raw_table_row[i])
+                    elif int(raw_table_row[i].replace(".", "")) == ranked[-1]:
+                        table_row.append("\\textbf{\\underline{" + raw_table_row[i] + "}}")
+                    #elif int(raw_table_row[i].replace(".", "")) == ranked[-2]:
+                    #    table_row.append("\\textbf{" + raw_table_row[i] + "}")
+                    else:
+                        table_row.append(raw_table_row[i])
+            table_rows.append(table_row)
+
+    print("\\hline " + " & ".join(table_rows[0]) + " \\\\")
+    print("\\hline")
+    for table_row in table_rows[1:]:
+        print(" & ".join(table_row) + " \\\\")
+    print("\\hline")
+
+make_table(lower=False, include=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness'], representations = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full"])
+make_table(lower=False, include=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ'], representations = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full"])
+make_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full"])
+
+make_table(lower=False, include=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness'], representations = ["GloVe_max", "CoVe_max", "GloVe+CoVe_max", "InferSent_max"])
+make_table(lower=False, include=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ'], representations = ["GloVe_max", "CoVe_max", "GloVe+CoVe_max", "InferSent_max"])
+make_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_max", "CoVe_max", "GloVe+CoVe_max", "InferSent_max"])
+
+make_table(lower=False, include=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness'], representations = ["GloVe_mean", "CoVe_mean", "GloVe+CoVe_mean", "InferSent_mean"])
+make_table(lower=False, include=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ'], representations = ["GloVe_mean", "CoVe_mean", "GloVe+CoVe_mean", "InferSent_mean"])
+make_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_mean", "CoVe_mean", "GloVe+CoVe_mean", "InferSent_mean"])
+
+print("\n############## MERGED TABLE ##############\n")
+
+def make_merged_table(lower, include, representations, header=False):
+    representations_to_rank = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full", "GloVe_max", "CoVe_max",
+                               "GloVe+CoVe_max", "InferSent_max", "GloVe_mean", "CoVe_mean", "GloVe+CoVe_mean", "InferSent_mean"]
+
+    table_rows = []
+    included_transfer_tasks = [x for x in transfer_tasks if
+                               x != "ImageCaptionRetrieval" and x != "SNLI" and x in include]
+    if header:
+        table_rows.append(["Representation"] + [x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB")
+                                                for x in included_transfer_tasks])
+    all_table_rows = []
+    for representation in representations_to_rank:
+        for dir in sorted(results):
+            if ((lower and "_lower" in dir) or (not lower and "_lower" not in dir)) and dir.replace("./", "").replace(
+                    "_lower", "") == representation:
+                all_table_row = []
+                all_table_row.append(
+                    dir.replace("./", "").replace("_lower", "").replace("_full", "\\textsubscript{full}").replace(
+                        "_max", "\\textsubscript{max}").replace("_mean", "\\textsubscript{mean}"))
+                for transfer_task in included_transfer_tasks:
+                    if transfer_task in results[dir]:
+                        all_table_row.append(format(results[dir][transfer_task][0], ".2f"))
+                    else:
+                        all_table_row.append("-")
+                all_table_rows.append(all_table_row)
+
+    raw_table_rows = []
+    for representation in representations:
+        for dir in sorted(results):
+            if ((lower and "_lower" in dir) or (not lower and "_lower" not in dir)) and dir.replace("./", "").replace("_lower", "") == representation:
+                raw_table_row = []
+                raw_table_row.append(dir.replace("./", "").replace("_lower", "").replace("_full", "\\textsubscript{full}").replace("_max", "\\textsubscript{max}").replace("_mean", "\\textsubscript{mean}"))
+                for transfer_task in included_transfer_tasks:
+                    if transfer_task in results[dir]:
+                        raw_table_row.append(format(results[dir][transfer_task][0], ".2f"))
+                    else:
+                        raw_table_row.append("-")
+                raw_table_rows.append(raw_table_row)
+
+    if len(raw_table_rows) > 0:
+        for raw_table_row in raw_table_rows:
+            table_row = []
+            for i in range(len(raw_table_rows[0])):
+                if i == 0:
+                    table_row.append(raw_table_row[i])
+                else:
+                    # Bold the best accuracy for that variant (full/max/mean)
+                    bold_ranked_set = set()
+                    bold_ranked_set.add(-100000)
+                    bold_ranked_set.add(-100000) # Yeah this was rushed
+                    for ranked_row in raw_table_rows:
+                        if ranked_row[i] != "-":
+                            bold_ranked_set.add(int(ranked_row[i].replace(".", "")))
+                    bold_ranked = sorted(list(bold_ranked_set))
+
+                    # Underline the best accuracy for that representation
+                    underlined_ranked_set = set()
+                    underlined_ranked_set.add(-100000)
+                    underlined_ranked_set.add(-100000)  # Yeah this was rushed
+                    for all_table_row in all_table_rows:
+                        if all_table_row[i] != "-" and table_row[0].split("\\")[0] == all_table_row[0].split('\\')[0]:
+                            underlined_ranked_set.add(int(all_table_row[i].replace(".", "")))
+                    underlined_ranked = sorted(list(underlined_ranked_set))
+
+                    # Colour the best accuracy overall
+                    coloured_ranked_set = set()
+                    coloured_ranked_set.add(-100000)
+                    coloured_ranked_set.add(-100000)  # Yeah this was rushed
+                    for all_table_row in all_table_rows:
+                        if all_table_row[i] != "-":
+                            coloured_ranked_set.add(int(all_table_row[i].replace(".", "")))
+                    coloured_ranked = sorted(list(coloured_ranked_set))
+
+                    if raw_table_row[i] == "-":
+                        table_row.append(raw_table_row[i])
+                    else:
+                        bold = False
+                        underline = False
+                        coloured = False
+                        if int(raw_table_row[i].replace(".", "")) == bold_ranked[-1]:
+                            bold = True
+                        if int(raw_table_row[i].replace(".", "")) == underlined_ranked[-1]:
+                            underline = True
+                        if int(raw_table_row[i].replace(".", "")) == coloured_ranked[-1]:
+                            coloured = True
+
+                        cell = ""
+                        if coloured:
+                            cell = cell + "\cellcolor{yellow!18}"
+                        if bold:
+                            cell = cell + "\\textbf{"
+                        if underline:
+                            cell = cell + "\\underline{"
+                        cell = cell + raw_table_row[i]
+                        if bold:
+                            cell = cell + "}"
+                        if underline:
+                            cell = cell + "}"
+                        table_row.append(cell)
+            table_rows.append(table_row)
+
+    if header:
+        print("\\hline")
+    print(" & ".join(table_rows[0]) + " \\\\")
+    if header:
+        print("\\hline")
+        print("\\hline")
+    for table_row in table_rows[1:]:
+        print(" & ".join(table_row) + " \\\\")
+    print("\\hline")
+
+make_merged_table(lower=False, include=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness'], representations = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full"], header=True)
+make_merged_table(lower=False, include=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness'], representations = ["GloVe_max", "CoVe_max", "GloVe+CoVe_max", "InferSent_max"])
+make_merged_table(lower=False, include=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness'], representations = ["GloVe_mean", "CoVe_mean", "GloVe+CoVe_mean", "InferSent_mean"])
+
+print("\n")
+
+make_merged_table(lower=False, include=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ'], representations = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full"], header=True)
+make_merged_table(lower=False, include=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ'], representations = ["GloVe_max", "CoVe_max", "GloVe+CoVe_max", "InferSent_max"])
+make_merged_table(lower=False, include=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ'], representations = ["GloVe_mean", "CoVe_mean", "GloVe+CoVe_mean", "InferSent_mean"])
+
+print("\n")
+
+make_merged_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_max", "CoVe_max", "GloVe+CoVe_max", "InferSent_max"], header=True)
+make_merged_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_full", "CoVe_full", "GloVe+CoVe_full", "InferSent_full"])
+make_merged_table(lower=True, include=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ'], representations = ["GloVe_mean", "CoVe_mean", "GloVe+CoVe_mean", "InferSent_mean"])
 
 print("\n\n##############################################################")
 print("######################## RAW RESULTS: ########################")
