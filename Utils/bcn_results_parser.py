@@ -132,76 +132,84 @@ for transfer_task in sorted(results):
 
 print("########## MERGED TABLE ##########")
 
-print("symbolic x coords={" + ", ".join([x.replace("_lower", "\\textsubscript{lower}") for x in sorted(results)]) + "}")
-results_for_table = {}
-for transfer_task in sorted(results):
-    embeddings_types = results[transfer_task]
-    for embeddings_type, results_ in embeddings_types.iteritems():
-        result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
-        result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
-        for result in results_:
-            if not math.isnan(result.get_dev_accuracy()) and not math.isnan(result.get_test_accuracy()):
-                if result.get_test_accuracy() > result_with_best_test_accuracy.get_test_accuracy():
-                    result_with_best_test_accuracy = result
-                if result.get_dev_accuracy() > result_with_best_dev_accuracy.get_dev_accuracy():
-                    result_with_best_dev_accuracy = result
+for lower in [True, False]:
+    print("Merged table for lower=" + str(lower))
+    results_for_table = {}
+    for transfer_task in sorted(results):
+        embeddings_types = results[transfer_task]
+        for embeddings_type, results_ in embeddings_types.iteritems():
+            result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+            result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+            for result in results_:
+                if not math.isnan(result.get_dev_accuracy()) and not math.isnan(result.get_test_accuracy()):
+                    if result.get_test_accuracy() > result_with_best_test_accuracy.get_test_accuracy():
+                        result_with_best_test_accuracy = result
+                    if result.get_dev_accuracy() > result_with_best_dev_accuracy.get_dev_accuracy():
+                        result_with_best_dev_accuracy = result
 
-        if embeddings_type not in results_for_table:
-            results_for_table[embeddings_type] = {}
-        results_for_table[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
+            if embeddings_type not in results_for_table:
+                results_for_table[embeddings_type] = {}
+            results_for_table[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
 
-included_transfer_tasks = []
-for embeddings_type in sorted_embeddings_types:
-    if embeddings_type in results_for_table:
-        for transfer_task in sorted_transfer_tasks:
-            if transfer_task in results_for_table[embeddings_type]:
-                included_transfer_tasks.append(transfer_task)
+    included_transfer_tasks = []
+    for embeddings_type in sorted_embeddings_types:
+        if embeddings_type in results_for_table:
+            for transfer_task in sorted_transfer_tasks:
+                if transfer_task in results_for_table[embeddings_type] and ((lower and "lower" in transfer_task) or (not lower and "lower" not in transfer_task)):
+                    included_transfer_tasks.append(transfer_task)
 
-print("\\hline")
-print("\\textbf{Representation} & " + " & ".join(["\\textbf{" + x.replace("_lower", "\\textsubscript{lower}") + "}" for x in included_transfer_tasks]))
-print("\\hline")
-print("\\hline")
+    print("\\hline")
+    print("\\textbf{Representation} & " + " & ".join(["\\textbf{" + x.replace("_lower", "") + "}" for x in included_transfer_tasks]))
+    print("\\hline")
+    print("\\hline")
 
-for embeddings_type in sorted_embeddings_types:
-    if embeddings_type in results_for_table:
-        row = []
-        row.append(representations_dict[embeddings_type])
-        for transfer_task in sorted_transfer_tasks:
-            if transfer_task in results_for_table[embeddings_type]:
+    for embeddings_type in sorted_embeddings_types:
+        if embeddings_type in results_for_table:
+            row = []
+            row.append(representations_dict[embeddings_type])
+            for transfer_task in included_transfer_tasks:
                 row.append(results_for_table[embeddings_type][transfer_task])
-        print(" & ".join(row))
+            print(" & ".join(row))
 
 print("########## GRAPH ##########")
 
-print("symbolic x coords={" + ", ".join([x.replace("_lower", "\\textsubscript{lower}") for x in sorted(results)]) + "}")
-results_for_graph = {}
-for transfer_task in sorted(results):
-    embeddings_types = results[transfer_task]
-    for embeddings_type, results_ in embeddings_types.iteritems():
-        result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
-        result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
-        for result in results_:
-            if not math.isnan(result.get_dev_accuracy()) and not math.isnan(result.get_test_accuracy()):
-                if result.get_test_accuracy() > result_with_best_test_accuracy.get_test_accuracy():
-                    result_with_best_test_accuracy = result
-                if result.get_dev_accuracy() > result_with_best_dev_accuracy.get_dev_accuracy():
-                    result_with_best_dev_accuracy = result
+for lower in [True, False]:
+    print("Graph for lower=" + str(lower))
+    print("symbolic x coords={" + ", ".join([x.replace("_lower", "\\textsubscript{lower}") for x in sorted(results)]) + "}")
+    results_for_graph = {}
+    for transfer_task in sorted(results):
+        embeddings_types = results[transfer_task]
+        for embeddings_type, results_ in embeddings_types.iteritems():
+            result_with_best_test_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+            result_with_best_dev_accuracy = Result(None, {'dev': -1.0, 'test': -1.0})
+            for result in results_:
+                if not math.isnan(result.get_dev_accuracy()) and not math.isnan(result.get_test_accuracy()):
+                    if result.get_test_accuracy() > result_with_best_test_accuracy.get_test_accuracy():
+                        result_with_best_test_accuracy = result
+                    if result.get_dev_accuracy() > result_with_best_dev_accuracy.get_dev_accuracy():
+                        result_with_best_dev_accuracy = result
 
-        if embeddings_type not in results_for_graph:
-            results_for_graph[embeddings_type] = {}
-        results_for_graph[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
+            if embeddings_type not in results_for_graph:
+                results_for_graph[embeddings_type] = {}
+            results_for_graph[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
 
-colourNumber = 0
-for embeddings_type in sorted_embeddings_types:
-    if embeddings_type in results_for_graph:
-        tuples_for_graph = []
-        for transfer_task in sorted_transfer_tasks:
-            if transfer_task in results_for_graph[embeddings_type]:
+    included_transfer_tasks = []
+    for embeddings_type in sorted_embeddings_types:
+        if embeddings_type in results_for_graph:
+            for transfer_task in sorted_transfer_tasks:
+                if transfer_task in results_for_graph[embeddings_type] and ((lower and "lower" in transfer_task) or (not lower and "lower" not in transfer_task)):
+                    included_transfer_tasks.append(transfer_task)
+
+    colourNumber = 0
+    for embeddings_type in sorted_embeddings_types:
+        if embeddings_type in results_for_graph:
+            tuples_for_graph = []
+            for transfer_task in included_transfer_tasks:
                 tuples_for_graph.append((transfer_task, results_for_graph[embeddings_type][transfer_task]))
-        print("\\addplot[style={colour" + str(colourNumber) + ",fill=colour" + str(colourNumber) + ",mark=none}]\n" +
-              "    coordinates {" + " ".join(["(" + str(x[0].replace("_lower", "\\textsubscript{lower}")) + ", " + str(x[1]) + ")" for x in tuples_for_graph]) + "};")
-        colourNumber += 1
-print("\\legend{{" + "}, {".join([representations_dict[x] for x in sorted_embeddings_types]) + "}}")
+            print("\\addplot[style={colour" + str(colourNumber) + ",fill=colour" + str(colourNumber) + ",mark=none}]\n" +
+                  "    coordinates {" + " ".join(["(" + str(x[0].replace("_lower", "")) + ", " + str(x[1]) + ")" for x in tuples_for_graph]) + "};")
+            colourNumber += 1
+    print("\\legend{{" + "}, {".join([representations_dict[x] for x in sorted_embeddings_types]) + "}}")
 
 print("\n\n##############################################################")
 print("######################## RAW RESULTS: ########################")
