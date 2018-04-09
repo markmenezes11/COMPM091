@@ -104,8 +104,7 @@ def make_full_table(lower, include, representations):
     table_rows = []
     included_transfer_tasks = [x for x in transfer_tasks if
                                x != "ImageCaptionRetrieval" and x != "SNLI" and x in include]
-    table_rows.append(["Representation"] + [x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB")
-                                            for x in included_transfer_tasks])
+    table_rows.append(["\\textbf{Representation}"] + ["\\textbf{" + x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB") + "}" for x in included_transfer_tasks])
 
     raw_table_rows = []
     for representation in representations:
@@ -163,8 +162,8 @@ def make_table(lower, include, representations):
     print("\nLaTeX Table code for lower=" + str(lower) + ", tasks=" + str(include) + ":")
     table_rows = []
     included_transfer_tasks = [x for x in transfer_tasks if x != "ImageCaptionRetrieval" and x != "SNLI" and x in include]
-    table_rows.append(["Representation"] + [x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB")
-                                            for x in included_transfer_tasks])
+    table_rows.append(["\\textbf{Representation}"] + ["\\textbf{" + x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB") + "}" for x in included_transfer_tasks])
+
     raw_table_rows = []
     for representation in representations:
         for dir in sorted(results):
@@ -230,8 +229,7 @@ def make_merged_table(lower, include, representations, header=False):
     included_transfer_tasks = [x for x in transfer_tasks if
                                x != "ImageCaptionRetrieval" and x != "SNLI" and x in include]
     if header:
-        table_rows.append(["Representation"] + [x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB")
-                                                for x in included_transfer_tasks])
+        table_rows.append(["\\textbf{Representation}"] + ["\\textbf{" + x.replace("SICKEntailment", "SICKE").replace("SICKRelatedness", "SICKR").replace("STSBenchmark", "STSB") + "}" for x in included_transfer_tasks])
     all_table_rows = []
     for representation in representations_to_rank:
         for dir in sorted(results):

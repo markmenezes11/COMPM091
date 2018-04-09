@@ -428,7 +428,7 @@ SUBJ:
 ############## FULL TABLE ##############
 
 LaTeX Table code for lower=False, tasks=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']:
-\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\hline \textbf{Representation} & \textbf{STS12} & \textbf{STS13} & \textbf{STS14} & \textbf{STS15} & \textbf{STS16} & \textbf{STSB} & \textbf{SICKR} \\
 \hline
 GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 0.57 \\
 GloVe\textsubscript{max} & 0.05 & 0.06 & 0.01 & 0.02 & -0.04 & -0.01 & 0.06 \\
@@ -445,7 +445,7 @@ InferSent\textsubscript{mean} & \textbf{0.57} & 0.57 & 0.60 & 0.65 & 0.57 & 0.72
 \hline
 
 LaTeX Table code for lower=False, tasks=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ']:
-\hline Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline \textbf{Representation} & \textbf{SICKE} & \textbf{MRPC} & \textbf{SST2} & \textbf{SST5} & \textbf{MR} & \textbf{MPQA} & \textbf{CR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 GloVe\textsubscript{full} & 67.93 & 67.77 & 78.20 & 39.46 & 72.92 & 86.78 & 73.75 & 90.60 & 90.10 \\
 GloVe\textsubscript{max} & 57.05 & 66.14 & 50.96 & 28.91 & 58.84 & 80.65 & 63.76 & 30.60 & 58.16 \\
@@ -462,7 +462,7 @@ InferSent\textsubscript{mean} & \textbf{83.05} & \textbf{76.17} & 81.77 & 45.11 
 \hline
 
 LaTeX Table code for lower=True, tasks=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ']:
-\hline Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\hline \textbf{Representation} & \textbf{SICKR} & \textbf{SICKE} & \textbf{MRPC} & \textbf{MR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 GloVe\textsubscript{full} & 0.57 & 67.73 & 65.04 & 72.90 & 88.20 & 90.02 \\
 GloVe\textsubscript{max} & 0.05 & 53.38 & 66.49 & 58.81 & 13.00 & 58.16 \\
@@ -481,7 +481,7 @@ InferSent\textsubscript{mean} & \textbf{0.86} & \textbf{83.95} & \textbf{\underl
 ############## SPLIT TABLES ##############
 
 LaTeX Table code for lower=False, tasks=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']:
-\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\hline \textbf{Representation} & \textbf{STS12} & \textbf{STS13} & \textbf{STS14} & \textbf{STS15} & \textbf{STS16} & \textbf{STSB} & \textbf{SICKR} \\
 \hline
 GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 0.57 \\
 CoVe\textsubscript{full} & 0.20 & 0.13 & 0.13 & 0.32 & 0.29 & \textbf{\underline{0.56}} & \textbf{\underline{0.73}} \\
@@ -490,7 +490,7 @@ InferSent\textsubscript{full} & \textbf{\underline{0.32}} & \textbf{\underline{0
 \hline
 
 LaTeX Table code for lower=False, tasks=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ']:
-\hline Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline \textbf{Representation} & \textbf{SICKE} & \textbf{MRPC} & \textbf{SST2} & \textbf{SST5} & \textbf{MR} & \textbf{MPQA} & \textbf{CR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 GloVe\textsubscript{full} & 67.93 & 67.77 & \textbf{\underline{78.20}} & 39.46 & 72.92 & 86.78 & 73.75 & 90.60 & 90.10 \\
 CoVe\textsubscript{full} & \textbf{\underline{77.86}} & 68.70 & 77.92 & \textbf{\underline{40.05}} & 73.10 & \textbf{\underline{88.20}} & 74.15 & \textbf{\underline{91.40}} & 90.34 \\
@@ -499,7 +499,7 @@ InferSent\textsubscript{full} & - & - & - & 38.37 & - & - & - & 90.40 & - \\
 \hline
 
 LaTeX Table code for lower=True, tasks=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ']:
-\hline Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\hline \textbf{Representation} & \textbf{SICKR} & \textbf{SICKE} & \textbf{MRPC} & \textbf{MR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 GloVe\textsubscript{full} & 0.57 & 67.73 & 65.04 & 72.90 & 88.20 & 90.02 \\
 CoVe\textsubscript{full} & \textbf{\underline{0.73}} & \textbf{\underline{78.18}} & 69.04 & 73.00 & 89.80 & 90.23 \\
@@ -508,7 +508,7 @@ InferSent\textsubscript{full} & - & - & - & - & 90.20 & - \\
 \hline
 
 LaTeX Table code for lower=False, tasks=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']:
-\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\hline \textbf{Representation} & \textbf{STS12} & \textbf{STS13} & \textbf{STS14} & \textbf{STS15} & \textbf{STS16} & \textbf{STSB} & \textbf{SICKR} \\
 \hline
 GloVe\textsubscript{max} & 0.05 & 0.06 & 0.01 & 0.02 & -0.04 & -0.01 & 0.06 \\
 CoVe\textsubscript{max} & 0.37 & 0.35 & 0.45 & 0.54 & 0.45 & 0.72 & 0.80 \\
@@ -517,7 +517,7 @@ InferSent\textsubscript{max} & \textbf{\underline{0.60}} & \textbf{\underline{0.
 \hline
 
 LaTeX Table code for lower=False, tasks=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ']:
-\hline Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline \textbf{Representation} & \textbf{SICKE} & \textbf{MRPC} & \textbf{SST2} & \textbf{SST5} & \textbf{MR} & \textbf{MPQA} & \textbf{CR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 GloVe\textsubscript{max} & 57.05 & 66.14 & 50.96 & 28.91 & 58.84 & 80.65 & 63.76 & 30.60 & 58.16 \\
 CoVe\textsubscript{max} & 81.00 & 73.28 & 77.87 & 42.13 & 73.16 & 89.02 & 76.13 & 82.80 & 88.87 \\
@@ -526,7 +526,7 @@ InferSent\textsubscript{max} & \textbf{\underline{86.42}} & \textbf{\underline{7
 \hline
 
 LaTeX Table code for lower=True, tasks=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ']:
-\hline Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\hline \textbf{Representation} & \textbf{SICKR} & \textbf{SICKE} & \textbf{MRPC} & \textbf{MR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 GloVe\textsubscript{max} & 0.05 & 53.38 & 66.49 & 58.81 & 13.00 & 58.16 \\
 CoVe\textsubscript{max} & 0.81 & 81.41 & 75.07 & 73.00 & 87.20 & 88.85 \\
@@ -535,7 +535,7 @@ InferSent\textsubscript{max} & \textbf{\underline{0.88}} & \textbf{\underline{86
 \hline
 
 LaTeX Table code for lower=False, tasks=['STS12', 'STS13', 'STS14', 'STS15', 'STS16', 'STSBenchmark', 'SICKRelatedness']:
-\hline Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\hline \textbf{Representation} & \textbf{STS12} & \textbf{STS13} & \textbf{STS14} & \textbf{STS15} & \textbf{STS16} & \textbf{STSB} & \textbf{SICKR} \\
 \hline
 GloVe\textsubscript{mean} & 0.53 & 0.54 & 0.55 & 0.60 & 0.51 & 0.65 & 0.80 \\
 CoVe\textsubscript{mean} & 0.44 & 0.48 & 0.53 & 0.61 & 0.54 & \textbf{\underline{0.74}} & 0.81 \\
@@ -544,7 +544,7 @@ InferSent\textsubscript{mean} & \textbf{\underline{0.57}} & \textbf{\underline{0
 \hline
 
 LaTeX Table code for lower=False, tasks=['SICKEntailment', 'MRPC', 'SST2', 'SST5', 'MR', 'MPQA', 'CR', 'TREC', 'SUBJ']:
-\hline Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\hline \textbf{Representation} & \textbf{SICKE} & \textbf{MRPC} & \textbf{SST2} & \textbf{SST5} & \textbf{MR} & \textbf{MPQA} & \textbf{CR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 GloVe\textsubscript{mean} & 78.57 & 72.41 & 79.96 & 44.84 & 76.91 & 87.57 & 78.81 & 83.40 & 91.32 \\
 CoVe\textsubscript{mean} & 78.87 & 73.80 & 81.49 & 43.94 & 75.46 & 89.36 & 75.76 & 83.80 & 89.68 \\
@@ -553,7 +553,7 @@ InferSent\textsubscript{mean} & \textbf{\underline{83.05}} & \textbf{\underline{
 \hline
 
 LaTeX Table code for lower=True, tasks=['SICKRelatedness', 'SICKEntailment', 'MRPC', 'MR', 'TREC', 'SUBJ']:
-\hline Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\hline \textbf{Representation} & \textbf{SICKR} & \textbf{SICKE} & \textbf{MRPC} & \textbf{MR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 GloVe\textsubscript{mean} & 0.80 & 78.85 & 72.12 & 76.90 & 82.00 & 91.32 \\
 CoVe\textsubscript{mean} & 0.82 & 79.38 & 75.25 & 75.31 & 86.60 & 89.56 \\
@@ -564,7 +564,7 @@ InferSent\textsubscript{mean} & \textbf{\underline{0.86}} & \textbf{\underline{8
 ############## MERGED TABLE ##############
 
 \hline
-Representation & STS12 & STS13 & STS14 & STS15 & STS16 & STSB & SICKR \\
+\textbf{Representation} & \textbf{STS12} & \textbf{STS13} & \textbf{STS14} & \textbf{STS15} & \textbf{STS16} & \textbf{STSB} & \textbf{SICKR} \\
 \hline
 \hline
 GloVe\textsubscript{full} & 0.23 & 0.13 & 0.12 & 0.28 & 0.27 & 0.24 & 0.57 \\
@@ -585,7 +585,7 @@ InferSent\textsubscript{mean} & \textbf{0.57} & \textbf{0.57} & \textbf{0.60} & 
 
 
 \hline
-Representation & SICKE & MRPC & SST2 & SST5 & MR & MPQA & CR & TREC & SUBJ \\
+\textbf{Representation} & \textbf{SICKE} & \textbf{MRPC} & \textbf{SST2} & \textbf{SST5} & \textbf{MR} & \textbf{MPQA} & \textbf{CR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 \hline
 GloVe\textsubscript{full} & 67.93 & 67.77 & \textbf{78.20} & 39.46 & 72.92 & 86.78 & 73.75 & \underline{90.60} & 90.10 \\
@@ -606,7 +606,7 @@ InferSent\textsubscript{mean} & \textbf{83.05} & \textbf{76.17} & 81.77 & 45.11 
 
 
 \hline
-Representation & SICKR & SICKE & MRPC & MR & TREC & SUBJ \\
+\textbf{Representation} & \textbf{SICKR} & \textbf{SICKE} & \textbf{MRPC} & \textbf{MR} & \textbf{TREC} & \textbf{SUBJ} \\
 \hline
 \hline
 GloVe\textsubscript{full} & 0.57 & 67.73 & 65.04 & 72.90 & \underline{88.20} & 90.02 \\
