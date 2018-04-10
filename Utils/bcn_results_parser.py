@@ -132,7 +132,7 @@ for transfer_task in sorted(results):
 
 print("\n\n########## MERGED TABLE ##########")
 
-for lower in [True, False]:
+for lower in [False, True]:
     print("\nMerged table for lower=" + str(lower))
     results_for_table = {}
     for transfer_task in sorted(results):
@@ -151,15 +151,20 @@ for lower in [True, False]:
                 results_for_table[embeddings_type] = {}
             results_for_table[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
 
-    included_transfer_tasks = []
+    included_transfer_tasks_set = set()
     for embeddings_type in sorted_embeddings_types:
         if embeddings_type in results_for_table:
             for transfer_task in sorted_transfer_tasks:
                 if transfer_task in results_for_table[embeddings_type] and ((lower and "lower" in transfer_task) or (not lower and "lower" not in transfer_task)):
-                    included_transfer_tasks.append(transfer_task)
+                    included_transfer_tasks_set.add(transfer_task)
+
+    included_transfer_tasks = []
+    for transfer_task in sorted_transfer_tasks:
+        if transfer_task in included_transfer_tasks_set:
+            included_transfer_tasks.append(transfer_task)
 
     print("\\hline")
-    print("\\textbf{Representation} & " + " & ".join(["\\textbf{" + x.replace("_lower", "") + "}" for x in included_transfer_tasks]))
+    print("\\textbf{Representation} & " + " & ".join(["\\textbf{" + x.replace("_lower", "") + "}" for x in included_transfer_tasks]) + " \\\\")
     print("\\hline")
     print("\\hline")
 
@@ -169,11 +174,12 @@ for lower in [True, False]:
             row.append(representations_dict[embeddings_type])
             for transfer_task in included_transfer_tasks:
                 row.append(results_for_table[embeddings_type][transfer_task])
-            print(" & ".join(row))
+            print(" & ".join(row) + " \\\\")
+    print("\\hline")
 
 print("\n\n########## GRAPH ##########")
 
-for lower in [True, False]:
+for lower in [False, True]:
     print("\nGraph for lower=" + str(lower))
     results_for_graph = {}
     for transfer_task in sorted(results):
@@ -192,12 +198,17 @@ for lower in [True, False]:
                 results_for_graph[embeddings_type] = {}
             results_for_graph[embeddings_type][transfer_task] = str(round(100*result_with_best_dev_accuracy.get_test_accuracy(), 2))
 
-    included_transfer_tasks = []
+    included_transfer_tasks_set = set()
     for embeddings_type in sorted_embeddings_types:
         if embeddings_type in results_for_graph:
             for transfer_task in sorted_transfer_tasks:
                 if transfer_task in results_for_graph[embeddings_type] and ((lower and "lower" in transfer_task) or (not lower and "lower" not in transfer_task)):
-                    included_transfer_tasks.append(transfer_task)
+                    included_transfer_tasks_set.add(transfer_task)
+
+    included_transfer_tasks = []
+    for transfer_task in sorted_transfer_tasks:
+        if transfer_task in included_transfer_tasks_set:
+            included_transfer_tasks.append(transfer_task)
 
     print("symbolic x coords={" + ", ".join([x.replace("_lower", "") for x in included_transfer_tasks]) + "}")
 
