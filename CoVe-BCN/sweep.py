@@ -100,10 +100,10 @@ adam_beta2 = [0.999]
 adam_epsilon = [1e-8]
 
 """
-Model types (str: GloVe, InferSent, CoVe, CoVe_without_GloVe)
+Model types (str: GloVe, InferSent, CoVe, CoVe_without_GloVe, GloVe+InferSent (beta))
 """
 
-types = ["CoVe", "InferSent", "GloVe", "CoVe_without_GloVe", "GloVe+InferSent"]
+types = ["CoVe", "InferSent", "GloVe", "CoVe_without_GloVe"]
 
 """
 Transfer tasks to be used for training BCN and evaluating predictions (str: "SSTBinary", "SSTFine", "SSTBinary_lower", "SSTFine_lower", "TREC6", "TREC50", "TREC6_lower", "TREC50_lower")
