@@ -625,6 +625,55 @@ GloVe+CoVe\textsubscript{mean} & 0.83 & \underline{82.38} & 75.07 & \textbf{\und
 InferSent\textsubscript{mean} & \textbf{0.86} & \textbf{83.95} & \cellcolor{yellow!18}\textbf{\underline{75.77}} & 77.09 & 82.40 & 90.87 \\
 \hline
 
+############## MERGED TABLE (WITHOUT FULL REPRESENTATIONS) ##############
+
+\hline
+\textbf{Representation} & \textbf{STS12} & \textbf{STS13} & \textbf{STS14} & \textbf{STS15} & \textbf{STS16} & \textbf{STSB} & \textbf{SICKR} \\
+\hline
+\hline
+GloVe\textsubscript{max} & 0.05 & 0.06 & 0.01 & 0.02 & -0.04 & -0.01 & 0.06 \\
+CoVe\textsubscript{max} & 0.37 & 0.35 & 0.45 & 0.54 & 0.45 & 0.72 & 0.80 \\
+GloVe+CoVe\textsubscript{max} & \underline{0.54} & \underline{0.60} & \underline{0.64} & \underline{0.70} & \underline{0.68} & \underline{0.73} & \underline{0.83} \\
+InferSent\textsubscript{max} & \cellcolor{yellow!18}\textbf{\underline{0.60}} & \cellcolor{yellow!18}\textbf{\underline{0.66}} & \cellcolor{yellow!18}\textbf{\underline{0.71}} & \cellcolor{yellow!18}\textbf{\underline{0.73}} & \cellcolor{yellow!18}\textbf{\underline{0.72}} & \cellcolor{yellow!18}\textbf{\underline{0.76}} & \cellcolor{yellow!18}\textbf{\underline{0.88}} \\
+\hline
+GloVe\textsubscript{mean} & \underline{0.53} & \underline{0.54} & \underline{0.55} & \underline{0.60} & \underline{0.51} & \underline{0.65} & \underline{0.80} \\
+CoVe\textsubscript{mean} & \underline{0.44} & \underline{0.48} & \underline{0.53} & \underline{0.61} & \underline{0.54} & \textbf{\underline{0.74}} & \underline{0.81} \\
+GloVe+CoVe\textsubscript{mean} & 0.53 & 0.54 & 0.56 & 0.60 & 0.52 & \underline{0.73} & \underline{0.83} \\
+InferSent\textsubscript{mean} & \textbf{0.57} & \textbf{0.57} & \textbf{0.60} & \textbf{0.65} & \textbf{0.57} & 0.72 & \textbf{0.86} \\
+\hline
+
+
+\hline
+\textbf{Representation} & \textbf{SICKE} & \textbf{MRPC} & \textbf{SST2} & \textbf{SST5} & \textbf{MR} & \textbf{MPQA} & \textbf{CR} & \textbf{TREC} & \textbf{SUBJ} \\
+\hline
+\hline
+GloVe\textsubscript{max} & 57.05 & 66.14 & 50.96 & 28.91 & 58.84 & 80.65 & 63.76 & 30.60 & 58.16 \\
+CoVe\textsubscript{max} & \underline{81.00} & 73.28 & 77.87 & 42.13 & 73.16 & 89.02 & \underline{76.13} & 82.80 & 88.87 \\
+GloVe+CoVe\textsubscript{max} & 80.58 & \underline{74.14} & 80.23 & 41.63 & 75.75 & 88.30 & 79.10 & 87.80 & 91.51 \\
+InferSent\textsubscript{max} & \cellcolor{yellow!18}\textbf{\underline{86.42}} & \cellcolor{yellow!18}\textbf{\underline{76.52}} & \cellcolor{yellow!18}\textbf{\underline{85.01}} & \cellcolor{yellow!18}\textbf{\underline{45.48}} & \cellcolor{yellow!18}\textbf{\underline{81.54}} & \cellcolor{yellow!18}\textbf{\underline{90.63}} & \cellcolor{yellow!18}\textbf{\underline{86.70}} & \cellcolor{yellow!18}\textbf{\underline{88.20}} & \cellcolor{yellow!18}\textbf{\underline{92.58}} \\
+\hline
+GloVe\textsubscript{mean} & \underline{78.57} & \underline{72.41} & \underline{79.96} & \underline{44.84} & \underline{76.91} & \underline{87.57} & \underline{78.81} & \underline{83.40} & \underline{91.32} \\
+CoVe\textsubscript{mean} & 78.87 & \underline{73.80} & \underline{81.49} & \underline{43.94} & \underline{75.46} & \underline{89.36} & 75.76 & \underline{83.80} & \underline{89.68} \\
+GloVe+CoVe\textsubscript{mean} & \underline{81.35} & 73.91 & \textbf{\underline{83.42}} & \textbf{\underline{45.34}} & \textbf{\underline{78.12}} & \textbf{\underline{89.40}} & \textbf{\underline{79.89}} & \textbf{\underline{88.00}} & \textbf{\underline{92.35}} \\
+InferSent\textsubscript{mean} & \textbf{83.05} & \textbf{76.17} & 81.77 & 45.11 & 77.62 & 88.00 & 79.44 & 82.00 & 90.87 \\
+\hline
+
+
+\hline
+\textbf{Representation} & \textbf{SICKR} & \textbf{SICKE} & \textbf{MRPC} & \textbf{MR} & \textbf{TREC} & \textbf{SUBJ} \\
+\hline
+\hline
+GloVe\textsubscript{max} & 0.05 & 53.38 & 66.49 & 58.81 & 13.00 & 58.16 \\
+CoVe\textsubscript{max} & 0.81 & \underline{81.41} & 75.07 & 73.00 & \underline{87.20} & 88.85 \\
+GloVe+CoVe\textsubscript{max} & \underline{0.84} & 81.69 & \underline{75.65} & 75.62 & \underline{90.00} & 91.51 \\
+InferSent\textsubscript{max} & \cellcolor{yellow!18}\textbf{\underline{0.88}} & \cellcolor{yellow!18}\textbf{\underline{86.40}} & \textbf{75.71} & \cellcolor{yellow!18}\textbf{\underline{81.71}} & \cellcolor{yellow!18}\textbf{\underline{90.80}} & \cellcolor{yellow!18}\textbf{\underline{92.58}} \\
+\hline
+GloVe\textsubscript{mean} & \underline{0.80} & \underline{78.85} & \underline{72.12} & \underline{76.90} & \underline{82.00} & \underline{91.32} \\
+CoVe\textsubscript{mean} & \underline{0.82} & 79.38 & \underline{75.25} & \underline{75.31} & 86.60 & \underline{89.56} \\
+GloVe+CoVe\textsubscript{mean} & 0.83 & \underline{82.38} & 75.07 & \textbf{\underline{78.15}} & \textbf{87.40} & \textbf{\underline{92.35}} \\
+InferSent\textsubscript{mean} & \textbf{0.86} & \textbf{83.95} & \cellcolor{yellow!18}\textbf{\underline{75.77}} & 77.09 & 82.40 & 90.87 \\
+\hline
+
 
 ##############################################################
 ######################## RAW RESULTS: ########################
