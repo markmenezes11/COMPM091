@@ -1,4 +1,4 @@
-# Training and Evaluating Sentence Representations - For MEng Computer Science Thesis - Mark Menezes
+# On the Importance of the Choice of Downstream Models for Evaluating Sentence Representations
 
 This repository contains the code created/used for my MEng Computer Science Undergraduate Final Year Individual Projct (COMPM091) at University College London.
 
